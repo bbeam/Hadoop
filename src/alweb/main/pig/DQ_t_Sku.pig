@@ -2,7 +2,7 @@
 PIG SCRIPT    : DQ_t_Sku.pig
 AUTHOR        : Varun Rauthan
 DATE          : JUN 24, 2016
-DESCRIPTION   : Data quallity check and cleansing for source table t_Sku.
+DESCRIPTION   : Data quality check and cleansing for source table t_Sku.
 */
 
 /* LOADING THE LOOKUP TABLES */
@@ -206,7 +206,7 @@ table_t_sku_good = FOREACH table_t_sku_UpdateBy_good
 
 /* STORING THE DATA IN HIVE PARTITIONED BASED ON THE STATUSCODE */
 STORE table_t_sku_bad 
-	INTO '$S3_LOCATION_OPERATIONS_DATA/$SOURCE_ALWEB/$ALWEB_OPERATIONS_DB/$EXTRACTIONTYPE_FULL/$FREQUENCY_DAILY/$TABLE_ERR_DQ_T_SKU/loaddate=$DATE'
+	INTO '$S3_LOCATION_OPERATIONS_DATA/$SOURCE_ALWEB/$ALWEB_OPERATIONS_DB/$TABLE_ERR_DQ_T_SKU/loaddate=$DATE'
 	USING PigStorage('\u0001');
 	
 	
