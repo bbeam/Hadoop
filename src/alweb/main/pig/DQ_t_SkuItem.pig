@@ -10,6 +10,7 @@ table_t_skuitem =
 	LOAD '$ALWEB_INCOMING_DB.$TABLE_INC_T_SKUITEM' 
 	USING org.apache.hive.hcatalog.pig.HCatLoader();
 
+filter_table_t_skuitem = FILTER table_t_skuitem BY loaddate=='$DATE';
 
 /* DATA QUALITY CHECK FOR NOT NULL FILEDS */
 SPLIT 

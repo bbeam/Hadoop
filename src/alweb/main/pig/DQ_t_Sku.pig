@@ -10,10 +10,12 @@ table_t_sku =
 	LOAD '$ALWEB_INCOMING_DB.$TABLE_INC_T_SKU' 
 	USING org.apache.hive.hcatalog.pig.HCatLoader();
 
+filter_table_t_sku = FILTER table_t_sku BY loaddate=='$DATE';
+
 
 /* DATA QUALITY CHECK FOR NOT NULL FILEDS */
 SPLIT 
-	table_t_sku 
+	filter_table_t_sku 
 	INTO 
 	table_t_sku_SkuId_good IF skuid IS NOT NULL AND skuid != '',
 	table_t_sku_SkuId_bad IF skuid IS NULL OR skuid == '';
