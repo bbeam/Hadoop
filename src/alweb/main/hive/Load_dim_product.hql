@@ -20,9 +20,9 @@ INSERT OVERWRITE TABLE ${hivevar:ALWEB_GOLD_DB}.${hivevar:TABLE_DIM_PRODUCT}
 
 
 -- Reset the surrogate key to the max value of the last successful run, for the specific table_name 
-INSERT OVERWRITE TABLE ${hivevar:ALWEB_GOLD_DB}.${hivevar:SK_MAP) 
-	PARTITION(table_name) 
-	SELECT MAX(product_key) AS s_key,'dim_product' 
-	FROM 
-	${hivevar:ALWEB_GOLD_DB}.${hivevar:TABLE_DIM_PRODUCT} ; 
+INSERT OVERWRITE TABLE ${hivevar:ALWEB_GOLD_DB}.${hivevar:SK_MAP}
+PARTITION(table_name) 
+SELECT MAX(product_key) AS s_key,'dim_product' 
+FROM 
+${hivevar:ALWEB_GOLD_DB}.${hivevar:TABLE_DIM_PRODUCT} ; 
 
