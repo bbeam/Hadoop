@@ -20,7 +20,7 @@ join_dq_t_sku_t_skuitem = JOIN
 						  table_dq_t_sku BY skuid,
 						  table_dq_t_skuitem BY skuid;
 
-
+	
 /* DATA QUALITY CHECK FOR MANDATORY FILEDS */
 /* SPLIT INTO GOOD-BAD RECORDS */
 SPLIT 
@@ -29,10 +29,10 @@ SPLIT
 	 join_dq_t_sku_t_skuitem_skuid_good IF table_dq_t_sku::skuid IS NOT NULL,
 	 join_dq_t_sku_t_skuitem_skuid_bad IF table_dq_t_sku::skuid IS NULL;
 
-/* ADDING ERROR_CODE AND ERROR_DESC FOR THE BAD RECORDS */
+/* ADDING ERROR_TYPE AND ERROR_DESC FOR THE BAD RECORDS */
 join_dq_t_sku_t_skuitem_skuid = 
 		FOREACH join_dq_t_sku_t_skuitem_skuid_bad 
-		GENERATE *, 20001 AS error_code:INT, 'null skuId is not allowed' AS error_desc:CHARARRAY;
+		GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null skuId is not allowed' AS error_desc:CHARARRAY;
 		
 /* SPLIT INTO GOOD-BAD RECORDS */
 SPLIT 
@@ -41,10 +41,10 @@ SPLIT
 	 join_dq_t_sku_t_skuitem_isemailpromotable_good IF table_dq_t_sku::isemailpromotable IS NOT NULL,
 	 join_dq_t_sku_t_skuitem_isemailpromotable_bad IF table_dq_t_sku::isemailpromotable IS NULL;
 
-/* ADDING ERROR_CODE AND ERROR_DESC FOR THE BAD RECORDS */
+/* ADDING ERROR_TYPE AND ERROR_DESC FOR THE BAD RECORDS */
 join_dq_t_sku_t_skuitem_isemailpromotable = 
 		FOREACH join_dq_t_sku_t_skuitem_isemailpromotable_bad 
-		GENERATE *, 20001 AS error_code:INT, 'null isemailpromotable is not allowed' AS error_desc:CHARARRAY;
+		GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null isemailpromotable is not allowed' AS error_desc:CHARARRAY;
 		
 /* SPLIT INTO GOOD-BAD RECORDS */
 SPLIT 
@@ -53,10 +53,10 @@ SPLIT
 	 join_dq_t_sku_t_skuitem_title_good IF table_dq_t_sku::title IS NOT NULL AND table_dq_t_sku::title != '',
 	 join_dq_t_sku_t_skuitem_title_bad IF table_dq_t_sku::title IS NULL OR table_dq_t_sku::title == '';
 
-/* ADDING ERROR_CODE AND ERROR_DESC FOR THE BAD RECORDS */
+/* ADDING ERROR_TYPE AND ERROR_DESC FOR THE BAD RECORDS */
 join_dq_t_sku_t_skuitem_title = 
 		FOREACH join_dq_t_sku_t_skuitem_title_bad 
-		GENERATE *, 20001 AS error_code:INT, 'null title is not allowed' AS error_desc:CHARARRAY;
+		GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null title is not allowed' AS error_desc:CHARARRAY;
 		
 /* SPLIT INTO GOOD-BAD RECORDS */
 SPLIT 
@@ -65,10 +65,10 @@ SPLIT
 	 join_dq_t_sku_t_skuitem_memberprice_good IF table_dq_t_skuitem::memberprice IS NOT NULL,
 	 join_dq_t_sku_t_skuitem_memberprice_bad IF table_dq_t_skuitem::memberprice IS NULL;
 
-/* ADDING ERROR_CODE AND ERROR_DESC FOR THE BAD RECORDS */
+/* ADDING ERROR_TYPE AND ERROR_DESC FOR THE BAD RECORDS */
 join_dq_t_sku_t_skuitem_memberprice = 
 		FOREACH join_dq_t_sku_t_skuitem_memberprice_bad 
-		GENERATE *, 20001 AS error_code:INT, 'null memberprice is not allowed' AS error_desc:CHARARRAY;
+		GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null memberprice is not allowed' AS error_desc:CHARARRAY;
 
 
 /* JOINING ALL THE BAD RECORDS */
@@ -91,20 +91,18 @@ dq_t_sku_t_skuitem_bad = FOREACH join_dq_t_sku_t_skuitem_bad
 						 table_dq_t_skuitem::originalprice AS t_skuitem_originalprice:bigdecimal, table_dq_t_skuitem::nonmemberprice AS t_skuitem_nonmemberprice:bigdecimal, 
 						 table_dq_t_skuitem::memberprice AS t_skuitem_memberprice:bigdecimal, table_dq_t_skuitem::version AS t_skuitem_version:INT, 
 						 table_dq_t_skuitem::createdate AS t_skuitem_createdate:DATETIME, table_dq_t_skuitem::createby AS t_skuitem_createby:INT, 
-						 table_dq_t_skuitem::updatedate AS t_skuitem_updatedate:DATETIME, table_dq_t_skuitem::updateby AS t_skuitem_updateby:INT;				
+						 table_dq_t_skuitem::updatedate AS t_skuitem_updatedate:DATETIME, table_dq_t_skuitem::updateby AS t_skuitem_updateby:INT,
+						 error_type ,error_desc ,ToString(CurrentTime()) AS tftimestamp:CHARARRAY;				
 						  
 /* GENERATING THE GOOD DIM PRODUCT TABLE */
 gen_dim_product_good = FOREACH join_dq_t_sku_t_skuitem_memberprice_good 
-					   GENERATE table_dq_t_sku::skuid AS source_ak:INT, 't_Sku' AS source_table:CHARARRAY, 
-					   'SkuID' AS source_column:CHARARRAY,'E-Commerce' AS master_product_group:CHARARRAY, 
-					   (table_dq_t_sku::isemailpromotable == 1?'BigDeal':'Storefront') AS product_type:CHARARRAY, 
-					   table_dq_t_sku::title AS product:CHARARRAY, table_dq_t_skuitem::memberprice AS unit_price:BIGDECIMAL, 
-					   'AL4.0' AS source:CHARARRAY, (BOOLEAN)0 AS joins_flag:BOOLEAN, (BOOLEAN)0 AS renewals_flag:BOOLEAN;
+					   GENERATE table_dq_t_sku::skuid AS source_ak:INT, table_dq_t_sku::isemailpromotable AS isemailpromotable:INT, 
+					   table_dq_t_sku::title AS product:CHARARRAY, table_dq_t_skuitem::memberprice AS unit_price:BIGDECIMAL;
 			   
 
 /* STORING THE DATA IN HIVE PARTITIONED BASED ON THE STATUSCODE */
 STORE dq_t_sku_t_skuitem_bad 
-	INTO '$S3_LOCATION_OPERATIONS_DATA/$SUBJECT_ALWEBMETRICS/$TABLE_ERR_DQ_T_SKU/loaddate=$DATE'
+	INTO '$S3_LOCATION_OPERATIONS_DATA/$SUBJECT_ALWEBMETRICS/$TABLE_ERR_TF_DIM_PRODUCT/loaddate=$DATE'
 	USING PigStorage('\u0001');
 	
 	
