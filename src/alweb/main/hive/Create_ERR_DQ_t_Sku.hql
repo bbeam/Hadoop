@@ -34,8 +34,9 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:ALWEB_OPERATIONS_DB}.${hivevar:TAB
 	CreateBy STRING, 
 	UpdateDate STRING, 
 	UpdateBy STRING,
-	error_code INT,
-	error_desc STRING
+	error_type STRING,
+	error_desc STRING,
+	DQTimeStamp STRING
 )
 PARTITIONED BY (LoadDate STRING)
-LOCATION '${hivevar:S3_LOCATION_OPERATIONS_DATA}/${hivevar:SOURCE_ALWEB}/${hivevar:ALWEB_OPERATIONS_DB}/${hivevar:TABLE_ERR_DQ_T_SKU}';
+LOCATION '${hivevar:S3_LOCATION_OPERATIONS_DATA}/${hivevar:SOURCE_ALWEB}/${hivevar:SOURCE_SCHEMA}/${hivevar:TABLE_ERR_DQ_T_SKU}';
