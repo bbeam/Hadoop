@@ -45,7 +45,10 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:ALWEB_OPERATIONS_DB}.${hivevar:TAB
 	t_skuitem_createdate TIMESTAMP,
 	t_skuitem_createby INT,
 	t_skuitem_updatedate TIMESTAMP,
-	t_skuitem_updateby INT
+	t_skuitem_updateby INT,
+	error_type STRING,
+	error_desc STRING,
+	TFTimeStamp STRING
 )
 PARTITIONED BY (LoadDate STRING)
 LOCATION '${hivevar:S3_LOCATION_OPERATIONS_DATA}/${hivevar:SUBJECT_ALWEBMETRICS}/${hivevar:TABLE_ERR_TF_DIM_PRODUCT}';
