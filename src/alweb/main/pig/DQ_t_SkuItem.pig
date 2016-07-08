@@ -61,7 +61,13 @@ table_t_skuitem_datatypemismatch =
 	GENERATE *, '$DATATYPE_MISMATCH' AS error_type:CHARARRAY, 'DataType mismatch found in (one or many)skuitemid, contextentityid, skuid, originalprice, nonmemberprice, 
 															   memberprice, version, createby, updateby' AS error_desc:CHARARRAY;
 
+/* Duplicate check for skuid ,duplicate records are cleansed and with one of the records(amongst duplicate) added to the good record group*/
+user_grp = GROUP table_t_skuitem BY skuid;
 
+table_t_skuitem = FOREACH user_grp {
+	      uni_rec = LIMIT table_t_skuitem 1;
+    	  GENERATE FLATTEN(uni_rec);
+};
 
 /* JOINING ALL THE BAD RECORDS */
 table_t_skuitem_bad_join = UNION table_t_skuitem_nullcheck_bad ,table_t_skuitem_datatypemismatch_bad;
