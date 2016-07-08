@@ -30,7 +30,7 @@ if [ $? -eq 0 ]
 then
 	. /var/tmp/$1.properties
 else
-	echo "Load of $1.properties file failed from S3."
+	echo "Copy of $1.properties file failed from S3."
 	exit 1
 fi
 
@@ -41,7 +41,17 @@ if [ $? -eq 0 ]
 then
 	. /var/tmp/$2.properties
 else
-	echo "Load of $2.properties file failed from S3."
+	echo "Copy of $2.properties file failed from S3."
+	exit 1
+fi
+
+
+# Copy the error.properties file from S3 to HDFS and load the properties.
+aws s3 cp s3://al-edh-dm/src/$1/main/conf/error.properties /var/tmp/
+
+if [ $? -ne 0 ]
+then
+	echo "Copy of error.properties file failed from S3."
 	exit 1
 fi
 
@@ -55,6 +65,7 @@ pig \
 	-param DATE=$DATE \
 	-param_file /var/tmp/$1.properties \
 	-param_file /var/tmp/$2.properties \
+	-param_file /var/tmp/error.properties \
 	-file s3://al-edh-dm/src/$1/main/pig/${TABLE_TF_DIM_PRODUCT}.pig \
 	-useHCatalog
 
