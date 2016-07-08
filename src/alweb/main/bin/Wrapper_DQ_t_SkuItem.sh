@@ -36,8 +36,19 @@ else
 fi
 
 
-# Current Date to be used in logs as well as pig, hive scripts.
-DATE=`date +%Y-%m-%d`
+# Copy the error.properties file from S3 to HDFS and load the properties.
+aws s3 cp s3://al-edh-dm/src/$1/main/conf/error.properties /var/tmp/
+
+if [ $? -ne 0 ]
+then
+	echo "Copy of error.properties file failed from S3."
+	exit 1
+fi
+
+
+# Loaddate(Current Date-1) and current timestamp to be used in logs as well as pig, hive scripts.
+LOADDATE=`date --date='-'1' day' +"%Y-%m-%d"`
+TIMESTAMP=`date +"%Y-%m-%d_%H:%M:%S"`
 
 #Hive Metastore refresh for partitioned tables.
 hive -e "msck repair table ${ALWEB_INCOMING_DB}.${TABLE_INC_T_SKUITEM}"
@@ -46,8 +57,10 @@ hive -e "msck repair table ${ALWEB_OPERATIONS_DB}.${TABLE_ERR_DQ_T_SKUITEM}"
 
 #Pig Script to be triggered for data checking and cleansing.
 pig \
-	-param DATE=$DATE \
+	-param LOADDATE=$LOADDATE \
+	-param TIMESTAMP=$TIMESTAMP \
 	-param_file /var/tmp/$1.properties \
+	-param_file /var/tmp/error.properties \
 	-file s3://al-edh-dm/src/$1/main/pig/${TABLE_DQ_T_SKUITEM}.pig \
 	-useHCatalog
 
