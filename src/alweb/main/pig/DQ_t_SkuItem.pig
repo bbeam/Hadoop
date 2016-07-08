@@ -26,123 +26,45 @@ filter_table_t_skuitem = FILTER table_t_skuitem BY loaddate=='$LOADDATE';
 SPLIT 
 	table_t_skuitem
 	INTO 
-	table_t_skuitem_SkuItemId_bad IF skuitemid IS NULL OR  skuitemid == '',
-	table_t_skuitem_SkuItemId_isInt_bad IF skuitemid IS NOT NULL AND  skuitemid != '' AND NOT(IsInt(skuitemid)),
-	table_t_skuitem_ContextEntityId_bad IF contextentityid IS NULL OR  contextentityid == '',
-	table_t_skuitem_ContextEntityId_isInt_bad IF contextentityid IS NOT NULL AND  contextentityid != '' AND NOT(IsInt(contextentityid)),
-	table_t_skuitem_EntityType_bad IF entitytype IS NULL OR  entitytype == '',
-	table_t_skuitem_SkuId_bad IF skuid IS NULL OR  skuid == '',
-	table_t_skuitem_SkuId_isInt_bad IF skuid IS NOT NULL AND  skuid != '' AND NOT(IsInt(skuid)),
-	table_t_skuitem_OriginalPrice_bad IF originalprice IS NULL OR  originalprice == '',
-	table_t_skuitem_OriginalPrice_isDouble_bad IF originalprice IS NOT NULL AND  originalprice != '' AND NOT(IsDouble(originalprice)),
-	table_t_skuitem_NonMemberPrice_bad IF nonmemberprice IS NULL OR  nonmemberprice == '',
-	table_t_skuitem_NonMemberPrice_isDouble_bad IF nonmemberprice IS NOT NULL AND  nonmemberprice != '' AND NOT(IsDouble(nonmemberprice)),
-	table_t_skuitem_MemberPrice_bad IF memberprice IS NULL OR  memberprice == '',
-	table_t_skuitem_MemberPrice_isDouble_bad IF memberprice IS NOT NULL AND  memberprice != '' AND NOT(IsDouble(memberprice)),
-	table_t_skuitem_Version_bad IF version IS NULL OR  version == '',
-	table_t_skuitem_Version_isInt_bad IF version IS NOT NULL AND  version != '' AND NOT(IsInt(version)),
-	table_t_skuitem_CreateDate_bad IF createdate IS NULL OR  createdate == '',
-	table_t_skuitem_CreateBy_bad IF createby IS NULL OR  createby == '',
-	table_t_skuitem_CreateBy_isInt_bad IF createby IS NOT NULL AND  createby != '' AND NOT(IsInt(createby)),
-	table_t_skuitem_UpdateDate_bad IF updatedate IS NULL OR  updatedate == '',
-	table_t_skuitem_UpdateBy_bad IF updateby IS NULL OR  updateby == '',
-	table_t_skuitem_UpdateBy_isInt_bad IF updateby IS NOT NULL AND  updateby != '' AND NOT(IsInt(updateby)),
+	table_t_skuitem_nullcheck_bad IF skuitemid IS NULL OR  skuitemid == '' OR 
+									 contextentityid IS NULL OR  contextentityid == '' OR 
+									 entitytype IS NULL OR  entitytype == '' OR 
+									 skuid IS NULL OR  skuid == '' OR 
+									 originalprice IS NULL OR  originalprice == '' OR 
+									 nonmemberprice IS NULL OR  nonmemberprice == '' OR 
+									 memberprice IS NULL OR  memberprice == '' OR 
+									 version IS NULL OR  version == '' OR 
+									 createdate IS NULL OR  createdate == '' OR 
+									 createby IS NULL OR  createby == '' OR 
+									 updatedate IS NULL OR  updatedate == '' OR 
+									 updateby IS NULL OR  updateby == '',
+	table_t_skuitem_datatypemismatch_bad IF skuitemid IS NOT NULL AND  skuitemid != '' AND NOT(IsInt(skuitemid)) AND 
+											contextentityid IS NOT NULL AND  contextentityid != '' AND NOT(IsInt(contextentityid)) AND 
+											skuid IS NOT NULL AND  skuid != '' AND NOT(IsInt(skuid)) AND 
+											originalprice IS NOT NULL AND  originalprice != '' AND NOT(IsDouble(originalprice)) AND 
+											nonmemberprice IS NOT NULL AND  nonmemberprice != '' AND NOT(IsDouble(nonmemberprice)) AND 
+											memberprice IS NOT NULL AND  memberprice != '' AND NOT(IsDouble(memberprice)) AND 
+											version IS NOT NULL AND  version != '' AND NOT(IsInt(version)) AND 
+											createby IS NOT NULL AND  createby != '' AND NOT(IsInt(createby)) AND 
+											updateby IS NOT NULL AND  updateby != '' AND NOT(IsInt(updateby)),
 	table_t_skuitem OTHERWISE;
 
 
 /* Adding additional fields, error_type and error_desc */
-table_t_skuitem_SkuItemId = 
-	FOREACH table_t_skuitem_SkuItemId_bad 
-	GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null or empty SkuItemId is not allowed' AS error_desc:CHARARRAY;
+table_t_skuitem_nullcheck = 
+	FOREACH table_t_skuitem_nullcheck_bad 
+	GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null or empty (one or many)skuitemid, contextentityid, entitytype, skuid, originalprice, nonmemberprice, 
+															 memberprice, version, createdate, createby, createby, updateby is not allowed' AS error_desc:CHARARRAY;
 
-table_t_skuitem_ContextEntityId = 
-	FOREACH table_t_skuitem_ContextEntityId_bad 
-	GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null or empty ContextEntityId is not allowed' AS error_desc:CHARARRAY;
+table_t_skuitem_datatypemismatch = 
+	FOREACH table_t_skuitem_datatypemismatch_bad 
+	GENERATE *, '$DATATYPE_MISMATCH' AS error_type:CHARARRAY, 'DataType mismatch found in (one or many)skuitemid, contextentityid, skuid, originalprice, nonmemberprice, 
+															   memberprice, version, createby, updateby' AS error_desc:CHARARRAY;
 
-table_t_skuitem_EntityType = 
-	FOREACH table_t_skuitem_EntityType_bad 
-	GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null or empty EntityType is not allowed' AS error_desc:CHARARRAY;
 
-table_t_skuitem_SkuId = 
-	FOREACH table_t_skuitem_SkuId_bad 
-	GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null or empty SkuId is not allowed' AS error_desc:CHARARRAY;
 
-table_t_skuitem_OriginalPrice = 
-	FOREACH table_t_skuitem_OriginalPrice_bad 
-	GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null or empty OriginalPrice is not allowed' AS error_desc:CHARARRAY;
-
-table_t_skuitem_NonMemberPrice = 
-	FOREACH table_t_skuitem_NonMemberPrice_bad 
-	GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null or empty NonMemberPrice is not allowed' AS error_desc:CHARARRAY;
-
-table_t_skuitem_MemberPrice = 
-	FOREACH table_t_skuitem_MemberPrice_bad 
-	GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null or empty MemberPrice is not allowed' AS error_desc:CHARARRAY;
-
-table_t_skuitem_Version = 
-	FOREACH table_t_skuitem_Version_bad 
-	GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null or empty Version is not allowed' AS error_desc:CHARARRAY;
-
-table_t_skuitem_CreateDate = 
-	FOREACH table_t_skuitem_CreateDate_bad 
-	GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null or empty CreateDate is not allowed' AS error_desc:CHARARRAY;
-
-table_t_skuitem_CreateBy = 
-	FOREACH table_t_skuitem_CreateBy_bad 
-	GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null or empty CreateBy is not allowed' AS error_desc:CHARARRAY;
-
-table_t_skuitem_UpdateDate = 
-	FOREACH table_t_skuitem_UpdateDate_bad 
-	GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null or empty UpdateDate is not allowed' AS error_desc:CHARARRAY;
-
-table_t_skuitem_UpdateBy = 
-	FOREACH table_t_skuitem_UpdateBy_bad 
-	GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null or empty UpdateBy is not allowed' AS error_desc:CHARARRAY;
-	
-table_t_skuitem_SkuItemId_isInt = 
-	FOREACH table_t_skuitem_SkuItemId_isInt_bad 
-	GENERATE *, '$NAN_CHECK_TYPE' AS error_type:CHARARRAY, 'SkuItemId is not an Integer' AS error_desc:CHARARRAY;
-	
-table_t_skuitem_ContextEntityId_isInt = 
-	FOREACH table_t_skuitem_ContextEntityId_isInt_bad 
-	GENERATE *, '$NAN_CHECK_TYPE' AS error_type:CHARARRAY, 'ContextEntityId is not an Integer' AS error_desc:CHARARRAY;
-	
-table_t_skuitem_SkuId_isInt = 
-	FOREACH table_t_skuitem_SkuId_isInt_bad 
-	GENERATE *, '$NAN_CHECK_TYPE' AS error_type:CHARARRAY, 'SkuId is not an Integer' AS error_desc:CHARARRAY;
-	
-table_t_skuitem_OriginalPrice_isDouble = 
-	FOREACH table_t_skuitem_OriginalPrice_isDouble_bad 
-	GENERATE *, '$NAD_CHECK_TYPE' AS error_type:CHARARRAY, 'OriginalPrice is not an double(/decimal)' AS error_desc:CHARARRAY;
-	
-table_t_skuitem_NonMemberPrice_isDouble = 
-	FOREACH table_t_skuitem_NonMemberPrice_isDouble_bad 
-	GENERATE *, '$NAD_CHECK_TYPE' AS error_type:CHARARRAY, 'NonMemberPrice is not an double(/decimal)' AS error_desc:CHARARRAY;
-	
-table_t_skuitem_MemberPrice_isDouble = 
-	FOREACH table_t_skuitem_MemberPrice_isDouble_bad 
-	GENERATE *, '$NAD_CHECK_TYPE' AS error_type:CHARARRAY, 'MemberPrice is not an double(/decimal)' AS error_desc:CHARARRAY;
-	
-table_t_skuitem_Version_isInt = 
-	FOREACH table_t_skuitem_Version_isInt_bad 
-	GENERATE *, '$NAN_CHECK_TYPE' AS error_type:CHARARRAY, 'Version is not an Integer' AS error_desc:CHARARRAY;
-	
-table_t_skuitem_CreateBy_isInt = 
-	FOREACH table_t_skuitem_CreateBy_isInt_bad 
-	GENERATE *, '$NAN_CHECK_TYPE' AS error_type:CHARARRAY, 'CreateBy is not an Integer' AS error_desc:CHARARRAY;
-	
-table_t_skuitem_UpdateBy_isInt = 
-	FOREACH table_t_skuitem_UpdateBy_isInt_bad 
-	GENERATE *, '$NAN_CHECK_TYPE' AS error_type:CHARARRAY, 'UpdateBy is not an Integer' AS error_desc:CHARARRAY;
-
-	
 /* JOINING ALL THE BAD RECORDS */
-table_t_skuitem_bad_join = UNION table_t_skuitem_SkuItemId ,table_t_skuitem_ContextEntityId ,table_t_skuitem_EntityType ,
-						   table_t_skuitem_SkuId ,table_t_skuitem_OriginalPrice ,table_t_skuitem_NonMemberPrice ,table_t_skuitem_MemberPrice ,
-						   table_t_skuitem_Version ,table_t_skuitem_CreateDate ,table_t_skuitem_CreateBy ,table_t_skuitem_UpdateDate ,
-						   table_t_skuitem_UpdateBy ,table_t_skuitem_SkuItemId_isInt ,table_t_skuitem_ContextEntityId_isInt ,table_t_skuitem_SkuId_isInt ,
-						   table_t_skuitem_OriginalPrice_isDouble ,table_t_skuitem_NonMemberPrice_isDouble ,table_t_skuitem_MemberPrice_isDouble ,
-						   table_t_skuitem_Version_isInt ,table_t_skuitem_CreateBy_isInt ,table_t_skuitem_UpdateBy_isInt;
+table_t_skuitem_bad_join = UNION table_t_skuitem_nullcheck_bad ,table_t_skuitem_datatypemismatch_bad;
 
 table_t_skuitem_bad = FOREACH table_t_skuitem_bad_join
 				  	  GENERATE skuitemid, contextentityid, entitytype, skuid, originalprice, nonmemberprice, 
