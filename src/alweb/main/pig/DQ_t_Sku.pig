@@ -76,16 +76,16 @@ table_t_sku_datatypemismatch =
 	
 
 
-/* Duplicate check for skuid */
-count_t_sku_skuId = FOREACH (GROUP filter_table_t_sku BY skuid) 
-					GENERATE filter_table_t_sku, COUNT(filter_table_t_sku.skuid) AS count:LONG;
+/* Duplicate check for skuid ,all the duplicate are moved to the error tables */
+count_t_sku_skuId = FOREACH (GROUP table_t_sku BY skuid) 
+					GENERATE table_t_sku, COUNT(table_t_sku.skuid) AS count:LONG;
 					
 duplicate_skuId = FOREACH (FILTER count_t_sku_skuId BY count > 1) 
-				 GENERATE FLATTEN(filter_table_t_sku), '$DUPLICATE_CHECK_TYPE' AS error_type:CHARARRAY, 
+				 GENERATE FLATTEN(table_t_sku), '$DUPLICATE_CHECK_TYPE' AS error_type:CHARARRAY, 
 				 									   'Duplicate SkuId is not allowed' AS error_desc:CHARARRAY;
 
 table_t_sku = FOREACH (FILTER count_t_sku_skuId by count == 1) 
-			  GENERATE FLATTEN(filter_table_t_sku);
+			  GENERATE FLATTEN(table_t_sku);
 
 
 /* JOINING ALL THE BAD RECORDS */
