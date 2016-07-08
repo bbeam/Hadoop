@@ -6,7 +6,7 @@ DESCRIPTION   : Data quality check and cleansing for source table t_Sku.
 */
 
 
-/* Register PiggyBank jar and define function for UDF such as isNumeric, etc*/
+/* Register PiggyBank jar and define function for UDF such as isNumeric, etc */
 
 register file:/usr/lib/pig/piggybank.jar
 
@@ -25,174 +25,55 @@ filter_table_t_sku = FILTER table_t_sku BY loaddate=='$LOADDATE';
 SPLIT 
 	filter_table_t_sku 
 	INTO 
-	table_t_sku_SkuId_bad IF skuid IS NULL OR skuid == '',
-	table_t_sku_SkuId_isInt_bad IF skuid IS NOT NULL AND skuid != '' AND NOT(IsInt(skuid)),
-	table_t_sku_AlId_isInt_bad IF alid IS NOT NULL AND  alid != '' AND NOT(IsInt(alid)),
-	table_t_sku_ContractId_bad IF contractid IS NULL OR  contractid == '',
-	table_t_sku_ContractId_isInt_bad IF contractid IS NOT NULL AND  contractid != '' AND NOT(IsInt(contractid)),
-	table_t_sku_Title_bad IF title IS NULL OR  title == '',
-	table_t_sku_Description_bad IF description IS NULL OR  description == '',
-	table_t_sku_TandC_bad IF termsandconditions IS NULL OR  termsandconditions == '',
-	table_t_sku_Status_bad IF status IS NULL OR  status == '',
-	table_t_sku_SkuType_bad IF skutype IS NULL OR  skutype == '',
-	table_t_sku_StartDateTime_bad IF startdatetime IS NULL OR  startdatetime == '',
-	table_t_sku_EndDateTime_bad IF enddatetime IS NULL OR  enddatetime == '',
-	table_t_sku_MinQuantity_bad IF minquantity IS NULL OR  minquantity == '',
-	table_t_sku_MinQuantity_isInt_bad IF minquantity IS NOT NULL AND minquantity != '' AND NOT(IsInt(minquantity)),
-	table_t_sku_MaxQuantity_bad IF maxquantity IS NULL OR  maxquantity == '',
-	table_t_sku_MaxQuantity_isInt_bad IF maxquantity IS NOT NULL AND  maxquantity != '' AND NOT(IsInt(maxquantity)),
-	table_t_sku_MaxPurchaseQuantity_bad IF maxpurchasequantity IS NULL OR  maxpurchasequantity == '',
-	table_t_sku_MaxPurchaseQuantity_isInt_bad IF maxpurchasequantity IS NOT NULL AND  maxpurchasequantity != '' AND NOT(IsInt(maxpurchasequantity)),
-	table_t_sku_RapidConnect_bad IF rapidconnect IS NULL OR  rapidconnect == '',
-	table_t_sku_RapidConnect_isInt_bad IF rapidconnect IS NOT NULL AND  rapidconnect != '' AND NOT(IsInt(rapidconnect)),
-	table_t_sku_IsAutoRenew_bad IF isautorenew IS NULL OR  isautorenew == '',
-	table_t_sku_IsAutoRenew_isInt_bad IF isautorenew IS NOT NULL AND  isautorenew != '' AND NOT(IsInt(isautorenew)),
-	table_t_sku_ProductId_isInt_bad IF productid IS NOT NULL AND  productid != '' AND NOT(IsInt(productid)),
-	table_t_sku_Version_bad IF version IS NULL OR  version == '',
-	table_t_sku_Version_isInt_bad IF version IS NOT NULL AND  version != '' AND NOT(IsInt(version)),
-	table_t_sku_IsEmailPromotable_bad IF isemailpromotable IS NULL OR  isemailpromotable == '',
-	table_t_sku_IsEmailPromotable_isInt_bad IF isemailpromotable IS NOT NULL AND  isemailpromotable != '' AND NOT(IsInt(isemailpromotable)),
-	table_t_sku_CreateDate_bad IF createdate IS NULL OR  createdate == '',
-	table_t_sku_CreateBy_bad IF createby IS NULL OR  createby == '',
-	table_t_sku_CreateBy_isInt_bad IF createby IS NOT NULL AND  createby != '' AND NOT(IsInt(createby)),
-	table_t_sku_UpdateDate_bad IF updatedate IS NULL OR updatedate == '',
-	table_t_sku_UpdateBy_bad IF updateby IS NULL OR  updateby == '',
-	table_t_sku_UpdateBy_isInt_bad IF updateby IS NOT NULL AND  updateby != '' AND NOT(IsInt(updateby)),
+	table_t_sku_nullcheck_bad IF skuid IS NULL OR skuid == '' OR 
+		   					     contractid IS NULL OR  contractid == '' OR 
+								 title IS NULL OR  title == '' OR 
+								 description IS NULL OR  description == '' OR 
+							 	 termsandconditions IS NULL OR  termsandconditions == '' OR 
+								 status IS NULL OR  status == '' OR 
+								 skutype IS NULL OR  skutype == '' OR 
+								 startdatetime IS NULL OR  startdatetime == '' OR 
+								 enddatetime IS NULL OR  enddatetime == '' OR 
+								 minquantity IS NULL OR  minquantity == '' OR 
+								 maxquantity IS NULL OR  maxquantity == '' OR 
+								 maxpurchasequantity IS NULL OR  maxpurchasequantity == '' OR 
+								 rapidconnect IS NULL OR  rapidconnect == '' OR 
+								 isautorenew IS NULL OR  isautorenew == '' OR 
+								 version IS NULL OR  version == '' OR 
+								 isemailpromotable IS NULL OR  isemailpromotable == '' OR 
+								 createdate IS NULL OR  createdate == '' OR 
+								 createby IS NULL OR  createby == '' OR 
+								 updatedate IS NULL OR updatedate == '' OR 
+								 updateby IS NULL OR  updateby == '',
+	table_t_sku_datatypemismatch_bad IF skuid IS NOT NULL AND skuid != '' AND NOT(IsInt(skuid)) AND 
+									    alid IS NOT NULL AND  alid != '' AND NOT(IsInt(alid)) AND 
+									    contractid IS NOT NULL AND  contractid != '' AND NOT(IsInt(contractid)) AND 
+									    minquantity IS NOT NULL AND minquantity != '' AND NOT(IsInt(minquantity)) AND 
+									    maxquantity IS NOT NULL AND  maxquantity != '' AND NOT(IsInt(maxquantity)) AND 
+									    maxpurchasequantity IS NOT NULL AND  maxpurchasequantity != '' AND NOT(IsInt(maxpurchasequantity)) AND 
+									    rapidconnect IS NOT NULL AND  rapidconnect != '' AND NOT(IsInt(rapidconnect)) AND 
+									    isautorenew IS NOT NULL AND  isautorenew != '' AND NOT(IsInt(isautorenew)) AND 
+									    productid IS NOT NULL AND  productid != '' AND NOT(IsInt(productid)) AND 
+			 						    version IS NOT NULL AND  version != '' AND NOT(IsInt(version)) AND 
+			 						    isemailpromotable IS NOT NULL AND  isemailpromotable != '' AND NOT(IsInt(isemailpromotable)) AND 
+									    createby IS NOT NULL AND  createby != '' AND NOT(IsInt(createby)) AND 
+									    updateby IS NOT NULL AND  updateby != '' AND NOT(IsInt(updateby)),
 	table_t_sku OTHERWISE;
 
 
 /* Adding additional fields, error_type and error_desc */
-table_t_sku_SkuId = 
-	FOREACH table_t_sku_SkuId_bad 
-	GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null or empty SkuId is not allowed' AS error_desc:CHARARRAY;
+table_t_sku_nullcheck = 
+	FOREACH table_t_sku_nullcheck_bad 
+	GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null or empty skuid, contractid, title, description, termsandconditions, status, skutype, startdatetime, 
+															 enddatetime, minquantity, maxquantity, maxpurchasequantity, rapidconnect, isautorenew, version, isemailpromotable, 
+															 createdate, createby, updatedate, updateby is not allowed' AS error_desc:CHARARRAY;
 
-table_t_sku_ContractId = 
-	FOREACH table_t_sku_ContractId_bad 
-	GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null or empty ContractId is not allowed' AS error_desc:CHARARRAY;
 
-table_t_sku_Title = 
-	FOREACH table_t_sku_Title_bad 
-	GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null or empty Title is not allowed' AS error_desc:CHARARRAY;
-
-table_t_sku_Description = 
-	FOREACH table_t_sku_Description_bad 
-	GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null or empty Description is not allowed' AS error_desc:CHARARRAY;
-
-table_t_sku_TandC = 
-	FOREACH table_t_sku_TandC_bad
-GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null or empty TermsAndConditions is not allowed' AS error_desc:CHARARRAY;
-
-table_t_sku_Status = 
-	FOREACH table_t_sku_Status_bad 
-	GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null or empty Status is not allowed' AS error_desc:CHARARRAY;
+table_t_sku_datatypemismatch = 
+	FOREACH table_t_sku_datatypemismatch_bad 
+	GENERATE *, '$DATATYPE_MISMATCH' AS error_type:CHARARRAY, 'DataType mismatch found in skuid, alid, contractid, minquantity, maxquantity, maxpurchasequantity, 
+															   rapidconnect, isautorenew, productid, version, isemailpromotable, createby, updateby' AS error_desc:CHARARRAY;
 	
-table_t_sku_SkuType = 
-	FOREACH table_t_sku_SkuType_bad 
-	GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null or empty SkuType is not allowed' AS error_desc:CHARARRAY;
-
-table_t_sku_StartDateTime = 
-	FOREACH table_t_sku_StartDateTime_bad 
-	GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null or empty StartDateTime is not allowed' AS error_desc:CHARARRAY;
-
-table_t_sku_EndDateTime = 
-	FOREACH table_t_sku_EndDateTime_bad 
-	GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null or empty EndDateTime is not allowed' AS error_desc:CHARARRAY;
-
-table_t_sku_MinQuantity = 
-	FOREACH table_t_sku_MinQuantity_bad 
-	GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null or empty MinQuantity is not allowed' AS error_desc:CHARARRAY;
-
-table_t_sku_MaxQuantity = 
-	FOREACH table_t_sku_MaxQuantity_bad 
-	GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null or empty MaxQuantity is not allowed' AS error_desc:CHARARRAY;
-
-table_t_sku_MaxPurchaseQuantity = 
-	FOREACH table_t_sku_MaxPurchaseQuantity_bad 
-	GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null or empty MaxPurchaseQuantity is not allowed' AS error_desc:CHARARRAY;
-	
-table_t_sku_RapidConnect = 
-	FOREACH table_t_sku_RapidConnect_bad 
-	GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null or empty RapidConnect is not allowed' AS error_desc:CHARARRAY;
-
-table_t_sku_IsAutoRenew = 
-	FOREACH table_t_sku_IsAutoRenew_bad 
-	GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null or empty IsAutoRenew is not allowed' AS error_desc:CHARARRAY;
-
-table_t_sku_Version = 
-	FOREACH table_t_sku_Version_bad 
-	GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null or empty Version is not allowed' AS error_desc:CHARARRAY;
-	
-table_t_sku_IsEmailPromotable = 
-	FOREACH table_t_sku_IsEmailPromotable_bad 
-	GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null or empty IsEmailPromotable is not allowed' AS error_desc:CHARARRAY;
-
-table_t_sku_CreateDate = 
-	FOREACH table_t_sku_CreateDate_bad 
-	GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null or empty CreateDate is not allowed' AS error_desc:CHARARRAY;
-		
-table_t_sku_CreateBy = 
-	FOREACH table_t_sku_CreateBy_bad 
-	GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null or empty CreateBy is not allowed' AS error_desc:CHARARRAY;
-
-table_t_sku_UpdateDate = 
-	FOREACH table_t_sku_UpdateDate_bad 
-	GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null or empty UpdateDate is not allowed' AS error_desc:CHARARRAY;
-
-table_t_sku_UpdateBy = 
-	FOREACH table_t_sku_UpdateBy_bad 
-	GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null or empty UpdateBy is not allowed' AS error_desc:CHARARRAY;
-	
-table_t_sku_SkuId_isInt = 
-	FOREACH table_t_sku_SkuId_isInt_bad 
-	GENERATE *, '$NAN_CHECK_TYPE' AS error_type:CHARARRAY, 'SkuId is not an Integer' AS error_desc:CHARARRAY;
-	
-table_t_sku_AlId_isInt = 
-	FOREACH table_t_sku_AlId_isInt_bad 
-	GENERATE *, '$NAN_CHECK_TYPE' AS error_type:CHARARRAY, 'AlId is not an Integer' AS error_desc:CHARARRAY;
-	
-table_t_sku_ContractId_isInt = 
-	FOREACH table_t_sku_ContractId_isInt_bad 
-	GENERATE *, '$NAN_CHECK_TYPE' AS error_type:CHARARRAY, 'ContractId is not an Integer' AS error_desc:CHARARRAY;
-	
-table_t_sku_MinQuantity_isInt = 
-	FOREACH table_t_sku_MinQuantity_isInt_bad 
-	GENERATE *, '$NAN_CHECK_TYPE' AS error_type:CHARARRAY, 'MinQuantity is not an Integer' AS error_desc:CHARARRAY;
-	
-table_t_sku_MaxQuantity_isInt = 
-	FOREACH table_t_sku_MaxQuantity_isInt_bad 
-	GENERATE *, '$NAN_CHECK_TYPE' AS error_type:CHARARRAY, 'MaxQuantity is not an Integer' AS error_desc:CHARARRAY;
-	
-table_t_sku_MaxPurchaseQuantity_isInt = 
-	FOREACH table_t_sku_MaxPurchaseQuantity_isInt_bad 
-	GENERATE *, '$NAN_CHECK_TYPE' AS error_type:CHARARRAY, 'MaxQuantity is not an Integer' AS error_desc:CHARARRAY;
-	
-table_t_sku_RapidConnect_isInt = 
-	FOREACH table_t_sku_RapidConnect_isInt_bad 
-	GENERATE *, '$NAN_CHECK_TYPE' AS error_type:CHARARRAY, 'RapidConnect is not an Integer' AS error_desc:CHARARRAY;
-		
-table_t_sku_IsAutoRenew_isInt = 
-	FOREACH table_t_sku_IsAutoRenew_isInt_bad 
-	GENERATE *, '$NAN_CHECK_TYPE' AS error_type:CHARARRAY, 'IsAutoRenew is not an Integer' AS error_desc:CHARARRAY;
-			
-table_t_sku_ProductId_isInt = 
-	FOREACH table_t_sku_ProductId_isInt_bad 
-	GENERATE *, '$NAN_CHECK_TYPE' AS error_type:CHARARRAY, 'ProductId is not an Integer' AS error_desc:CHARARRAY;
-				
-table_t_sku_Version_isInt = 
-	FOREACH table_t_sku_Version_isInt_bad 
-	GENERATE *, '$NAN_CHECK_TYPE' AS error_type:CHARARRAY, 'Version is not an Integer' AS error_desc:CHARARRAY;
-				
-table_t_sku_IsEmailPromotable_isInt = 
-	FOREACH table_t_sku_IsEmailPromotable_isInt_bad 
-	GENERATE *, '$NAN_CHECK_TYPE' AS error_type:CHARARRAY, 'IsEmailPromotable is not an Integer' AS error_desc:CHARARRAY;
-					
-table_t_sku_CreateBy_isInt = 
-	FOREACH table_t_sku_CreateBy_isInt_bad 
-	GENERATE *, '$NAN_CHECK_TYPE' AS error_type:CHARARRAY, 'CreateBy is not an Integer' AS error_desc:CHARARRAY;
-						
-table_t_sku_UpdateBy_isInt = 
-	FOREACH table_t_sku_UpdateBy_isInt_bad 
-	GENERATE *, '$NAN_CHECK_TYPE' AS error_type:CHARARRAY, 'UpdateBy is not an Integer' AS error_desc:CHARARRAY;
 
 
 /* Duplicate check for skuid */
@@ -208,15 +89,7 @@ table_t_sku = FOREACH (FILTER count_t_sku_skuId by count == 1)
 
 
 /* JOINING ALL THE BAD RECORDS */
-table_t_sku_bad_join = UNION table_t_sku_SkuId ,table_t_sku_ContractId ,table_t_sku_Title ,table_t_sku_Description ,
-					   table_t_sku_TandC ,table_t_sku_Status ,table_t_sku_SkuType ,table_t_sku_StartDateTime ,
-					   table_t_sku_EndDateTime ,table_t_sku_MinQuantity ,table_t_sku_MaxQuantity ,table_t_sku_MaxPurchaseQuantity ,
-					   table_t_sku_RapidConnect ,table_t_sku_IsAutoRenew ,table_t_sku_Version ,table_t_sku_IsEmailPromotable ,
-					   table_t_sku_CreateDate ,table_t_sku_CreateBy ,table_t_sku_UpdateDate ,table_t_sku_UpdateBy ,
-					   table_t_sku_SkuId_isInt ,table_t_sku_AlId_isInt ,table_t_sku_ContractId_isInt ,table_t_sku_MinQuantity_isInt ,
-					   table_t_sku_MaxQuantity_isInt ,table_t_sku_MaxPurchaseQuantity_isInt ,table_t_sku_RapidConnect_isInt ,
-					   table_t_sku_IsAutoRenew_isInt ,table_t_sku_ProductId_isInt ,table_t_sku_Version_isInt ,table_t_sku_IsEmailPromotable_isInt ,
-					   table_t_sku_CreateBy_isInt ,table_t_sku_UpdateBy_isInt ,duplicate_skuId;
+table_t_sku_bad_join = UNION table_t_sku_nullcheck ,table_t_sku_datatypemismatch ,duplicate_skuId;
 
 table_t_sku_bad = FOREACH table_t_sku_bad_join
 				  GENERATE skuid ,alid ,contractid ,title ,description ,termsandconditions ,status ,skutype ,
