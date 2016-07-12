@@ -21,6 +21,24 @@ table_t_sku =
 filter_table_t_sku = FILTER table_t_sku BY loaddate=='$LOADDATE';
 
 
+/* DATA CLEANSING ,SET DEFAULT FOR NULL */
+SPLIT
+	filter_table_t_sku
+	INTO
+	setdefault_filter_table_t_sku IF isemailpromotable IS NULL OR  isemailpromotable == '',
+	dqfilter_table_t_sku OTHERWISE;
+
+
+/* Adding additional fields, error_type and error_desc */
+table_t_sku_setdefault = 
+	FOREACH setdefault_filter_table_t_sku 
+	GENERATE skuid ,alid ,contractid ,title ,description ,termsandconditions ,status ,skutype ,startdatetime ,enddatetime ,minquantity ,maxquantity ,
+			 maxpurchasequantity ,rapidconnect ,isautorenew ,productid ,version ,placement ,'0' ,createdate ,createby ,updatedate ,updateby;
+
+
+filter_table_t_sku = UNION dqfilter_table_t_sku, table_t_sku_setdefault;
+
+
 /* DATA QUALITY CHECK FOR NOT NULL FILEDS */
 SPLIT 
 	filter_table_t_sku 
@@ -40,7 +58,6 @@ SPLIT
 								 rapidconnect IS NULL OR  rapidconnect == '' OR 
 								 isautorenew IS NULL OR  isautorenew == '' OR 
 								 version IS NULL OR  version == '' OR 
-								 isemailpromotable IS NULL OR  isemailpromotable == '' OR 
 								 createdate IS NULL OR  createdate == '' OR 
 								 createby IS NULL OR  createby == '' OR 
 								 updatedate IS NULL OR updatedate == '' OR 
@@ -55,7 +72,6 @@ SPLIT
 									    isautorenew IS NOT NULL AND  isautorenew != '' AND NOT(IsInt(isautorenew)) AND 
 									    productid IS NOT NULL AND  productid != '' AND NOT(IsInt(productid)) AND 
 			 						    version IS NOT NULL AND  version != '' AND NOT(IsInt(version)) AND 
-			 						    isemailpromotable IS NOT NULL AND  isemailpromotable != '' AND NOT(IsInt(isemailpromotable)) AND 
 									    createby IS NOT NULL AND  createby != '' AND NOT(IsInt(createby)) AND 
 									    updateby IS NOT NULL AND  updateby != '' AND NOT(IsInt(updateby)),
 	table_t_sku OTHERWISE;
@@ -65,7 +81,7 @@ SPLIT
 table_t_sku_nullcheck = 
 	FOREACH table_t_sku_nullcheck_bad 
 	GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null or empty skuid, contractid, title, description, termsandconditions, status, skutype, startdatetime, 
-															 enddatetime, minquantity, maxquantity, maxpurchasequantity, rapidconnect, isautorenew, version, isemailpromotable, 
+															 enddatetime, minquantity, maxquantity, maxpurchasequantity, rapidconnect, isautorenew, version, 
 															 createdate, createby, updatedate, updateby is not allowed' AS error_desc:CHARARRAY;
 
 
