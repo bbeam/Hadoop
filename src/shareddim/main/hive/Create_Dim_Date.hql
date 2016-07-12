@@ -26,8 +26,7 @@ DayNumberOfYear SMALLINT,
 CalendarWeek TINYINT,
 CalendarMonth TINYINT,
 CalendarQuarter TINYINT,
-CalendarYear STRING,
-holiday_flag TINYINT
+CalendarYear STRING
 )
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY ','
