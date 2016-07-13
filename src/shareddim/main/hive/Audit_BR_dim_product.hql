@@ -14,7 +14,7 @@ SELECT '${DATE}' AS Load_Date,
 '${WORK_DB}.${TABLE_BR_DIM_PRODUCT}' AS Table_Name,
 'DataQuality' AS Process,
 'NULL' AS Type ,
-'NULL'_desc AS Sub_Type ,
+'NULL' AS Sub_Type ,
 count(*) AS Record_Count,
 from_unixtime(unix_timestamp()) AS Time_Stamp,
 'AL-EDH' AS User_Name
