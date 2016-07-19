@@ -7,7 +7,7 @@
 # Author      : Ashoka Reddy                                                   #
 ################################################################################
 
-# Check for the input parameter to the shell script. The script only expects source name as the first parameter.
+# Check for the input parameter to the shell script. The script only expects global properties as first parameter.
 Show_Usage()
 {
     echo "invalid argument please pass only one argument "
@@ -22,7 +22,7 @@ then
 fi
 
 
-# Copy the alweb.properties file from S3 to HDFS and load the properties.
+# Copy the al-edh-global.properties file from S3 to local and load the properties.
 aws s3 cp s3://al-edh-dm/src/common/main/conf/$1.properties /var/tmp/
 
 if [ $? -eq 0 ]
