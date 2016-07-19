@@ -7,12 +7,6 @@ SET hive.exec.dynamic.partition.mode=non-strict;
 --
 
 
-
-
--- Create the database if it doesnot exists.
-CREATE DATABASE IF NOT EXISTS test;
-
-
 -- Insert into back up table from a final table .
 INSERT OVERWRITE TABLE ${hivevar:SHAREDDIM_OPERATIONS_DB}.bkp_dim_product
 PARTITION(bus_month)
