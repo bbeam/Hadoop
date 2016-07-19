@@ -1,5 +1,5 @@
 /*
-PIG SCRIPT    : DQ_t_SkuItem.pig
+PIG SCRIPT    : dq_t_skuitem.pig
 AUTHOR        : Varun Rauthan
 DATE          : JUN 24, 2016
 DESCRIPTION   : Data quality check and cleansing for source table t_Sku.
@@ -16,10 +16,10 @@ DEFINE IsDouble org.apache.pig.piggybank.evaluation.IsDouble;
 
 /* LOADING THE LOOKUP TABLES */
 table_t_skuitem = 
-	LOAD '$ALWEB_INCOMING_DB.$TABLE_INC_T_SKUITEM' 
+	LOAD '$ALWEB_INCOMING_DB.inc_t_skuitem' 
 	USING org.apache.hive.hcatalog.pig.HCatLoader();
 
-filter_table_t_skuitem = FILTER table_t_skuitem BY loaddate=='$LOADDATE';
+filter_table_t_skuitem = FILTER table_t_skuitem BY bus_date=='$BUSDATE';
 
 
 /* DATA QUALITY CHECK FOR NOT NULL FILEDS */
@@ -91,10 +91,10 @@ table_t_skuitem = FOREACH table_t_skuitem
 
 /* STORING THE DATA IN HIVE PARTITIONED BASED ON THE STATUSCODE */
 STORE table_t_skuitem_bad 
-	INTO '$S3_LOCATION_OPERATIONS_DATA/$SOURCE_ALWEB/$SOURCE_SCHEMA/$TABLE_ERR_DQ_T_SKUITEM/loaddate=$LOADDATE'
+	INTO '$S3_LOCATION_OPERATIONS_DATA/$SOURCE_ALWEB/$SOURCE_SCHEMA/err_dq_t_skuitem/bus_date=$BUSDATE'
 	USING PigStorage('\u0001');
 	
 	
 STORE table_t_skuitem 
-	INTO '$WORK_DB.$TABLE_DQ_T_SKUITEM' 
+	INTO '$WORK_DB.dq_t_skuitem' 
 	USING org.apache.hive.hcatalog.pig.HCatStorer();

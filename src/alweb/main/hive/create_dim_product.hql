@@ -1,17 +1,17 @@
 --/*
---  HIVE SCRIPT  : Create_dim_product_tmp.hql
+--  HIVE SCRIPT  : create_dim_product.hql
 --  AUTHOR       : Varun Rauthan
 --  DATE         : Jul 02, 2016
---  DESCRIPTION  : Creation of dim_product table in work db(dim_product_tmp). 
+--  DESCRIPTION  : Creation of dim_product table in gold db(dim_product). 
 --*/
 
 -- Create the database if it doesnot exists.
-CREATE DATABASE IF NOT EXISTS ${hivevar:WORK_DB};
+CREATE DATABASE IF NOT EXISTS ${hivevar:ALWEB_GOLD_DB};
 
 --  Creating a incoming hive table(TF_dim_product) over the transformed data
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:WORK_DB}.${hivevar:TABLE_DIM_PRODUCT_TMP}
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:ALWEB_GOLD_DB}.dim_product
 (
-	source_aK INT, 
+	source_ak INT, 
 	source_table STRING, 
 	source_column STRING, 
 	product_key BIGINT,
@@ -26,7 +26,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:WORK_DB}.${hivevar:TABLE_DIM_PRODU
 	eff_end_dt date,
 	current_active_ind char(1),
 	md5_non_key_value string,
-	md5_key_value string,
-	LoadMonth STRING
+	md5_key_value string
 )
-LOCATION '${hivevar:HDFS_LOCATION}/${hivevar:SUBJECT_ALWEBMETRICS}/${hivevar:TABLE_DIM_PRODUCT_TMP}';
+PARTITIONED BY (bus_month STRING)
+LOCATION '${hivevar:S3_LOCATION_GOLD_DATA}/${hivevar:SUBJECT_ALWEBMETRICS}/dim_product';

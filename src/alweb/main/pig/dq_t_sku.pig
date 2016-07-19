@@ -1,5 +1,5 @@
 /*
-PIG SCRIPT    : DQ_t_Sku.pig
+PIG SCRIPT    : dq_t_sku.pig
 AUTHOR        : Varun Rauthan
 DATE          : JUN 24, 2016
 DESCRIPTION   : Data quality check and cleansing for source table t_Sku.
@@ -15,28 +15,28 @@ DEFINE IsInt org.apache.pig.piggybank.evaluation.IsInt;
 
 /* LOADING THE LOOKUP TABLES */
 table_t_sku = 
-	LOAD '$ALWEB_INCOMING_DB.$TABLE_INC_T_SKU' 
+	LOAD '$ALWEB_INCOMING_DB.inc_t_sku' 
 	USING org.apache.hive.hcatalog.pig.HCatLoader();
 
-filter_table_t_sku = FILTER table_t_sku BY loaddate=='$LOADDATE';
+filter_table_t_sku = FILTER table_t_sku BY bus_date=='$BUSDATE';
 
 
 /* DATA CLEANSING ,SET DEFAULT FOR NULL */
 SPLIT
 	filter_table_t_sku
 	INTO
-	setdefault_filter_table_t_sku IF isemailpromotable IS NULL OR  isemailpromotable == '',
-	dqfilter_table_t_sku OTHERWISE;
+	setdefault_t_sku IF isemailpromotable IS NULL OR  isemailpromotable == '',
+	dqfilter_table_t_sku_isemailpromotable OTHERWISE;
 
 
-/* Adding additional fields, error_type and error_desc */
+/* Adding default value in case of null */
 table_t_sku_setdefault = 
-	FOREACH setdefault_filter_table_t_sku 
+	FOREACH setdefault_t_sku 
 	GENERATE skuid ,alid ,contractid ,title ,description ,termsandconditions ,status ,skutype ,startdatetime ,enddatetime ,minquantity ,maxquantity ,
 			 maxpurchasequantity ,rapidconnect ,isautorenew ,productid ,version ,placement ,'0' ,createdate ,createby ,updatedate ,updateby;
 
 
-filter_table_t_sku = UNION dqfilter_table_t_sku, table_t_sku_setdefault;
+filter_table_t_sku = UNION dqfilter_table_t_sku_isemailpromotable, table_t_sku_setdefault;
 
 
 /* DATA QUALITY CHECK FOR NOT NULL FILEDS */
@@ -72,6 +72,7 @@ SPLIT
 									    isautorenew IS NOT NULL AND  isautorenew != '' AND NOT(IsInt(isautorenew)) AND 
 									    productid IS NOT NULL AND  productid != '' AND NOT(IsInt(productid)) AND 
 			 						    version IS NOT NULL AND  version != '' AND NOT(IsInt(version)) AND 
+			 						    isemailpromotable IS NOT NULL AND  isemailpromotable != '' AND NOT(IsInt(isemailpromotable)) AND
 									    createby IS NOT NULL AND  createby != '' AND NOT(IsInt(createby)) AND 
 									    updateby IS NOT NULL AND  updateby != '' AND NOT(IsInt(updateby)),
 	table_t_sku OTHERWISE;
@@ -129,10 +130,10 @@ table_t_sku = FOREACH table_t_sku
 
 /* STORING THE DATA IN HIVE PARTITIONED BASED ON THE STATUSCODE */
 STORE table_t_sku_bad 
-	INTO '$S3_LOCATION_OPERATIONS_DATA/$SOURCE_ALWEB/$SOURCE_SCHEMA/$TABLE_ERR_DQ_T_SKU/loaddate=$LOADDATE'
+	INTO '$S3_LOCATION_OPERATIONS_DATA/$SOURCE_ALWEB/$SOURCE_SCHEMA/err_dq_t_sku/bus_date=$BUSDATE'
 	USING PigStorage('\u0001');
 	
 	
 STORE table_t_sku 
-	INTO '$WORK_DB.$TABLE_DQ_T_SKU' 
+	INTO '$WORK_DB.dq_t_sku' 
 	USING org.apache.hive.hcatalog.pig.HCatStorer();

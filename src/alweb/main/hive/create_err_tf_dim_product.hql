@@ -1,15 +1,15 @@
 --/*
---  HIVE SCRIPT  : Create_TF_dim_product.hql
+--  HIVE SCRIPT  : create_err_tf_dim_product.hql
 --  AUTHOR       : Varun Rauthan
 --  DATE         : Jun 23, 2016
---  DESCRIPTION  : Creation of hive transformation table(TF_dim_product). 
+--  DESCRIPTION  : Creation of hive transformation table(err_tf_dim_product). 
 --*/
 
 -- Create the database if it doesnot exists.
 CREATE DATABASE IF NOT EXISTS ${hivevar:ALWEB_OPERATIONS_DB};
 
 --  Creating a incoming hive table(TF_dim_product) over the transformaed data
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:ALWEB_OPERATIONS_DB}.${hivevar:TABLE_ERR_TF_DIM_PRODUCT}
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:ALWEB_OPERATIONS_DB}.err_tf_dim_product
 (
 	t_sku_skuid INT,
 	t_sku_alid INT,
@@ -50,5 +50,5 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:ALWEB_OPERATIONS_DB}.${hivevar:TAB
 	error_desc STRING,
 	TFTimeStamp STRING
 )
-PARTITIONED BY (LoadDate STRING)
-LOCATION '${hivevar:S3_LOCATION_OPERATIONS_DATA}/${hivevar:SUBJECT_ALWEBMETRICS}/${hivevar:TABLE_ERR_TF_DIM_PRODUCT}';
+PARTITIONED BY (bus_date STRING)
+LOCATION '${hivevar:S3_LOCATION_OPERATIONS_DATA}/${hivevar:SUBJECT_ALWEBMETRICS}/err_tf_dim_product';

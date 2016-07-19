@@ -2,7 +2,7 @@
 #                               General Details                                #
 ################################################################################
 # Name        : AngiesList                                                     #
-# File        : Create_table_alweb.sh                                          #
+# File        : create_table_alweb.sh                                          #
 # Description : This is shell script for all the alweb hive table creation.    # 
 # Author      : Varun Rauthan                                                  #
 ################################################################################
@@ -50,86 +50,76 @@ fi
 DATE=`date +%d-%m-%Y`
 
 
-#Trigger HQL for hive incoming table(INC_t_Sku) creation.
-hive -f s3://al-edh-dm/src/$1/main/hive/Create_${TABLE_INC_T_SKU}.hql \
+#Trigger HQL for hive incoming table(inc_t_sku) creation.
+hive -f s3://al-edh-dm/src/$1/main/hive/create_inc_t_sku.hql \
 	--hivevar SOURCE_SCHEMA="${SOURCE_SCHEMA}" \
-	--hivevar TABLE_INC_T_SKU="${TABLE_INC_T_SKU}" \
 	--hivevar S3_LOCATION_INCOMING_DATA="${S3_LOCATION_INCOMING_DATA}" \
 	--hivevar SOURCE_ALWEB="${SOURCE_ALWEB}" \
 	--hivevar EXTRACTIONTYPE_FULL="${EXTRACTIONTYPE_FULL}" \
 	--hivevar FREQUENCY_DAILY="${FREQUENCY_DAILY}"
 
 
-#Trigger HQL for hive data quality table(DQ_t_Sku) creation.
-hive -f s3://al-edh-dm/src/$1/main/hive/Create_${TABLE_DQ_T_SKU}.hql \
+#Trigger HQL for hive data quality table(dq_t_sku) creation.
+hive -f s3://al-edh-dm/src/$1/main/hive/create_dq_t_sku.hql \
 	--hivevar WORK_DB="${WORK_DB}" \
-	--hivevar TABLE_DQ_T_SKU="${TABLE_DQ_T_SKU}" \
 	--hivevar HDFS_LOCATION="${HDFS_LOCATION}" \
 	--hivevar SOURCE_ALWEB="${SOURCE_ALWEB}"
 	
 	
-#Trigger HQL for hive Error table(ERR_DQ_t_Sku) creation.
-hive -f s3://al-edh-dm/src/$1/main/hive/Create_${TABLE_ERR_DQ_T_SKU}.hql \
-	--hivevar TABLE_ERR_DQ_T_SKU="${TABLE_ERR_DQ_T_SKU}" \
+#Trigger HQL for hive Error table(err_dq_t_sku) creation.
+hive -f s3://al-edh-dm/src/$1/main/hive/create_err_dq_t_sku.hql \
 	--hivevar S3_LOCATION_OPERATIONS_DATA="${S3_LOCATION_OPERATIONS_DATA}" \
 	--hivevar SOURCE_ALWEB="${SOURCE_ALWEB}" \
 	--hivevar ALWEB_OPERATIONS_DB="${ALWEB_OPERATIONS_DB}" 
 
 
-#Trigger HQL for hive table(INC_t_SkuItem) creation.
-hive -f s3://al-edh-dm/src/$1/main/hive/Create_${TABLE_INC_T_SKUITEM}.hql \
+#Trigger HQL for hive table(inc_t_skuitem) creation.
+hive -f s3://al-edh-dm/src/$1/main/hive/create_inc_t_skuitem.hql \
 	--hivevar SOURCE_SCHEMA="${SOURCE_SCHEMA}" \
-	--hivevar TABLE_INC_T_SKUITEM="${TABLE_INC_T_SKUITEM}" \
 	--hivevar S3_LOCATION_INCOMING_DATA="${S3_LOCATION_INCOMING_DATA}" \
 	--hivevar SOURCE_ALWEB="${SOURCE_ALWEB}" \
 	--hivevar EXTRACTIONTYPE_FULL="${EXTRACTIONTYPE_FULL}" \
 	--hivevar FREQUENCY_DAILY="${FREQUENCY_DAILY}"
 
 
-#Trigger HQL for hive data quality table(DQ_t_SkuItem) creation.
-hive -f s3://al-edh-dm/src/$1/main/hive/Create_${TABLE_DQ_T_SKUITEM}.hql \
+#Trigger HQL for hive data quality table(dq_t_skuitem) creation.
+hive -f s3://al-edh-dm/src/$1/main/hive/create_dq_t_skuitem.hql \
 	--hivevar WORK_DB="${WORK_DB}" \
-	--hivevar TABLE_DQ_T_SKUITEM="${TABLE_DQ_T_SKUITEM}" \
 	--hivevar HDFS_LOCATION="${HDFS_LOCATION}"\
 	--hivevar SOURCE_ALWEB="${SOURCE_ALWEB}"
 	
 
-#Trigger HQL for hive Error table(ERR_DQ_t_SkuItem) creation.
-hive -f s3://al-edh-dm/src/$1/main/hive/Create_${TABLE_ERR_DQ_T_SKUITEM}.hql \
+#Trigger HQL for hive Error table(err_dq_t_skuitem) creation.
+hive -f s3://al-edh-dm/src/$1/main/hive/create_err_dq_t_skuitem.hql \
 	--hivevar ALWEB_GOLD_DB="${ALWEB_GOLD_DB}" \
-	--hivevar TABLE_ERR_DQ_T_SKUITEM="${TABLE_ERR_DQ_T_SKUITEM}" \
 	--hivevar S3_LOCATION_OPERATIONS_DATA="${S3_LOCATION_OPERATIONS_DATA}" \
 	--hivevar SOURCE_ALWEB="${SOURCE_ALWEB}" \
 	--hivevar ALWEB_OPERATIONS_DB="${ALWEB_OPERATIONS_DB}" 
 	
 
-#Trigger HQL for hive transformation table(TF_dim_product) creation.
-hive -f s3://al-edh-dm/src/alweb/main/hive/Create_${TABLE_TF_DIM_PRODUCT}.hql \
+#Trigger HQL for hive transformation table(tf_dim_product) creation.
+hive -f s3://al-edh-dm/src/alweb/main/hive/create_tf_dim_product.hql \
 #	--hivevar SOURCE_SCHEMA="${SOURCE_SCHEMA}" \
-	--hivevar TABLE_TF_DIM_PRODUCT="${TABLE_TF_DIM_PRODUCT}" \
 	--hivevar HDFS_LOCATION="${HDFS_LOCATION}" \
 	--hivevar SUBJECT_ALWEBMETRICS="${SUBJECT_ALWEBMETRICS}"
 	
 
-#Trigger HQL for hive Error table(ERR_TF_dim_product) creation.
-hive -f s3://al-edh-dm/src/$1/main/hive/Create_${TABLE_ERR_TF_DIM_PRODUCT}.hql \
-	--hivevar TABLE_ERR_TF_DIM_PRODUCT="${TABLE_ERR_TF_DIM_PRODUCT}" \
+#Trigger HQL for hive Error table(err_tf_dim_product) creation.
+hive -f s3://al-edh-dm/src/$1/main/hive/create_err_tf_dim_product.hql \
 	--hivevar S3_LOCATION_OPERATIONS_DATA="${S3_LOCATION_OPERATIONS_DATA}" \
 	--hivevar SUBJECT_ALWEBMETRICS="${SUBJECT_ALWEBMETRICS}" \
 	--hivevar ALWEB_OPERATIONS_DB="${ALWEB_OPERATIONS_DB}" 
 
 
-#Trigger HQL for temporary dimention table(dim_product) creation, to be used in SDC.
-hive -f s3://al-edh-dm/src/$1/main/hive/Create_${TABLE_DIM_PRODUCT_TMP}.hql \
-	--hivevar TABLE_DIM_PRODUCT_TMP="${TABLE_DIM_PRODUCT_TMP}" \
+#Trigger HQL for temporary dimention table(dim_product_tmp) creation, to be used in SDC.
+hive -f s3://al-edh-dm/src/$1/main/hive/create_dim_product_tmp.hql \
 	--hivevar HDFS_LOCATION="${HDFS_LOCATION}" \
 	--hivevar SUBJECT_ALWEBMETRICS="${SUBJECT_ALWEBMETRICS}" \
 	--hivevar WORK_DB="${WORK_DB}" 
 
 	
 #Trigger HQL for dimention table(dim_product) creation.
-hive -f s3://al-edh-dm/src/$1/main/hive/Create_${TABLE_DIM_PRODUCT}.hql \
-	--hivevar TABLE_DIM_PRODUCT="${TABLE_DIM_PRODUCT}" \
+hive -f s3://al-edh-dm/src/$1/main/hive/create_dim_product.hql \
 	--hivevar S3_LOCATION_GOLD_DATA="${S3_LOCATION_GOLD_DATA}" \
 	--hivevar SUBJECT_ALWEBMETRICS="${SUBJECT_ALWEBMETRICS}" \
 	--hivevar ALWEB_GOLD_DB="${ALWEB_GOLD_DB}" 

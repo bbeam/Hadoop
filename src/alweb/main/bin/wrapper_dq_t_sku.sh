@@ -2,7 +2,7 @@
 #                               General Details                                #
 ################################################################################
 # Name        : AngiesList                                                     #
-# File        : Wrapper_DQ_t_Sku.sh                                            #
+# File        : wrapper_dq_t_sku.sh                                            #
 # Description : This script performs data quality and cleansing on the data,   #
 #				and finally creates a new table with the elements according to #
 #				the incoming schema							 				   #
@@ -46,26 +46,26 @@ then
 fi
 
 
-# Loaddate(Current Date-1) and current timestamp to be used in logs as well as pig, hive scripts.
-LOADDATE=`date --date='-'1' day' +"%Y-%m-%d"`
+# Business date(Current Date-1) and current timestamp to be used in logs as well as pig, hive scripts.
+BUSDATE=`date --date='-'1' day' +"%Y-%m-%d"`
 TIMESTAMP=`date +"%Y-%m-%d_%H:%M:%S"`
 
 #Hive Metastore refresh for manual partitioned tables.
-hive -e "msck repair table ${ALWEB_INCOMING_DB}.${TABLE_INC_T_SKU}"
-hive -e "msck repair table ${ALWEB_OPERATIONS_DB}.${TABLE_ERR_DQ_T_SKU}"
+hive -e "msck repair table ${ALWEB_INCOMING_DB}.inc_t_sku"
+hive -e "msck repair table ${ALWEB_OPERATIONS_DB}.err_dq_t_sku"
 
 	
 #Pig Script to be triggered for data checking and cleansing.
 pig \
-	-param LOADDATE=$LOADDATE \
+	-param BUSDATE=$BUSDATE \
 	-param TIMESTAMP=$TIMESTAMP \
 	-param_file /var/tmp/$1.properties \
 	-param_file /var/tmp/error.properties \
-	-file s3://al-edh-dm/src/$1/main/pig/${TABLE_DQ_T_SKU}.pig \
+	-file s3://al-edh-dm/src/$1/main/pig/dq_t_sku.pig \
 	-useHCatalog
 
 
 #Hive Metastore refresh for manual partitioned tables.
-hive -e "msck repair table ${ALWEB_OPERATIONS_DB}.${TABLE_ERR_DQ_T_SKU}"
+hive -e "msck repair table ${ALWEB_OPERATIONS_DB}.err_dq_t_sku"
 
 

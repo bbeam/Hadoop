@@ -2,7 +2,7 @@
 #                               General Details                                #
 ################################################################################
 # Name        : AngiesList                                                     #
-# File        : Wrapper_CDC_Load_dim_product                                   #
+# File        : wrapper_cdc_load_dim_product.sh                                #
 # Description : This script performs CDC, adds Surrogate Key and performs SDC. #
 # Author      : Varun Rauthan                                                  #
 ################################################################################
@@ -45,11 +45,11 @@ else
 fi
 
 # Copy the alweb.properties file from S3 to HDFS and load the properties.
-aws s3 cp s3://al-edh-dm/src/alweb/main/conf/CDC_${TABLE_DIM_PRODUCT}.properties /var/tmp/
+aws s3 cp s3://al-edh-dm/src/alweb/main/conf/cdc_dim_product.properties /var/tmp/
 
 if [ $? -ne 0 ]
 then
-	echo "Copy of CDC_${TABLE_DIM_PRODUCT}.properties file failed from S3."
+	echo "Copy of cdc_dim_product.properties file failed from S3."
 	exit 1
 fi
 
@@ -65,15 +65,13 @@ fi
 
 #Pig Script to be triggered for data checking and cleansing.
 pig \
-	-file s3://al-edh-dm/src/$1/main/pig/CDC_${TABLE_DIM_PRODUCT}.pig \
+	-file s3://al-edh-dm/src/$1/main/pig/cdc_dim_product.pig \
 	-useHCatalog
 
 
 #Load data into the dimention table using this HQL.
-hive -f s3://al-edh-dm/src/$1/main/hive/Load_${TABLE_DIM_PRODUCT}.hql \
-	--hivevar TABLE_DIM_PRODUCT="${TABLE_DIM_PRODUCT}" \
+hive -f s3://al-edh-dm/src/$1/main/hive/load_dim_product.hql \
 	--hivevar WORK_DB="${WORK_DB}" \
-	--hivevar TABLE_DIM_PRODUCT_TMP="${TABLE_DIM_PRODUCT_TMP}" \
 	--hivevar ALWEB_GOLD_DB="${ALWEB_GOLD_DB}" \
 	--hivevar SK_MAP="${SK_MAP}"
 

@@ -1,5 +1,5 @@
 /*
-PIG SCRIPT    : TF_dim_product.pig
+PIG SCRIPT    : tf_dim_product.pig
 AUTHOR        : Varun Rauthan
 DATE          : JUL 01, 2016
 DESCRIPTION   : Data Transformation and cleansing stage
@@ -7,11 +7,11 @@ DESCRIPTION   : Data Transformation and cleansing stage
 
 /* LOADING THE LOOKUP TABLES */
 table_dq_t_sku = 
-	LOAD '$WORK_DB.$TABLE_DQ_T_SKU' 
+	LOAD '$WORK_DB.dq_t_sku' 
 	USING org.apache.hive.hcatalog.pig.HCatLoader();
 
 table_dq_t_skuitem = 
-	LOAD '$WORK_DB.$TABLE_DQ_T_SKUITEM' 
+	LOAD '$WORK_DB.dq_t_skuitem' 
 	USING org.apache.hive.hcatalog.pig.HCatLoader();
 
 
@@ -102,17 +102,10 @@ gen_dim_product_good = FOREACH join_dq_t_sku_t_skuitem_memberprice_good
 
 /* STORING THE DATA IN HIVE PARTITIONED BASED ON THE STATUSCODE */
 STORE dq_t_sku_t_skuitem_bad 
-	INTO '$S3_LOCATION_OPERATIONS_DATA/$SUBJECT_ALWEBMETRICS/$TABLE_ERR_TF_DIM_PRODUCT/loaddate=$DATE'
+	INTO '$S3_LOCATION_OPERATIONS_DATA/$SUBJECT_ALWEBMETRICS/err_tf_dim_product/bus_date=$BUSDATE'
 	USING PigStorage('\u0001');
 	
 	
 STORE gen_dim_product_good 
-	INTO '$WORK_DB.$TABLE_TF_DIM_PRODUCT' 
+	INTO '$WORK_DB.tf_dim_product' 
 	USING org.apache.hive.hcatalog.pig.HCatStorer();
-
-
-
-						  
-/*leftouterjoin_dq_t_sku_t_skuitem = JOIN
-						  		   table_dq_t_sku BY skuid LEFT OUTER,
-						  		   table_dq_t_skuitem BY skuid;*/

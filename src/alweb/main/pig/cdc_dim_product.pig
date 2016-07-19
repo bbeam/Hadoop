@@ -1,5 +1,5 @@
 /*
-PIG SCRIPT    : CDC_dim_product.pig
+PIG SCRIPT    : cdc_dim_product.pig
 AUTHOR        : The pig script got generate from util_generate_pig_SCD2.sh 
 DATE          : JUL 04, 2016
 DESCRIPTION   : Performs CDC , appends surrogate key and performs SDC.
@@ -13,7 +13,7 @@ define MD5 datafu.pig.hash.MD5();
 
 /*-----Pull base and scd tables from into pig using HCatalog------*/
 
-load_source = LOAD  'work.TF_dim_product' USING org.apache.hive.hcatalog.pig.HCatLoader();
+load_source = LOAD  'work.tf_dim_product' USING org.apache.hive.hcatalog.pig.HCatLoader();
 
 load_master = LOAD  'alwebmetrics_Gold.dim_product' USING org.apache.hive.hcatalog.pig.HCatLoader();
 
