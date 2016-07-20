@@ -1,5 +1,5 @@
 /*
-PIG SCRIPT    : BR_dim_product.pig
+PIG SCRIPT    : br_dim_product.pig
 AUTHOR        : Ashoka Reddy
 DATE          : JUL 06, 2016
 DESCRIPTION   : Pig script for applying Bussiness rules to dimension product
@@ -7,7 +7,7 @@ DESCRIPTION   : Pig script for applying Bussiness rules to dimension product
 
 /* LOADING THE LOOKUP TABLES */
 table_tf_dim_product = 
-	LOAD '$WORK_DB.$TABLE_TF_DIM_PRODUCT' 
+	LOAD '$WORK_DB.tf_dim_product' 
 	USING org.apache.hive.hcatalog.pig.HCatLoader();
 
 	
@@ -20,9 +20,7 @@ table_br_dim_product = FOREACH table_tf_dim_product
 					   (isemailpromotable == 1 ? 'BigDeal':'Storefront') AS product_type:CHARARRAY, 
 					   product,
 					   unit_price,
-					   'AL4.0' AS source:CHARARRAY,
-					   (BOOLEAN)0 AS joins_flag:BOOLEAN,
-					   (BOOLEAN)0 AS renewals_flag:BOOLEAN;
+					   'AL4.0' AS source:CHARARRAY
 STORE table_br_dim_product 
-	INTO '$WORK_DB.$TABLE_BR_DIM_PRODUCT' 
+	INTO '$WORK_DB.br_dim_product' 
 	USING org.apache.hive.hcatalog.pig.HCatStorer();
