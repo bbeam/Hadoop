@@ -6,12 +6,12 @@
 --*/
 
 -- Create the database if it doesnot exists.
-CREATE DATABASE IF NOT EXISTS ${hivevar:WORK_DB};
+CREATE DATABASE IF NOT EXISTS ${hivevar:ALWEB_WORK_DB};
 
 --  Creating a DQ hive table(DQ_t_SkuItem) over the incoming data
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:WORK_DB}.dq_t_skuitem
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:ALWEB_WORK_DB}.dq_t_skuitem
 (
 	SkuId INT, 
-	MemberPrice DECIMAL(10,2), 
+	MemberPrice DECIMAL(10,2)
 )
-LOCATION '${hivevar:HDFS_LOCATION}/${hivevar:SOURCE_ALWEB}/${hivevar:WORK_DB}/dq_t_skuitem';
+LOCATION '${hivevar:HDFS_LOCATION}/${hivevar:SOURCE_ALWEB}/${hivevar:SOURCE_SCHEMA}/dq_t_skuitem';

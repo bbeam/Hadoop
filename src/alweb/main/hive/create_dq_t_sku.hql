@@ -6,13 +6,13 @@
 --*/
 
 -- Create the database if it doesnot exists.
-CREATE DATABASE IF NOT EXISTS ${hivevar:WORK_DB};
+CREATE DATABASE IF NOT EXISTS ${hivevar:ALWEB_WORK_DB};
 
 --  Creating a DQ hive table(DQ_t_Sku) over the incoming data
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:WORK_DB}.dq_t_sku
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:ALWEB_WORK_DB}.dq_t_sku
 (	
 	SkuId INT, 
 	Title STRING, 
-	IsEmailPromotable INT, 
+	IsEmailPromotable INT
 )
-LOCATION '${hivevar:HDFS_LOCATION}/${hivevar:SOURCE_ALWEB}/${hivevar:WORK_DB}/dq_t_sku';  
+LOCATION '${hivevar:HDFS_LOCATION}/${hivevar:SOURCE_ALWEB}/${hivevar:SOURCE_SCHEMA}/dq_t_sku';  
