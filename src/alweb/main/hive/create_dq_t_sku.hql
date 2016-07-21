@@ -15,4 +15,5 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:ALWEB_WORK_DB}.dq_t_sku
 	Title STRING, 
 	IsEmailPromotable INT
 )
+STORED AS ORC
 LOCATION '${hivevar:HDFS_LOCATION}/${hivevar:SOURCE_ALWEB}/${hivevar:SOURCE_SCHEMA}/dq_t_sku';  
