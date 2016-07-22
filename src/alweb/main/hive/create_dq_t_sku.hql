@@ -13,7 +13,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:ALWEB_WORK_DB}.dq_t_sku
 (	
 	SkuId INT, 
 	Title STRING, 
-	IsEmailPromotable INT
+	IsEmailPromotable TINYINT
 )
 STORED AS ORC
 LOCATION '${hivevar:HDFS_LOCATION}/${hivevar:SOURCE_ALWEB}/${hivevar:SOURCE_SCHEMA}/dq_t_sku';  
