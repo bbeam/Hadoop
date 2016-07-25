@@ -8,6 +8,6 @@ SET hive.exec.dynamic.partition.mode=non-strict;
 
 
 -- Insert into back up table from a final table .
-INSERT OVERWRITE TABLE ${hivevar:SHAREDDIM_OPERATIONS_DB}.bkp_dim_product
+INSERT OVERWRITE TABLE ${hivevar:SHAREDDIM_OPERATIONS_DB}.${hivevar:BKP_TABLE_NAME}
 PARTITION(bus_month)
-SELECT * FROM ${hivevar:SHAREDDIM_GOLD_DB}.dim_product;
+SELECT * FROM ${hivevar:SHAREDDIM_GOLD_DB}.${TARGET_DIM_TABLE};
