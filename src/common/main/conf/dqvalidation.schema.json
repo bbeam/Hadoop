@@ -1,0 +1,87 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "TableName": {
+      "type": "string"
+    },
+    "SourceDB": {
+      "type": "string"
+    },
+    "TargetDB": {
+      "type": "string"
+    },
+    "TableValidation": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Check": {
+            "type": "string"
+          },
+          "keyColumns": {
+            "type": "string"
+          },
+          "Action": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "Check"
+        ]
+      }
+    },
+    "Columns": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Name": {
+            "type": "string"
+          },
+          "Type": {
+            "type": "string"
+          },
+          "Format": {
+            "type": "string"
+          },
+          "Validations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "Check": {
+                  "type": "string"
+                },
+                "Action": {
+                  "type": "string"
+                },
+                "Default": {
+                  "type": "string"
+                },
+                "Values": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "Check"
+              ]
+            }
+          }
+        },
+        "required": [
+          "Name",
+          "Type",
+          "Validations"
+        ]
+      }
+    }
+  },
+  "required": [
+    "TableName",
+    "SourceDB",
+    "TargetDB",
+    "TableValidation",
+    "Columns"
+  ]
+}
