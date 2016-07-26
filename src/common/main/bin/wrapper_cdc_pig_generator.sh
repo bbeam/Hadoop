@@ -11,8 +11,8 @@
 #				The generated pig scipt and hive script should be run as a part#
 #               of one wrapper script.				                           #
 # Author      : Abhijeet Purwar                                                #
-# Usage       : ./wrapper_cdc_pig_generator datamart_name                      #
-#             : for example: ./wrapper_cdc_pig_generator shareddim             #
+# Usage       : ./wrapper_cdc_pig_generator.sh                                 #
+#             : for example: ./wrapper_cdc_pig_generator.sh                    #
 ################################################################################
 
 #!/bin/bash
@@ -25,16 +25,17 @@ if [ "$#" -ne 2 ]; then
 	echo "usage: .\wrapper_cdc_pig_generator GLOBAL_PROPERTY_FILE_PATH LOCAL_PROPERTY_FILE_PATH"
 fi
 
+#./wrapper_cdc_pig_generator.sh 
+
+#GLOBAL_PROPERTY_FILE_PATH=s3://al-edh-dev/src/common/main/conf/al-edh-global.properties
+#LOCAL_PROPERTY_FILE_PATH=s3://al-edh-dev/src/shareddim/main/conf/cdc_dim_product.properties
+ 
 # Assigning input arguments to proper variable names
 GLOBAL_PROPERTY_FILE_PATH=$1
 LOCAL_PROPERTY_FILE_PATH=$2
-GLOBAL_PROPERTY_FILE_NAME=`basename $GLOBAL_PROPERTY_FILE_PATH`
-LOCAL_PROPERTY_FILE_NAME=`basename $LOCAL_PROPERTY_FILE_PATH`
-JAR_FILE_NAME=`basename $CDC_PIG_GENERATOR_JAR_FILE_PATH`
-INPUT_JSON_FILE_NAME=`basename $INPUT_JSON_FILE_PATH`
-SCHEMA_FILE_NAME=`basename $VALIDATION_SCHEMA_FOR_INPUT_JSON`
-OUTPUT_PIG_FILE_NAME=`basename $OUTPUT_PIG_FILE_PATH`
-OUTPUT_HIVE_FILE_NAME=`basename $OUTPUT_HIVE_FILE_PATH`
+GLOBAL_PROPERTY_FILE_NAME=$(basename $GLOBAL_PROPERTY_FILE_PATH)
+LOCAL_PROPERTY_FILE_NAME=$(basename $LOCAL_PROPERTY_FILE_PATH)
+
 
 # Copy the global properties file (al-edh-global.properties) from S3 to HDFS and load the properties.
 aws s3 cp $GLOBAL_PROPERTY_FILE_PATH /var/tmp/
@@ -77,8 +78,14 @@ else
 	exit 1
 fi
 
+JAR_FILE_NAME=$(basename $CDC_PIG_GENERATOR_JAR_FILE_PATH)
+INPUT_JSON_FILE_NAME=$(basename $INPUT_JSON_FILE_PATH)
+SCHEMA_FILE_NAME=$(basename $VALIDATION_SCHEMA_FILE)
+OUTPUT_PIG_FILE_NAME=$(basename $OUTPUT_PIG_FILE_PATH)
+OUTPUT_HIVE_FILE_NAME=$(basename $OUTPUT_HIVE_FILE_PATH)
+
 # Copy JSON schema for input JSON validation
-aws s3 cp $VALIDATION_SCHEMA_FOR_INPUT_JSON /var/tmp/
+aws s3 cp $VALIDATION_SCHEMA_FILE /var/tmp/
 if [ $? -eq 0 ]
 then
 	echo "JSON schema file for validation copied succecfully"
@@ -97,6 +104,17 @@ else
 	exit 1
 fi
 
+# Copy CDC_PIG_GENERATOR_JAR file
+aws s3 cp $CDC_PIG_GENERATOR_JAR_FILE_PATH /var/tmp/
+if [ $? -eq 0 ]
+then
+	echo "$JAR_FILE_NAME file copied succecfully"
+else
+	echo " copy of $JAR_FILE_NAME file failed"
+	exit 1
+fi
+
+
 # Run java jar program for to generate pig and hql files for SCD
 java -jar $JAR_FILE_NAME $INPUT_JSON_FILE_NAME $SCHEMA_FILE_NAME
 
@@ -112,7 +130,7 @@ fi
 aws s3 cp $OUTPUT_PIG_FILE_NAME $OUTPUT_PIG_FILE_PATH
 if [ $? -eq 0 ]
 then
-  echo "pig file copied to s3"
+  echo "pig file copied to s3 successfully"
 else
   echo "copying pig file to s3 failed"
   exit 1
@@ -122,8 +140,8 @@ fi
 aws s3 cp $OUTPUT_HIVE_FILE_NAME $OUTPUT_HIVE_FILE_PATH
 if [ $? -eq 0 ]
 then
-  echo "pig file copied to s3"
+  echo "hive file copied to s3 successfully"
 else
-  echo "copying pig file to s3 failed"
+  echo "copying hive file to s3 failed"
   exit 1
 fi
