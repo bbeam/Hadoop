@@ -34,9 +34,10 @@ else
     	exit 1
 fi
 
+. /var/tmp/${global_file}
 if [ $? -eq 0 ]
 then
-        . /var/tmp/${global_file}
+        echo "Load of ${global_file} successful"
 else
 		echo "Load of ${global_file} failed"
 		exit 1
@@ -52,22 +53,26 @@ else
     	exit 1
 fi
 
+. /var/tmp/${local_file}
 if [ $? -eq 0 ]
 then
-        . /var/tmp/${local_file}
+        echo "Load of ${local_file} successful"
 else
 		echo "Load of ${local_file} failed"
 		exit 1
 fi
 
-echo "****************BUSINESS DATE*****************"
+echo "****************BUSINESS DATE/MONTH*****************"
 BUS_DATE=$3
 echo "Business Date : $BUS_DATE"
+BUS_MONTH=$(date -d "$BUS_DATE" '+%m')
+echo "Business Month :$BUS_MONTH"
 
 echo "*************SQOOP IMPORT JOB UTILITY*******************"
-echo -e "executing :\nsqoop import --connect $CONNECTION_URL --username $USERNAME --password $PASSWORD --table $TABLE_NAME --target-dir $S3_BUCKET/$DATA_DIRECTORY=$BUS_DATE -m $MAPPER --fields-terminated-by ',' --lines-terminated-by '\\\n'"
+echo -e "sqoop import --connect $CONNECTION_URL --username $USERNAME --password $PASSWORD  --target-dir $S3_BUCKET/$DATA_DIRECTORY=$BUS_DATE --options-file $OPTIONS_FILE_NAME"
+cat $OPTIONS_FILE_NAME 
 
-sqoop import --connect $CONNECTION_URL --username $USERNAME --password $PASSWORD  --target-dir $S3_BUCKET/$DATA_DIRECTORY=$BUS_DATE --options-file param_inc_t_sku.sqp
+sqoop import --connect $CONNECTION_URL --username $USERNAME --password $PASSWORD  --target-dir $S3_BUCKET/$DATA_DIRECTORY=$BUS_DATE --options-file $OPTIONS_FILE_NAME
 
 if [ $? -eq 0 ]
 then
@@ -81,8 +86,10 @@ fi
 hive -e "msck repair table $ALWEB_INCOMING_DB.$TABLE_NAME_INC"
 
 # Hive Metastore refresh status check
-if [ $? -ne 0 ]
+if [ $? -eq 0 ]
 then
+		echo "Hive Metastore refresh successful for incoming table."
+else
   		echo "Hive Metastore refresh failed for incoming table." >&2
   		exit 1
 fi
@@ -91,9 +98,11 @@ fi
 hive -e "msck repair table ${COMMON_OPERATIONS_DB}.${ERROR_TABLE_NAME}
 
 # Hive Metastore refresh status check
-if [ $? -ne 0 ]
+if [ $? -eq 0 ]
 then
-  		echo "Hive Metastore refreh failed." >&2
+		echo "Hive Metastore refresh successful for error table."
+else
+  		echo "Hive Metastore refresh failed for error table" >&2
   		exit 1
 fi
 
@@ -171,12 +180,12 @@ else
 		exit 1
 fi
 
-# Hive script to insert audit record
-hive -f $INCOMING_AUDIT_HQL_PATH 
-		-hivevar ENTITY_NAME=$SOURCE_ALWEB 
-		-hivevar INCOMING_DB=$ALWEB_INCOMING_DB 
-		-hivevar INCOMING_TABLE=$TABLE_NAME_INC 
-		-hivevar USER_NAME=$USER_NAME 
+# Hive script to insert extraction audit record
+hive -f $INCOMING_AUDIT_HQL_PATH \
+		-hivevar ENTITY_NAME=$SOURCE_ALWEB \ 
+		-hivevar INCOMING_DB=$ALWEB_INCOMING_DB \ 
+		-hivevar INCOMING_TABLE=$TABLE_NAME_INC \ 
+		-hivevar USER_NAME=$USER_NAME \ 
 		-hivevar BUS_DATE=$BUS_DATE
 		
 # Hive Status check
@@ -185,5 +194,23 @@ then
 		echo "$INCOMING_AUDIT_HQL_PATH executed without any error."
 else
 		echo "$INCOMING_AUDIT_HQL_PATH execution failed."
+		exit 1
+fi
+
+# Hive script to insert DQ audit record
+hive -f $DQ_AUDIT_HQL_PATH \
+		-hivevar ENTITY_NAME=$SOURCE_ALWEB \ 
+		-hivevar ALWEB_GOLD_DB=$ALWEB_GOLD_DB \ 
+		-hivevar DQ_TABLE=$TABLE_NAME_DQ \ 
+		-hivevar USER_NAME=$USER_NAME \ 
+		-hivevar BUS_MONTH=$BUS_MONTH \
+		-hivevar BUS_DATE=$BUS_DATE
+		
+# Hive Status check
+if [ $? -eq 0 ]
+then
+		echo "$DQ_AUDIT_HQL_PATH executed without any error."
+else
+		echo "$DQ_AUDIT_HQL_PATH execution failed."
 		exit 1
 fi
