@@ -62,6 +62,18 @@ else
 		exit 1
 fi
 
+# Copy the options file from S3
+OPTIONS_FILE_NAME=${basename $OPTIONS_FILE_PATH)
+aws s3 cp $OPTIONS_FILE_PATH /var/tmp/
+if [ $? -eq 0 ]
+then
+		echo "Copy of ${OPTIONS_FILE_NAME} successful"
+else
+   		echo "Copy of ${OPTIONS_FILE_NAME} failed from S3"
+    	exit 1
+fi
+
+
 echo "****************BUSINESS DATE/MONTH*****************"
 BUS_DATE=$3
 echo "Business Date : $BUS_DATE"
@@ -69,10 +81,10 @@ BUS_MONTH=$(date -d "$BUS_DATE" '+%m')
 echo "Business Month :$BUS_MONTH"
 
 echo "*************SQOOP IMPORT JOB UTILITY*******************"
-echo -e "sqoop import --connect $CONNECTION_URL --username $USERNAME --password $PASSWORD  --target-dir $S3_BUCKET/$DATA_DIRECTORY=$BUS_DATE --options-file $OPTIONS_FILE_NAME"
+echo -e "sqoop import --connect $CONNECTION_URL --username $USERNAME --password $PASSWORD  --target-dir $S3_BUCKET/$DATA_DIRECTORY=$BUS_DATE --options-file /var/tmp/$OPTIONS_FILE_NAME"
 cat $OPTIONS_FILE_NAME 
 
-sqoop import --connect $CONNECTION_URL --username $USERNAME --password $PASSWORD  --target-dir $S3_BUCKET/$DATA_DIRECTORY=$BUS_DATE --options-file $OPTIONS_FILE_NAME
+sqoop import --connect $CONNECTION_URL --username $USERNAME --password $PASSWORD  --target-dir $S3_BUCKET/$DATA_DIRECTORY=$BUS_DATE --options-file /var/tmp/$OPTIONS_FILE_NAME
 
 if [ $? -eq 0 ]
 then
@@ -112,6 +124,7 @@ INPUT_JSON_FILE_NAME=$(basename $INPUT_JSON_FILE_PATH)
 SCHEMA_FILE_NAME=$(basename $VALIDATION_SCHEMA_FOR_INPUT_JSON)
 OUTPUT_PIG_FILE_NAME=$(basename $OUTPUT_PIG_FILE_PATH)
 JAR_FILE_NAME=$(basename $DQ_GENERATOR_JAR_FILE_PATH)
+
 
 # JSON Schema copy to hdfs
 aws s3 cp $VALIDATION_SCHEMA_FOR_INPUT_JSON /var/tmp/
