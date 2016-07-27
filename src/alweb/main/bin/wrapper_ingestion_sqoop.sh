@@ -81,10 +81,11 @@ BUS_MONTH=$(date -d "$BUS_DATE" '+%m')
 echo "Business Month :$BUS_MONTH"
 
 echo "*************SQOOP IMPORT JOB UTILITY*******************"
-echo -e "sqoop import --connect $CONNECTION_URL --username $USERNAME --password $PASSWORD  --target-dir $S3_BUCKET/$DATA_DIRECTORY=$BUS_DATE --options-file /var/tmp/$OPTIONS_FILE_NAME"
-cat $OPTIONS_FILE_NAME 
+echo -e "Sqoop Command running is :\nsqoop import --connect $CONNECTION_URL --username $USERNAME --password $PASSWORD  --target-dir $S3_BUCKET/$DATA_DIRECTORY=$BUS_DATE --options-file /var/tmp/$OPTIONS_FILE_NAME"
+echo -e "Options file used is:\n"
+cat /var/tmp/$OPTIONS_FILE_NAME
 
-sqoop import --connect $CONNECTION_URL --username $USERNAME --password $PASSWORD  --target-dir $S3_BUCKET/$DATA_DIRECTORY=$BUS_DATE --options-file /var/tmp/$OPTIONS_FILE_NAME
+sqoop import --connect $CONNECTION_URL --username $USERNAME --password $PASSWORD --target-dir $S3_BUCKET/$DATA_DIRECTORY=$BUS_DATE --options-file /var/tmp/$OPTIONS_FILE_NAME
 
 if [ $? -eq 0 ]
 then
