@@ -65,7 +65,7 @@ fi
 echo "****************BUSINESS DATE/MONTH*****************"
 BUS_DATE=$3
 echo "Business Date : $BUS_DATE"
-BUS_MONTH=$(date -d "$BUS_DATE" '+%d')
+BUS_MONTH=$(date -d "$BUS_DATE" '+%m')
 echo "Business Month :$BUS_MONTH"
 
 echo "*************SQOOP IMPORT JOB UTILITY*******************"
