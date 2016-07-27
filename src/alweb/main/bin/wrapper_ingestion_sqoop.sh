@@ -62,9 +62,11 @@ else
 		exit 1
 fi
 
-echo "****************BUSINESS DATE*****************"
+echo "****************BUSINESS DATE/MONTH*****************"
 BUS_DATE=$3
 echo "Business Date : $BUS_DATE"
+BUS_MONTH=$(date -d "$BUS_DATE" '+%d')
+echo "Business Month :$BUS_MONTH"
 
 echo "*************SQOOP IMPORT JOB UTILITY*******************"
 echo -e "sqoop import --connect $CONNECTION_URL --username $USERNAME --password $PASSWORD  --target-dir $S3_BUCKET/$DATA_DIRECTORY=$BUS_DATE --options-file $OPTIONS_FILE_NAME"
@@ -199,7 +201,7 @@ fi
 hive -f $DQ_AUDIT_HQL_PATH \
 		-hivevar ENTITY_NAME=$SOURCE_ALWEB \ 
 		-hivevar ALWEB_GOLD_DB=$ALWEB_GOLD_DB \ 
-		-hivevar DQ_TABLE=$DQ_TABLE \ 
+		-hivevar DQ_TABLE=$TABLE_NAME_DQ \ 
 		-hivevar USER_NAME=$USER_NAME \ 
 		-hivevar BUS_MONTH=$BUS_MONTH \
 		-hivevar BUS_DATE=$BUS_DATE
