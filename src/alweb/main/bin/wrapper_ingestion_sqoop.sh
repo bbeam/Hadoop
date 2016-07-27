@@ -67,7 +67,7 @@ echo "Business Date : $BUS_DATE"
 echo "*************SQOOP IMPORT JOB UTILITY*******************"
 echo -e "executing :\nsqoop import --connect $CONNECTION_URL --username $USERNAME --password $PASSWORD --table $TABLE_NAME --target-dir $S3_BUCKET/$DATA_DIRECTORY=$BUS_DATE -m $MAPPER --fields-terminated-by ',' --lines-terminated-by '\\\n'"
 
-sqoop import --connect $CONNECTION_URL --username $USERNAME --password $PASSWORD  --target-dir $S3_BUCKET/$DATA_DIRECTORY=$BUS_DATE --optiona-file param_inc_t_sku.sqp
+sqoop import --connect $CONNECTION_URL --username $USERNAME --password $PASSWORD  --target-dir $S3_BUCKET/$DATA_DIRECTORY=$BUS_DATE --options-file param_inc_t_sku.sqp
 
 if [ $? -eq 0 ]
 then
@@ -174,3 +174,12 @@ hive -f $INCOMING_AUDIT_HQL_PATH
 		-hivevar INCOMING_TABLE=$TABLE_INC_T_SKU 
 		-hivevar USER_NAME=$USER_NAME 
 		-hivevar BUS_DATE=$BUS_DATE
+		
+# Hive Status check
+if [ $? -eq 0 ]
+then
+		echo "$INCOMING_AUDIT_HQL_PATH executed without any error."
+else
+		echo "$INCOMING_AUDIT_HQL_PATH execution failed."
+		exit 1
+fi
