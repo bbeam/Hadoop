@@ -73,18 +73,22 @@ if [ $? -eq 0 ]
 then
   		echo "Successfully Ingested the data into s3 directory $S3_BUCKET/$BUCKET_DIRECTORY=$BUS_DATE"
 else
-  		echo " Sqoop Ingestion Job is Failed" >&2
+  		echo "Sqoop Ingestion Job is Failed" >&2
   		exit 1
 fi
 
-# Hive Metastore refresh for manual partitioned tables.
-if [ $? -eq 0 ]
+# Hive Metastore refresh for incoming table as it is a manual partitioned table .
+hive -e "msck repair table $ALWEB_INCOMING_DB.$TABLE_NAME_INC"
+
+# Hive Metastore refresh status check
+if [ $? -ne 0 ]
 then
-  		hive -e "msck repair table alweb_incoming.inc_t_sku"
-else
-  		echo " Sqoop Ingestion Job is Failed" >&2
+  		echo "Hive Metastore refresh failed for incoming table." >&2
   		exit 1
 fi
+
+# Hive Metastore refresh for error table .
+hive -e "msck repair table ${COMMON_OPERATIONS_DB}.${ERROR_TABLE_NAME}
 
 # Hive Metastore refresh status check
 if [ $? -ne 0 ]
@@ -171,7 +175,7 @@ fi
 hive -f $INCOMING_AUDIT_HQL_PATH 
 		-hivevar ENTITY_NAME=$SOURCE_ALWEB 
 		-hivevar INCOMING_DB=$ALWEB_INCOMING_DB 
-		-hivevar INCOMING_TABLE=$TABLE_INC_T_SKU 
+		-hivevar INCOMING_TABLE=$TABLE_NAME_INC 
 		-hivevar USER_NAME=$USER_NAME 
 		-hivevar BUS_DATE=$BUS_DATE
 		
