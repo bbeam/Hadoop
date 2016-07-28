@@ -18,4 +18,4 @@ time_stamp STRING,
 user_name STRING) 
 PARTITIONED BY (bus_Month STRING)
 STORED AS ORC 
-LOCATION '${hivevar:S3_LOCATION_OPERATIONS_DATA}/common/edh_batch_audit';
+LOCATION '${hivevar:S3_BUCKET}/${hivevar:S3_LOCATION_OPERATIONS_DATA}/common/edh_batch_audit';
