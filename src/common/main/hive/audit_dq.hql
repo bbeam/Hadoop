@@ -28,16 +28,17 @@ SELECT       '${hivevar:BUS_DATE}' AS bus_date,
              '${hivevar:ENTITY_NAME}' AS entity,
              '${hivevar:ALWEB_GOLD_DB}.'${hivevar:DQ_TABLE}' AS table_name,
              'DataQuality' AS process,
-             'Bad Records' AS type ,
-             'Total Count' AS sub_type ,
+             error_type AS type ,
+             error_desc AS sub_type ,
              count(*) AS record_count,
              from_unixtime(unix_timestamp()) AS time_stamp,
              '${hivevar:USER_NAME}' AS user_name,
              '${hivevar:BUS_MONTH}' AS bus_month
  FROM common_operations.edh_batch_error 
  WHERE table_name='${hivevar:ALWEB_GOLD_DB}.${hivevar:DQ_TABLE}' 
-   AND bus_date = '${hivevar:BUS_DATE}'
-   HAVING count(*) > 0;
+       AND bus_date = '${hivevar:BUS_DATE}'
+ GROUP BY error_type, error_desc
+ HAVING count(*) > 0;
  
  
  
