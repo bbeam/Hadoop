@@ -1,7 +1,5 @@
 --table 
 t_PostalAddress
--m 
-4 
 --fields-terminated-by 
 ',' 
 --lines-terminated-by 
