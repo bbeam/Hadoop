@@ -1,6 +1,8 @@
 --table 
 t_Sku
 --fields-terminated-by 
-',' 
+'\001' 
 --lines-terminated-by 
 '\n'
+--optionally-enclosed-by 
+'\"'
