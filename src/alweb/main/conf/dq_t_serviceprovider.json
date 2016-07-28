@@ -1,0 +1,269 @@
+{  
+   "TableName":"inc_t_serviceprovider",
+   "SourceDB":"ALWEB_INCOMING_DB",
+   "TargetDB":"ALWEB_WORK_DB",
+   "TableValidation":[  
+            {  
+               "Check":"Duplicate",
+               "keyColumns":"ServiceProviderId",
+               "Action":"Reject"
+            }
+         ],
+   "Columns":[  
+      {  
+         "Name":"ServiceProviderId",
+         "Type":"BIGINT",
+          "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  {  
+         "Name":"ListingId",
+         "Type":"BIGINT",
+         "Validations":[  
+           {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+			{  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  {  
+         "Name":"AlId",
+		 "Type":"BIGINT",
+         "Validations":[  
+            
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  
+	  {  
+         "Name":"Name",
+		 "Type":"varchar(254)",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  
+	  {  
+         "Name":"Hours",
+		 "Type":"varchar(254)",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  
+	  {  
+         "Name":"JoinedDate",
+		 "Type":"TIMESTAMP",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  
+	  {  
+         "Name":"Description",
+		 "Type":"STRING",
+         "Validations":[  
+            
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  
+	  {  
+         "Name":"ServicesOffered",
+		 "Type":"STRING",
+         "Validations":[  
+            
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  {  
+         "Name":"ServiceProviderType",
+		 "Type":"varchar(254)",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  {  
+         "Name":"InBusinessSince",
+		 "Type":"INT",
+         "Validations":[  
+            
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  
+	  
+	  {  
+         "Name":"IsNational",
+		 "Type":"TINYINT",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  
+	  {  
+         "Name":"Status",
+		 "Type":"varchar(254)",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  
+	  {  
+         "Name":"Version",
+		 "Type":"BIGINT",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  
+	  {  
+         "Name":"CreateDate",
+		 "Type":"TIMESTAMP",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  
+	  {  
+         "Name":"CreateBy",
+		 "Type":"BIGINT",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  
+	  {  
+         "Name":"UpdateDate",
+		 "Type":"TIMESTAMP",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  {  
+         "Name":"UpdateBy",
+		 "Type":"BIGINT",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      }
+	  
+   ]
+}
