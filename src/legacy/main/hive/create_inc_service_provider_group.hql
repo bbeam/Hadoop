@@ -29,4 +29,4 @@ WITH SERDEPROPERTIES (
    "quoteChar"     = "\"",
    "escapeChar"    = "\\"
 )
-LOCATION '${hivevar:S3_BUCKET}/data/incoming/${hivevar:SOURCE_LEGACY}/angie/full/daily/service_provider_group';
+LOCATION '${hivevar:S3_BUCKET}/data/incoming/${hivevar:SOURCE_LEGACY}/angie/full/daily/inc_service_provider_group';
