@@ -1,5 +1,6 @@
 {  
-   "TableName":"inc_t_Sku",
+   "InputTableName":"inc_t_Sku",
+   "OutputTableName":"dq_t_Sku",
    "SourceDB":"ALWEB_INCOMING_DB",
    "TargetDB":"ALWEB_GOLD_DB",
    "TableValidation":[  
