@@ -63,7 +63,7 @@ else
 fi
 
 # Copy the options file from S3
-OPTIONS_FILE_NAME=${basename $OPTIONS_FILE_PATH)
+OPTIONS_FILE_NAME=$(basename $OPTIONS_FILE_PATH)
 aws s3 cp $OPTIONS_FILE_PATH /var/tmp/
 if [ $? -eq 0 ]
 then
@@ -83,22 +83,22 @@ echo "Business Month :$BUS_MONTH"
 echo "*************SQOOP IMPORT JOB UTILITY*******************"
 # replace the extract_date with the bus_date generated in this shell in case of incremental load in the options file.
 sed -ie "s/EXTRACT_DATE/$BUS_DATE/g" /var/tmp/$OPTIONS_FILE_NAME 
-echo -e "Sqoop Command running is :\nsqoop import --connect $CONNECTION_URL --username $USERNAME --password $PASSWORD  --target-dir $S3_BUCKET/$DATA_DIRECTORY=$BUS_DATE --options-file /var/tmp/$OPTIONS_FILE_NAME"
+echo -e "Sqoop Command running is :\nsqoop import $CONNECTION_URL --target-dir $S3_BUCKET/$DATA_DIRECTORY=$BUS_DATE --options-file /var/tmp/$OPTIONS_FILE_NAME"
 echo -e "Options file used is:\n"
 cat /var/tmp/$OPTIONS_FILE_NAME
 
-sqoop import --connect $CONNECTION_URL --username $USERNAME --password $PASSWORD --target-dir $S3_BUCKET/$DATA_DIRECTORY=$BUS_DATE --options-file /var/tmp/$OPTIONS_FILE_NAME
+sqoop import $CONNECTION_URL --target-dir $S3_BUCKET/$DATA_DIRECTORY=$BUS_DATE --options-file /var/tmp/$OPTIONS_FILE_NAME
 
 if [ $? -eq 0 ]
 then
-  		echo "Successfully Ingested the data into s3 directory $S3_BUCKET/$BUCKET_DIRECTORY=$BUS_DATE"
+  		echo "Successfully Ingested the data into s3 directory $S3_BUCKET/$DATA_DIRECTORY=$BUS_DATE"
 else
   		echo "Sqoop Ingestion Job is Failed" >&2
   		exit 1
 fi
 
 # Hive Metastore refresh for incoming table as it is a manual partitioned table .
-hive -e "msck repair table $ALWEB_INCOMING_DB.$TABLE_NAME_INC"
+hive -e "msck repair table $INCOMING_DB.$TABLE_NAME_INC"
 
 # Hive Metastore refresh status check
 if [ $? -eq 0 ]
@@ -200,7 +200,7 @@ fi
 # Hive script to insert extraction audit record
 hive -f $INCOMING_AUDIT_HQL_PATH \
 		-hivevar ENTITY_NAME=$SOURCE_ALWEB \ 
-		-hivevar INCOMING_DB=$ALWEB_INCOMING_DB \ 
+		-hivevar INCOMING_DB=$INCOMING_DB \ 
 		-hivevar INCOMING_TABLE=$TABLE_NAME_INC \ 
 		-hivevar USER_NAME=$USER_NAME \ 
 		-hivevar BUS_DATE=$BUS_DATE
