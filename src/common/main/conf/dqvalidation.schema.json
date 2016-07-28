@@ -2,7 +2,10 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
   "properties": {
-    "TableName": {
+    "InputTableName": {
+      "type": "string"
+    },
+    "OutputTableName": {
       "type": "string"
     },
     "SourceDB": {
@@ -78,7 +81,8 @@
     }
   },
   "required": [
-    "TableName",
+    "InputTableName",
+    "OutputTableName",
     "SourceDB",
     "TargetDB",
     "TableValidation",

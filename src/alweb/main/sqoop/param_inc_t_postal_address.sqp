@@ -1,5 +1,5 @@
 --table 
-t_Sku
+t_PostalAddress
 --fields-terminated-by 
 ',' 
 --lines-terminated-by 
