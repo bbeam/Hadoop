@@ -81,6 +81,8 @@ BUS_MONTH=$(date -d "$BUS_DATE" '+%m')
 echo "Business Month :$BUS_MONTH"
 
 echo "*************SQOOP IMPORT JOB UTILITY*******************"
+# replace the extract_date with the bus_date generated in this shell in case of incremental load in the options file.
+sed -ie "s/EXTRACT_DATE/$BUS_DATE/g" /var/tmp/$OPTIONS_FILE_NAME 
 echo -e "Sqoop Command running is :\nsqoop import --connect $CONNECTION_URL --username $USERNAME --password $PASSWORD  --target-dir $S3_BUCKET/$DATA_DIRECTORY=$BUS_DATE --options-file /var/tmp/$OPTIONS_FILE_NAME"
 echo -e "Options file used is:\n"
 cat /var/tmp/$OPTIONS_FILE_NAME
@@ -107,28 +109,17 @@ else
   		exit 1
 fi
 
-# Hive Metastore refresh for error table .
-hive -e "msck repair table ${COMMON_OPERATIONS_DB}.${ERROR_TABLE_NAME}
-
-# Hive Metastore refresh status check
-if [ $? -eq 0 ]
-then
-		echo "Hive Metastore refresh successful for error table."
-else
-  		echo "Hive Metastore refresh failed for error table" >&2
-  		exit 1
-fi
 
 echo "*****************DQ PROCESS STARTS*******************"
 JAR_FILE_NAME=$(basename $DQ_GENERATOR_JAR_FILE_PATH)
 INPUT_JSON_FILE_NAME=$(basename $INPUT_JSON_FILE_PATH)
-SCHEMA_FILE_NAME=$(basename $VALIDATION_SCHEMA_FOR_INPUT_JSON)
+SCHEMA_FILE_NAME=$(basename $VALIDATION_SCHEMA_FOR_DQ_JSON)
 OUTPUT_PIG_FILE_NAME=$(basename $OUTPUT_PIG_FILE_PATH)
 JAR_FILE_NAME=$(basename $DQ_GENERATOR_JAR_FILE_PATH)
 
 
 # JSON Schema copy to hdfs
-aws s3 cp $VALIDATION_SCHEMA_FOR_INPUT_JSON /var/tmp/
+aws s3 cp $VALIDATION_SCHEMA_FOR_DQ_JSON /var/tmp/
 if [ $? -eq 0 ]
 then
 		echo "JSON schema file $SCHEMA_FILE_NAME for validation copied successfully"
@@ -192,6 +183,18 @@ then
 else
 		echo "$OUTPUT_PIG_FILE_NAME execution failed."
 		exit 1
+fi
+
+# Hive Metastore refresh for error table .
+hive -e "msck repair table ${COMMON_OPERATIONS_DB}.${ERROR_TABLE_NAME}
+
+# Hive Metastore refresh status check
+if [ $? -eq 0 ]
+then
+		echo "Hive Metastore refresh successful for error table."
+else
+  		echo "Hive Metastore refresh failed for error table" >&2
+  		exit 1
 fi
 
 # Hive script to insert extraction audit record
