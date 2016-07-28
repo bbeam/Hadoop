@@ -1,0 +1,20 @@
+{
+     "sourceDbName":"SHAREDDIM_WORK_DB",
+	 "sourceTableName":"tf_dim_product",
+	 "targetDbName":"SHAREDDIM_GOLD_DB",
+	 "targetTableName":"dim_product",
+	 "surrogateKey":"product_key",
+     "columns":[
+       {"name":"source_aK","isKeyColumn":"true","isNonKeyColumn":"false","isDateColumn":"false"},
+	   {"name":"source_aK2","isKeyColumn":"true","isNonKeyColumn":"false","isDateColumn":"true"},
+	   {"name":"source_table","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"},
+	   {"name":"source_column","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"},
+	   {"name":"create_ts","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"true"},
+	   {"name":"ts1","isKeyColumn":"true","isNonKeyColumn":"false","isDateColumn":"true"},
+	   {"name":"update_ts","isKeyColumn":"false","isNonKeyColumn":"false","isDateColumn":"false"},
+	   {"name":"update_ts1","isKeyColumn":"false","isNonKeyColumn":"false","isDateColumn":"false"}
+     ], 
+	 "workDbName":"SHAREDDIM_WORK_DB",
+	 "workTableName":"dim_product"
+}
+

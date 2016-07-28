@@ -1,0 +1,6 @@
+--table 
+t_Sku
+--fields-terminated-by 
+',' 
+--lines-terminated-by 
+'\n'

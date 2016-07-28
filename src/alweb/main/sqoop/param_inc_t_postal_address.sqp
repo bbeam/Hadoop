@@ -1,0 +1,6 @@
+--table 
+t_PostalAddress
+--fields-terminated-by 
+',' 
+--lines-terminated-by 
+'\n'
