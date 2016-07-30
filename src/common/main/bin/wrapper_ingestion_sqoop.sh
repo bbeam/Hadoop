@@ -83,10 +83,10 @@ echo "Business Month :$BUS_MONTH"
 echo "*************SQOOP IMPORT JOB UTILITY*******************"
 # replace the extract_date with the bus_date generated in this shell in case of incremental load in the options file.
 sed -ie "s/EXTRACT_DATE/$BUS_DATE/g" /var/tmp/$OPTIONS_FILE_NAME 
-echo -e "Sqoop Command running is :\nsqoop import $CONNECTION_URL --target-dir $S3_BUCKET/$DATA_DIRECTORY=$BUS_DATE --options-file /var/tmp/$OPTIONS_FILE_NAME"
+echo -e "Sqoop Command running is :\nsqoop import <DB CONNECTION_URL> --target-dir $S3_BUCKET/$DATA_DIRECTORY=$BUS_DATE --options-file /var/tmp/$OPTIONS_FILE_NAME"
 echo -e "Options file used is:\n"
 cat /var/tmp/$OPTIONS_FILE_NAME
-
+echo -e "\n"
 sqoop import $CONNECTION_URL --target-dir $S3_BUCKET/$DATA_DIRECTORY=$BUS_DATE --options-file /var/tmp/$OPTIONS_FILE_NAME
 
 if [ $? -eq 0 ]
@@ -186,7 +186,7 @@ else
 fi
 
 # Hive Metastore refresh for error table .
-hive -e "msck repair table ${COMMON_OPERATIONS_DB}.${ERROR_TABLE_NAME}
+hive -e "msck repair table ${COMMON_OPERATIONS_DB}.${ERROR_TABLE_NAME}"
 
 # Hive Metastore refresh status check
 if [ $? -eq 0 ]
@@ -199,11 +199,11 @@ fi
 
 # Hive script to insert extraction audit record
 hive -f $INCOMING_AUDIT_HQL_PATH \
-		-hivevar ENTITY_NAME=$SOURCE_ALWEB \ 
-		-hivevar INCOMING_DB=$INCOMING_DB \ 
-		-hivevar INCOMING_TABLE=$TABLE_NAME_INC \ 
-		-hivevar USER_NAME=$USER_NAME \ 
-		-hivevar BUS_DATE=$BUS_DATE
+	-hivevar ENTITY_NAME=$SOURCE_ALWEB \
+	-hivevar INCOMING_DB=$INCOMING_DB \
+	-hivevar INCOMING_TABLE=$TABLE_NAME_INC \
+	-hivevar USER_NAME=$USER_NAME \
+	-hivevar BUS_DATE=$BUS_DATE
 		
 # Hive Status check
 if [ $? -eq 0 ]
@@ -216,12 +216,12 @@ fi
 
 # Hive script to insert DQ audit record
 hive -f $DQ_AUDIT_HQL_PATH \
-		-hivevar ENTITY_NAME=$SOURCE_ALWEB \ 
-		-hivevar ALWEB_GOLD_DB=$ALWEB_GOLD_DB \ 
-		-hivevar DQ_TABLE=$TABLE_NAME_DQ \ 
-		-hivevar USER_NAME=$USER_NAME \ 
-		-hivevar BUS_MONTH=$BUS_MONTH \
-		-hivevar BUS_DATE=$BUS_DATE
+	-hivevar ENTITY_NAME=$SOURCE_ALWEB \
+	-hivevar GOLD_DB=$GOLD_DB \
+	-hivevar DQ_TABLE=$TABLE_NAME_DQ \
+	-hivevar USER_NAME=$USER_NAME \
+	-hivevar BUS_MONTH=$BUS_MONTH \
+	-hivevar BUS_DATE=$BUS_DATE
 		
 # Hive Status check
 if [ $? -eq 0 ]
