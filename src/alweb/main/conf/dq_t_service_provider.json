@@ -1,17 +1,18 @@
 {  
-   "TableName":"inc_t_serviceprovider",
+   "InputTableName":"inc_t_service_provider",
+   "OutputTableName":"dq_t_service_provider",
    "SourceDB":"ALWEB_INCOMING_DB",
-   "TargetDB":"ALWEB_WORK_DB",
+   "TargetDB":"ALWEB_GOLD_DB",
    "TableValidation":[  
             {  
                "Check":"Duplicate",
-               "keyColumns":"ServiceProviderId",
+               "keyColumns":"service_provider_id",
                "Action":"Reject"
             }
          ],
    "Columns":[  
       {  
-         "Name":"ServiceProviderId",
+         "Name":"service_provider_id",
          "Type":"BIGINT",
           "Validations":[  
             {  
@@ -25,7 +26,7 @@
          ]
       },
 	  {  
-         "Name":"ListingId",
+         "Name":"listing_id",
          "Type":"BIGINT",
          "Validations":[  
            {  
@@ -40,7 +41,7 @@
          ]
       },
 	  {  
-         "Name":"AlId",
+         "Name":"al_id",
 		 "Type":"BIGINT",
          "Validations":[  
             
@@ -53,7 +54,7 @@
       },
 	  
 	  {  
-         "Name":"Name",
+         "Name":"name",
 		 "Type":"varchar(254)",
          "Validations":[  
             {  
@@ -69,7 +70,7 @@
       },
 	  
 	  {  
-         "Name":"Hours",
+         "Name":"hours",
 		 "Type":"varchar(254)",
          "Validations":[  
             {  
@@ -85,8 +86,9 @@
       },
 	  
 	  {  
-         "Name":"JoinedDate",
+         "Name":"joined_date",
 		 "Type":"TIMESTAMP",
+		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
          "Validations":[  
             {  
                "Check":"Null",
@@ -101,7 +103,7 @@
       },
 	  
 	  {  
-         "Name":"Description",
+         "Name":"description",
 		 "Type":"STRING",
          "Validations":[  
             
@@ -114,7 +116,7 @@
       },
 	  
 	  {  
-         "Name":"ServicesOffered",
+         "Name":"services_offered",
 		 "Type":"STRING",
          "Validations":[  
             
@@ -126,7 +128,7 @@
          ]
       },
 	  {  
-         "Name":"ServiceProviderType",
+         "Name":"service_provider_type",
 		 "Type":"varchar(254)",
          "Validations":[  
             {  
@@ -141,7 +143,7 @@
          ]
       },
 	  {  
-         "Name":"InBusinessSince",
+         "Name":"in_business_since",
 		 "Type":"INT",
          "Validations":[  
             
@@ -155,7 +157,7 @@
 	  
 	  
 	  {  
-         "Name":"IsNational",
+         "Name":"is_national",
 		 "Type":"TINYINT",
          "Validations":[  
             {  
@@ -171,7 +173,7 @@
       },
 	  
 	  {  
-         "Name":"Status",
+         "Name":"status",
 		 "Type":"varchar(254)",
          "Validations":[  
             {  
@@ -187,7 +189,7 @@
       },
 	  
 	  {  
-         "Name":"Version",
+         "Name":"version",
 		 "Type":"BIGINT",
          "Validations":[  
             {  
@@ -203,8 +205,9 @@
       },
 	  
 	  {  
-         "Name":"CreateDate",
+         "Name":"create_date",
 		 "Type":"TIMESTAMP",
+		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
          "Validations":[  
             {  
                "Check":"Null",
@@ -219,7 +222,7 @@
       },
 	  
 	  {  
-         "Name":"CreateBy",
+         "Name":"create_by",
 		 "Type":"BIGINT",
          "Validations":[  
             {  
@@ -235,8 +238,9 @@
       },
 	  
 	  {  
-         "Name":"UpdateDate",
+         "Name":"update_date",
 		 "Type":"TIMESTAMP",
+		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
          "Validations":[  
             {  
                "Check":"Null",
@@ -250,7 +254,7 @@
          ]
       },
 	  {  
-         "Name":"UpdateBy",
+         "Name":"update_by",
 		 "Type":"BIGINT",
          "Validations":[  
             {  
