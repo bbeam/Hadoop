@@ -26,7 +26,7 @@ INSERT INTO TABLE common_operations.edh_batch_audit
 PARTITION(bus_month)
 SELECT       '${hivevar:BUS_DATE}' AS bus_date,
              '${hivevar:ENTITY_NAME}' AS entity,
-             '${hivevar:GOLD_DB}.'${hivevar:DQ_TABLE}' AS table_name,
+             '${hivevar:GOLD_DB}'.'${hivevar:DQ_TABLE}' AS table_name,
              'DataQuality' AS process,
              error_type AS type ,
              error_desc AS sub_type ,
