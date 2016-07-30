@@ -1,8 +1,14 @@
 --table 
 ServiceProviderGroup
+--hive-drop-import-delims
 --fields-terminated-by 
 '\001' 
 --lines-terminated-by 
 '\n'
 --optionally-enclosed-by 
 '\"'
+--null-string 
+'' 
+--null-non-string 
+'' 
+--delete-target-dir
