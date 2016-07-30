@@ -23,5 +23,4 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_service_provide
 	service_provider_group_type_id INT,
 	load_timestamp	TIMESTAMP
 )
-STORED AS ORC
 LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_LEGACY}/angie/full/daily/dq_service_provider_group';
