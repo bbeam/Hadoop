@@ -15,15 +15,15 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:ALWEB_INCOMING_DB}.inc_t_postal_ad
 	postal_address_id INT,
 	address_type VARCHAR(254),
 	address_first_line VARCHAR(254),
-	address_second_line VARCHAR(254),0
+	address_second_line VARCHAR(254),
 	city_id INT,
 	region_id INT,
 	country_id INT,
 	postal_code VARCHAR(50),
-	year_built INT(4),0
-	longitude DOUBLE,0
-	latitude DOUBLE,0
-	advertising_zone INT,0
+	year_built INT(4),
+	longitude DOUBLE,
+	latitude DOUBLE,
+	advertising_zone INT,
 	validation_status STRING,
 	create_date TIMESTAMP,
 	create_by INT,
