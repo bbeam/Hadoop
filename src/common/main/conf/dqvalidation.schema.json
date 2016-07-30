@@ -14,6 +14,9 @@
     "TargetDB": {
       "type": "string"
     },
+    "DQHiveTableLocation": {
+      "type": "string"
+    },
     "TableValidation": {
       "type": "array",
       "items": {
@@ -85,6 +88,7 @@
     "OutputTableName",
     "SourceDB",
     "TargetDB",
+    "DQHiveTableLocation",
     "TableValidation",
     "Columns"
   ]
