@@ -55,7 +55,8 @@
       },
       {  
          "Name":"service_provider_group_photo_id",
-         "Type":"STRING"
+         "Type":"STRING",
+         "Validations":[]
        },
       {  
          "Name":"service_provider_group_type_id",
