@@ -10,4 +10,5 @@ ServiceProviderGroup
 --null-string 
 '' 
 --null-non-string 
-''
+'' 
+--delete-target-dir
