@@ -1,0 +1,9 @@
+--table 
+t_ServiceProvider
+--hive-drop-import-delims
+--fields-terminated-by 
+'\001' 
+--lines-terminated-by 
+'\n'
+--optionally-enclosed-by 
+'\"'
