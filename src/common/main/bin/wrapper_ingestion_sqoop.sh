@@ -81,6 +81,9 @@ BUS_MONTH=$(date -d "$BUS_DATE" '+%m')
 echo "Business Month :$BUS_MONTH"
 
 echo "*************SQOOP IMPORT JOB UTILITY*******************"
+# deleting the sqoop target location, if it already exists.
+echo "executing : aws s3 rm $S3_BUCKET/$DATA_DIRECTORY=$BUS_DATE --recursive"
+aws s3 rm $S3_BUCKET/$DATA_DIRECTORY=$BUS_DATE --recursive
 # replace the extract_date with the bus_date generated in this shell in case of incremental load in the options file.
 sed -ie "s/EXTRACT_DATE/$BUS_DATE/g" /var/tmp/$OPTIONS_FILE_NAME 
 echo -e "Sqoop Command running is :\nsqoop import <DB CONNECTION_URL> --target-dir $S3_BUCKET/$DATA_DIRECTORY=$BUS_DATE --options-file /var/tmp/$OPTIONS_FILE_NAME"
