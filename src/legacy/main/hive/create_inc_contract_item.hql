@@ -1,0 +1,62 @@
+--/*
+--  HIVE SCRIPT  : create_inc_contract_item.hql
+--  AUTHOR       : Abhijeet Purwar
+--  DATE         : Jun 27, 2016
+--  DESCRIPTION  : Creation of hive incoming table(inc_contract_item). 
+--  Execute command:
+--
+--
+-- hive -f $S3_BUCKET/src/$SOURCE_LEGACY/main/hive/create_inc_contract_item.hql \
+-- -hivevar LEGACY_INCOMING_DB=$LEGACY_INCOMING_DB \ 
+-- -hivevar S3_BUCKET=$S3_BUCKET \ 
+-- -hivevar SOURCE_LEGACY=$SOURCE_LEGACY
+--*/
+
+
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_INCOMING_DB}.inc_contract_item
+(
+  contract_item_id STRING,
+  ad_element_id STRING,
+  contract_id STRING,
+  use_seasonal_schedule STRING,
+  is_national STRING,
+  contract_item_status_id STRING,
+  market_id STRING,
+  country_code_id STRING,
+  currency_code_id STRING,
+  contract_item_pulled_reason_id STRING,
+  category_id STRING,
+  start_date STRING,
+  end_date STRING,
+  classified_ad_text STRING,
+  coupon_text STRING,
+  ad_note STRING,
+  paid_months STRING,
+  premium STRING,
+  list_price STRING,
+  pre_discounted_total STRING,
+  total STRING,
+  monthly_price STRING,
+  color STRING,
+  product_description STRING,
+  product_type_other STRING,
+  billing_lead_time STRING,
+  employee_id STRING,
+  modified_by_employee_id STRING,
+  create_date STRING,
+  create_by STRING,
+  modified_date STRING,
+  targeted_end_date STRING,
+  targeted_end_date_changed_date STRING,
+  targeted_end_date_changed_by_employee_id STRING,
+  revenue_change_reason_id STRING,
+  eligibility_date STRING
+)
+PARTITIONED BY (edh_bus_date STRING)
+ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
+WITH SERDEPROPERTIES (
+   "separatorChar" = "\u0001",
+   "quoteChar"     = "\"",
+   "escapeChar"    = "\\"
+)
+LOCATION '${hivevar:S3_BUCKET}/${hivevar:S3_LOCATION_INCOMING_DATA}/${hivevar:SOURCE_LEGACY}/angie/full/daily/inc_contract_item';
