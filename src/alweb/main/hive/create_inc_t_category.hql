@@ -1,22 +1,30 @@
 --/*
 --  HIVE SCRIPT  : create_inc_t_category.hql
---  AUTHOR       : Ashoka Reddy
---  DATE         : Jun 23, 2016
---  DESCRIPTION  : Creation of hive incoming table(inc_t_Category). 
+--  AUTHOR       : Gaurav Maheshwari
+--  DATE         : Aug 08, 2016
+--  DESCRIPTION  : Creation of hive incoming table(inc_t_category). 
+--  USAGE 		 : hive -f s3://al-edh-dev/src/alweb/main/hive/create_inc_t_category.hql \
+--					--hivevar ALWEB_INCOMING_DB="${ALWEB_INCOMING_DB}" \
+--					--hivevar S3_BUCKET="${S3_BUCKET}" \
+--					--hivevar SOURCE_ALWEB="${SOURCE_ALWEB}"
 --*/
 
--- Create the database if it doesnot exists.
-CREATE DATABASE IF NOT EXISTS ${hivevar:ALWEB_INCOMING_DB};
-
---  Creating a incoming hive table(INC_t_Category) over the incoming data
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:ALWEB_INCOMING_DB}.inc_t_Category
-(	CategoryId STRING,
-	Name STRING,
-	Status STRING,
-	CreateDate STRING,
-	CreateBy STRING,
-	UpdateDate STRING,
-	UpdateBy STRING
-)PARTITION (edh_bus_date STRING)
+--  Creating a incoming hive table(inc_t_category) over the incoming data
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:ALWEB_INCOMING_DB}.inc_t_category
+(
+	category_id INT,
+	name VARCHAR(254),
+	status VARCHAR(254),
+	create_date STRING,
+	create_by STRING,
+	update_date STRING,
+	update_by STRING
+)
+PARTITIONED BY (edh_bus_date STRING)
 ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde' 
-LOCATION '{hivevar:S3_LOCATION_INCOMING_DATA}/${hivevar:SOURCE_ALWEB}/${hivevar:ALWEB_INCOMING_DB}/${hivevar:EXTRACTIONTYPE_FULL}/${hivevar:FREQUENCY_DAILY}/inc_t_Category';
+WITH SERDEPROPERTIES (
+   "separatorChar" = "\u0001",
+   "quoteChar"     = "\"",
+   "escapeChar"    = "\\"
+)
+LOCATION '${hivevar:S3_BUCKET}/data/incoming/${hivevar:SOURCE_ALWEB}/angieslist/full/daily/inc_t_category';
