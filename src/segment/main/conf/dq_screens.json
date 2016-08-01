@@ -1,9 +1,9 @@
 {
-   "TableName":"inc_screens",
+   "InputTableName":"inc_screens",
    "OutputTableName":"dq_screens",   
    "SourceDB":"SEGMENT_INCOMING_DB",
    "TargetDB":"SEGMENT_GOLD_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_SEGMENT/greenpoint_android_prod/incremental/daily/dq_screens/bus_date=$BUSDATE",         
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_SEGMENT/greenpoint_android_prod/incremental/daily/dq_screens/edh_bus_date=$EDHBUSDATE",         
    "TableValidation":[  
             {  
                "Check":"Duplicate",
@@ -244,7 +244,7 @@
 
       {
          "Name":"context_network_bluetooth",
-         "Type":"CHAR(5)",
+         "Type":"BOOLEAN",
          "Validations":[
             {
                "Check":"DataType",
@@ -270,7 +270,7 @@
 
       {
          "Name":"context_network_cellular",
-         "Type":"CHAR(5)",
+         "Type":"BOOLEAN",
          "Validations":[
             {
                "Check":"DataType",
@@ -284,10 +284,9 @@
 
          ]
       },
-
       {
          "Name":"context_network_wifi",
-         "Type":"CHAr(5)",
+         "Type":"BOOLEAN",
          "Validations":[
             {
                "Check":"DataType",
