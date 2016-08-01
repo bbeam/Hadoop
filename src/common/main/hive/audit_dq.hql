@@ -17,7 +17,7 @@ SELECT       '${hivevar:EDH_BUS_DATE}' AS edh_bus_date,
              'Good Records' AS type ,
              'Total Count' AS sub_type ,
              count(*) AS record_count,
-             CURRENT_TIMESTAMP AS time_stamp,
+             from_unixtime(unix_timestamp()) AS time_stamp,
              '${hivevar:USER_NAME}' AS user_name,
              '${hivevar:EDH_BUS_MONTH}' AS edh_bus_month
  FROM ${GOLD_DB}.${hivevar:DQ_TABLE};
@@ -31,13 +31,13 @@ SELECT       '${hivevar:EDH_BUS_DATE}' AS edh_bus_date,
              error_type AS type ,
              error_desc AS sub_type ,
              count(*) AS record_count,
-             CURRENT_TIMESTAMP AS time_stamp,
+             from_unixtime(unix_timestamp()) AS time_stamp,
              '${hivevar:USER_NAME}' AS user_name,
              '${hivevar:EDH_BUS_MONTH}' AS edh_bus_month
  FROM common_operations.edh_batch_error 
  WHERE table_name='${hivevar:INCOMING_DB}.${hivevar:INCOMING_TABLE}' 
        AND edh_bus_date = '${hivevar:EDH_BUS_DATE}'
- GROUP BY error_type, error_desc
+ GROUP BY error_type, error_desc,entity,table_name
  HAVING count(*) > 0;
  
  
