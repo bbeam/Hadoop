@@ -17,6 +17,6 @@ product_type STRING,
 product STRING,
 unit_price DECIMAL(10,2),
 source STRING
-)PARTITIONED BY (bus_month STRING)
+)PARTITIONED BY (edh_bus_month STRING)
 STORED AS ORC
 LOCATION '${hivevar:S3_LOCATION_OPERATIONS_DATA}/${hivevar:SUBJECT_SHAREDDIM}/bkp_dim_product';
