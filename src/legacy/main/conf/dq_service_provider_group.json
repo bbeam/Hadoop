@@ -7,7 +7,7 @@
    "TableValidation":[  
             {  
                "Check":"Duplicate",
-               "keyColumns":"service_provider_group",
+               "keyColumns":"service_provider_group_id",
                "Action":"Reject"
             }
          ],
