@@ -14,7 +14,7 @@
    "Columns":[  
       {  
          "Name":"service_provider_id",
-         "Type":"BIGINT",
+         "Type":"INT",
           "Validations":[  
             {  
                "Check":"Null",
@@ -28,7 +28,7 @@
       },
 	  {  
          "Name":"listing_id",
-         "Type":"BIGINT",
+         "Type":"INT",
          "Validations":[  
            {  
                "Check":"Null",
@@ -43,7 +43,7 @@
       },
 	  {  
          "Name":"al_id",
-		 "Type":"BIGINT",
+		 "Type":"INT",
          "Validations":[  
             
             {  
@@ -191,7 +191,7 @@
 	  
 	  {  
          "Name":"version",
-		 "Type":"BIGINT",
+		 "Type":"INT",
          "Validations":[  
             {  
                "Check":"Null",
@@ -224,7 +224,7 @@
 	  
 	  {  
          "Name":"create_by",
-		 "Type":"BIGINT",
+		 "Type":"INT",
          "Validations":[  
             {  
                "Check":"Null",
@@ -256,7 +256,7 @@
       },
 	  {  
          "Name":"update_by",
-		 "Type":"BIGINT",
+		 "Type":"INT",
          "Validations":[  
             {  
                "Check":"Null",
