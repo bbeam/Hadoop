@@ -3,6 +3,7 @@
    "OutputTableName":"dq_store_page_loaded",
    "SourceDB":"SEGMENT_INCOMING_DB",
    "TargetDB":"SEGMENT_GOLD_DB",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_SEGMENT/angieslistweb_prod/incremental/daily/dq_store_page_loaded/edh_bus_date=$EDHBUSDATE",      
    "TableValidation":[  
             {  
                "Check":"Duplicate",
@@ -13,7 +14,7 @@
    "Columns":[  
       {
          "Name":"id",
-         "Type":"VARCHAR(254)",
+         "Type":"varchar(254)",
          "Validations":[
            {
                "Check":"Null",
@@ -51,7 +52,7 @@
 
       {
          "Name":"anonymous_id",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -62,7 +63,7 @@
 
       {
          "Name":"context_ip",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -73,7 +74,7 @@
 
       {
          "Name":"context_library_name",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -84,7 +85,7 @@
 
       {
          "Name":"context_library_version",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -95,7 +96,7 @@
 
       {
          "Name":"context_page_path",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -106,7 +107,7 @@
 
       {
          "Name":"context_page_referrer",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -117,7 +118,7 @@
 
       {
          "Name":"context_page_search",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -128,7 +129,7 @@
 
       {
          "Name":"context_page_title",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -139,7 +140,7 @@
 
       {
          "Name":"context_page_url",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -150,7 +151,7 @@
 
       {
          "Name":"context_user_agent",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -161,7 +162,7 @@
 
       {
          "Name":"description",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -172,7 +173,7 @@
 
       {
          "Name":"event",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -183,7 +184,7 @@
 
       {
          "Name":"event_text",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -194,7 +195,7 @@
 
       {
          "Name":"event_type",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -229,7 +230,7 @@
 
       {
          "Name":"service_provider_id",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -240,7 +241,7 @@
 
       {
          "Name":"service_provider_name",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -251,7 +252,7 @@
 
       {
          "Name":"service_provider_status",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -274,7 +275,7 @@
 
       {
          "Name":"user_id",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -296,7 +297,7 @@
 
       {
          "Name":"user_primary_zip_code",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -318,7 +319,7 @@
 
       {
          "Name":"user_selected_zip_code",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -341,7 +342,7 @@
 
       {
          "Name":"context_campaign_medium",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -352,7 +353,7 @@
 
       {
          "Name":"context_campaign_name",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -363,7 +364,7 @@
 
       {
          "Name":"context_campaign_source",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -385,7 +386,7 @@
 
       {
          "Name":"context_traits_email",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -396,7 +397,7 @@
 
       {
          "Name":"context_traits_experiment_4_0_dpw_login_update",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -407,7 +408,7 @@
 
       {
          "Name":"context_traits_experiment_4_0_ecom_offer_detail_display_phone_number_45_sec_delay",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -418,7 +419,7 @@
 
       {
          "Name":"context_traits_experiment_4_0_login_spring_ecom",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -429,7 +430,7 @@
 
       {
          "Name":"context_traits_experiment_4_0_member_global_header_hide_search_bar_on_ecom_pages",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -440,7 +441,7 @@
 
       {
          "Name":"context_traits_experiment_4_0_member_global_header_hide_search_bar_on_ecom_pages_1",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -451,7 +452,7 @@
 
       {
          "Name":"context_traits_experiment_ecom_checkout_cc_fields_hide_steps_1",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -462,7 +463,7 @@
 
       {
          "Name":"context_traits_experiment_ecom_checkout_cc_fields_only_update",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -473,7 +474,7 @@
 
       {
          "Name":"context_traits_experiment_my_account_display_member_plan_and_notice",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -484,7 +485,7 @@
 
       {
          "Name":"context_traits_experiment_my_angie_popular_services_to_ecom",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -495,7 +496,7 @@
 
       {
          "Name":"context_traits_experiment_my_angie_popular_services_to_ecom_v2",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -506,7 +507,7 @@
 
       {
          "Name":"context_traits_experiment_review_form_update_and_my_reviews_page",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -517,7 +518,7 @@
 
       {
          "Name":"context_traits_experiment_sp_profile_ecom_link_or_shop_tab",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -528,7 +529,7 @@
 
       {
          "Name":"context_traits_experiment_sp_profile_shop_tab_v2",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -539,7 +540,7 @@
 
       {
          "Name":"context_traits_experiment_sp_profile_shop_tab_v2_1",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -550,7 +551,7 @@
 
       {
          "Name":"context_traits_experiment_z100_review_form_update_and_my_reviews_page",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -561,7 +562,7 @@
 
       {
          "Name":"context_traits_first_name",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -572,7 +573,7 @@
 
       {
          "Name":"context_traits_last_name",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -583,7 +584,7 @@
 
       {
          "Name":"context_traits_experiment_ecom_checkout_cc_fields_hide_steps",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -594,7 +595,7 @@
 
       {
          "Name":"context_traits_experiment_launch_geosort",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -605,7 +606,7 @@
 
       {
          "Name":"context_traits_experiment_search_results_hide_description_and_review_counts_for_non_advertisers",
-         "Type":"VARCHAR(256)",
+         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",

@@ -69,4 +69,5 @@ context_traits_experiment_launch_geosort VARCHAR(256) ,
 context_traits_experiment_search_results_hide_description_and_review_counts_for_non_advertisers VARCHAR(256),
 load_timestamp TIMESTAMP
 )
-LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_SEGMENT}/${hivevar:SEGMENT_GOLD_DB}/dq_store_page_loaded';
+PARTITIONED BY (edh_bus_date STRING)
+LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_SEGMENT}/angieslistweb_prod/incremental/daily/dq_store_page_loaded';
