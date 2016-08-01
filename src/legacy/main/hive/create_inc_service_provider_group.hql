@@ -22,7 +22,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_INCOMING_DB}.inc_service_pr
 	service_provider_group_photo_id STRING, 
 	service_provider_group_type_id STRING
 )
-PARTITIONED BY (bus_date STRING)
+PARTITIONED BY (edh_bus_date STRING)
 ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde' 
 WITH SERDEPROPERTIES (
    "separatorChar" = "\u0001",

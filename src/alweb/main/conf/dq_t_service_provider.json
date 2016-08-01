@@ -3,6 +3,7 @@
    "OutputTableName":"dq_t_service_provider",
    "SourceDB":"ALWEB_INCOMING_DB",
    "TargetDB":"ALWEB_GOLD_DB",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_ALWEB/angieslist/full/daily/dq_service_provider",
    "TableValidation":[  
             {  
                "Check":"Duplicate",
@@ -13,7 +14,7 @@
    "Columns":[  
       {  
          "Name":"service_provider_id",
-         "Type":"BIGINT",
+         "Type":"INT",
           "Validations":[  
             {  
                "Check":"Null",
@@ -27,7 +28,7 @@
       },
 	  {  
          "Name":"listing_id",
-         "Type":"BIGINT",
+         "Type":"INT",
          "Validations":[  
            {  
                "Check":"Null",
@@ -42,7 +43,7 @@
       },
 	  {  
          "Name":"al_id",
-		 "Type":"BIGINT",
+		 "Type":"INT",
          "Validations":[  
             
             {  
@@ -190,7 +191,7 @@
 	  
 	  {  
          "Name":"version",
-		 "Type":"BIGINT",
+		 "Type":"INT",
          "Validations":[  
             {  
                "Check":"Null",
@@ -223,7 +224,7 @@
 	  
 	  {  
          "Name":"create_by",
-		 "Type":"BIGINT",
+		 "Type":"INT",
          "Validations":[  
             {  
                "Check":"Null",
@@ -255,7 +256,7 @@
       },
 	  {  
          "Name":"update_by",
-		 "Type":"BIGINT",
+		 "Type":"INT",
          "Validations":[  
             {  
                "Check":"Null",
