@@ -3,7 +3,13 @@
 --  AUTHOR       : Gaurav Maheshwari
 --  DATE         : July 27, 2016
 --  DESCRIPTION  : Creation of hive incoming DQtable(dq_t_service_provider). 
+--  USAGE 		 : hive -f s3://al-edh-dev/src/alweb/main/hive/create_dq_t_service_provider.hql \
+--					--hivevar ALWEB_GOLD_DB="${ALWEB_GOLD_DB}" \
+--					--hivevar S3_BUCKET="${S3_BUCKET}" \
+--					--hivevar SOURCE_ALWEB="${SOURCE_ALWEB}"
 --*/
+
+
 
 -- Create the database if it doesnot exists.
 CREATE DATABASE IF NOT EXISTS ${hivevar:ALWEB_GOLD_DB};
@@ -31,4 +37,4 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:ALWEB_GOLD_DB}.dq_t_service_provid
 	load_timestamp TIMESTAMP
 )
 STORED AS ORC
-LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_ALWEB}/angieslist/dq_t_service_provider';
+LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_ALWEB}/angieslist/full/daily/dq_t_service_provider';
