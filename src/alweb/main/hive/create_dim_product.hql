@@ -28,5 +28,5 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:ALWEB_GOLD_DB}.dim_product
 	md5_non_key_value string,
 	md5_key_value string
 )
-PARTITIONED BY (bus_month STRING)
+PARTITIONED BY (edh_bus_month STRING)
 LOCATION '${hivevar:S3_LOCATION_GOLD_DATA}/${hivevar:SUBJECT_ALWEBMETRICS}/dim_product';

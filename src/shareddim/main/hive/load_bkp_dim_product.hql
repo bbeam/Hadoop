@@ -9,5 +9,5 @@ SET hive.exec.dynamic.partition.mode=non-strict;
 
 -- Insert into back up table from a final table .
 INSERT OVERWRITE TABLE ${hivevar:TARGET_DB}.bkp_dim_product
-PARTITION(bus_month)
+PARTITION(edh_bus_month)
 SELECT * FROM ${hivevar:SOURCE_DB}.dim_product;

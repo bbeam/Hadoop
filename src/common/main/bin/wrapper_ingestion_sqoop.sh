@@ -75,26 +75,26 @@ fi
 
 
 echo "****************BUSINESS DATE/MONTH*****************"
-BUS_DATE=$3
-echo "Business Date : $BUS_DATE"
-BUS_MONTH=$(date -d "$BUS_DATE" '+%m')
-echo "Business Month :$BUS_MONTH"
+EDH_BUS_DATE=$3
+echo "Business Date : $EDH_BUS_DATE"
+EDH_BUS_MONTH=$(date -d "$EDH_BUS_DATE" '+%Y%m')
+echo "Business Month :$EDH_BUS_MONTH"
 
 echo "*************SQOOP IMPORT JOB UTILITY*******************"
 # deleting the sqoop target location, if it already exists.
-echo "executing : aws s3 rm $S3_BUCKET/$DATA_DIRECTORY=$BUS_DATE --recursive"
-aws s3 rm $S3_BUCKET/$DATA_DIRECTORY=$BUS_DATE --recursive
-# replace the extract_date with the bus_date generated in this shell in case of incremental load in the options file.
-sed -ie "s/EXTRACT_DATE/$BUS_DATE/g" /var/tmp/$OPTIONS_FILE_NAME 
-echo -e "Sqoop Command running is :\nsqoop import <DB CONNECTION_URL> --target-dir $S3_BUCKET/$DATA_DIRECTORY=$BUS_DATE --options-file /var/tmp/$OPTIONS_FILE_NAME"
+echo "executing : aws s3 rm $S3_BUCKET/$DATA_DIRECTORY=$EDH_BUS_DATE --recursive"
+aws s3 rm $S3_BUCKET/$DATA_DIRECTORY=$EDH_BUS_DATE --recursive
+# replace the extract_date with the edh_bus_date generated in this shell in case of incremental load in the options file.
+sed -ie "s/EXTRACT_DATE/$EDH_BUS_DATE/g" /var/tmp/$OPTIONS_FILE_NAME 
+echo -e "Sqoop Command running is :\nsqoop import <DB CONNECTION_URL> --target-dir $S3_BUCKET/$DATA_DIRECTORY=$EDH_BUS_DATE --options-file /var/tmp/$OPTIONS_FILE_NAME"
 echo -e "Options file used is:\n"
 cat /var/tmp/$OPTIONS_FILE_NAME
 echo -e "\n"
-sqoop import $CONNECTION_URL --target-dir $S3_BUCKET/$DATA_DIRECTORY=$BUS_DATE --options-file /var/tmp/$OPTIONS_FILE_NAME
+sqoop import $CONNECTION_URL --target-dir $S3_BUCKET/$DATA_DIRECTORY=$EDH_BUS_DATE --options-file /var/tmp/$OPTIONS_FILE_NAME
 
 if [ $? -eq 0 ]
 then
-  		echo "Successfully Ingested the data into s3 directory $S3_BUCKET/$DATA_DIRECTORY=$BUS_DATE"
+  		echo "Successfully Ingested the data into s3 directory $S3_BUCKET/$DATA_DIRECTORY=$EDH_BUS_DATE"
 else
   		echo "Sqoop Ingestion Job is Failed" >&2
   		exit 1
@@ -174,7 +174,7 @@ fi
 
 # Pig Script to be triggered for data checking and cleansing.
 pig \
-	-param BUSDATE=$BUS_DATE \
+	-param EDHBUSDATE=$EDH_BUS_DATE \
 	-param_file /var/tmp/$global_file \
 	-param_file /var/tmp/$local_file \
 	-file $OUTPUT_PIG_FILE_PATH \
@@ -218,7 +218,7 @@ hive -f $INCOMING_AUDIT_HQL_PATH \
 	-hivevar INCOMING_DB=$INCOMING_DB \
 	-hivevar INCOMING_TABLE=$TABLE_NAME_INC \
 	-hivevar USER_NAME=$USER_NAME \
-	-hivevar BUS_DATE=$BUS_DATE
+	-hivevar EDH_BUS_DATE=$EDH_BUS_DATE
 		
 # Hive Status check
 if [ $? -eq 0 ]
@@ -235,8 +235,8 @@ hive -f $DQ_AUDIT_HQL_PATH \
 	-hivevar GOLD_DB=$GOLD_DB \
 	-hivevar DQ_TABLE=$TABLE_NAME_DQ \
 	-hivevar USER_NAME=$USER_NAME \
-	-hivevar BUS_MONTH=$BUS_MONTH \
-	-hivevar BUS_DATE=$BUS_DATE
+	-hivevar EDH_BUS_MONTH=$EDH_BUS_MONTH \
+	-hivevar EDH_BUS_DATE=$EDH_BUS_DATE
 		
 # Hive Status check
 if [ $? -eq 0 ]

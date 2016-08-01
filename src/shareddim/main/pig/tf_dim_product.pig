@@ -102,7 +102,7 @@ gen_dim_product_good = FOREACH join_dq_t_sku_t_skuitem_memberprice_good
 
 /* STORING THE DATA IN HIVE PARTITIONED BASED ON THE STATUSCODE */
 STORE dq_t_sku_t_skuitem_bad 
-	INTO '$S3_LOCATION_OPERATIONS_DATA/$SUBJECT_ALWEBMETRICS/err_tf_dim_product/bus_date=$BUSDATE'
+	INTO '$S3_LOCATION_OPERATIONS_DATA/$SUBJECT_ALWEBMETRICS/err_tf_dim_product/edh_bus_date=$EDHBUSDATE'
 	USING PigStorage('\u0001');
 	
 	
