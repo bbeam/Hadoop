@@ -27,6 +27,6 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:WORK_DB}.dim_product_tmp
 	current_active_ind char(1),
 	md5_non_key_value string,
 	md5_key_value string,
-	bus_month STRING
+	edh_bus_month STRING
 )
 LOCATION '${hivevar:HDFS_LOCATION}/${hivevar:SUBJECT_ALWEBMETRICS}/dim_product_tmp';

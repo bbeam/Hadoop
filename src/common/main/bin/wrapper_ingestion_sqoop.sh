@@ -77,8 +77,8 @@ fi
 echo "****************BUSINESS DATE/MONTH*****************"
 EDH_BUS_DATE=$3
 echo "Business Date : $EDH_BUS_DATE"
-BUS_MONTH=$(date -d "$EDH_BUS_DATE" '+%Y%m')
-echo "Business Month :$BUS_MONTH"
+EDH_BUS_MONTH=$(date -d "$EDH_BUS_DATE" '+%Y%m')
+echo "Business Month :$EDH_BUS_MONTH"
 
 echo "*************SQOOP IMPORT JOB UTILITY*******************"
 # deleting the sqoop target location, if it already exists.
@@ -235,7 +235,7 @@ hive -f $DQ_AUDIT_HQL_PATH \
 	-hivevar GOLD_DB=$GOLD_DB \
 	-hivevar DQ_TABLE=$TABLE_NAME_DQ \
 	-hivevar USER_NAME=$USER_NAME \
-	-hivevar BUS_MONTH=$BUS_MONTH \
+	-hivevar EDH_BUS_MONTH=$EDH_BUS_MONTH \
 	-hivevar EDH_BUS_DATE=$EDH_BUS_DATE
 		
 # Hive Status check
