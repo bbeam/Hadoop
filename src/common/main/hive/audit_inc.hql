@@ -10,7 +10,7 @@ SET hive.exec.dynamic.partition.mode=non-strict;
 
 INSERT INTO TABLE common_operations.edh_batch_audit
 PARTITION(bus_month)
-SELECT       bus_date AS bus_date,
+SELECT       edh_bus_date AS edh_bus_date,
             '${hivevar:ENTITY_NAME}' AS entity,
             '${hivevar:INCOMING_DB}.${hivevar:INCOMING_TABLE}' AS table_name,
             'Incoming' AS process,
@@ -19,5 +19,6 @@ SELECT       bus_date AS bus_date,
             count(*) AS record_count,
             FROM(unix_timestamp()) AS time_stamp,
             '${hivevar:USER_NAME}' AS user_name,
-            CONCAT(SUBSTR.bus_date),0,4),SUBSTR((bus_date),6,2)) AS bus_month
- FROM ${hivevar:INCOMING_DB}.${hivevar:INCOMING_TABLE}  WHERE bus_date=${hivevar:BUS_DATE};
+            CONCAT(SUBSTR(edh_bus_date),0,4),SUBSTR((edh_bus_date),6,2)) AS bus_month
+ FROM ${hivevar:INCOMING_DB}.${hivevar:INCOMING_TABLE}  
+ WHERE edh_bus_date=${hivevar:EDH_BUS_DATE};

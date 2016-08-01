@@ -17,6 +17,6 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:ALWEB_INCOMING_DB}.inc_t_Category
 	CreateBy STRING,
 	UpdateDate STRING,
 	UpdateBy STRING
-)PARTITION (bus_date STRING)
+)PARTITION (edh_bus_date STRING)
 ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde' 
 LOCATION '{hivevar:S3_LOCATION_INCOMING_DATA}/${hivevar:SOURCE_ALWEB}/${hivevar:ALWEB_INCOMING_DB}/${hivevar:EXTRACTIONTYPE_FULL}/${hivevar:FREQUENCY_DAILY}/inc_t_Category';

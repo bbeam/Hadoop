@@ -7,7 +7,7 @@
 
 --  Creating a incoming hive table(EDH_BATCH_AUDIT) over the incoming data
 CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:COMMON_OPERATIONS_DB}.edh_batch_audit
-(bus_date STRING,
+(edh_bus_date STRING,
 entity STRING,
 table_name STRING,
 process STRING,

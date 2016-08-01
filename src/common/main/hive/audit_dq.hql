@@ -10,33 +10,33 @@ SET hive.exec.dynamic.partition.mode=non-strict;
 
 INSERT INTO TABLE common_operations.edh_batch_audit
 PARTITION(bus_month)
-SELECT       '${hivevar:BUS_DATE}' AS bus_date,
+SELECT       '${hivevar:EDH_BUS_DATE}' AS edh_bus_date,
              '${hivevar:ENTITY_NAME}' AS entity,
              '${hivevar:GOLD_DB}.${hivevar:DQ_TABLE}' AS table_name,
              'DataQuality' AS process,
              'Good Records' AS type ,
              'Total Count' AS sub_type ,
              count(*) AS record_count,
-             from_unixtime(unix_timestamp()) AS time_stamp,
+             CURRENT_TIMESTAMP AS time_stamp,
              '${hivevar:USER_NAME}' AS user_name,
              '${hivevar:BUS_MONTH}' AS bus_month
  FROM ${GOLD_DB}.${hivevar:DQ_TABLE};
  
 INSERT INTO TABLE common_operations.edh_batch_audit
 PARTITION(bus_month)
-SELECT       '${hivevar:BUS_DATE}' AS bus_date,
-             '${hivevar:ENTITY_NAME}' AS entity,
-             '${hivevar:GOLD_DB}.${hivevar:DQ_TABLE}' AS table_name,
+SELECT       '${hivevar:EDH_BUS_DATE}' AS edh_bus_date,
+             entity,
+             table_name,
              'DataQuality' AS process,
              error_type AS type ,
              error_desc AS sub_type ,
              count(*) AS record_count,
-             from_unixtime(unix_timestamp()) AS time_stamp,
+             CURRENT_TIMESTAMP AS time_stamp,
              '${hivevar:USER_NAME}' AS user_name,
              '${hivevar:BUS_MONTH}' AS bus_month
  FROM common_operations.edh_batch_error 
- WHERE table_name='${hivevar:GOLD_DB}.${hivevar:DQ_TABLE}' 
-       AND bus_date = '${hivevar:BUS_DATE}'
+ WHERE table_name='${hivevar:INCOMING_DB}.${hivevar:INCOMING_TABLE}' 
+       AND edh_bus_date = '${hivevar:EDH_BUS_DATE}'
  GROUP BY error_type, error_desc
  HAVING count(*) > 0;
  

@@ -16,5 +16,5 @@ record_header STRING,
 error_record STRING,
 time_stamp STRING, 
 user_name  STRING)     
-PARTITIONED BY (table_name STRING,bus_date STRING)
+PARTITIONED BY (table_name STRING,edh_bus_date STRING)
 LOCATION '${hivevar:S3_BUCKET}/${hivevar:S3_LOCATION_OPERATIONS_DATA}/common/edh_batch_error';
