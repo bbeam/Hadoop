@@ -29,7 +29,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:ALWEB_INCOMING_DB}.inc_t_service_p
 	update_date STRING, 
 	update_by STRING
 )
-PARTITIONED BY (bus_date STRING)
+PARTITIONED BY (edh_bus_date STRING)
 ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde' 
 WITH SERDEPROPERTIES (
    "separatorChar" = "\u0001",
