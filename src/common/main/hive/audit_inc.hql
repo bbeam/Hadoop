@@ -17,8 +17,8 @@ SELECT       edh_bus_date AS edh_bus_date,
             'Incoming Records' AS type,
             'Total count' AS sub_type,
             count(*) AS record_count,
-            FROM(unix_timestamp()) AS time_stamp,
+            from_unixtime(unix_timestamp()) AS time_stamp,
             '${hivevar:USER_NAME}' AS user_name,
-            CONCAT(SUBSTR(edh_bus_date),0,4),SUBSTR((edh_bus_date),6,2)) AS edh_bus_month
+            CONCAT(SUBSTR((edh_bus_date),0,4),SUBSTR((edh_bus_date),6,2)) AS edh_bus_month
  FROM ${hivevar:INCOMING_DB}.${hivevar:INCOMING_TABLE}  
- WHERE edh_bus_date=${hivevar:EDH_BUS_DATE};
+ WHERE edh_bus_date='${hivevar:EDH_BUS_DATE}' GROUP BY edh_bus_date;

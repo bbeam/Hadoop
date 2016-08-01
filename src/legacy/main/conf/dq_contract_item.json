@@ -3,7 +3,7 @@
    "OutputTableName":"dq_contract_item",
    "SourceDB":"LEGACY_INCOMING_DB",
    "TargetDB":"LEGACY_GOLD_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_LEGACY/angie/full/daily/dq_service_provider_group",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_LEGACY/angie/full/daily/dq_contract_item",
    "TableValidation":[  
             {  
                "Check":"Duplicate",
@@ -161,6 +161,7 @@
        {
          "Name":"start_date",
          "Type":"TIMESTAMP",
+         "Format":"yyyy-MM-dd HH:mm:ss",
          "Validations":[
             {
                "Check":"DataType",
@@ -171,6 +172,7 @@
        {
          "Name":"end_date",
          "Type":"TIMESTAMP",
+         "Format":"yyyy-MM-dd HH:mm:ss",
          "Validations":[
             {
                "Check":"DataType",
@@ -335,6 +337,7 @@
        {
          "Name":"create_date",
          "Type":"TIMESTAMP",
+         "Format":"yyyy-MM-dd HH:mm:ss",
          "Validations":[
             {
                "Check":"Null",
@@ -363,6 +366,7 @@
        {
          "Name":"modified_date",
          "Type":"TIMESTAMP",
+         "Format":"yyyy-MM-dd HH:mm:ss",
          "Validations":[
             {
                "Check":"DataType",
@@ -373,6 +377,7 @@
        {
          "Name":"targeted_end_date",
          "Type":"TIMESTAMP",
+         "Format":"yyyy-MM-dd HH:mm:ss",
          "Validations":[
             {
                "Check":"DataType",
@@ -383,6 +388,7 @@
        {
          "Name":"targeted_end_date_changed_date",
          "Type":"TIMESTAMP",
+         "Format":"yyyy-MM-dd HH:mm:ss",
          "Validations":[
             {
                "Check":"DataType",
@@ -413,6 +419,7 @@
        {
          "Name":"eligibility_date",
          "Type":"TIMESTAMP",
+         "Format":"yyyy-MM-dd HH:mm:ss",
          "Validations":[
             {
                "Check":"DataType",

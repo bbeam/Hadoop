@@ -1,7 +1,7 @@
 --/*
 --  HIVE SCRIPT  : create_dq_contract_item.hql
 --  AUTHOR       : Abhijeet Purwar
---  DATE         : Jun 27, 2016
+--  DATE         : Jul 27, 2016
 --  DESCRIPTION  : Creation of hive DQ table(angie.ContractItem). 
 --  Execute command:
 --
@@ -31,11 +31,11 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_INCOMING_DB}.dq_contract_it
   coupon_text STRING,
   ad_note STRING,
   paid_months INT,
-  premium DECIMAL,
-  list_price DECIMAL,
-  pre_discounted_total DECIMAL,
-  total DECIMAL,
-  monthly_price DECIMAL,
+  premium DECIMAL(10,2),
+  list_price DECIMAL(10,2),
+  pre_discounted_total DECIMAL(10,2),
+  total DECIMAL(10,2),
+  monthly_price DECIMAL(10,2),
   color TINYINT,
   product_description STRING,
   product_type_other STRING,
@@ -52,4 +52,4 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_INCOMING_DB}.dq_contract_it
   eligibility_date TIMESTAMP,
   load_timestamp TIMESTAMP
 )
-LOCATION '${hivevar:S3_BUCKET}/${hivevar:S3_LOCATION_INCOMING_DATA}/${hivevar:SOURCE_LEGACY}/angie/full/daily/dq_contract_item';
+LOCATION '${hivevar:S3_BUCKET}/data/incoming/${hivevar:SOURCE_LEGACY}/angie/full/daily/dq_contract_item';

@@ -12,3 +12,7 @@ sent_at
 '\n'
 --optionally-enclosed-by 
 '\"'
+--null-string 
+'' 
+--null-non-string 
+''

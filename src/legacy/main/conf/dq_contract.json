@@ -285,6 +285,7 @@
        {
          "Name":"published_date",
          "Type":"TIMESTAMP",
+         "Format":"yyyy-MM-dd HH:mm:ss",
          "Validations":[
             {
                "Check":"DataType",
@@ -295,6 +296,7 @@
        {
          "Name":"signed_date",
          "Type":"TIMESTAMP",
+          "Format":"yyyy-MM-dd HH:mm:ss",
          "Validations":[
             {
                "Check":"DataType",
@@ -305,6 +307,7 @@
        {
          "Name":"oca_expiration_date",
          "Type":"TIMESTAMP",
+         "Format":"yyyy-MM-dd HH:mm:ss",
          "Validations":[
             {
                "Check":"DataType",
@@ -325,6 +328,7 @@
        {
          "Name":"ccv_date",
          "Type":"TIMESTAMP",
+         "Format":"yyyy-MM-dd HH:mm:ss",
          "Validations":[
             {
                "Check":"DataType",
@@ -355,6 +359,7 @@
        {
          "Name":"create_date",
          "Type":"TIMESTAMP",
+         "Format":"yyyy-MM-dd HH:mm:ss",
          "Validations":[
             {
                "Check":"Null",
@@ -383,6 +388,7 @@
        {
          "Name":"modified_date",
          "Type":"TIMESTAMP",
+         "Format":"yyyy-MM-dd HH:mm:ss",
          "Validations":[
             {
                "Check":"DataType",
@@ -393,6 +399,7 @@
        {
          "Name":"activation_date",
          "Type":"TIMESTAMP",
+         "Format":"yyyy-MM-dd HH:mm:ss",
          "Validations":[
             {
                "Check":"DataType",
