@@ -200,6 +200,18 @@ else
   		exit 1
 fi
 
+# Hive Metastore refresh for DQ table .
+hive -e "msck repair table ${GOLD_DB}.${TABLE_NAME_DQ}"
+
+# Hive Metastore refresh status check
+if [ $? -eq 0 ]
+then
+		echo "Hive Metastore refresh successful for DQ table."
+else
+  		echo "Hive Metastore refresh failed for DQ table" >&2
+  		exit 1
+fi
+
 # Hive script to insert extraction audit record
 hive -f $INCOMING_AUDIT_HQL_PATH \
 	-hivevar ENTITY_NAME=$SOURCE_ALWEB \
