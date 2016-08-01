@@ -12,29 +12,24 @@
 --  Creating a incoming hive table(inc_t_postal_address) over the incoming data
 CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:ALWEB_INCOMING_DB}.inc_t_postal_address
 (
-	SkuId STRING, 
-	AlId STRING, 
-	ContractId STRING, 
-	Title STRING, 
-	Description STRING, 
-	TermsAndConditions STRING, 
-	Status STRING, 
-	SkuType STRING, 
-	StartDateTime STRING, 
-	EndDateTime STRING, 
-	MinQuantity STRING, 
-	MaxQuantity STRING, 
-	MaxPurchaseQuantity STRING, 
-	RapidConnect STRING, 
-	IsAutoRenew STRING, 
-	ProductId STRING, 
-	Version STRING, 
-	Placement STRING, 
-	IsEmailPromotable STRING, 
-	CreateDate STRING, 
-	CreateBy STRING, 
-	UpdateDate STRING, 
-	UpdateBy STRING
+	postal_address_id STRING,
+	address_type STRING,
+	address_first_line STRING,
+	address_second_line STRING,
+	city_id STRING,
+	region_id STRING,
+	country_id STRING,
+	postal_code STRING,
+	year_built STRING,
+	longitude STRING,
+	latitude STRING,
+	advertising_zone STRING,
+	validation_status STRING,
+	create_date STRING,
+	create_by STRING,
+	update_date STRING,
+	update_by STRING,
+	version STRING
 )
 PARTITIONED BY (bus_date STRING)
 ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde' 
@@ -43,4 +38,4 @@ WITH SERDEPROPERTIES (
    "quoteChar"     = "\"",
    "escapeChar"    = "\\"
 )
-LOCATION '${hivevar:S3_BUCKET}/data/incoming/${hivevar:SOURCE_ALWEB}/angieslist/full/daily/inc_t_postal_addresss';
+LOCATION '${hivevar:S3_BUCKET}/data/incoming/${hivevar:SOURCE_ALWEB}/angieslist/full/daily/inc_t_postal_address';

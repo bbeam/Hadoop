@@ -3,6 +3,7 @@
    "OutputTableName":"dq_t_Sku",
    "SourceDB":"ALWEB_INCOMING_DB",
    "TargetDB":"ALWEB_GOLD_DB",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_LEGACY/angie/full/daily/dq_service_provider_group",
    "TableValidation":[  
             {  
                "Check":"Duplicate",
