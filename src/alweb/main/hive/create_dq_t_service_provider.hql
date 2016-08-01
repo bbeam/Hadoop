@@ -17,9 +17,9 @@ CREATE DATABASE IF NOT EXISTS ${hivevar:ALWEB_GOLD_DB};
 --  Creating a DQ hive table(dq_t_service_provider) over the incoming data
 CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:ALWEB_GOLD_DB}.dq_t_service_provider
 (	
-	service_provider_id BIGINT, 
-	listing_id BIGINT, 
-	al_id BIGINT, 
+	service_provider_id INT, 
+	listing_id INT, 
+	al_id INT, 
 	name VARCHAR(254), 
 	hours VARCHAR(254), 
 	joined_date TIMESTAMP, 
@@ -29,12 +29,11 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:ALWEB_GOLD_DB}.dq_t_service_provid
 	in_business_since INT, 
 	is_national TINYINT, 
 	status VARCHAR(254), 
-	version BIGINT, 
+	version INT, 
 	create_date TIMESTAMP, 
-	create_by BIGINT, 
+	create_by INT, 
 	update_date TIMESTAMP, 
-	update_by BIGINT,
+	update_by INT,
 	load_timestamp TIMESTAMP
 )
-STORED AS ORC
 LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_ALWEB}/angieslist/full/daily/dq_t_service_provider';
