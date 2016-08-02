@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_inc_t_user_address.hql
+--  HIVE SCRIPT  : create_inc_t_employee_permission.hql
 --  AUTHOR       : Varun Rauthan
 --  DATE         : Aug 2, 2016
 --  DESCRIPTION  : Creation of hive incoming table(inc_t_employee_permission). 
