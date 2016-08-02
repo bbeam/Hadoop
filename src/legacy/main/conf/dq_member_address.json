@@ -1,17 +1,45 @@
 {  
-   "InputTableName":"inc_t_postal_address",
-   "OutputTableName":"dq_t_postal_address",
-   "SourceDB":"ALWEB_INCOMING_DB",
-   "TargetDB":"ALWEB_GOLD_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_ALWEB/angieslist/full/daily/dq_t_postal_address",
+   "InputTableName":"inc_member_address",
+   "OutputTableName":"dq_member_address",
+   "SourceDB":"LEGACY_INCOMING_DB",
+   "TargetDB":"LEGACY_GOLD_DB",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_LEGACY/angie/full/daily/dq_member_address",
    "TableValidation":[  
-      {  
-         "Check":"Duplicate",
-         "keyColumns":"postal_address_id",
-         "Action":"Reject"
-      }
-   ],
+            {  
+               "Check":"Duplicate",
+               "keyColumns":"member_address_id",
+               "Action":"Reject"
+            }
+         ],
    "Columns":[  
+      {  
+         "Name":"member_id ",
+         "Type":"INT",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {  
+         "Name":"member_address_id",
+         "Type":"INT",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
       {  
          "Name":"postal_address_id",
          "Type":"INT",
@@ -27,34 +55,31 @@
          ]
       },
       {  
-         "Name":"address_type",
-         "Type":"VARCHAR(254)",
+         "Name":"adress_type_id",
+         "Type":"INT",
          "Validations":[  
             {  
                "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
                "Action":"Reject"
             }
          ]
       },
       {  
-         "Name":"address_first_line",
+         "Name":"description",
          "Type":"STRING",
          "Validations":[  
             {  
-               "Check":"Null",
+               "Check":"DataType",
                "Action":"Reject"
             }
          ]
       },
       {  
-         "Name":"address_second_line",
-         "Type":"STRING",
-         "Validations":[  
-
-         ]
-      },
-      {  
-         "Name":"city_id",
+         "Name":"market_zone_id",
          "Type":"INT",
          "Validations":[  
             {  
@@ -68,101 +93,18 @@
          ]
       },
       {  
-         "Name":"region_id",
-         "Type":"INT",
-         "Validations":[  
-            {  
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {  
-         "Name":"country_id",
-         "Type":"INT",
-         "Validations":[  
-            {  
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {  
-         "Name":"postal_code",
-         "Type":"VARCHAR(50)",
-         "Validations":[  
-            {  
-               "Check":"Null",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {  
-         "Name":"year_built",
+         "Name":"home_build_year",
          "Type":"INT",
          "Validations":[  
             {  
                "Check":"DataType",
                "Action":"Reject"
-            }
-         ]
-      },
-      {  
-         "Name":"longitude",
-         "Type":"DOUBLE",
-         "Validations":[  
-            {  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {  
-         "Name":"latitude",
-         "Type":"DOUBLE",
-         "Validations":[  
-            {  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {  
-         "Name":"advertising_zone",
-         "Type":"INT",
-         "Validations":[  
-            {  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {  
-         "Name":"validation_status",
-         "Type":"STRING",
-         "Validations":[  
-            {  
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {  
-               "Check":"ValuesConstraint",
-               "Values":"INCOMPLETE,UNVALIDATED,INVALID,VALID"
             }
          ]
       },
       {  
          "Name":"create_date",
          "Type":"TIMESTAMP",
-         "Format":"yyyy-MM-dd HH:mm:ss.SSS",
          "Validations":[  
             {  
                "Check":"Null",
@@ -175,8 +117,8 @@
          ]
       },
       {  
-         "Name":"create_by",
-         "Type":"INT",
+         "Name":"create_by ",
+         "Type":"STRING",
          "Validations":[  
             {  
                "Check":"Null",
@@ -189,9 +131,8 @@
          ]
       },
       {  
-         "Name":"update_date",
+         "Name":"updatedate",
          "Type":"TIMESTAMP",
-         "Format":"yyyy-MM-dd HH:mm:ss.SSS",
          "Validations":[  
             {  
                "Check":"Null",
@@ -205,7 +146,7 @@
       },
       {  
          "Name":"update_by",
-         "Type":"INT",
+         "Type":"STRING",
          "Validations":[  
             {  
                "Check":"Null",
@@ -216,20 +157,6 @@
                "Action":"Reject"
             }
          ]
-      },
-      {  
-         "Name":"version",
-         "Type":"INT",
-         "Validations":[  
-            {  
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      }
+      }	  
    ]
 }

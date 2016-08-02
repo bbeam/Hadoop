@@ -1,0 +1,15 @@
+--query 
+'select * from t_ContactInformation  where $CONDITIONS limit 100' 
+--split-by 
+ContactInformationId
+--hive-drop-import-delims
+--fields-terminated-by 
+'\001' 
+--lines-terminated-by 
+'\n'
+--optionally-enclosed-by 
+'\"'
+--null-string 
+'' 
+--null-non-string 
+''

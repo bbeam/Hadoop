@@ -112,6 +112,13 @@
             {
                "Check":"DataType",
                "Action":"Reject"
+<<<<<<< HEAD
+=======
+            },
+            {
+            	"Check":"ValuesConstraint",
+	            "Values":"true,false"
+>>>>>>> b5d9fc68f5392dc2896922bea18de21621694ea1
             }
          ]
       },
@@ -247,7 +254,7 @@
             },
             {
             	"Check":"ValuesConstraint",
-	            "values":"ture,false"
+	            "Values":"ture,false"
             }
          ]
       },
@@ -273,7 +280,7 @@
             },
             {
             	"Check":"ValuesConstraint",
-	            "values":"true,false"
+	            "Values":"true,false"
             }
 
 
@@ -289,7 +296,7 @@
             },
             {
             	"Check":"ValuesConstraint",
-	            "values":"true,false"
+	            "Values":"true,false"
             }
 
          ]
