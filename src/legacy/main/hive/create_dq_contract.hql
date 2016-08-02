@@ -16,14 +16,14 @@
 
 CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_INCOMING_DB}.dq_contract
 (
-  contract_id STRING,
+  contract_id INT,
   title STRING,
   contract_workflow_status_id INT,
   contract_type_id INT,
   contract_template_id INT,
-  display_pricing tinyint,
+  display_pricing TINYINT,
   employee_id INT,
-  display_group_pricing INT,
+  display_group_pricing TINYINT,
   country_code_id INT,
   currency_code_id INT,
   invoice_generated TINYINT,
@@ -62,4 +62,4 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_INCOMING_DB}.dq_contract
   show_in_business_center TINYINT,
   load_timestamp TIMESTAMP
 )
-LOCATION '${hivevar:S3_BUCKET}/${hivevar:S3_LOCATION_INCOMING_DATA}/${hivevar:SOURCE_LEGACY}/angie/full/daily/dq_contract';
+LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_LEGACY}/angie/full/daily/dq_contract';
