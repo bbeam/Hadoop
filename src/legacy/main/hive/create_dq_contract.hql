@@ -14,7 +14,7 @@
 --
 --*/
 
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_INCOMING_DB}.dq_contract
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_contract
 (
   contract_id INT,
   title STRING,
