@@ -30,7 +30,7 @@
       {
          "Name":"received_at",
          "Type":"TIMESTAMP",
-         "Format":"yyyy-MM-dd HH:mm:ss.SS",
+         "Format":"yyyy-MM-dd HH:mm:ss.SSS",
          "Validations":[
             {
                "Check":"DataType",
@@ -110,14 +110,9 @@
          "Type":"BOOLEAN",
          "Validations":[
             {
-               "Check":"us",
+               "Check":"DataType",
                "Action":"Reject"
-            },
-            {
-            	"Check":"ValuesConstraint",
-	            "values":"true,false"
             }
-
          ]
       },
 
@@ -501,7 +496,7 @@
       {
          "Name":"sent_at",
          "Type":"TIMESTAMP",
-         "Format":"yyyy-MM-dd HH:mm:ss.SS",
+         "Format":"yyyy-MM-dd HH:mm:ss.SSS",
          "Validations":[
             {
                "Check":"DataType",
@@ -524,7 +519,7 @@
       {
          "Name":"timestamp",
          "Type":"TIMESTAMP",
-         "Format":"yyyy-MM-dd HH:mm:ss.SS",
+         "Format":"yyyy-MM-dd HH:mm:ss.SSS",
          "Validations":[
             {
                "Check":"DataType",
@@ -569,7 +564,7 @@
       {
          "Name":"uuid_ts",
          "Type":"TIMESTAMP",
-         "Format":"yyyy-MM-dd HH:mm:ss.SS",
+         "Format":"yyyy-MM-dd HH:mm:ss.SSS",
          "Validations":[
             {
                "Check":"DataType",
