@@ -1,33 +1,19 @@
 {  
-   "InputTableName":"inc_t_user_address",
-   "OutputTableName":"dq_t_user_address",
+   "InputTableName":"inc_t_employee_permission",
+   "OutputTableName":"dq_t_employee_permission",
    "SourceDB":"ALWEB_INCOMING_DB",
    "TargetDB":"ALWEB_GOLD_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_ALWEB/angieslist/full/daily/dq_t_user_address",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_ALWEB/angieslist/full/daily/dq_t_employee_permission",
    "TableValidation":[  
       {  
          "Check":"Duplicate",
-         "keyColumns":"user_address_id",
+         "keyColumns":"employee_permission_id",
          "Action":"Reject"
       }
    ],
    "Columns":[  
       {  
-         "Name":"user_address_id",
-         "Type":"INT",
-         "Validations":[  
-            {  
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {  
-         "Name":"postal_address_id",
+         "Name":"employee_permission_id",
          "Type":"INT",
          "Validations":[  
             {  
@@ -55,7 +41,21 @@
          ]
       },
       {  
-         "Name":"is_primary",
+         "Name":"name",
+         "Type":"VARCHAR(254)",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {  
+         "Name":"value",
          "Type":"TINYINT",
          "Validations":[  
             {  
@@ -73,9 +73,14 @@
          ]
       },
       {  
-         "Name":"al_id",
-         "Type":"INT",
+         "Name":"start_datetime",
+         "Type":"TIMESTAMP",
+         "Format":"yyyy-MM-dd HH:mm:ss.SSS",
          "Validations":[  
+			{  
+               "Check":"Null",
+               "Action":"Reject"
+            },
 			{  
                "Check":"DataType",
                "Action":"Reject"
@@ -83,19 +88,11 @@
          ]
       },
       {  
-         "Name":"location_description",
-         "Type":"STRING",
-         "Validations":[]
-      },
-      {  
-         "Name":"version",
-         "Type":"INT",
+         "Name":"end_datetime",
+         "Type":"TIMESTAMP",
+         "Format":"yyyy-MM-dd HH:mm:ss.SSS",
          "Validations":[  
-            {  
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {  
+			{  
                "Check":"DataType",
                "Action":"Reject"
             }

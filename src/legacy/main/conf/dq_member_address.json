@@ -1,19 +1,33 @@
 {  
-   "InputTableName":"inc_t_user_address",
-   "OutputTableName":"dq_t_user_address",
-   "SourceDB":"ALWEB_INCOMING_DB",
-   "TargetDB":"ALWEB_GOLD_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_ALWEB/angieslist/full/daily/dq_t_user_address",
+   "InputTableName":"inc_member_address",
+   "OutputTableName":"dq_member_address",
+   "SourceDB":"LEGACY_INCOMING_DB",
+   "TargetDB":"LEGACY_GOLD_DB",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_LEGACY/angie/full/daily/dq_member_address",
    "TableValidation":[  
-      {  
-         "Check":"Duplicate",
-         "keyColumns":"user_address_id",
-         "Action":"Reject"
-      }
-   ],
+            {  
+               "Check":"Duplicate",
+               "keyColumns":"member_address_id",
+               "Action":"Reject"
+            }
+         ],
    "Columns":[  
       {  
-         "Name":"user_address_id",
+         "Name":"member_id ",
+         "Type":"INT",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {  
+         "Name":"member_address_id",
          "Type":"INT",
          "Validations":[  
             {  
@@ -41,7 +55,7 @@
          ]
       },
       {  
-         "Name":"user_id",
+         "Name":"adress_type_id",
          "Type":"INT",
          "Validations":[  
             {  
@@ -55,46 +69,33 @@
          ]
       },
       {  
-         "Name":"is_primary",
-         "Type":"TINYINT",
-         "Validations":[  
-            {  
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {  
-               "Check":"DataType",
-               "Action":"Reject"
-            },
-            {  
-               "Check":"ValuesConstraint",
-               "Values":"0,1"
-            }
-         ]
-      },
-      {  
-         "Name":"al_id",
-         "Type":"INT",
-         "Validations":[  
-			{  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {  
-         "Name":"location_description",
+         "Name":"description",
          "Type":"STRING",
-         "Validations":[]
+         "Validations":[  
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
       },
       {  
-         "Name":"version",
+         "Name":"market_zone_id",
          "Type":"INT",
          "Validations":[  
             {  
                "Check":"Null",
                "Action":"Reject"
             },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {  
+         "Name":"home_build_year",
+         "Type":"INT",
+         "Validations":[  
             {  
                "Check":"DataType",
                "Action":"Reject"
@@ -104,7 +105,21 @@
       {  
          "Name":"create_date",
          "Type":"TIMESTAMP",
-         "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+ 		 "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+        "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {  
+         "Name":"create_by ",
+         "Type":"STRING",
          "Validations":[  
             {  
                "Check":"Null",
@@ -117,24 +132,10 @@
          ]
       },
       {  
-         "Name":"create_by",
-         "Type":"INT",
-         "Validations":[  
-            {  
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {  
-         "Name":"update_date",
+         "Name":"updatedate",
          "Type":"TIMESTAMP",
-         "Format":"yyyy-MM-dd HH:mm:ss.SSS",
-         "Validations":[  
+ 		 "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+        "Validations":[  
             {  
                "Check":"Null",
                "Action":"Reject"
@@ -147,7 +148,7 @@
       },
       {  
          "Name":"update_by",
-         "Type":"INT",
+         "Type":"STRING",
          "Validations":[  
             {  
                "Check":"Null",
@@ -158,6 +159,6 @@
                "Action":"Reject"
             }
          ]
-      }
+      }	  
    ]
 }

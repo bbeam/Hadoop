@@ -1,19 +1,19 @@
 {  
-   "InputTableName":"inc_t_user_address",
-   "OutputTableName":"dq_t_user_address",
+   "InputTableName":"inc_t_associate_permission",
+   "OutputTableName":"dq_t_associate_permission",
    "SourceDB":"ALWEB_INCOMING_DB",
    "TargetDB":"ALWEB_GOLD_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_ALWEB/angieslist/full/daily/dq_t_user_address",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_ALWEB/angieslist/full/daily/dq_t_associate_permission",
    "TableValidation":[  
-      {  
-         "Check":"Duplicate",
-         "keyColumns":"user_address_id",
-         "Action":"Reject"
-      }
-   ],
+            {  
+               "Check":"Duplicate",
+               "keyColumns":"associate_permission_id",
+               "Action":"Reject"
+            }
+         ],
    "Columns":[  
       {  
-         "Name":"user_address_id",
+         "Name":"associate_permission_id ",
          "Type":"INT",
          "Validations":[  
             {  
@@ -27,13 +27,9 @@
          ]
       },
       {  
-         "Name":"postal_address_id",
+         "Name":"  al_id",
          "Type":"INT",
          "Validations":[  
-            {  
-               "Check":"Null",
-               "Action":"Reject"
-            },
             {  
                "Check":"DataType",
                "Action":"Reject"
@@ -43,6 +39,20 @@
       {  
          "Name":"user_id",
          "Type":"INT",
+         "Validations":[
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {  
+         "Name":"service_provider_id",
+         "Type":"INT",
          "Validations":[  
             {  
                "Check":"Null",
@@ -55,7 +65,17 @@
          ]
       },
       {  
-         "Name":"is_primary",
+         "Name":"name",
+         "Type":"VARCHAR(254)",
+         "Validations":[  
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }			
+         ]
+      },
+      {  
+         "Name":"value",
          "Type":"TINYINT",
          "Validations":[  
             {  
@@ -69,24 +89,9 @@
             {  
                "Check":"ValuesConstraint",
                "Values":"0,1"
-            }
+            }			
          ]
-      },
-      {  
-         "Name":"al_id",
-         "Type":"INT",
-         "Validations":[  
-			{  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {  
-         "Name":"location_description",
-         "Type":"STRING",
-         "Validations":[]
-      },
+      },	   
       {  
          "Name":"version",
          "Type":"INT",
@@ -100,16 +105,12 @@
                "Action":"Reject"
             }
          ]
-      },
+      },      
       {  
          "Name":"create_date",
          "Type":"TIMESTAMP",
-         "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+		 "Format":"yyyy-MM-dd HH:mm:ss.SSS",
          "Validations":[  
-            {  
-               "Check":"Null",
-               "Action":"Reject"
-            },
             {  
                "Check":"DataType",
                "Action":"Reject"
@@ -133,12 +134,8 @@
       {  
          "Name":"update_date",
          "Type":"TIMESTAMP",
-         "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+		 "Format":"yyyy-MM-dd HH:mm:ss.SSS",
          "Validations":[  
-            {  
-               "Check":"Null",
-               "Action":"Reject"
-            },
             {  
                "Check":"DataType",
                "Action":"Reject"

@@ -155,7 +155,7 @@
             },
             {  
                "Check":"ValuesConstraint",
-               "values":"INCOMPLETE,UNVALIDATED,INVALID,VALID"
+               "Values":"INCOMPLETE,UNVALIDATED,INVALID,VALID"
             }
          ]
       },
