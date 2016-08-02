@@ -1,19 +1,19 @@
 {  
-   "InputTableName":"inc_t_contact_information",
-   "OutputTableName":"dq_t_contact_information",
+   "InputTableName":"inc_t_member_permission",
+   "OutputTableName":"dq_t_member_permission",
    "SourceDB":"ALWEB_INCOMING_DB",
    "TargetDB":"ALWEB_GOLD_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_ALWEB/angieslist/full/daily/dq_t_contact_information",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_ALWEB/angieslist/full/daily/dq_t_member_permission",
    "TableValidation":[  
             {  
                "Check":"Duplicate",
-               "keyColumns":"contact_information_id",
+               "keyColumns":"member_permission_id",
                "Action":"Reject"
             }
          ],
    "Columns":[  
       {  
-         "Name":"contact_information_id ",
+         "Name":"member_permission_id ",
          "Type":"INT",
          "Validations":[  
             {  
@@ -27,7 +27,7 @@
          ]
       },
       {  
-         "Name":"context_entity_id",
+         "Name":"  user_id",
          "Type":"INT",
          "Validations":[  
             {  
@@ -41,7 +41,7 @@
          ]
       },
       {  
-         "Name":"entity_type",
+         "Name":"name",
          "Type":"VARCHAR(254)",
          "Validations":[  
             {  
@@ -55,7 +55,7 @@
          ]
       },
       {  
-         "Name":"is_primary",
+         "Name":"value",
          "Type":"TINYINT",
          "Validations":[  
             {  
@@ -67,124 +67,15 @@
                "Action":"Reject"
             },
             {  
-               "Check":"ValueConstraint",
+               "Check":"ValuesConstraint",
                "Values":"0,1"
             }			
          ]
-      },
+      },	  
       {  
-         "Name":"primary_phonenumber",
-         "Type":"VARCHAR(254)",
-         "Validations":[  
-             {  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {  
-         "Name":"secondary_phonenumber",
-         "Type":"VARCHAR(254)",
-         "Validations":[  
-             {  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {  
-         "Name":"fax_number",
-         "Type":"VARCHAR(254)",
-         "Validations":[  
-             {  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {  
-         "Name":"first_name",
-         "Type":"VARCHAR(254)",
-         "Validations":[  
-             {  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {  
-         "Name":"middle_name",
-         "Type":"VARCHAR(254)",
-         "Validations":[  
-             {  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {  
-         "Name":"last_name",
-         "Type":"VARCHAR(254)",
-         "Validations":[  
-             {  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {  
-         "Name":"email",
-         "Type":"VARCHAR(254)",
-         "Validations":[  
-             {  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {  
-         "Name":"website",
-         "Type":"VARCHAR(254)",
-         "Validations":[  
-             {  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {  
-         "Name":"facebook",
-         "Type":"VARCHAR(254)",
-         "Validations":[  
-             {  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {  
-         "Name":"twitter",
-         "Type":"VARCHAR(254)",
-         "Validations":[  
-             {  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {  
-         "Name":"mobile_phone_number",
-         "Type":"VARCHAR(254)",
-         "Validations":[  
-             {  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {  
-         "Name":"version",
-         "Type":"INT",
+         "Name":"start_date_time",
+         "Type":"TIMESTAMP",
+		 "Format":"yyyy-MM-dd HH:mm:ss.SSS",
          "Validations":[  
             {  
                "Check":"Null",
@@ -195,8 +86,17 @@
                "Action":"Reject"
             }
          ]
-      },
-      {  
+      },      {  
+         "Name":"end_date_time",
+         "Type":"TIMESTAMP",
+		 "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+         "Validations":[  
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },      {  
          "Name":"create_date",
          "Type":"TIMESTAMP",
 		 "Format":"yyyy-MM-dd HH:mm:ss.SSS",
