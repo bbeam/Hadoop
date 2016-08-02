@@ -1,5 +1,7 @@
---table 
-Categories
+--query 
+'select TOP 1000 * from Categories where $CONDITIONS'
+--split-by 
+CategoryId 
 --hive-drop-import-delims
 --fields-terminated-by 
 '\001' 

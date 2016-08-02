@@ -69,6 +69,10 @@
             {  
                "Check":"DataType",
                "Action":"Reject"
+            },
+            {  
+               "Check":"ValuesConstraint",
+               "Values":"0,1"
             }
             
          ]

@@ -32,6 +32,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_membership_tier
 	create_date  TIMESTAMP,
 	create_by STRING,
 	update_date  TIMESTAMP,
-	update_by STRING
+	update_by STRING,
+	load_timestamp TIMESTAMP
 )
 LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_LEGACY}/angie/full/daily/dq_membership_tier';

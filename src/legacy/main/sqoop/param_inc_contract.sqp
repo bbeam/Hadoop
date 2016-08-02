@@ -1,13 +1,15 @@
---table 
-Contract
+--query 
+'select TOP 10000 * from Contract where $CONDITIONS'
+--split-by 
+contractId
 --hive-drop-import-delims
---fields-terminated-by 
+--fields-terminated-by
 '\001' 
---lines-terminated-by 
+--lines-terminated-by
 '\n'
---optionally-enclosed-by 
+--optionally-enclosed-by
 '\"'
---null-string 
+--null-string
 '' 
---null-non-string 
+--null-non-string
 ''

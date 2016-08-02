@@ -1,7 +1,7 @@
 --/*
 --  HIVE SCRIPT  : create_inc_t_user_address.hql
 --  AUTHOR       : Varun Rauthan
---  DATE         : July 27, 2016
+--  DATE         : Aug 2, 2016
 --  DESCRIPTION  : Creation of hive incoming table(inc_t_user_address). 
 --  USAGE 		 : hive -f s3://al-edh-dev/src/alweb/main/hive/create_inc_t_user_address.hql \
 --					--hivevar ALWEB_INCOMING_DB="${ALWEB_INCOMING_DB}" \
@@ -25,7 +25,4 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:ALWEB_INCOMING_DB}.inc_t_user_addr
 	update_by STRING
 )
 PARTITIONED BY (edh_bus_date STRING)
-ROW FORMAT DELIMITED
-FIELDS TERMINATED BY '\u0001'
-LINES TERMINATED BY '\n'
 LOCATION '${hivevar:S3_BUCKET}/data/incoming/${hivevar:SOURCE_ALWEB}/angieslist/full/daily/inc_t_user_address';
