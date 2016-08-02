@@ -1,85 +1,20 @@
 {  
-   "InputTableName":"inc_category_group",
-   "OutputTableName":"dq_category_group",
+   "InputTableName":"inc_storefront_product_event_type",
+   "OutputTableName":"dq_storefront_product_event_type",
    "SourceDB":"LEGACY_INCOMING_DB",
    "TargetDB":"LEGACY_GOLD_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_LEGACY/angie/full/daily/dq_category_group",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_LEGACY/angie/full/daily/dq_storefront_product_event_type",
    "TableValidation":[  
       {  
          "Check":"Duplicate",
-         "keyColumns":"category_group_id",
+         "keyColumns":"storefront_product_event_type_id",
          "Action":"Reject"
       }
    ],
    "Columns":[  
-      
-	  {  
-         "Name":"category_group",
-		 "Type":"STRING",
-         "Validations":[  
-            {  
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-            
-         ]
-      },
-	  {  
-         "Name":"category_group_description",
-		 "Type":"STRING",
-         "Validations":[  
-            {  
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-            
-         ]
-      },
-	  {  
-         "Name":"category_group_id",
-         "Type":"INT",
-         "Validations":[  
-            {  
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-		
       {  
-         "Name":"category_group_is_Active",
-		 "Type":"TINYINT",
-         "Validations":[  
-            {  
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {  
-               "Check":"DataType",
-               "Action":"Reject"
-            },
-            {  
-               "Check":"ValuesConstraint",
-               "Values":"0,1"
-            }
-            
-         ]
-      },
-      {  
-         "Name":"category_group_type_id",
-         "Type":"INT",
+         "Name":"create_by",
+		 "Type":"STRING",
          "Validations":[  
              {  
                "Check":"Null",
@@ -89,13 +24,15 @@
                "Check":"DataType",
                "Action":"Reject"
             }
+            
          ]
       },
-      {  
-         "Name":"display_order",
-         "Type":"INT",
+	  {  
+         "Name":"create_date",
+		 "Type":"TIMPESTAMP",
+		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
          "Validations":[  
-            {  
+           {  
                "Check":"Null",
                "Action":"Reject"
             },
@@ -103,8 +40,76 @@
                "Check":"DataType",
                "Action":"Reject"
             }
+            
          ]
-      }      
-   ]
+      },
+	  {  
+         "Name":"storefront_product_event_type_description",
+		 "Type":"STRING",
+         "Validations":[  
+             {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+			{  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  {  
+         "Name":"storefront_product_event_type_id",
+         "Type":"INT",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  {  
+         "Name":"storefront_product_event_type_name",
+		 "Type":"STRING",
+         "Validations":[  
+             {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+			{  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	   {  
+         "Name":"update_by",
+		 "Type":"STRING",
+         "Validations":[  
+             {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  {  
+         "Name":"update_date",
+		 "Type":"TIMPESTAMP",
+		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
+         "Validations":[  
+           {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      }
+  ]
 	  
 }

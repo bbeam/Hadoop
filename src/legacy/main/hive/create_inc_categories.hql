@@ -22,9 +22,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_INCOMING_DB}.inc_categories
 	seo_category_id STRING, 
 	average_job_cost STRING, 
 	is_active STRING, 
-	category_travel_direction_id STRING, 
-	checksum STRING
-
-)
+	category_travel_direction_id STRING
+	)
 PARTITIONED BY (edh_bus_date STRING)
 LOCATION '${hivevar:S3_BUCKET}/data/incoming/${hivevar:SOURCE_LEGACY}/angie/full/daily/inc_categories';
