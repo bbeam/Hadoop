@@ -52,7 +52,7 @@
             },
             {
             	"Check":"ValuesConstraint",
-	            "values":"0,1"
+	            "Values":"0,1"
             }
          ]
       }

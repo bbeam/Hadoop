@@ -67,7 +67,7 @@
                "Action":"Reject"
             },
             {  
-               "Check":"ValueConstraint",
+               "Check":"ValuesConstraint",
                "Values":"0,1"
             }			
          ]
