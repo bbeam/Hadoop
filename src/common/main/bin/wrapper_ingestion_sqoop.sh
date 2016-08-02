@@ -214,7 +214,7 @@ fi
 
 # Hive script to insert extraction audit record
 hive -f $INCOMING_AUDIT_HQL_PATH \
-	-hivevar ENTITY_NAME=$SOURCE_ALWEB \
+	-hivevar ENTITY_NAME=$SOURCE \
 	-hivevar INCOMING_DB=$INCOMING_DB \
 	-hivevar INCOMING_TABLE=$TABLE_NAME_INC \
 	-hivevar USER_NAME=$USER_NAME \
@@ -231,7 +231,7 @@ fi
 
 # Hive script to insert DQ audit record
 hive -f $DQ_AUDIT_HQL_PATH \
-	-hivevar ENTITY_NAME=$SOURCE_ALWEB \
+	-hivevar ENTITY_NAME=$SOURCE \
 	-hivevar GOLD_DB=$GOLD_DB \
 	-hivevar DQ_TABLE=$TABLE_NAME_DQ \
 	-hivevar USER_NAME=$USER_NAME \
