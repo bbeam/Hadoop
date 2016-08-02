@@ -24,4 +24,4 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:ALWEB_GOLD_DB}.inc_t_associate_per
 	update_date TIMESTAMP,
 	update_by INT
 )
-LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_ALWEB}/angieslist/full/daily/t_associate_permission';
+LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_ALWEB}/angieslist/full/daily/dq_t_associate_permission';

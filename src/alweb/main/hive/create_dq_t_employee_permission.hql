@@ -10,7 +10,7 @@
 --*/
 
 --  Creating a incoming hive table(inc_t_employee_permission) over the incoming data
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:ALWEB_GOLD_DB}.inc_t_employee_permission
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:ALWEB_GOLD_DB}.dq_t_employee_permission
 (
 	employee_permission_id INT,
 	user_id INT,
@@ -24,4 +24,4 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:ALWEB_GOLD_DB}.inc_t_employee_perm
 	update_by INT,
 	load_timestamp TIMESTAMP
 )
-LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_ALWEB}/angieslist/full/daily/t_employee_permission';
+LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_ALWEB}/angieslist/full/daily/dq_t_employee_permission';
