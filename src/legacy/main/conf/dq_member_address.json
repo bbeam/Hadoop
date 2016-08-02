@@ -105,7 +105,8 @@
       {  
          "Name":"create_date",
          "Type":"TIMESTAMP",
-         "Validations":[  
+ 		 "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+        "Validations":[  
             {  
                "Check":"Null",
                "Action":"Reject"
@@ -133,7 +134,8 @@
       {  
          "Name":"updatedate",
          "Type":"TIMESTAMP",
-         "Validations":[  
+ 		 "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+        "Validations":[  
             {  
                "Check":"Null",
                "Action":"Reject"

@@ -1,7 +1,7 @@
 --query 
-'select * from t_ContactInformation  where $CONDITIONS limit 100' 
+'select * from t_MemberPermission  where $CONDITIONS limit 10000' 
 --split-by 
-ContactInformationId
+MemberPermissionId
 --hive-drop-import-delims
 --fields-terminated-by 
 '\001' 
