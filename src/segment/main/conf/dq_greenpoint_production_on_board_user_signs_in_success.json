@@ -1,9 +1,9 @@
-{  
-   "InputTableName":"inc_angieslistweb_prod_searched_sp",
-   "OutputTableName":"dq_angieslistweb_prod_searched_sp",
+{
+   "InputTableName":"inc_greenpoint_production_on_board_user_signs_in_success",
+   "OutputTableName":"dq_greenpoint_production_on_board_user_signs_in_success",   
    "SourceDB":"SEGMENT_INCOMING_DB",
    "TargetDB":"SEGMENT_GOLD_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_SEGMENT/angieslistweb_prod/incremental/daily/dq_angieslistweb_prod_searched_sp/edh_bus_date=$EDHBUSDATE",      
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_SEGMENT/greenpoint_production/incremental/daily/dq_greenpoint_production_on_board_user_signs_in_success/edh_bus_date=$EDHBUSDATE",
    "TableValidation":[  
             {  
                "Check":"Duplicate",
@@ -14,12 +14,12 @@
    "Columns":[  
       {
          "Name":"id",
-         "Type":"VARCHAR(254)",
+         "Type":"VARCHAR(256)",
          "Validations":[
-            {
+		   {
                "Check":"Null",
                "Action":"Reject"
-            },
+           },
             {
                "Check":"DataType",
                "Action":"Reject"
@@ -29,7 +29,7 @@
       {
          "Name":"received_at",
          "Type":"TIMESTAMP",
-         "Format":"yyyy-MM-dd HH:mm:ss.SS",
+         "Format":"yyyy-MM-dd HH:mm:ss.SSS",
          "Validations":[
             {
                "Check":"DataType",
@@ -48,8 +48,8 @@
          ]
       },
       {
-         "Name":"advertisers_on_page",
-         "Type":"BIGINT",
+         "Name":"anonymous_id",
+         "Type":"VARCHAR(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -58,7 +58,91 @@
          ]
       },
       {
-         "Name":"context_auth_token",
+         "Name":"context_app_build",
+         "Type":"VARCHAR(256)",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"context_app_name",
+         "Type":"VARCHAR(256)",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"context_app_version",
+         "Type":"VARCHAR(256)",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"context_device_ad_tracking_enabled",
+         "Type":"VARCHAR(256)",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            },
+            {
+            	"Check":"ValuesConstraint",
+	            "Values":"true,false"
+            }			
+         ]
+      },
+      {
+         "Name":"context_device_idfa",
+         "Type":"VARCHAR(256)",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"context_device_idfv",
+         "Type":"VARCHAR(256)",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"context_device_manufacturer",
+         "Type":"VARCHAR(256)",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"context_device_model",
+         "Type":"VARCHAR(256)",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"context_device_type",
          "Type":"VARCHAR(256)",
          "Validations":[
             {
@@ -98,7 +182,7 @@
          ]
       },
       {
-         "Name":"context_referer",
+         "Name":"context_locale",
          "Type":"VARCHAR(256)",
          "Validations":[
             {
@@ -108,10 +192,78 @@
          ]
       },
       {
-         "Name":"context_user_agent",
+         "Name":"context_network_bluetooth",
          "Type":"VARCHAR(256)",
          "Validations":[
-             {
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            },
+            {
+            	"Check":"ValuesConstraint",
+	            "Values":"true,false"
+            }			
+         ]
+      },
+      {
+         "Name":"context_network_carrier",
+         "Type":"VARCHAR(256)",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"context_network_wifi",
+         "Type":"VARCHAR(256)",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            },
+            {
+            	"Check":"ValuesConstraint",
+	            "Values":"true,false"
+            }			
+         ]
+      },
+      {
+         "Name":"context_os_name",
+         "Type":"VARCHAR(256)",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"context_os_version",
+         "Type":"VARCHAR(256)",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"context_screen_height",
+         "Type":"BIGINT",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"context_screen_width",
+         "Type":"BIGINT",
+         "Validations":[
+            {
                "Check":"DataType",
                "Action":"Reject"
             }
@@ -138,30 +290,10 @@
          ]
       },
       {
-         "Name":"location_info_advertising_zone",
-         "Type":"BIGINT",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {
-         "Name":"location_info_search_zip_code",
+         "Name":"member_id",
          "Type":"VARCHAR(256)",
          "Validations":[
             {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {
-         "Name":"location_info_user_zip_code",
-         "Type":"VARCHAR(256)",
-         "Validations":[
-             {
                "Check":"DataType",
                "Action":"Reject"
             }
@@ -169,127 +301,6 @@
       },
       {
          "Name":"original_timestamp",
-         "Type":"TIMESTAMP",
-         "Format":"yyyy-MM-dd HH:mm:ss.SS",
-         "Validations":[
-             {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {
-         "Name":"results",
-         "Type":"VARCHAR(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {
-         "Name":"search_for",
-         "Type":"VARCHAR(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {
-         "Name":"search_params_filters_categories",
-         "Type":"VARCHAR(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {
-         "Name":"search_params_filters_distance_from_provider",
-         "Type":"BIGINT",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {
-         "Name":"search_params_filters_first_name",
-         "Type":"VARCHAR(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {
-         "Name":"search_params_filters_listing",
-         "Type":"BIGINT",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {
-         "Name":"search_params_filters_sp_features",
-         "Type":"VARCHAR(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {
-         "Name":"search_params_page",
-         "Type":"BIGINT",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {
-         "Name":"search_params_query",
-         "Type":"VARCHAR(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {
-         "Name":"search_params_search_experience",
-         "Type":"VARCHAR(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {
-         "Name":"search_params_tokenized_query",
-         "Type":"VARCHAR(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {
-         "Name":"search_params_type",
          "Type":"VARCHAR(256)",
          "Validations":[
             {
@@ -301,29 +312,9 @@
       {
          "Name":"sent_at",
          "Type":"TIMESTAMP",
-         "Format":"yyyy-MM-dd HH:mm:ss.SS",
+         "Format":"yyyy-MM-dd HH:mm:ss.SSS",
          "Validations":[
             {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {
-         "Name":"sort_sort_by",
-         "Type":"VARCHAR(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {
-         "Name":"sort_sort_field",
-         "Type":"VARCHAR(256)",
-         "Validations":[
-             {
                "Check":"DataType",
                "Action":"Reject"
             }
@@ -332,27 +323,7 @@
       {
          "Name":"timestamp",
          "Type":"TIMESTAMP",
-         "Format":"yyyy-MM-dd HH:mm:ss.SS",
-         "Validations":[
-             {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {
-         "Name":"total_pages",
-         "Type":"BIGINT",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {
-         "Name":"total_results",
-         "Type":"BIGINT",
+         "Format":"yyyy-MM-dd HH:mm:ss.SSS",
          "Validations":[
             {
                "Check":"DataType",
@@ -371,8 +342,8 @@
          ]
       },
       {
-         "Name":"user_zip_code",
-         "Type":"VARCHAR(256)",
+         "Name":"user_id40",
+         "Type":"BIGINT",
          "Validations":[
             {
                "Check":"DataType",
@@ -381,18 +352,8 @@
          ]
       },
       {
-         "Name":"query",
-         "Type":"VARCHAR(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {
-         "Name":"search_type",
-         "Type":"VARCHAR(256)",
+         "Name":"member_id_legacy",
+         "Type":"BIGINT",
          "Validations":[
             {
                "Check":"DataType",
@@ -403,47 +364,7 @@
       {
          "Name":"uuid_ts",
          "Type":"TIMESTAMP",
-         "Format":"yyyy-MM-dd HH:mm:ss.SS",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {
-         "Name":"anonymous_id",
-         "Type":"VARCHAR(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {
-         "Name":"context_page_path",
-         "Type":"VARCHAR(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {
-         "Name":"context_page_title",
-         "Type":"VARCHAR(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {
-         "Name":"context_page_url",
-         "Type":"VARCHAR(256)",
+         "Format":"yyyy-MM-dd HH:mm:ss.SSS",
          "Validations":[
             {
                "Check":"DataType",
@@ -451,6 +372,5 @@
             }
          ]
       }
-   ]
-}      
-		 
+  ]
+}	 
