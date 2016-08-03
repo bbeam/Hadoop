@@ -1,9 +1,9 @@
 {  
-   "InputTableName":"inc_report",
-   "OutputTableName":"dq_report",
+   "InputTableName":"inc_markets",
+   "OutputTableName":"dq_markets",
    "SourceDB":"LEGACY_INCOMING_DB",
    "TargetDB":"LEGACY_GOLD_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_LEGACY/angie/full/daily/dq_report",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_LEGACY/angie/full/daily/dq_markets",
    "TableValidation":[  
       {  
          "Check":"Duplicate",

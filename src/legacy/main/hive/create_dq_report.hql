@@ -1,20 +1,20 @@
 --/*
 --  HIVE SCRIPT  : create_dq_report.hql
 --  AUTHOR       : Gaurav Maheshwari
---  DATE         : Aug 09, 2016
+--  DATE         : Aug 02, 2016
 --  DESCRIPTION  : Creation of hive DQ table(dq_report). 
 --  USAGE 		 : hive -f s3://al-edh-dev/src/legacy/main/hive/create_dq_report.hql \
 --					--hivevar LEGACY_GOLD_DB="${LEGACY_GOLD_DB}" \
 --					--hivevar S3_BUCKET="${S3_BUCKET}" \
---					--hivevar SOURCE_legacy="${SOURCE_legacy}"
+--					--hivevar SOURCE_LEGACY="${SOURCE_LEGACY}"
 --*/
 
 --  Creating a DQ hive table(inc_report) over the incoming data
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:legacy_GOLD_DB}.dq_report
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_report
 (
-	cost DECIMAL,
+	cost DECIMAL(18, 2),
 	create_by STRING,
-	create_date TIMPESTAMP,
+	create_date TIMESTAMP,
 	do_not_share_with_our_block TINYINT,
 	employee_id INT,
 	grade_exclude_type_id INT,

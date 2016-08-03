@@ -63,4 +63,10 @@ member_id_legacy STRING,
 uuid_ts STRING
 )
 PARTITIONED BY (edh_bus_date STRING)
+ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde' 
+WITH SERDEPROPERTIES (
+   "separatorChar" = "\u0001",
+   "quoteChar"     = "\"",
+   "escapeChar"    = "\\"
+)
 LOCATION '${hivevar:S3_BUCKET}/data/incoming/${hivevar:SOURCE_SEGMENT}/greenpoint_android_prod/incremental/daily/inc_greenpoint_android_prod_screens';

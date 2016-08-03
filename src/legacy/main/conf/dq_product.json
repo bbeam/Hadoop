@@ -1,0 +1,127 @@
+{  
+   "InputTableName":"inc_product",
+   "OutputTableName":"dq_product",
+   "SourceDB":"LEGACY_INCOMING_DB",
+   "TargetDB":"LEGACY_GOLD_DB",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_LEGACY/angie/full/daily/dq_product",
+   "TableValidation":[  
+            {  
+               "Check":"Duplicate",
+               "keyColumns":"product_id",
+               "Action":"Reject"
+            }
+         ],
+   "Columns":[  
+      {  
+         "Name":"product_id",
+         "Type":"INT",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  {  
+         "Name":"product_name",
+         "Type":"VARCHAR(100)",
+         "Validations":[  
+           {  
+               "Check":"Null",
+               "Action":"Reject"
+			   
+            }
+         ]
+      },
+	  {  
+         "Name":"product_type_id",
+         "Type":"INT",
+         "Validations":[  
+           {  
+               "Check":"Null",
+               "Action":"Reject"
+			   
+            },
+			{  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  {  
+         "Name":"active_ind",
+         "Type":"TINYINT",
+         "Validations":[  
+           {  
+               "Check":"Null",
+               "Action":"Reject"
+			   
+            },
+			{  
+               "Check":"DataType",
+               "Action":"Reject"
+            },
+			{
+            	"Check":"ValuesConstraint",
+	            "Values":"0,1"
+            }
+         ]
+      },
+	  {  
+         "Name":"comments",
+         "Type":"STRING",
+         "Validations":[  
+            
+         ]
+      },
+	  {  
+         "Name":"create_date",
+         "Type":"TIMESTAMP",
+		 "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  {  
+         "Name":"create_by",
+         "Type":"VARCHAR(50)",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  {  
+         "Name":"update_date",
+         "Type":"TIMESTAMP",
+		 "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+         "Validations":[  
+            
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  {  
+         "Name":"update_by",
+         "Type":"VARCHAR(50)",
+         "Validations":[  
+            
+         ]
+      }
+	
+   ]
+}

@@ -3,14 +3,14 @@
 --  AUTHOR       : Gaurav Maheshwari
 --  DATE         : Aug 09, 2016
 --  DESCRIPTION  : Creation of hive DQ table(dq_markets). 
---  USAGE 		 : hive -f s3://al-edh-dev/src/legacy/main/hive/create_dq_markets.hql \
+--  USAGE 		 : hive -f s3://al-edh-dev/src/$SOURCE_LEGACY/main/hive/create_dq_markets.hql \
 --					--hivevar LEGACY_GOLD_DB="${LEGACY_GOLD_DB}" \
 --					--hivevar S3_BUCKET="${S3_BUCKET}" \
 --					--hivevar SOURCE_legacy="${SOURCE_legacy}"
 --*/
 
 --  Creating a DQ hive table(inc_markets) over the incoming data
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:legacy_GOLD_DB}.dq_markets
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_markets
 (
 	market_id INT,    
 	market STRING,     

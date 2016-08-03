@@ -39,7 +39,7 @@
       },
       {  
          "Name":"create_date",
-		 "Type":"TIMPESTAMP",
+		 "Type":"TIMESTAMP",
 		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
          "Validations":[  
             {  
@@ -183,7 +183,7 @@
       },
 	  {  
          "Name":"modified_date",
-		 "Type":"TIMPESTAMP",
+		 "Type":"TIMESTAMP",
 		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
          "Validations":[  
             {  
@@ -223,7 +223,7 @@
       },
 	  {  
          "Name":"report_date",
-		 "Type":"TIMPESTAMP",
+		 "Type":"TIMESTAMP",
 		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
          "Validations":[  
             {  
@@ -293,9 +293,9 @@
             }
          ]
       },
-	  {  
-         "Name":"report_date",
-		 "Type":"TIMPESTAMP",
+       {  
+         "Name":"work_completed_date",
+		 "Type":"TIMESTAMP",
 		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
          "Validations":[  
            	{  

@@ -5,7 +5,6 @@
 --  DESCRIPTION  : Creation of hive DQ table(t_skuitem). 
 --  USAGE		 : hive -f ${S3_BUCKET}/src/alweb/main/hive/create_inc_t_sku_item.hql \
 						--hivevar ALWEB_INCOMING_DB="${ALWEB_INCOMING_DB}" \
-						--hivevar S3_LOCATION_INCOMING_DATA="${S3_LOCATION_INCOMING_DATA}" \
 						--hivevar SOURCE_ALWEB="${SOURCE_ALWEB}" \
 						--hivevar S3_BUCKET="${S3_BUCKET}"
 --*/
@@ -30,4 +29,4 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:ALWEB_GOLD_DB}.dq_t_sku_item
   update_by INT,
   load_timestamp TIMESTAMP
 )
-LOCATION '${hivevar:S3_BUCKET}/${hivevar:S3_LOCATION_GOLD_DATA}/${hivevar:SOURCE_ALWEB}/angieslist/full/daily/dq_t_sku_item';
+LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_ALWEB}/angieslist/full/daily/dq_t_sku_item';

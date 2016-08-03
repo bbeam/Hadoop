@@ -1,5 +1,5 @@
 --table 
-markets
+MemberMembershipTier
 --hive-drop-import-delims
 --fields-terminated-by 
 '\001' 
