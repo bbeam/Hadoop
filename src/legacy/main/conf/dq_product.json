@@ -1,50 +1,19 @@
 {  
-   "InputTableName":"inc_category_group",
-   "OutputTableName":"dq_category_group",
+   "InputTableName":"inc_product",
+   "OutputTableName":"dq_product",
    "SourceDB":"LEGACY_INCOMING_DB",
    "TargetDB":"LEGACY_GOLD_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_LEGACY/angie/full/daily/dq_category_group",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_LEGACY/angie/full/daily/dq_product",
    "TableValidation":[  
-      {  
-         "Check":"Duplicate",
-         "keyColumns":"category_group_id",
-         "Action":"Reject"
-      }
-   ],
+            {  
+               "Check":"Duplicate",
+               "keyColumns":"product_id",
+               "Action":"Reject"
+            }
+         ],
    "Columns":[  
-      
-	  {  
-         "Name":"category_group",
-		 "Type":"STRING",
-         "Validations":[  
-            {  
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-            
-         ]
-      },
-	  {  
-         "Name":"category_group_description",
-		 "Type":"STRING",
-         "Validations":[  
-            {  
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-            
-         ]
-      },
-	  {  
-         "Name":"category_group_id",
+      {  
+         "Name":"product_id",
          "Type":"INT",
          "Validations":[  
             {  
@@ -57,33 +26,25 @@
             }
          ]
       },
-		
-      {  
-         "Name":"category_group_is_Active",
-		 "Type":"TINYINT",
+	  {  
+         "Name":"product_name",
+         "Type":"VARCHAR(100)",
          "Validations":[  
-            {  
+           {  
                "Check":"Null",
                "Action":"Reject"
-            },
-            {  
-               "Check":"DataType",
-               "Action":"Reject"
-            },
-            {  
-               "Check":"ValuesConstraint",
-               "Values":"0,1"
+			   
             }
-            
          ]
       },
-      {  
-         "Name":"category_group_type_id",
+	  {  
+         "Name":"product_type_id",
          "Type":"INT",
          "Validations":[  
-             {  
+           {  
                "Check":"Null",
                "Action":"Reject"
+			   
             },
 			{  
                "Check":"DataType",
@@ -91,20 +52,76 @@
             }
          ]
       },
-      {  
-         "Name":"display_order",
-         "Type":"INT",
+	  {  
+         "Name":"active_ind",
+         "Type":"TINYINT",
+         "Validations":[  
+           {  
+               "Check":"Null",
+               "Action":"Reject"
+			   
+            },
+			{  
+               "Check":"DataType",
+               "Action":"Reject"
+            },
+			{
+            	"Check":"ValuesConstraint",
+	            "Values":"0,1"
+            }
+         ]
+      },
+	  {  
+         "Name":"comments",
+         "Type":"STRING",
+         "Validations":[  
+            
+         ]
+      },
+	  {  
+         "Name":"create_date",
+         "Type":"TIMESTAMP",
+		 "Format":"yyyy-MM-dd HH:mm:ss.SSS",
          "Validations":[  
             {  
                "Check":"Null",
                "Action":"Reject"
             },
-			{  
+            {  
                "Check":"DataType",
                "Action":"Reject"
             }
          ]
-      }      
+      },
+	  {  
+         "Name":"create_by",
+         "Type":"VARCHAR(50)",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  {  
+         "Name":"update_date",
+         "Type":"TIMESTAMP",
+		 "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+         "Validations":[  
+            
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  {  
+         "Name":"update_by",
+         "Type":"VARCHAR(50)",
+         "Validations":[  
+            
+         ]
+      }
+	
    ]
-	  
 }

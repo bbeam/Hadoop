@@ -12,7 +12,7 @@
 -- -hivevar SOURCE_LEGACY=$SOURCE_LEGACY
 --*/
 
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_INCOMING_DB}.dq_contract_item
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_contract_item
 (
   contract_item_id INT,
   ad_element_id INT,
