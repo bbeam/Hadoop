@@ -137,10 +137,6 @@
  		 "Format":"yyyy-MM-dd HH:mm:ss.SSS",
         "Validations":[  
             {  
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {  
                "Check":"DataType",
                "Action":"Reject"
             }
@@ -150,10 +146,6 @@
          "Name":"update_by",
          "Type":"STRING",
          "Validations":[  
-            {  
-               "Check":"Null",
-               "Action":"Reject"
-            },
             {  
                "Check":"DataType",
                "Action":"Reject"
