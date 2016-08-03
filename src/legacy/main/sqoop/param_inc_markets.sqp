@@ -1,0 +1,15 @@
+--query 
+'select TOP 1000 * from Markets where $CONDITIONS'
+--split-by 
+MarketID 
+--hive-drop-import-delims
+--fields-terminated-by 
+'\001' 
+--lines-terminated-by 
+'\n'
+--optionally-enclosed-by 
+'\"'
+--null-string 
+'' 
+--null-non-string 
+''

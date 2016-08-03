@@ -10,7 +10,7 @@
 --*/
 
 --  Creating a DQ hive table(inc_markets) over the incoming data
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:legacy_GOLD_DB}.dq_markets
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_markets
 (
 	market_id INT,    
 	market STRING,     
