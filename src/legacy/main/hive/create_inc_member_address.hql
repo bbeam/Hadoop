@@ -25,5 +25,4 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_INCOMING_DB}.inc_member_add
 	update_by STRING
 )
 PARTITIONED BY (edh_bus_date STRING)
-)
 LOCATION '${hivevar:S3_BUCKET}/data/incoming/${hivevar:SOURCE_LEGACY}/angie/full/daily/inc_member_address';
