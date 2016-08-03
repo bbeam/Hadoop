@@ -156,16 +156,6 @@
                "Action":"Reject"
             }
          ]
-      },
-	   {  
-         "Name":"checksum",
-         "Type":"INT",
-         "Validations":[  
-            {  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
       }
 	  
    ]

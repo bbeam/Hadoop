@@ -1,5 +1,7 @@
---table 
-report
+--query 
+'select TOP 1000 * from Report where $CONDITIONS'
+--split-by 
+ReportId 
 --hive-drop-import-delims
 --fields-terminated-by 
 '\001' 
