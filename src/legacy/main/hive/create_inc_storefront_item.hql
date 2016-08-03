@@ -53,8 +53,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_INCOMING_DB}.inc_storefront
   employee_owner_id STRING,
   storefront_order_fulfillment_method_id STRING,
   do_not_override_fulfillment_method STRING,
-  premium_deal STRING,
-  checksum STRING
+  premium_deal STRING
 )
 PARTITIONED BY(edh_bus_date STRING)
 LOCATION '${hivevar:S3_BUCKET}/data/incoming/${hivevar:SOURCE_LEGACY}/angie/full/daily/inc_storefront_item';
