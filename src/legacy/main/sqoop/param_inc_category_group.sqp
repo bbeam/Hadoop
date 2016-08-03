@@ -1,5 +1,7 @@
---table 
-CategoryGroup
+--query 
+'select TOP 1000 * from CategoryGroup where $CONDITIONS'
+--split-by 
+CategoryGroupId 
 --hive-drop-import-delims
 --fields-terminated-by 
 '\001' 
