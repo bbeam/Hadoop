@@ -1,0 +1,119 @@
+{  
+   "InputTableName":"inc_tbl_requested_companies",
+   "OutputTableName":"dq_tbl_requested_companies",
+   "SourceDB":"LEGACY_INCOMING_DB",
+   "TargetDB":"LEGACY_GOLD_DB",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_LEGACY/angie/full/daily/dq_tbl_requested_companies",
+   "TableValidation":[  
+            {  
+               "Check":"Duplicate",
+               "keyColumns":"gave_id",
+               "Action":"Reject"
+            }
+         ],
+   "Columns":[  
+      {  
+         "Name":"gave_id",
+         "Type":"INT",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  {  
+         "Name":"request_info_id",
+         "Type":"INT",
+         "Validations":[  
+           
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  {  
+         "Name":"requested_grade_id",
+         "Type":"INT",
+         "Validations":[  
+            
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  {  
+         "Name":"sp_id",
+         "Type":"INT",
+         "Validations":[  
+            
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  {  
+         "Name":"category_id",
+         "Type":"INT",
+         "Validations":[  
+            
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  {  
+         "Name":"gave_date",
+         "Type":"TIMESTAMP",
+		 "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+         "Validations":[  
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  {  
+         "Name":"original_requested_id",
+         "Type":"INT",
+         "Validations":[  
+            
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  {  
+         "Name":"gave_count",
+         "Type":"SMALLINT",
+         "Validations":[  
+            
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  {  
+         "Name":"member_id",
+         "Type":"INT",
+         "Validations":[  
+            
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      }
+	
+   ]
+}
