@@ -5,7 +5,6 @@
 --  DESCRIPTION  : Creation of hive incoming table(inc_t_sku_item). 
 --  USAGE		 : hive -f ${S3_BUCKET}/src/alweb/main/hive/create_inc_t_sku_item.hql \
 						--hivevar ALWEB_INCOMING_DB="${ALWEB_INCOMING_DB}" \
-						--hivevar S3_LOCATION_INCOMING_DATA="${S3_LOCATION_INCOMING_DATA}" \
 						--hivevar SOURCE_ALWEB="${SOURCE_ALWEB}" \
 						--hivevar S3_BUCKET="${S3_BUCKET}"
 --*/
@@ -33,4 +32,4 @@ WITH SERDEPROPERTIES (
    "quoteChar"     = "\"",
    "escapeChar"    = "\\"
 )
-LOCATION '${hivevar:S3_BUCKET}/${hivevar:S3_LOCATION_INCOMING_DATA}/${hivevar:SOURCE_ALWEB}/angieslist/full/daily/inc_t_sku_item';
+LOCATION '${hivevar:S3_BUCKET}/data/incoming/${hivevar:SOURCE_ALWEB}/angieslist/full/daily/inc_t_sku_item';

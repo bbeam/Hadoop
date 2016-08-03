@@ -26,6 +26,16 @@
             }
          ]
       },
+      {
+         "Name":"title",
+         "Type":"STRING",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
        {
          "Name":"contract_workflow_status_id",
          "Type":"INT",
@@ -79,6 +89,10 @@
             {
                "Check":"DataType",
                "Action":"Reject"
+            },
+            {
+               "Check":"ValuesConstraint",
+               "Values":"0,1"
             }
          ]
       },
@@ -107,6 +121,10 @@
             {
                "Check":"DataType",
                "Action":"Reject"
+            },
+            {
+               "Check":"ValuesConstraint",
+               "Values":"0,1"
             }
          ]
       },
@@ -149,6 +167,10 @@
             {
                "Check":"DataType",
                "Action":"Reject"
+            },
+            {
+               "Check":"ValuesConstraint",
+               "Values":"0,1"
             }
          ]
       },
@@ -428,6 +450,10 @@
             {
                "Check":"DataType",
                "Action":"Reject"
+            },
+            {
+               "Check":"ValuesConstraint",
+               "Values":"0,1"
             }
          ]
       },
@@ -496,6 +522,10 @@
             {
                "Check":"DataType",
                "Action":"Reject"
+            },
+            {
+               "Check":"ValuesConstraint",
+               "Values":"0,1"
             }
          ]
       },
@@ -510,6 +540,10 @@
             {
                "Check":"DataType",
                "Action":"Reject"
+            },
+            {
+               "Check":"ValuesConstraint",
+               "Values":"0,1"
             }
          ]
       }

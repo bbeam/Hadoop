@@ -1,19 +1,19 @@
 {  
-   "InputTableName":"inc_contract_item",
-   "OutputTableName":"dq_contract_item",
+   "InputTableName":"inc_service_provider",
+   "OutputTableName":"dq_service_provider",
    "SourceDB":"LEGACY_INCOMING_DB",
    "TargetDB":"LEGACY_GOLD_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_LEGACY/angie/full/daily/dq_contract_item",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_LEGACY/angie/full/daily/dq_service_provider",
    "TableValidation":[  
             {  
                "Check":"Duplicate",
-               "keyColumns":"contract_item_id",
+               "keyColumns":"sp_id",
                "Action":"Reject"
             }
          ],
    "Columns":[
-       {
-         "Name":"contract_item_id",
+      {
+         "Name":"sp_id",
          "Type":"INT",
          "Validations":[
             {
@@ -27,7 +27,7 @@
          ]
       },
        {
-         "Name":"ad_element_id",
+         "Name":"sp_status_id",
          "Type":"INT",
          "Validations":[
             {
@@ -41,114 +41,8 @@
          ]
       },
        {
-         "Name":"contract_id",
-         "Type":"INT",
-         "Validations":[
-            {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"use_seasonal_schedule",
-         "Type":"TINYINT",
-         "Validations":[
-            {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            },
-            {
-               "Check":"ValuesConstraint",
-               "values":"0,1"
-            }
-         ]
-      },
-       {
-         "Name":"is_national",
-         "Type":"TINYINT",
-         "Validations":[
-            {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            },
-            {
-               "Check":"ValuesConstraint",
-               "values":"0,1"
-            }
-         ]
-      },
-       {
-         "Name":"contract_item_status_id",
-         "Type":"INT",
-         "Validations":[
-            {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"market_id",
-         "Type":"INT",
-         "Validations":[
-            {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"country_code_id",
-         "Type":"INT",
-         "Validations":[
-            {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"currency_code_id",
-         "Type":"INT",
-         "Validations":[
-            {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"contract_item_pulled_reason_id",
-         "Type":"INT",
+         "Name":"company_name",
+         "Type":"STRING",
          "Validations":[
             {
                "Check":"DataType",
@@ -157,17 +51,7 @@
          ]
       },
        {
-         "Name":"category_id",
-         "Type":"INT",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"start_date",
+         "Name":"entered_date",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss",
          "Validations":[
@@ -178,18 +62,7 @@
          ]
       },
        {
-         "Name":"end_date",
-         "Type":"TIMESTAMP",
-         "Format":"yyyy-MM-dd HH:mm:ss",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"classified_ad_text",
+         "Name":"address_1",
          "Type":"STRING",
          "Validations":[
             {
@@ -199,7 +72,7 @@
          ]
       },
        {
-         "Name":"coupon_text",
+         "Name":"address_2",
          "Type":"STRING",
          "Validations":[
             {
@@ -209,7 +82,7 @@
          ]
       },
        {
-         "Name":"ad_note",
+         "Name":"city",
          "Type":"STRING",
          "Validations":[
             {
@@ -219,8 +92,8 @@
          ]
       },
        {
-         "Name":"paid_months",
-         "Type":"INT",
+         "Name":"state",
+         "Type":"STRING",
          "Validations":[
             {
                "Check":"DataType",
@@ -229,8 +102,8 @@
          ]
       },
        {
-         "Name":"premium",
-         "Type":"DECIMAL(10,2)",
+         "Name":"zip",
+         "Type":"STRING",
          "Validations":[
             {
                "Check":"DataType",
@@ -239,8 +112,8 @@
          ]
       },
        {
-         "Name":"list_price",
-         "Type":"DECIMAL(10,2)",
+         "Name":"business_date",
+         "Type":"STRING",
          "Validations":[
             {
                "Check":"DataType",
@@ -249,8 +122,8 @@
          ]
       },
        {
-         "Name":"pre_discounted_total",
-         "Type":"DECIMAL(10,2)",
+         "Name":"contact_title",
+         "Type":"STRING",
          "Validations":[
             {
                "Check":"DataType",
@@ -259,8 +132,8 @@
          ]
       },
        {
-         "Name":"total",
-         "Type":"DECIMAL(10,2)",
+         "Name":"contact_first",
+         "Type":"STRING",
          "Validations":[
             {
                "Check":"DataType",
@@ -269,8 +142,8 @@
          ]
       },
        {
-         "Name":"monthly_price",
-         "Type":"DECIMAL(10,2)",
+         "Name":"contact_middle",
+         "Type":"STRING",
          "Validations":[
             {
                "Check":"DataType",
@@ -279,7 +152,167 @@
          ]
       },
        {
-         "Name":"color",
+         "Name":"contact_last",
+         "Type":"STRING",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"phone",
+         "Type":"STRING",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"phone_2",
+         "Type":"STRING",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"voice_star_number",
+         "Type":"STRING",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"fax",
+         "Type":"STRING",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"email",
+         "Type":"STRING",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"url",
+         "Type":"STRING",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"senior_discount",
+         "Type":"STRING",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"non_services",
+         "Type":"STRING",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"services",
+         "Type":"STRING",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"operating_hours",
+         "Type":"STRING",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"service_area",
+         "Type":"STRING",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"bus_desc",
+         "Type":"STRING",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"bbb",
+         "Type":"STRING",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"exclude_reason",
+         "Type":"STRING",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"internal_comment",
+         "Type":"STRING",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"emergency_service",
          "Type":"TINYINT",
          "Validations":[
             {
@@ -289,60 +322,6 @@
             {
                "Check":"ValuesConstraint",
                "values":"0,1"
-            }
-         ]
-      },
-       {
-         "Name":"product_description",
-         "Type":"STRING",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"product_type_other",
-         "Type":"STRING",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"billing_lead_time",
-         "Type":"INT",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"employee_id",
-         "Type":"INT",
-         "Validations":[
-            {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"modified_by_employee_id",
-         "Type":"INT",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
             }
          ]
       },
@@ -366,19 +345,58 @@
          "Type":"STRING",
          "Validations":[
             {
-               "Check":"Null",
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"country_code_id",
+         "Type":"INT",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"legal_business_name",
+         "Type":"STRING",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"classic_import_work_id",
+         "Type":"INT",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"known_invalid_email_address",
+         "Type":"TINYINT",
+         "Validations":[
+            {
+               "Check":"DataType",
                "Action":"Reject"
             },
             {
-               "Check":"DataType",
-               "Action":"Reject"
+               "Check":"ValuesConstraint",
+               "values":"0,1"
             }
          ]
       },
        {
-         "Name":"modified_date",
-         "Type":"TIMESTAMP",
-         "Format":"yyyy-MM-dd HH:mm:ss",
+         "Name":"postal_address_status_id",
+         "Type":"STRING",
          "Validations":[
             {
                "Check":"DataType",
@@ -387,29 +405,7 @@
          ]
       },
        {
-         "Name":"targeted_end_date",
-         "Type":"TIMESTAMP",
-         "Format":"yyyy-MM-dd HH:mm:ss",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"targeted_end_date_changed_date",
-         "Type":"TIMESTAMP",
-         "Format":"yyyy-MM-dd HH:mm:ss",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"targeted_end_date_changed_by_employee_id",
+         "Name":"phone_status_id",
          "Type":"INT",
          "Validations":[
             {
@@ -417,27 +413,6 @@
                "Action":"Reject"
             }
          ]
-      },
-       {
-         "Name":"revenue_change_reason_id",
-         "Type":"INT",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"eligibility_date",
-         "Type":"TIMESTAMP",
-         "Format":"yyyy-MM-dd HH:mm:ss",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-       }
-      ]
       }
+    ]
+}
