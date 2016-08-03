@@ -1,0 +1,98 @@
+--/*
+--  HIVE SCRIPT  : create_inc_angieslistweb_prod_review_submitted.hql
+--  AUTHOR       : Ashoka Reddy
+--  DATE         : Jul 13, 2016
+--  DESCRIPTION  : Creation of hive incoming table(inc_angieslistweb_prod_review_submitted). 
+--  USAGE    : hive -f s3://al-edh-dev/src/segment/main/hive/create_inc_angieslistweb_prod_review_submitted.hql \
+--     --hivevar SEGMENT_INCOMING_DB="${SEGMENT_INCOMING_DB}" \
+--     --hivevar S3_BUCKET="${S3_BUCKET}" \
+--     --hivevar SOURCE_SEGMENT="${SOURCE_SEGMENT}" 
+--*/
+
+--  Creating a incoming hive table(inc_angieslistweb_prod_review_submitted) over the incoming data
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:SEGMENT_INCOMING_DB}.inc_angieslistweb_prod_review_submitted
+(
+id STRING,
+received_at STRING,
+uuid STRING,
+_13_overall STRING,
+_14_availability STRING,
+_14_price STRING,
+_15_office_environment STRING,
+_15_quality STRING,
+_16_availability STRING,
+_16_punctuality STRING,
+_17_office_environment STRING,
+_17_staff_friendliness STRING,
+_18_bedside_manner STRING,
+_18_punctuality STRING,
+_19_communication STRING,
+_19_staff_friendliness STRING,
+_1_overall STRING,
+_20_bedside_manner STRING,
+_20_effectiveness_of_treatment STRING,
+_21_billing_and_administration STRING,
+_21_communication STRING,
+_22_effectiveness_of_treatment STRING,
+_23_billing_and_administration STRING,
+_24_coverage STRING,
+_25_responsiveness STRING,
+_26_customer_service STRING,
+_27_professionalism STRING,
+_2_price STRING,
+_3_quality STRING,
+_4_responsiveness STRING,
+_5_punctuality STRING,
+_6_professionalism STRING,
+are_status STRING,
+category_ids STRING,
+city STRING,
+context_auth_token STRING,
+context_ip STRING,
+context_library_name STRING,
+context_library_version STRING,
+context_referer STRING,
+context_user_agent STRING,
+draft_review_id STRING,
+event STRING,
+event_text STRING,
+grades_1 STRING,
+grades_13 STRING,
+grades_14 STRING,
+grades_15 STRING,
+grades_16 STRING,
+grades_17 STRING,
+grades_18 STRING,
+grades_19 STRING,
+grades_2 STRING,
+grades_20 STRING,
+grades_21 STRING,
+grades_22 STRING,
+grades_23 STRING,
+grades_24 STRING,
+grades_25 STRING,
+grades_26 STRING,
+grades_27 STRING,
+grades_3 STRING,
+grades_4 STRING,
+grades_5 STRING,
+grades_6 STRING,
+job_id STRING,
+latitude STRING,
+listing_id STRING,
+longitude STRING,
+original_timestamp STRING,
+postal_code STRING,
+region_id STRING,
+review_status STRING,
+sent_at STRING,
+service_provider_id STRING,
+sp_id STRING,
+sp_name STRING,
+timestamp STRING,
+user_id STRING,
+user_zip_code STRING,
+uuid_ts STRING
+)
+PARTITIONED BY (edh_bus_date STRING)
+LOCATION '${hivevar:S3_BUCKET}/data/incoming/${hivevar:SOURCE_SEGMENT}/angieslistweb_prod/incremental/daily/inc_angieslistweb_prod_review_submitted';

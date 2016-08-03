@@ -1,0 +1,100 @@
+--  HIVE SCRIPT  : create_dq_angieslistweb_prod_review_submitted.hql
+--  AUTHOR       : Ashoka Reddy
+--  DATE         : Jul 13, 2016
+--  DESCRIPTION  : Creation of hive dq table(dq_angieslistweb_prod_review_submitted). 
+--  USAGE    : hive -f s3://al-edh-dev/src/segment/main/hive/create_dq_angieslistweb_prod_review_submitted.hql \
+--     --hivevar SEGMENT_GOLD_DB="${SEGMENT_GOLD_DB}" \
+--     --hivevar S3_BUCKET="${S3_BUCKET}" \
+--     --hivevar SOURCE_SEGMENT="${SOURCE_SEGMENT}" 
+
+--*/
+
+--  Creating a DQ hive table(Dq_angieslistweb_prod_purchased_cart) over the incoming data
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:SEGMENT_GOLD_DB}.dq_angieslistweb_prod_review_submitted
+( 
+id VARCHAR(254),
+received_at TIMESTAMP,
+uuid BIGINT,
+_13_overall VARCHAR(256),
+_14_availability VARCHAR(256),
+_14_price VARCHAR(256),
+_15_office_environment VARCHAR(256),
+_15_quality VARCHAR(256),
+_16_availability VARCHAR(256),
+_16_punctuality VARCHAR(256),
+_17_office_environment VARCHAR(256),
+_17_staff_friendliness VARCHAR(256),
+_18_bedside_manner VARCHAR(256),
+_18_punctuality VARCHAR(256),
+_19_communication VARCHAR(256),
+_19_staff_friendliness VARCHAR(256),
+_1_overall VARCHAR(256),
+_20_bedside_manner VARCHAR(256),
+_20_effectiveness_of_treatment VARCHAR(256),
+_21_billing_and_administration VARCHAR(256),
+_21_communication VARCHAR(256),
+_22_effectiveness_of_treatment VARCHAR(256),
+_23_billing_and_administration VARCHAR(256),
+_24_coverage VARCHAR(256),
+_25_responsiveness VARCHAR(256),
+_26_customer_service VARCHAR(256),
+_27_professionalism VARCHAR(256),
+_2_price VARCHAR(256),
+_3_quality VARCHAR(256),
+_4_responsiveness VARCHAR(256),
+_5_punctuality VARCHAR(256),
+_6_professionalism VARCHAR(256),
+are_status VARCHAR(256),
+category_ids VARCHAR(256),
+city VARCHAR(256),
+context_auth_token VARCHAR(256),
+context_ip VARCHAR(256),
+context_library_name VARCHAR(256),
+context_library_version VARCHAR(256),
+context_referer VARCHAR(256),
+context_user_agent VARCHAR(256),
+draft_review_id VARCHAR(256),
+event VARCHAR(256),
+event_text VARCHAR(256),
+grades_1 VARCHAR(256),
+grades_13 VARCHAR(256),
+grades_14 VARCHAR(256),
+grades_15 VARCHAR(256),
+grades_16 VARCHAR(256),
+grades_17 VARCHAR(256),
+grades_18 VARCHAR(256),
+grades_19 VARCHAR(256),
+grades_2 VARCHAR(256),
+grades_20 VARCHAR(256),
+grades_21 VARCHAR(256),
+grades_22 VARCHAR(256),
+grades_23 VARCHAR(256),
+grades_24 VARCHAR(256),
+grades_25 VARCHAR(256),
+grades_26 VARCHAR(256),
+grades_27 VARCHAR(256),
+grades_3 VARCHAR(256),
+grades_4 VARCHAR(256),
+grades_5 VARCHAR(256),
+grades_6 VARCHAR(256),
+job_id VARCHAR(256),
+latitude VARCHAR(256),
+listing_id VARCHAR(256),
+longitude VARCHAR(256),
+original_timestamp TIMESTAMP,
+postal_code VARCHAR(256),
+region_id VARCHAR(256),
+review_status VARCHAR(256),
+sent_at TIMESTAMP,
+service_provider_id VARCHAR(256),
+sp_id VARCHAR(256),
+sp_name VARCHAR(256),
+timestamp TIMESTAMP,
+user_id VARCHAR(256),
+user_zip_code VARCHAR(256),
+uuid_ts TIMESTAMP,
+load_timestamp TIMESTAMP
+)
+PARTITIONED BY (edh_bus_date STRING)
+LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_SEGMENT}/angieslistweb_prod/incremental/daily/dq_angieslistweb_prod_review_submitted';
+
