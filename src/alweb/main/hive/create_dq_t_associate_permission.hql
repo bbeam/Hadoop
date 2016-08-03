@@ -10,7 +10,7 @@
 --*/
 
 --  Creating a incoming hive table(inc_t_associate_permission) over the incoming data
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:ALWEB_GOLD_DB}.inc_t_associate_permission
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:ALWEB_GOLD_DB}.dq_t_associate_permission
 (
 	associate_permission_id INT,
 	al_id INT,
@@ -22,6 +22,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:ALWEB_GOLD_DB}.inc_t_associate_per
 	create_date TIMESTAMP,
 	create_by INT,
 	update_date TIMESTAMP,
-	update_by INT
+	update_by INT,
+	load_timestamp TIMESTAMP
 )
 LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_ALWEB}/angieslist/full/daily/dq_t_associate_permission';
