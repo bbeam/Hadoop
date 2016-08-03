@@ -1,17 +1,13 @@
 --/*
 --  HIVE SCRIPT  : create_inc_member_address.hql
---  AUTHOR       : Anil Aleppy
---  DATE         : Aug 02, 2016
+--  AUTHOR       : Varun Rauthan
+--  DATE         : Aug 03, 2016
 --  DESCRIPTION  : Creation of hive incoming table(angie.MemberAddress) 
 --  Execute command:
---
---
--- hive -f $S3_BUCKET/src/$SOURCE_LEGACY/main/hive/create_inc_member_address.hql \
+-- 	hive -f $S3_BUCKET/src/$SOURCE_LEGACY/main/hive/create_inc_member_address.hql \
 -- -hivevar LEGACY_INCOMING_DB=$LEGACY_INCOMING_DB \ 
 -- -hivevar S3_BUCKET=$S3_BUCKET \ 
 -- -hivevar SOURCE_LEGACY=$SOURCE_LEGACY
---
---
 --*/
 
 CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_INCOMING_DB}.inc_member_address
