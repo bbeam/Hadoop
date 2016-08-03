@@ -1,0 +1,15 @@
+--query
+'select TOP 10000 * from tblRequestTypeInfo  where $CONDITIONS'
+--split-by
+RequestInfoID
+--hive-drop-import-delims
+--fields-terminated-by 
+'\001' 
+--lines-terminated-by 
+'\n'
+--optionally-enclosed-by 
+'\"'
+--null-string 
+'' 
+--null-non-string 
+''

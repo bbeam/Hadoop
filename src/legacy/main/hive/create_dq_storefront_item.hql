@@ -56,5 +56,4 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_storefront_item
   premium_deal TINYINT,
   checksum BIGINT
 )
-STORED AS ORC
-LOCATION '${hivevar:S3_BUCKET}/${hivevar:S3_LOCATION_GOLD_DATA}/${hivevar:SOURCE_LEGACY}/${hivevar:SOURCE_SCHEMA_ANGIE}/full/daily/dq_storefront_item';
+LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_LEGACY}/angie/full/daily/dq_storefront_item';
