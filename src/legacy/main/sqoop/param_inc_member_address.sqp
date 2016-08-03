@@ -1,7 +1,5 @@
---query 
-'select top 10000 from MemberAddress  where $CONDITIONS' 
---split-by 
-memberid
+--table 
+MemberAddress
 --hive-drop-import-delims
 --fields-terminated-by 
 '\001' 
