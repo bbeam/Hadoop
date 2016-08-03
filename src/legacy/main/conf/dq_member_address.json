@@ -132,7 +132,7 @@
          ]
       },
       {  
-         "Name":"updatedate",
+         "Name":"update_date",
          "Type":"TIMESTAMP",
  		 "Format":"yyyy-MM-dd HH:mm:ss.SSS",
         "Validations":[  
