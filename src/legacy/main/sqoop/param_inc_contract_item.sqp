@@ -1,5 +1,7 @@
---table 
-ContractItem
+--query 
+'select TOP 10000 * from ContractItem where $CONDITIONS'
+--split-by 
+contractItemId
 --hive-drop-import-delims
 --fields-terminated-by 
 '\001' 

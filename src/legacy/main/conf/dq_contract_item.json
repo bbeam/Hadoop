@@ -65,6 +65,10 @@
             {
                "Check":"DataType",
                "Action":"Reject"
+            },
+            {
+               "Check":"ValuesConstraint",
+               "values":"0,1"
             }
          ]
       },
@@ -79,6 +83,10 @@
             {
                "Check":"DataType",
                "Action":"Reject"
+            },
+            {
+               "Check":"ValuesConstraint",
+               "values":"0,1"
             }
          ]
       },
@@ -222,7 +230,7 @@
       },
        {
          "Name":"premium",
-         "Type":"DECIMAL",
+         "Type":"DECIMAL(10,2)",
          "Validations":[
             {
                "Check":"DataType",
@@ -232,7 +240,7 @@
       },
        {
          "Name":"list_price",
-         "Type":"DECIMAL",
+         "Type":"DECIMAL(10,2)",
          "Validations":[
             {
                "Check":"DataType",
@@ -242,7 +250,7 @@
       },
        {
          "Name":"pre_discounted_total",
-         "Type":"DECIMAL",
+         "Type":"DECIMAL(10,2)",
          "Validations":[
             {
                "Check":"DataType",
@@ -252,7 +260,7 @@
       },
        {
          "Name":"total",
-         "Type":"DECIMAL",
+         "Type":"DECIMAL(10,2)",
          "Validations":[
             {
                "Check":"DataType",
@@ -262,7 +270,7 @@
       },
        {
          "Name":"monthly_price",
-         "Type":"DECIMAL",
+         "Type":"DECIMAL(10,2)",
          "Validations":[
             {
                "Check":"DataType",
@@ -277,6 +285,10 @@
             {
                "Check":"DataType",
                "Action":"Reject"
+            },
+            {
+               "Check":"ValuesConstraint",
+               "values":"0,1"
             }
          ]
       },
