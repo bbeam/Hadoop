@@ -1,0 +1,45 @@
+--/*
+--  HIVE SCRIPT  : create_dq_members.hql
+--  AUTHOR       : Varun Rauthan
+--  DATE         : Aug 02, 2016
+--  DESCRIPTION  : Creation of hive dq table(angie.Members) 
+--  Execute command:
+-- 	hive -f $S3_BUCKET/src/$SOURCE_LEGACY/main/hive/create_dq_members.hql \
+-- -hivevar LEGACY_GOLD_DB=$LEGACY_GOLD_DB \ 
+-- -hivevar S3_BUCKET=$S3_BUCKET \ 
+-- -hivevar SOURCE_LEGACY=$SOURCE_LEGACY
+--*/
+
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_members
+(
+	member_id INT,
+	mid INT,
+	company STRING,
+	comments STRING,
+	email STRING,
+	known_invalid_email TINYINT,
+	employee STRING,
+	expiration TIMESTAMP,
+	extension STRING,
+	fax STRING,
+	first_name STRING,
+	last_name STRING,
+	gender STRING,
+	home_phone STRING,
+	market STRING,
+	member_date TIMESTAMP,
+	sign_up_id INT,
+	source_id INT,
+	status STRING,
+	work_phone STRING,
+	compliments STRING,
+	b_send_auto_emails SMALLINT,
+	b_text_only_emails SMALLINT,
+	b_active_sent SMALLINT,
+	external_id INT,
+	create_date TIMESTAMP,
+	auto_renewal_notification_indicator TINYINT,
+	message_center_enabled TINYINT,
+	load_timestamp TIMESTAMP
+)
+LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_LEGACY}/angie/full/daily/dq_members';
