@@ -1,9 +1,9 @@
 {  
-   "InputTableName":"inc_storefront_product_event",
-   "OutputTableName":"dq_storefront_product_event",
+   "InputTableName":"inc_web_request",
+   "OutputTableName":"dq_web_request",
    "SourceDB":"LEGACY_INCOMING_DB",
    "TargetDB":"LEGACY_GOLD_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_LEGACY/angie/full/daily/dq_storefront_product_event",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_LEGACY/angie/full/daily/dq_web_request",
    "TableValidation":[  
       {  
          "Check":"Duplicate",
@@ -29,7 +29,7 @@
       },
 	   {  
          "Name":"time_utc",
-		 "Type":"TIMPESTAMP",
+		 "Type":"TIMESTAMP",
 		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
          "Validations":[  
            {  

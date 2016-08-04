@@ -1,5 +1,7 @@
---table 
-WebRequest
+--query 
+'select TOP 100 * from WebRequest where $CONDITIONS'
+--split-by 
+MemberId 
 --hive-drop-import-delims
 --fields-terminated-by 
 '\001' 

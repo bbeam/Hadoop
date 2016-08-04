@@ -321,12 +321,7 @@
          "Name":"new_market_check",
 		 "Type":"TINYINT",
          "Validations":[  
-           {  
-               "Check":"Null",
-               "Action":"Replace",
-               "Default":"0"
-            },
-			 {  
+            {  
                "Check":"DataType",
                "Action":"Reject"
             },
@@ -340,7 +335,7 @@
 	  
 	  {  
          "Name":"market_open_date",
-		 "Type":"TIMPESTAMP",
+		 "Type":"TIMESTAMP",
 		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
          "Validations":[  
            {  
@@ -352,7 +347,7 @@
       },
 	  {  
          "Name":"charter_end_date",
-		 "Type":"TIMPESTAMP",
+		 "Type":"TIMESTAMP",
 		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
          "Validations":[  
             {  
