@@ -1,5 +1,7 @@
---table 
-StorefrontProductEvent
+--query 
+'select TOP 1000 * from StorefrontProductEvent where $CONDITIONS'
+--split-by 
+StorefrontProductEventId 
 --hive-drop-import-delims
 --fields-terminated-by 
 '\001' 
