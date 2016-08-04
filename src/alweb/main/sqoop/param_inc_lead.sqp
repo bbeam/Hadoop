@@ -1,0 +1,15 @@
+--query
+'select * from Lead  where $CONDITIONS limit 7000'
+--split-by
+LeadId 
+--fields-terminated-by 
+'\001' 
+--hive-drop-import-delims
+--lines-terminated-by 
+'\n'
+--optionally-enclosed-by 
+'\"'
+--null-string 
+'' 
+--null-non-string 
+''
