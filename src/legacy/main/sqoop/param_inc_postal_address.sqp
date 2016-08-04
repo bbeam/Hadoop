@@ -1,5 +1,5 @@
 --table 
-MemberAddress
+PostalAddress
 --hive-drop-import-delims
 --fields-terminated-by 
 '\001' 

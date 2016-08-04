@@ -25,7 +25,7 @@ SELECT       '${hivevar:EDH_BUS_DATE}' AS edh_bus_date,
 INSERT INTO TABLE common_operations.edh_batch_audit
 PARTITION(edh_bus_month)
 SELECT       '${hivevar:EDH_BUS_DATE}' AS edh_bus_date,
-             entity,
+             '${hivevar:ENTITY_NAME}' AS entity,
              table_name,
              'DataQuality' AS process,
              error_type AS type ,
@@ -37,7 +37,7 @@ SELECT       '${hivevar:EDH_BUS_DATE}' AS edh_bus_date,
  FROM common_operations.edh_batch_error 
  WHERE table_name='${hivevar:INCOMING_DB}.${hivevar:INCOMING_TABLE}' 
        AND edh_bus_date = '${hivevar:EDH_BUS_DATE}'
- GROUP BY error_type, error_desc,entity,table_name
+ GROUP BY error_type, error_desc,table_name,edh_bus_date
  HAVING count(*) > 0;
  
  

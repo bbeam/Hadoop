@@ -4,9 +4,9 @@
 --  DATE         : Jul 13, 2016
 --  DESCRIPTION  : Creation of hive incoming table(inc_screens). 
 --  USAGE    : hive -f s3://al-edh-dev/src/segment/main/hive/create_inc_greenpoint_android_prod_screens.hql \
---     --hivevar SEGMENT_INCOMING_DB="${SEGMENT_INCOMING_DB}" \
---     --hivevar S3_BUCKET="${S3_BUCKET}" \
---     --hivevar SOURCE_SEGMENT="${SOURCE_SEGMENT}" 
+     --hivevar SEGMENT_INCOMING_DB="${SEGMENT_INCOMING_DB}" \
+     --hivevar S3_BUCKET="${S3_BUCKET}" \
+     --hivevar SOURCE_SEGMENT="${SOURCE_SEGMENT}" 
 --*/
 
 --  Creating a incoming hive table(inc_store_page_loaded) over the incoming data
@@ -63,10 +63,4 @@ member_id_legacy STRING,
 uuid_ts STRING
 )
 PARTITIONED BY (edh_bus_date STRING)
-ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde' 
-WITH SERDEPROPERTIES (
-   "separatorChar" = "\u0001",
-   "quoteChar"     = "\"",
-   "escapeChar"    = "\\"
-)
 LOCATION '${hivevar:S3_BUCKET}/data/incoming/${hivevar:SOURCE_SEGMENT}/greenpoint_android_prod/incremental/daily/inc_greenpoint_android_prod_screens';

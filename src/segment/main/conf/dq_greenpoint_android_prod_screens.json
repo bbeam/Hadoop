@@ -343,7 +343,7 @@
 
       {
          "Name":"context_screen_density_bucket",
-         "Type":"BIGINT",
+         "Type":"VARCHAR(256)",
          "Validations":[
             {
                "Check":"DataType",
