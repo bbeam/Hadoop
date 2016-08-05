@@ -6,6 +6,7 @@ com.amazon.redshift.jdbc4.Driver
 4
 --split-by
 sent_at
+--hive-drop-import-delims
 -fields-terminated-by 
 '\001' 
 --lines-terminated-by 

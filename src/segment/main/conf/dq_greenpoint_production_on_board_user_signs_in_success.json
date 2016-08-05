@@ -14,7 +14,7 @@
    "Columns":[  
       {
          "Name":"id",
-         "Type":"VARCHAR(256)",
+         "Type":"VARCHAR(254)",
          "Validations":[
 		   {
                "Check":"Null",
@@ -89,7 +89,7 @@
       },
       {
          "Name":"context_device_ad_tracking_enabled",
-         "Type":"VARCHAR(256)",
+         "Type":"BOOLEAN",
          "Validations":[
             {
                "Check":"DataType",
@@ -193,7 +193,7 @@
       },
       {
          "Name":"context_network_bluetooth",
-         "Type":"VARCHAR(256)",
+         "Type":"BOOLEAN",
          "Validations":[
             {
                "Check":"DataType",
@@ -217,7 +217,7 @@
       },
       {
          "Name":"context_network_wifi",
-         "Type":"VARCHAR(256)",
+         "Type":"BOOLEAN",
          "Validations":[
             {
                "Check":"DataType",

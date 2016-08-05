@@ -1,9 +1,9 @@
 {
-   "InputTableName":"inc_greenpoint_android_prod_on_board_user_signs_in_success",
-   "OutputTableName":"dq_greenpoint_android_prod_on_board_user_signs_in_success",   
+   "InputTableName":"inc_greenpoint_android_prod_popular_category_tapped",
+   "OutputTableName":"dq_greenpoint_android_prod_popular_category_tapped",   
    "SourceDB":"SEGMENT_INCOMING_DB",
    "TargetDB":"SEGMENT_GOLD_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_SEGMENT/greenpoint_android_prod/incremental/daily/dq_greenpoint_android_prod_on_board_user_signs_in_success/edh_bus_date=$EDHBUSDATE",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_SEGMENT/greenpoint_android_prod/incremental/daily/dq_greenpoint_android_prod_popular_category_tapped/edh_bus_date=$EDHBUSDATE",
    "TableValidation":[  
             {  
                "Check":"Duplicate",
@@ -19,8 +19,8 @@
            {
                "Check":"Null",
                "Action":"Reject"
-           },           
-		   {
+           },
+            {
                "Check":"DataType",
                "Action":"Reject"
             }
@@ -108,7 +108,7 @@
             {
             	"Check":"ValuesConstraint",
 	            "Values":"true,false"
-            }						
+            }			
          ]
       },
       {
@@ -232,7 +232,7 @@
             {
             	"Check":"ValuesConstraint",
 	            "Values":"true,false"
-            }						
+            }			
          ]
       },
       {
@@ -256,7 +256,7 @@
             {
             	"Check":"ValuesConstraint",
 	            "Values":"true,false"
-            }						
+            }			
          ]
       },
       {
@@ -270,7 +270,7 @@
             {
             	"Check":"ValuesConstraint",
 	            "Values":"true,false"
-            }						
+            }			
          ]
       },
       {
@@ -305,7 +305,7 @@
       },
       {
          "Name":"context_screen_density",
-         "Type":"BIGINT",
+         "Type":"DOUBLE",
          "Validations":[
             {
                "Check":"DataType",
@@ -345,7 +345,7 @@
       },
       {
          "Name":"context_screen_scaled_density",
-         "Type":"BIGINT",
+         "Type":"DOUBLE",
          "Validations":[
             {
                "Check":"DataType",
@@ -434,7 +434,7 @@
          ]
       },
       {
-         "Name":"member_id",
+         "Name":"original_timestamp",
          "Type":"VARCHAR(256)",
          "Validations":[
             {
@@ -444,7 +444,7 @@
          ]
       },
       {
-         "Name":"original_timestamp",
+         "Name":"popular_category_name",
          "Type":"VARCHAR(256)",
          "Validations":[
             {
@@ -517,4 +517,4 @@
          ]
       }
    ]
-}	  
+}
