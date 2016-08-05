@@ -194,7 +194,7 @@
          ]
       },
 	  {  
-         "Name":"pageOf_happiness_eligibility_id",
+         "Name":"page_of_happiness_eligibility_id",
          "Type":"INT",
          "Validations":[ 
 			{  
