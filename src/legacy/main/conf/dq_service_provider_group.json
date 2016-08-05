@@ -14,7 +14,7 @@
    "Columns":[  
       {  
          "Name":"service_provider_group_id",
-         "Type":"STRING",
+         "Type":"INT",
          "Validations":[  
             {  
                "Check":"Null",
@@ -56,7 +56,7 @@
       },
       {  
          "Name":"service_provider_group_type_id",
-         "Type":"STRING",
+         "Type":"INT",
          "Validations":[  
             {  
                "Check":"Null",
@@ -70,8 +70,13 @@
 		},
       {  
          "Name":"service_provider_group_photo_id",
-         "Type":"STRING",
-         "Validations":[]
+         "Type":"INT",
+         "Validations":[
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }		 
+		]
        }
    ]
 }
