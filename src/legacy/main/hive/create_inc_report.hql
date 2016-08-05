@@ -24,7 +24,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_INCOMING_DB}.inc_report
 	member_id STRING,
 	member_nominated_poh STRING,
 	modified_date STRING,
-	pageOf_happiness_eligibility_id STRING,
+	page_of_happiness_eligibility_id STRING,
 	report_completeness_id STRING,
 	report_date STRING,
 	report_id STRING,     
