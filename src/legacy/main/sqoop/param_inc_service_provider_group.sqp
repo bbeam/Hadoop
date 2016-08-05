@@ -1,5 +1,7 @@
---table 
-ServiceProviderGroup
+--query 
+'Select ServiceProviderGroupID,ServiceProviderGroup,ServiceProviderGroupDescription,ServiceProviderGroupTypeId,ServiceProviderGroupPhotoId from ServiceProviderGroup where $CONDITIONS'
+--split-by
+ServiceProviderGroupID
 --hive-drop-import-delims
 --fields-terminated-by 
 '\001' 
