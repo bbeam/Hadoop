@@ -1,4 +1,4 @@
---  HIVE SCRIPT  : create_dq_angieslistweb_prod_review_submitted.hql
+--/*  HIVE SCRIPT  : create_dq_angieslistweb_prod_review_submitted.hql
 --  AUTHOR       : Ashoka Reddy
 --  DATE         : Jul 13, 2016
 --  DESCRIPTION  : Creation of hive dq table(dq_angieslistweb_prod_review_submitted). 
@@ -6,44 +6,44 @@
 --     --hivevar SEGMENT_GOLD_DB="${SEGMENT_GOLD_DB}" \
 --     --hivevar S3_BUCKET="${S3_BUCKET}" \
 --     --hivevar SOURCE_SEGMENT="${SOURCE_SEGMENT}" 
-
 --*/
 
---  Creating a DQ hive table(Dq_angieslistweb_prod_purchased_cart) over the incoming data
+--  Creating a DQ hive table(dq_angieslistweb_prod_review_submitted) over the incoming data
+
 CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:SEGMENT_GOLD_DB}.dq_angieslistweb_prod_review_submitted
 ( 
 id VARCHAR(254),
 received_at TIMESTAMP,
 uuid BIGINT,
-_13_overall VARCHAR(256),
-_14_availability VARCHAR(256),
-_14_price VARCHAR(256),
-_15_office_environment VARCHAR(256),
-_15_quality VARCHAR(256),
-_16_availability VARCHAR(256),
-_16_punctuality VARCHAR(256),
-_17_office_environment VARCHAR(256),
-_17_staff_friendliness VARCHAR(256),
-_18_bedside_manner VARCHAR(256),
-_18_punctuality VARCHAR(256),
-_19_communication VARCHAR(256),
-_19_staff_friendliness VARCHAR(256),
-_1_overall VARCHAR(256),
-_20_bedside_manner VARCHAR(256),
-_20_effectiveness_of_treatment VARCHAR(256),
-_21_billing_and_administration VARCHAR(256),
-_21_communication VARCHAR(256),
-_22_effectiveness_of_treatment VARCHAR(256),
-_23_billing_and_administration VARCHAR(256),
-_24_coverage VARCHAR(256),
-_25_responsiveness VARCHAR(256),
-_26_customer_service VARCHAR(256),
-_27_professionalism VARCHAR(256),
-_2_price VARCHAR(256),
-_3_quality VARCHAR(256),
-_4_responsiveness VARCHAR(256),
-_5_punctuality VARCHAR(256),
-_6_professionalism VARCHAR(256),
+`overall_13` VARCHAR(256),
+`availability_14` VARCHAR(256),
+`price_14` VARCHAR(256),
+`office_environment_15` VARCHAR(256),
+`quality_15` VARCHAR(256),
+`availability_16` VARCHAR(256),
+`punctuality_16` VARCHAR(256),
+`office_environment_17` VARCHAR(256),
+`staff_friendliness_17` VARCHAR(256),
+`bedside_manner_18` VARCHAR(256),
+`punctuality_18` VARCHAR(256),
+`communication_19` VARCHAR(256),
+`staff_friendliness_19` VARCHAR(256),
+`overall_1` VARCHAR(256),
+`bedside_manner_20` VARCHAR(256),
+`effectiveness_of_treatment_20` VARCHAR(256),
+`billing_and_administration_21` VARCHAR(256),
+`communication_21` VARCHAR(256),
+`effectiveness_of_treatment_22` VARCHAR(256),
+`billing_and_administration_23` VARCHAR(256),
+`coverage_24` VARCHAR(256),
+`responsiveness_25` VARCHAR(256),
+`customer_service_26` VARCHAR(256),
+`professionalism_27` VARCHAR(256),
+`price_2` VARCHAR(256),
+`quality_3` VARCHAR(256),
+`responsiveness_4` VARCHAR(256),
+`punctuality_5` VARCHAR(256),
+`professionalism_6` VARCHAR(256),
 are_status VARCHAR(256),
 category_ids VARCHAR(256),
 city VARCHAR(256),
@@ -97,4 +97,3 @@ load_timestamp TIMESTAMP
 )
 PARTITIONED BY (edh_bus_date STRING)
 LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_SEGMENT}/angieslistweb_prod/incremental/daily/dq_angieslistweb_prod_review_submitted';
-

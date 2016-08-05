@@ -1,0 +1,15 @@
+--query
+'SELECT ServiceProviderBackgroundCheckId, ServiceProviderId, FirstName, LastName, ProfileNumber, CompletedDate, BackgroundCheckStatusId, CreateBy, CreateDate, UpdateBy, UpdateDate, CustomerId FROM Angie.dbo.ServiceProviderBackgroundCheck WHERE $CONDITIONS'
+--split-by
+ServiceProviderBackgroundCheckId
+--hive-drop-import-delims
+--fields-terminated-by 
+'\001' 
+--lines-terminated-by 
+'\n'
+--optionally-enclosed-by 
+'\"'
+--null-string 
+'' 
+--null-non-string 
+''

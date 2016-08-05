@@ -7,8 +7,8 @@
 --
 --
 -- hive -f $S3_BUCKET/src/$SOURCE_LEGACY/main/hive/create_inc_service_provider_group_association.hql \
--- -hivevar LEGACY_INCOMING_DB=$LEGACY_INCOMING_DB \ 
--- -hivevar S3_BUCKET=$S3_BUCKET \ 
+-- -hivevar LEGACY_INCOMING_DB=$LEGACY_INCOMING_DB \
+-- -hivevar S3_BUCKET=$S3_BUCKET \
 -- -hivevar SOURCE_LEGACY=$SOURCE_LEGACY
 --*/
 

@@ -1,0 +1,431 @@
+{
+	"InputTableName": "inc_greenpoint_production_screens",
+	"OutputTableName": "dq_greenpoint_production_screens",
+	"SourceDB": "SEGMENT_INCOMING_DB",
+	"TargetDB": "SEGMENT_GOLD_DB",
+	"DQHiveTableLocation": "$S3_BUCKET/data/gold/$SOURCE_SEGMENT/greenpoint_production/incremental/daily/dq_greenpoint_production_screens/edh_bus_date=$EDHBUSDATE",
+	"TableValidation": [{
+		"Check": "Duplicate",
+		"keyColumns": "id",
+		"Action": "Reject"
+	}],
+	"Columns": [{
+			"Name": "id",
+			"Type": "VARCHAR(254)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}, {
+				"Check": "Null",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "received_at",
+			"Type": "TIMESTAMP",
+			"Format": "yyyy-MM-dd HH:mm:ss.SSS",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "uuid",
+			"Type": "BIGINT",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "anonymous_id",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "app_version",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "category",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "context_app_build",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "context_app_name",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "context_app_version",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "context_device_ad_tracking_enabled",
+			"Type": "BOOLEAN",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "context_device_idfa",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "context_device_idfv",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "context_device_manufacturer",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "context_device_model",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "context_device_type",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "context_ip",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "context_library_name",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "context_library_version",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "context_locale",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "context_network_bluetooth",
+			"Type": "BOOLEAN",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "context_network_carrier",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "context_network_wifi",
+			"Type": "BOOLEAN",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "context_os_name",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "context_os_version",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "context_screen_height",
+			"Type": "BIGINT",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "context_screen_width",
+			"Type": "BIGINT",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "count",
+			"Type": "BIGINT",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "coupon",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "date",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "deal_id",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "is_logged_in",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "keyword",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "market_id",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "name",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "offer_item_id",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "offer_item_name",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "op_system",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "original_timestamp",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "phone_model",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "reason",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "sent_at",
+			"Type": "TIMESTAMP",
+			"Format": "yyyy-MM-dd HH:mm:ss.SSS",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "sp_id",
+			"Type": "BIGINT",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "specific_screen",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "spid",
+			"Type": "BIGINT",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "spidview",
+			"Type": "BIGINT",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "timestamp",
+			"Type": "TIMESTAMP",
+			"Format": "yyyy-MM-dd HH:mm:ss.SSS",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "user_id",
+			"Type": "TIMESTAMP",
+			"Format": "yyyy-MM-dd HH:mm:ss.SSS",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "zipcode",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "user_id40",
+			"Type": "BIGINT",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "member_id_legacy",
+			"Type": "BIGINT",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "uuid_ts",
+			"Type": "TIMESTAMP",
+			"Format": "yyyy-MM-dd HH:mm:ss.SSS",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}
+	]
+}

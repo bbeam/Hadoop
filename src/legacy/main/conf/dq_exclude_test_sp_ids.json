@@ -24,6 +24,7 @@
        {
          "Name":"date_added",
          "Type":"TIMESTAMP",
+         "Format":"yyyy-MM-dd HH:mm:ss",
          "Validations":[
             {
                "Check":"Null",

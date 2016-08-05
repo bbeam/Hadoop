@@ -1,0 +1,15 @@
+--query 
+'select * from t_Region where $CONDITIONS LIMIT 10000'
+--split-by 
+RegionId
+--hive-drop-import-delims
+--fields-terminated-by 
+'\001' 
+--lines-terminated-by 
+'\n'
+--optionally-enclosed-by 
+'\"'
+--null-string 
+'' 
+--null-non-string
+''

@@ -3,7 +3,7 @@
    "OutputTableName":"dq_t_service_provider_address",
    "SourceDB":"ALWEB_INCOMING_DB",
    "TargetDB":"ALWEB_GOLD_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_ALWEB/angie/full/daily/dq_t_service_provider_address",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_ALWEB/angieslist/full/daily/dq_t_service_provider_address",
    "TableValidation":[  
             {  
                "Check":"Duplicate",
@@ -112,8 +112,8 @@
          ]
       },
        {
-         "Name":"CreateBy",
-         "Type":"TINYINT",
+         "Name":"create_by",
+         "Type":"INT",
          "Validations":[
             {
                "Check":"Null",
@@ -126,7 +126,7 @@
          ]
       },
        {
-         "Name":"UpdateDate",
+         "Name":"update_date",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss",
          "Validations":[
@@ -141,8 +141,8 @@
          ]
       },
        {
-         "Name":"UpdateBy",
-         "Type":"TINYINT",
+         "Name":"update_by",
+         "Type":"INT",
          "Validations":[
             {
                "Check":"Null",

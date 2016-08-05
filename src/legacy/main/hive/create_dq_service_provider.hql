@@ -7,8 +7,8 @@
 --
 --
 -- hive -f $S3_BUCKET/src/$SOURCE_LEGACY/main/hive/create_dq_service_provider.hql \
--- -hivevar LEGACY_GOLD_DB=$LEGACY_GOLD_DB \ 
--- -hivevar S3_BUCKET=$S3_BUCKET \ 
+-- -hivevar LEGACY_GOLD_DB=$LEGACY_GOLD_DB \
+-- -hivevar S3_BUCKET=$S3_BUCKET \
 -- -hivevar SOURCE_LEGACY=$SOURCE_LEGACY
 --*/
 
@@ -50,7 +50,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_service_provide
   legal_business_name STRING,
   classic_import_work_id INT,
   known_invalid_email_address TINYINT,
-  postal_address_status_id STRING,
+  postal_address_status_id INT,
   phone_status_id INT,
   load_timestamp TIMESTAMP
 )

@@ -7,8 +7,8 @@
 --
 --
 -- hive -f $S3_BUCKET/src/$SOURCE_LEGACY/main/hive/create_dq_contract_item.hql \
--- -hivevar LEGACY_GOLD_DB=$LEGACY_GOLD_DB \ 
--- -hivevar S3_BUCKET=$S3_BUCKET \ 
+-- -hivevar LEGACY_GOLD_DB=$LEGACY_GOLD_DB \
+-- -hivevar S3_BUCKET=$S3_BUCKET \
 -- -hivevar SOURCE_LEGACY=$SOURCE_LEGACY
 --*/
 
@@ -49,7 +49,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_contract_item
   targeted_end_date_changed_date TIMESTAMP,
   targeted_end_date_changed_by_employee_id INT,
   revenue_change_reason_id INT,
-  eligibility_date TIMESTAMP,
+  eligibility_date DATE,
   load_timestamp TIMESTAMP
 )
-LOCATION '${hivevar:S3_BUCKET}/data/incoming/${hivevar:SOURCE_LEGACY}/angie/full/daily/dq_contract_item';
+LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_LEGACY}/angie/full/daily/dq_contract_item';
