@@ -10,7 +10,7 @@
 --*/
 
 --  Creating a DQ hive table(inc_storefront_product_event_type) over the incoming data
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:legacy_GOLD_DB}.dq_storefront_product_event_type
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_storefront_product_event_type
 (
 	create_by STRING,
 	create_date TIMESTAMP,     

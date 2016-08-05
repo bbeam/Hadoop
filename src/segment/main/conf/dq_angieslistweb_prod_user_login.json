@@ -3,7 +3,7 @@
    "OutputTableName":"dq_angieslistweb_prod_user_login",   
    "SourceDB":"SEGMENT_INCOMING_DB",
    "TargetDB":"SEGMENT_GOLD_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_SEGMENT/angieslistweb_prod/incremental/daily/angieslistweb_prod_user_login/edh_bus_date=$EDHBUSDATE",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_SEGMENT/angieslistweb_prod/incremental/daily/dq_angieslistweb_prod_user_login/edh_bus_date=$EDHBUSDATE",
    "TableValidation":[  
             {  
                "Check":"Duplicate",
@@ -19,15 +19,13 @@
             {
                "Check":"DataType",
                "Action":"Reject"
-            }
-         ]
-      },
+            },
             {
                "Check":"Null",
                "Action":"Reject"
             }
-
-	  
+		]
+	  },	
        {
          "Name":"received_at",
          "Type":"TIMESTAMP",

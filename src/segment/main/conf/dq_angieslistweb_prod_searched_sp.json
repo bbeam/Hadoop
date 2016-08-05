@@ -32,10 +32,6 @@
          "Format":"yyyy-MM-dd HH:mm:ss.SS",
          "Validations":[
             {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
                "Check":"DataType",
                "Action":"Reject"
             }
@@ -45,10 +41,6 @@
          "Name":"uuid",
          "Type":"BIGINT",
          "Validations":[
-            {
-               "Check":"Null",
-               "Action":"Reject"
-            },
             {
                "Check":"DataType",
                "Action":"Reject"
@@ -60,10 +52,6 @@
          "Type":"BIGINT",
          "Validations":[
             {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
                "Check":"DataType",
                "Action":"Reject"
             }
@@ -73,10 +61,6 @@
          "Name":"context_auth_token",
          "Type":"VARCHAR(256)",
          "Validations":[
-            {
-               "Check":"Null",
-               "Action":"Reject"
-            },
             {
                "Check":"DataType",
                "Action":"Reject"
@@ -88,10 +72,6 @@
          "Type":"VARCHAR(256)",
          "Validations":[
             {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
                "Check":"DataType",
                "Action":"Reject"
             }
@@ -101,10 +81,6 @@
          "Name":"context_library_name",
          "Type":"VARCHAR(256)",
          "Validations":[
-            {
-               "Check":"Null",
-               "Action":"Reject"
-            },
             {
                "Check":"DataType",
                "Action":"Reject"
@@ -116,10 +92,6 @@
          "Type":"VARCHAR(256)",
          "Validations":[
             {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
                "Check":"DataType",
                "Action":"Reject"
             }
@@ -130,10 +102,6 @@
          "Type":"VARCHAR(256)",
          "Validations":[
             {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
                "Check":"DataType",
                "Action":"Reject"
             }
@@ -143,11 +111,7 @@
          "Name":"context_user_agent",
          "Type":"VARCHAR(256)",
          "Validations":[
-            {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
+             {
                "Check":"DataType",
                "Action":"Reject"
             }
@@ -157,10 +121,6 @@
          "Name":"event",
          "Type":"VARCHAR(256)",
          "Validations":[
-            {
-               "Check":"Null",
-               "Action":"Reject"
-            },
             {
                "Check":"DataType",
                "Action":"Reject"
@@ -172,10 +132,6 @@
          "Type":"VARCHAR(256)",
          "Validations":[
             {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
                "Check":"DataType",
                "Action":"Reject"
             }
@@ -185,10 +141,6 @@
          "Name":"location_info_advertising_zone",
          "Type":"BIGINT",
          "Validations":[
-            {
-               "Check":"Null",
-               "Action":"Reject"
-            },
             {
                "Check":"DataType",
                "Action":"Reject"
@@ -200,10 +152,6 @@
          "Type":"VARCHAR(256)",
          "Validations":[
             {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
                "Check":"DataType",
                "Action":"Reject"
             }
@@ -213,11 +161,7 @@
          "Name":"location_info_user_zip_code",
          "Type":"VARCHAR(256)",
          "Validations":[
-            {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
+             {
                "Check":"DataType",
                "Action":"Reject"
             }
@@ -228,11 +172,7 @@
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss.SS",
          "Validations":[
-            {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
+             {
                "Check":"DataType",
                "Action":"Reject"
             }
@@ -242,10 +182,6 @@
          "Name":"results",
          "Type":"VARCHAR(256)",
          "Validations":[
-            {
-               "Check":"Null",
-               "Action":"Reject"
-            },
             {
                "Check":"DataType",
                "Action":"Reject"
@@ -257,10 +193,6 @@
          "Type":"VARCHAR(256)",
          "Validations":[
             {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
                "Check":"DataType",
                "Action":"Reject"
             }
@@ -270,10 +202,6 @@
          "Name":"search_params_filters_categories",
          "Type":"VARCHAR(256)",
          "Validations":[
-            {
-               "Check":"Null",
-               "Action":"Reject"
-            },
             {
                "Check":"DataType",
                "Action":"Reject"
@@ -285,10 +213,6 @@
          "Type":"BIGINT",
          "Validations":[
             {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
                "Check":"DataType",
                "Action":"Reject"
             }
@@ -298,10 +222,6 @@
          "Name":"search_params_filters_first_name",
          "Type":"VARCHAR(256)",
          "Validations":[
-            {
-               "Check":"Null",
-               "Action":"Reject"
-            },
             {
                "Check":"DataType",
                "Action":"Reject"
@@ -313,10 +233,6 @@
          "Type":"BIGINT",
          "Validations":[
             {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
                "Check":"DataType",
                "Action":"Reject"
             }
@@ -326,10 +242,6 @@
          "Name":"search_params_filters_sp_features",
          "Type":"VARCHAR(256)",
          "Validations":[
-            {
-               "Check":"Null",
-               "Action":"Reject"
-            },
             {
                "Check":"DataType",
                "Action":"Reject"
@@ -341,10 +253,6 @@
          "Type":"BIGINT",
          "Validations":[
             {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
                "Check":"DataType",
                "Action":"Reject"
             }
@@ -354,10 +262,6 @@
          "Name":"search_params_query",
          "Type":"VARCHAR(256)",
          "Validations":[
-            {
-               "Check":"Null",
-               "Action":"Reject"
-            },
             {
                "Check":"DataType",
                "Action":"Reject"
@@ -369,10 +273,6 @@
          "Type":"VARCHAR(256)",
          "Validations":[
             {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
                "Check":"DataType",
                "Action":"Reject"
             }
@@ -383,10 +283,6 @@
          "Type":"VARCHAR(256)",
          "Validations":[
             {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
                "Check":"DataType",
                "Action":"Reject"
             }
@@ -396,10 +292,6 @@
          "Name":"search_params_type",
          "Type":"VARCHAR(256)",
          "Validations":[
-            {
-               "Check":"Null",
-               "Action":"Reject"
-            },
             {
                "Check":"DataType",
                "Action":"Reject"
@@ -412,10 +304,6 @@
          "Format":"yyyy-MM-dd HH:mm:ss.SS",
          "Validations":[
             {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
                "Check":"DataType",
                "Action":"Reject"
             }
@@ -426,10 +314,6 @@
          "Type":"VARCHAR(256)",
          "Validations":[
             {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
                "Check":"DataType",
                "Action":"Reject"
             }
@@ -439,11 +323,7 @@
          "Name":"sort_sort_field",
          "Type":"VARCHAR(256)",
          "Validations":[
-            {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
+             {
                "Check":"DataType",
                "Action":"Reject"
             }
@@ -454,11 +334,7 @@
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss.SS",
          "Validations":[
-            {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
+             {
                "Check":"DataType",
                "Action":"Reject"
             }
@@ -468,10 +344,6 @@
          "Name":"total_pages",
          "Type":"BIGINT",
          "Validations":[
-            {
-               "Check":"Null",
-               "Action":"Reject"
-            },
             {
                "Check":"DataType",
                "Action":"Reject"
@@ -483,10 +355,6 @@
          "Type":"BIGINT",
          "Validations":[
             {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
                "Check":"DataType",
                "Action":"Reject"
             }
@@ -496,10 +364,6 @@
          "Name":"user_id",
          "Type":"VARCHAR(256)",
          "Validations":[
-            {
-               "Check":"Null",
-               "Action":"Reject"
-            },
             {
                "Check":"DataType",
                "Action":"Reject"
@@ -511,10 +375,6 @@
          "Type":"VARCHAR(256)",
          "Validations":[
             {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
                "Check":"DataType",
                "Action":"Reject"
             }
@@ -525,10 +385,6 @@
          "Type":"VARCHAR(256)",
          "Validations":[
             {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
                "Check":"DataType",
                "Action":"Reject"
             }
@@ -538,10 +394,6 @@
          "Name":"search_type",
          "Type":"VARCHAR(256)",
          "Validations":[
-            {
-               "Check":"Null",
-               "Action":"Reject"
-            },
             {
                "Check":"DataType",
                "Action":"Reject"
@@ -554,10 +406,6 @@
          "Format":"yyyy-MM-dd HH:mm:ss.SS",
          "Validations":[
             {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
                "Check":"DataType",
                "Action":"Reject"
             }
@@ -567,10 +415,6 @@
          "Name":"anonymous_id",
          "Type":"VARCHAR(256)",
          "Validations":[
-            {
-               "Check":"Null",
-               "Action":"Reject"
-            },
             {
                "Check":"DataType",
                "Action":"Reject"
@@ -582,10 +426,6 @@
          "Type":"VARCHAR(256)",
          "Validations":[
             {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
                "Check":"DataType",
                "Action":"Reject"
             }
@@ -596,10 +436,6 @@
          "Type":"VARCHAR(256)",
          "Validations":[
             {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
                "Check":"DataType",
                "Action":"Reject"
             }
@@ -609,10 +445,6 @@
          "Name":"context_page_url",
          "Type":"VARCHAR(256)",
          "Validations":[
-            {
-               "Check":"Null",
-               "Action":"Reject"
-            },
             {
                "Check":"DataType",
                "Action":"Reject"

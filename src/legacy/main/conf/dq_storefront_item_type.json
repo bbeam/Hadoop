@@ -16,10 +16,7 @@
          "Name":"storefront_item_type_id",
          "Type":"INT",
          "Validations":[
-            {
-               "Check":"Null",
-               "Action":"Reject"
-            },
+            
             {
                "Check":"DataType",
                "Action":"Reject"

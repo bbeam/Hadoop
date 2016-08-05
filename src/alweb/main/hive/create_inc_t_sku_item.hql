@@ -26,10 +26,4 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:ALWEB_INCOMING_DB}.inc_t_sku_item
   update_by STRING
 )
 PARTITIONED BY (edh_bus_date STRING)
-ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
-WITH SERDEPROPERTIES (
-   "separatorChar" = "\u0001",
-   "quoteChar"     = "\"",
-   "escapeChar"    = "\\"
-)
 LOCATION '${hivevar:S3_BUCKET}/data/incoming/${hivevar:SOURCE_ALWEB}/angieslist/full/daily/inc_t_sku_item';

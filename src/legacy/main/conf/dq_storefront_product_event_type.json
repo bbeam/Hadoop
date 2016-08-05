@@ -29,7 +29,7 @@
       },
 	  {  
          "Name":"create_date",
-		 "Type":"TIMPESTAMP",
+		 "Type":"TIMESTAMP",
 		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
          "Validations":[  
            {  
@@ -100,7 +100,7 @@
       },
 	  {  
          "Name":"update_date",
-		 "Type":"TIMPESTAMP",
+		 "Type":"TIMESTAMP",
 		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
          "Validations":[  
            {  

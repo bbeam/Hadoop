@@ -1,11 +1,12 @@
 --driver 
 com.amazon.redshift.jdbc4.Driver 
 --query 
-"select * from angieslistweb_prod.serched_sp where cast(sent_at as DATE)='EXTRACT_DATE' and $CONDITIONS limit 10000" 
+"select * from angieslistweb_prod.searched_sp where cast(sent_at as DATE)='EXTRACT_DATE' and $CONDITIONS limit 10000" 
 -m 
-1
+4
 --split-by
 sent_at
+--hive-drop-import-delims
 -fields-terminated-by 
 '\001' 
 --lines-terminated-by 
