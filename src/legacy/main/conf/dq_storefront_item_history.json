@@ -1,47 +1,77 @@
 {  
-   "InputTableName":"inc_service_provider",
-   "OutputTableName":"dq_service_provider",
+   "InputTableName":"inc_storefront_item_history",
+   "OutputTableName":"dq_storefront_item_history",
    "SourceDB":"LEGACY_INCOMING_DB",
    "TargetDB":"LEGACY_GOLD_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_LEGACY/angie/full/daily/dq_service_provider",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_LEGACY/angiehistory/full/daily/dq_storefront_item_history",
    "TableValidation":[  
             {  
                "Check":"Duplicate",
-               "keyColumns":"sp_id",
+               "keyColumns":"storefront_item_history_id",
                "Action":"Reject"
             }
          ],
    "Columns":[
-      {
+   {
+         "Name":"storefront_item_history_id",
+         "Type":"INT",
+         "Validations":[
+            {
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"storefront_item_id",
+         "Type":"INT",
+         "Validations":[
+            {
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"storefront_item_status_id",
+         "Type":"INT",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"storefront_item_type_id",
+         "Type":"INT",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
          "Name":"sp_id",
          "Type":"INT",
          "Validations":[
             {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
                "Check":"DataType",
                "Action":"Reject"
             }
          ]
       },
        {
-         "Name":"sp_status_id",
-         "Type":"INT",
-         "Validations":[
-            {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"company_name",
+         "Name":"title",
          "Type":"STRING",
          "Validations":[
             {
@@ -51,7 +81,27 @@
          ]
       },
        {
-         "Name":"entered_date",
+         "Name":"description",
+         "Type":"STRING",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"redemption_instructions",
+         "Type":"STRING",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"start_datetime",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss",
          "Validations":[
@@ -62,7 +112,18 @@
          ]
       },
        {
-         "Name":"address_1",
+         "Name":"end_datetime",
+         "Type":"TIMESTAMP",
+         "Format":"yyyy-MM-dd HH:mm:ss",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"contact_name",
          "Type":"STRING",
          "Validations":[
             {
@@ -72,7 +133,7 @@
          ]
       },
        {
-         "Name":"address_2",
+         "Name":"contact_phone",
          "Type":"STRING",
          "Validations":[
             {
@@ -82,7 +143,7 @@
          ]
       },
        {
-         "Name":"city",
+         "Name":"contact_email",
          "Type":"STRING",
          "Validations":[
             {
@@ -92,8 +153,8 @@
          ]
       },
        {
-         "Name":"state",
-         "Type":"STRING",
+         "Name":"original_price",
+         "Type":"DECIMAL(10,2)",
          "Validations":[
             {
                "Check":"DataType",
@@ -102,8 +163,8 @@
          ]
       },
        {
-         "Name":"zip",
-         "Type":"STRING",
+         "Name":"member_price",
+         "Type":"DECIMAL(10,2)",
          "Validations":[
             {
                "Check":"DataType",
@@ -112,8 +173,8 @@
          ]
       },
        {
-         "Name":"business_date",
-         "Type":"STRING",
+         "Name":"storefront_item_fee",
+         "Type":"DECIMAL(10,2)",
          "Validations":[
             {
                "Check":"DataType",
@@ -122,8 +183,8 @@
          ]
       },
        {
-         "Name":"contact_title",
-         "Type":"STRING",
+         "Name":"ordered_quantity",
+         "Type":"INT",
          "Validations":[
             {
                "Check":"DataType",
@@ -132,187 +193,7 @@
          ]
       },
        {
-         "Name":"contact_first",
-         "Type":"STRING",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"contact_middle",
-         "Type":"STRING",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"contact_last",
-         "Type":"STRING",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"phone",
-         "Type":"STRING",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"phone_2",
-         "Type":"STRING",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"voice_star_number",
-         "Type":"STRING",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"fax",
-         "Type":"STRING",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"email",
-         "Type":"STRING",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"url",
-         "Type":"STRING",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"senior_discount",
-         "Type":"STRING",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"non_services",
-         "Type":"STRING",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"services",
-         "Type":"STRING",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"operating_hours",
-         "Type":"STRING",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"service_area",
-         "Type":"STRING",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"bus_desc",
-         "Type":"STRING",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"bbb",
-         "Type":"STRING",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"exclude_reason",
-         "Type":"STRING",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"internal_comment",
-         "Type":"STRING",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"emergency_service",
+         "Name":"payment_approved",
          "Type":"TINYINT",
          "Validations":[
             {
@@ -322,6 +203,26 @@
             {
                "Check":"ValuesConstraint",
                "Values":"0,1"
+            }
+         ]
+      },
+       {
+         "Name":"storefront_sales_representative_id",
+         "Type":"INT",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"last_modified_by",
+         "Type":"INT",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
             }
          ]
       },
@@ -345,14 +246,19 @@
          "Type":"STRING",
          "Validations":[
             {
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {
                "Check":"DataType",
                "Action":"Reject"
             }
          ]
       },
        {
-         "Name":"country_code_id",
-         "Type":"INT",
+         "Name":"update_date",
+         "Type":"TIMESTAMP",
+         "Format":"yyyy-MM-dd HH:mm:ss",
          "Validations":[
             {
                "Check":"DataType",
@@ -361,7 +267,7 @@
          ]
       },
        {
-         "Name":"legal_business_name",
+         "Name":"update_by",
          "Type":"STRING",
          "Validations":[
             {
@@ -371,7 +277,22 @@
          ]
       },
        {
-         "Name":"classic_import_work_id",
+         "Name":"history_date",
+         "Type":"TIMESTAMP",
+         "Format":"yyyy-MM-dd HH:mm:ss",
+         "Validations":[
+            {
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"maximum_quantity",
          "Type":"INT",
          "Validations":[
             {
@@ -381,7 +302,27 @@
          ]
       },
        {
-         "Name":"known_invalid_email_address",
+         "Name":"maximum_quantity_per_member",
+         "Type":"INT",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"photo_id",
+         "Type":"INT",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"auto_renew",
          "Type":"TINYINT",
          "Validations":[
             {
@@ -395,7 +336,7 @@
          ]
       },
        {
-         "Name":"postal_address_status_id",
+         "Name":"paid_quantity",
          "Type":"INT",
          "Validations":[
             {
@@ -405,12 +346,163 @@
          ]
       },
        {
-         "Name":"phone_status_id",
+         "Name":"deal_classification_id",
          "Type":"INT",
          "Validations":[
             {
                "Check":"DataType",
                "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"storefront_item_promo_code_id",
+         "Type":"INT",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"timezone_id",
+         "Type":"INT",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"contract_item_sp_id",
+         "Type":"INT",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"editorial",
+         "Type":"STRING",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"storefront_item_sku",
+         "Type":"STRING",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"history_end_date",
+         "Type":"TIMESTAMP",
+         "Format":"yyyy-MM-dd HH:mm:ss",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"title_with_placeholders",
+         "Type":"STRING",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"description_with_placeholders",
+         "Type":"STRING",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"master_storefront_item_id_for_sku",
+         "Type":"TINYINT",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            },
+            {
+               "Check":"ValuesConstraint",
+               "Values":"0,1"
+            }
+         ]
+      },
+       {
+         "Name":"member_only",
+         "Type":"TINYINT",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            },
+            {
+               "Check":"ValuesConstraint",
+               "Values":"0,1"
+            }
+         ]
+      },
+       {
+         "Name":"do_not_override_fulfillment_method",
+         "Type":"TINYINT",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            },
+            {
+               "Check":"ValuesConstraint",
+               "Values":"0,1"
+            }
+         ]
+      },
+       {
+         "Name":"storefront_order_fulfillment_method_id",
+         "Type":"INT",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"premium_deal",
+         "Type":"TINYINT",
+         "Validations":[
+            {
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            },
+            {
+               "Check":"ValuesConstraint",
+               "Values":"0,1"
             }
          ]
       }

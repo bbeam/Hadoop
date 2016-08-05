@@ -1,7 +1,7 @@
---query 
-'select * from t_ServiceProviderAddress where $CONDITIONS LIMIT 10000'
---split-by 
-ServiceProviderAddressId
+--query
+"select * from StorefrontOrder where cast(coalesce(UpdateDate,CreateDate) as DATE)='EXTRACT_DATE' and $CONDITIONS"
+--split-by
+StorefrontOrderId
 --hive-drop-import-delims
 --fields-terminated-by 
 '\001' 

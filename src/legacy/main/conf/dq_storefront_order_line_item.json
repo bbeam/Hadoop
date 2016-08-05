@@ -1,19 +1,19 @@
-{  
-   "InputTableName":"inc_t_service_provider_address",
-   "OutputTableName":"dq_t_service_provider_address",
-   "SourceDB":"ALWEB_INCOMING_DB",
-   "TargetDB":"ALWEB_GOLD_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_ALWEB/angieslist/full/daily/dq_t_service_provider_address",
+{
+   "InputTableName":"inc_storefront_order_line_item",
+   "OutputTableName":"dq_storefront_order_line_item",
+   "SourceDB":"LEGACY_INCOMING_DB",
+   "TargetDB":"LEGACY_GOLD_DB",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_LEGACY/angie/full/daily/dq_storefront_order_line_item",
    "TableValidation":[  
             {  
                "Check":"Duplicate",
-               "keyColumns":"service_provider_address_id",
+               "keyColumns":"storefront_order_line_item_id",
                "Action":"Reject"
             }
          ],
    "Columns":[
-   {
-         "Name":"service_provider_address_id",
+      {
+         "Name":"storefront_order_line_item_id",
          "Type":"INT",
          "Validations":[
             {
@@ -27,7 +27,63 @@
          ]
       },
       {
-         "Name":"al_id",
+         "Name":"storefront_order_id",
+         "Type":"INT",
+         "Validations":[
+            {
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"storefront_order_line_item_status_id",
+         "Type":"INT",
+         "Validations":[
+            {
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"storefront_order_line_item_quantity",
+         "Type":"INT",
+         "Validations":[
+            {
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"storefront_item_id",
+         "Type":"INT",
+         "Validations":[
+            {
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"cash_posting_id",
          "Type":"INT",
          "Validations":[
             {
@@ -37,7 +93,41 @@
          ]
       },
        {
-         "Name":"postal_address_id",
+         "Name":"storefront_order_line_item_fee",
+         "Type":"DECIMAL(9,2)",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"member_sp_communication_id",
+         "Type":"INT",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"storefront_item_fee",
+         "Type":"DECIMAL(10,2)",
+         "Validations":[
+            {
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"storefront_source_id",
          "Type":"INT",
          "Validations":[
             {
@@ -51,21 +141,7 @@
          ]
       },
        {
-         "Name":"service_provider_id",
-         "Type":"INT",
-         "Validations":[
-            {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"is_primary",
+         "Name":"marked_read",
          "Type":"TINYINT",
          "Validations":[
             {
@@ -81,78 +157,6 @@
                "Values":"0,1"
             }
          ]
-      },
-       {
-         "Name":"version",
-         "Type":"INT",
-         "Validations":[
-            {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"create_date",
-         "Type":"TIMESTAMP",
-         "Format":"yyyy-MM-dd HH:mm:ss",
-         "Validations":[
-            {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"create_by",
-         "Type":"INT",
-         "Validations":[
-            {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"update_date",
-         "Type":"TIMESTAMP",
-         "Format":"yyyy-MM-dd HH:mm:ss",
-         "Validations":[
-            {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"update_by",
-         "Type":"INT",
-         "Validations":[
-            {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
       }
-    ]
-}
+     ]
+   }

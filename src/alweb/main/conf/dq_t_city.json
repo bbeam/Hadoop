@@ -1,19 +1,19 @@
 {  
-   "InputTableName":"inc_t_service_provider_address",
-   "OutputTableName":"dq_t_service_provider_address",
+   "InputTableName":"inc_t_city",
+   "OutputTableName":"dq_t_city",
    "SourceDB":"ALWEB_INCOMING_DB",
    "TargetDB":"ALWEB_GOLD_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_ALWEB/angieslist/full/daily/dq_t_service_provider_address",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_ALWEB/angieslist/full/daily/dq_t_city",
    "TableValidation":[  
             {  
                "Check":"Duplicate",
-               "keyColumns":"service_provider_address_id",
+               "keyColumns":"city_id",
                "Action":"Reject"
             }
          ],
    "Columns":[
    {
-         "Name":"service_provider_address_id",
+         "Name":"city_id",
          "Type":"INT",
          "Validations":[
             {
@@ -27,17 +27,7 @@
          ]
       },
       {
-         "Name":"al_id",
-         "Type":"INT",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"postal_address_id",
+         "Name":"region_id",
          "Type":"INT",
          "Validations":[
             {
@@ -51,8 +41,8 @@
          ]
       },
        {
-         "Name":"service_provider_id",
-         "Type":"INT",
+         "Name":"name",
+         "Type":"VARCHAR(254)",
          "Validations":[
             {
                "Check":"Null",
@@ -65,20 +55,12 @@
          ]
       },
        {
-         "Name":"is_primary",
-         "Type":"TINYINT",
+         "Name":"abbreviation",
+         "Type":"CHAR(3)",
          "Validations":[
-            {
-               "Check":"Null",
-               "Action":"Reject"
-            },
             {
                "Check":"DataType",
                "Action":"Reject"
-            },
-            {
-               "Check":"ValuesConstraint",
-               "Values":"0,1"
             }
          ]
       },

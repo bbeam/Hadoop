@@ -1,7 +1,7 @@
 --query 
-'select * from t_ServiceProviderAddress where $CONDITIONS LIMIT 10000'
+'select * from t_City where $CONDITIONS LIMIT 10000'
 --split-by 
-ServiceProviderAddressId
+CityId
 --hive-drop-import-delims
 --fields-terminated-by 
 '\001' 
@@ -11,5 +11,5 @@ ServiceProviderAddressId
 '\"'
 --null-string 
 '' 
---null-non-string 
+--null-non-string
 ''

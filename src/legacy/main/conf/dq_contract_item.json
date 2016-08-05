@@ -68,7 +68,7 @@
             },
             {
                "Check":"ValuesConstraint",
-               "values":"0,1"
+               "Values":"0,1"
             }
          ]
       },
@@ -86,7 +86,7 @@
             },
             {
                "Check":"ValuesConstraint",
-               "values":"0,1"
+               "Values":"0,1"
             }
          ]
       },
@@ -288,7 +288,7 @@
             },
             {
                "Check":"ValuesConstraint",
-               "values":"0,1"
+               "Values":"0,1"
             }
          ]
       },
@@ -430,8 +430,8 @@
       },
        {
          "Name":"eligibility_date",
-         "Type":"TIMESTAMP",
-         "Format":"yyyy-MM-dd HH:mm:ss",
+         "Type":"DATE",
+         "Format":"yyyy-MM-dd",
          "Validations":[
             {
                "Check":"DataType",

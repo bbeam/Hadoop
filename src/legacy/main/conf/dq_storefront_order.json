@@ -1,19 +1,19 @@
-{  
-   "InputTableName":"inc_t_service_provider_address",
-   "OutputTableName":"dq_t_service_provider_address",
-   "SourceDB":"ALWEB_INCOMING_DB",
-   "TargetDB":"ALWEB_GOLD_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_ALWEB/angieslist/full/daily/dq_t_service_provider_address",
+{
+   "InputTableName":"inc_storefront_order",
+   "OutputTableName":"dq_storefront_order",
+   "SourceDB":"LEGACY_INCOMING_DB",
+   "TargetDB":"LEGACY_GOLD_DB",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_LEGACY/angie/incremental/daily/dq_storefront_order",
    "TableValidation":[  
             {  
                "Check":"Duplicate",
-               "keyColumns":"service_provider_address_id",
+               "keyColumns":"storefront_order_id",
                "Action":"Reject"
             }
          ],
    "Columns":[
-   {
-         "Name":"service_provider_address_id",
+      {
+         "Name":"storefront_order_id",
          "Type":"INT",
          "Validations":[
             {
@@ -27,7 +27,7 @@
          ]
       },
       {
-         "Name":"al_id",
+         "Name":"storefront_order_status_id",
          "Type":"INT",
          "Validations":[
             {
@@ -36,22 +36,8 @@
             }
          ]
       },
-       {
-         "Name":"postal_address_id",
-         "Type":"INT",
-         "Validations":[
-            {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"service_provider_id",
+      {
+         "Name":"storefront_source_id",
          "Type":"INT",
          "Validations":[
             {
@@ -64,26 +50,8 @@
             }
          ]
       },
-       {
-         "Name":"is_primary",
-         "Type":"TINYINT",
-         "Validations":[
-            {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            },
-            {
-               "Check":"ValuesConstraint",
-               "Values":"0,1"
-            }
-         ]
-      },
-       {
-         "Name":"version",
+      {
+         "Name":"member_id",
          "Type":"INT",
          "Validations":[
             {
@@ -96,7 +64,21 @@
             }
          ]
       },
-       {
+      {
+         "Name":"payment_profile_id",
+         "Type":"INT",
+         "Validations":[
+            {
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
          "Name":"create_date",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss",
@@ -113,7 +95,7 @@
       },
        {
          "Name":"create_by",
-         "Type":"INT",
+         "Type":"STRING",
          "Validations":[
             {
                "Check":"Null",
@@ -131,10 +113,6 @@
          "Format":"yyyy-MM-dd HH:mm:ss",
          "Validations":[
             {
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {
                "Check":"DataType",
                "Action":"Reject"
             }
@@ -142,6 +120,16 @@
       },
        {
          "Name":"update_by",
+         "Type":"STRING",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"storefront_order_fulfillment_method_id",
          "Type":"INT",
          "Validations":[
             {
@@ -154,5 +142,5 @@
             }
          ]
       }
-    ]
-}
+     ]
+   }
