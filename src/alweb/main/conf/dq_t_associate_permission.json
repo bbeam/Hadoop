@@ -69,7 +69,7 @@
          "Type":"VARCHAR(254)",
          "Validations":[  
             {  
-               "Check":"DataType",
+               "Check":"Null",
                "Action":"Reject"
             }			
          ]
