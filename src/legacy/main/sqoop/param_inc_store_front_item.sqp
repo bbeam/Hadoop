@@ -1,5 +1,5 @@
---table
-t_ContactInformation
+--table 
+ServiceProviderGroup
 --hive-drop-import-delims
 --fields-terminated-by 
 '\001' 

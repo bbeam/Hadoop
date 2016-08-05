@@ -1,7 +1,7 @@
 --driver 
 com.amazon.redshift.jdbc4.Driver 
 --query 
-"select * from greenpoint_android_prod.on_board_user_signs_in_success where cast(sent_at as DATE)='EXTRACT_DATE' and $CONDITIONS" 
+"select * from greenpoint_android_prod.popular_category_tapped where cast(sent_at as DATE)='EXTRACT_DATE' and $CONDITIONS" 
 -m 
 4
 --split-by

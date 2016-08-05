@@ -16,11 +16,11 @@
 
 CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_service_provider_group
 (
+	service_provider_group_id INT, 
 	service_provider_group STRING, 
 	service_provider_group_description STRING, 
-	service_provider_group_id INT, 
-	service_provider_group_photo_id INT,
 	service_provider_group_type_id INT,
+	service_provider_group_photo_id INT,	
 	load_timestamp	TIMESTAMP
 )
 LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_LEGACY}/angie/full/daily/dq_service_provider_group';
