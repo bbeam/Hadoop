@@ -1,7 +1,8 @@
---query
-'select TOP 10000 * from StorefrontItem  where $CONDITIONS'
---split-by
-StorefrontItemId
+--query 
+'select * from StoreFrontItem  where StoreFrontItemID < 10000 and $CONDITIONS' 
+--split-by 
+StoreFrontItemID
+
 --hive-drop-import-delims
 --fields-terminated-by 
 '\001' 

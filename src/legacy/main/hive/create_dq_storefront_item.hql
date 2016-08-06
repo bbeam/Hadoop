@@ -3,11 +3,11 @@
 --  AUTHOR       : Ashoka Reddy
 --  DATE         : Jun 23, 2016
 --  DESCRIPTION  : Creation of hive DQ table(dq_storefront_item). 
---  USAGE        :hive -f ${S3_BUCKET}/src/legacy/main/hive/create_dq_storefront_item.hql \
-							--hivevar LEGACY_GOLD_DB="${LEGACY_GOLD_DB}" \
-							--hivevar SOURCE_LEGACY="${SOURCE_LEGACY}" \
-							--hivevar S3_BUCKET="${S3_BUCKET}" 
-
+--  USAGE        :
+-- hive -f ${S3_BUCKET}/src/legacy/main/hive/create_dq_storefront_item.hql \
+-- -hivevar LEGACY_GOLD_DB="${LEGACY_GOLD_DB}" \
+-- -hivevar SOURCE_LEGACY="${SOURCE_LEGACY}" \
+-- -hivevar S3_BUCKET="${S3_BUCKET}" 
 --*/
 
 --  Creating a dq hive table(dq_storefront_item) over the incoming table
@@ -20,8 +20,8 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_storefront_item
   title STRING,
   description STRING,
   redemption_instructions STRING,
-  start_datetime TIMESTAMP,
-  end_datetime TIMESTAMP,
+  start_date_time TIMESTAMP,
+  end_date_time TIMESTAMP,
   contact_name STRING,
   contact_phone STRING,
   contact_email STRING,

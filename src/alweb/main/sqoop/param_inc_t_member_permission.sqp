@@ -1,7 +1,5 @@
---query 
-'select * from t_MemberPermission  where $CONDITIONS limit 10000' 
---split-by 
-MemberPermissionId
+--table
+t_MemberPermission
 --hive-drop-import-delims
 --fields-terminated-by 
 '\001' 
