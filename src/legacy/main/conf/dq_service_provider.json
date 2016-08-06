@@ -321,7 +321,7 @@
             },
             {
                "Check":"ValuesConstraint",
-               "values":"0,1"
+               "Values":"0,1"
             }
          ]
       },
@@ -390,13 +390,13 @@
             },
             {
                "Check":"ValuesConstraint",
-               "values":"0,1"
+               "Values":"0,1"
             }
          ]
       },
        {
          "Name":"postal_address_status_id",
-         "Type":"STRING",
+         "Type":"INT",
          "Validations":[
             {
                "Check":"DataType",

@@ -1,5 +1,5 @@
 --query 
-'select * from t_ServiceProviderAddress limit 10000 where $CONDITIONS'
+'select * from t_ServiceProviderAddress where $CONDITIONS LIMIT 10000'
 --split-by 
 ServiceProviderAddressId
 --hive-drop-import-delims

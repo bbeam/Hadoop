@@ -24,7 +24,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_report
 	member_id INT,
 	member_nominated_poh TINYINT,
 	modified_date TIMESTAMP,
-	pageOf_happiness_eligibility_id INT,
+	page_of_happiness_eligibility_id INT,
 	report_completeness_id INT,
 	report_date TIMESTAMP,
 	report_id INT,     

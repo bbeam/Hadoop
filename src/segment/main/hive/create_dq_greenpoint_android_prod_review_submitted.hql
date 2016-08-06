@@ -1,3 +1,4 @@
+--/*
 --  HIVE SCRIPT  : create_dq_greenpoint_android_prod_review_submitted.hql
 --  AUTHOR       : Ashoka Reddy
 --  DATE         : Jul 13, 2016
@@ -65,4 +66,3 @@ load_timestamp TIMESTAMP
 )
 PARTITIONED BY (edh_bus_date STRING)
 LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_SEGMENT}/greenpoint_android_prod/incremental/daily/dq_greenpoint_android_prod_review_submitted';
-
