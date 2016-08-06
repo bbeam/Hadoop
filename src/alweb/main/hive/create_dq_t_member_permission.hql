@@ -25,6 +25,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:ALWEB_GOLD_DB}.dq_t_member_permiss
   create_date TIMESTAMP,
   create_by INT,
   update_date TIMESTAMP,
-  update_by INT
+  update_by INT,
+  load_timestamp TIMESTAMP
 )
 LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_ALWEB}/angieslist/full/daily/dq_t_member_permission';
