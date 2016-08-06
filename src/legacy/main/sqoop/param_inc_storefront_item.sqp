@@ -1,8 +1,5 @@
---query 
-'select * from StoreFrontItem  where StoreFrontItemID < 10000 and $CONDITIONS' 
---split-by 
-StoreFrontItemID
-
+--table
+StoreFrontItem
 --hive-drop-import-delims
 --fields-terminated-by 
 '\001' 
