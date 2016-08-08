@@ -12,27 +12,29 @@
 --  Creating a incoming hive table(inc_report) over the incoming data
 CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_INCOMING_DB}.inc_report
 (
+	report_id STRING,
+	member_id STRING,
+	report_date STRING,
+	work_completed_date STRING,
+	report_ip_address STRING,
 	cost STRING,
-	create_by STRING,
-	create_date STRING,
-	do_not_share_with_our_block STRING,
+	work_not_done STRING,
+	hire_again STRING,
 	employee_id STRING,
 	grade_exclude_type_id STRING,
-	hire_again STRING,                  
-	home_build_year STRING,                
-	location_privacy STRING,
-	member_id STRING,
-	member_nominated_poh STRING,
-	modified_date STRING,
-	page_of_happiness_eligibility_id STRING,
-	report_completeness_id STRING,
-	report_date STRING,
-	report_id STRING,     
-	report_ip_address STRING,         
 	report_origin_type_id STRING,
 	report_status_id STRING,
-	work_completed_date STRING, 
-	work_not_done STRING
+	member_nominated_poh STRING,
+	page_of_happiness_eligibility_id STRING,
+	home_build_year STRING,
+	create_date STRING,
+	create_by STRING,
+	report_completeness_id STRING,
+	modified_date STRING,
+	location_privacy STRING,
+	do_not_share_with_our_block STRING
+
+
 	)
 PARTITIONED BY (edh_bus_date STRING)
 LOCATION '${hivevar:S3_BUCKET}/data/incoming/${hivevar:SOURCE_LEGACY}/angie/full/daily/inc_report';
