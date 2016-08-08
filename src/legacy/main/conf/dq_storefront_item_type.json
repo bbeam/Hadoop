@@ -103,10 +103,7 @@
          "Name":"product_id",
          "Type":"INT",
          "Validations":[
-            {
-               "Check":"Null",
-               "Action":"Reject"
-            },
+            
             {
                "Check":"DataType",
                "Action":"Reject"
