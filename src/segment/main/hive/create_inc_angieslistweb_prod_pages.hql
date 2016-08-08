@@ -78,7 +78,8 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:SEGMENT_INCOMING_DB}.inc_angieslis
 	context_traits_last_name STRING,
 	context_traits_experiment_geosort_round_2 STRING,
 	context_traits_experiment_launch_geosort STRING,
-	context_traits_experiment_search_results_hide_description_and_review_counts_for_non_advertisers STRING
+	context_traits_experiment_search_results_hide_description_and_review_counts_for_non_advertisers STRING,
+	context_traits_experiment_z100_search_results_hide_description_and_review_counts STRING
 )
 PARTITIONED BY (edh_bus_date STRING)
 LOCATION '${hivevar:S3_BUCKET}/data/incoming/${hivevar:SOURCE_SEGMENT}/angieslistweb_prod/incremental/daily/inc_angieslistweb_prod_pages';

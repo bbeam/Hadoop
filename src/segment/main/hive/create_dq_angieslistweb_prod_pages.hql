@@ -79,6 +79,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:SEGMENT_GOLD_DB}.dq_angieslistweb_
 	context_traits_experiment_geosort_round_2 VARCHAR(256),
 	context_traits_experiment_launch_geosort VARCHAR(256),
 	context_traits_experiment_search_results_hide_description_and_review_counts_for_non_advertisers VARCHAR(256),
+	context_traits_experiment_z100_search_results_hide_description_and_review_counts VARCHAR(256),
 	load_timestamp TIMESTAMP
 )
 PARTITIONED BY (edh_bus_date STRING)

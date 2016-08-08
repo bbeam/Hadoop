@@ -28,7 +28,8 @@
       },
      {
          "Name":"received_at",
-         "Type":"VARCHAR(256)",
+         "Type":"TIMESTAMP",
+         "Format":"yyyy-MM-dd HH:mm:ss.SSS",
          "Validations":[
             {
                "Check":"DataType",
@@ -686,6 +687,16 @@
       },
      {
          "Name":"context_traits_experiment_search_results_hide_description_and_review_counts_for_non_advertisers",
+         "Type":"VARCHAR(256)",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"context_traits_experiment_z100_search_results_hide_description_and_review_counts",
          "Type":"VARCHAR(256)",
          "Validations":[
             {
