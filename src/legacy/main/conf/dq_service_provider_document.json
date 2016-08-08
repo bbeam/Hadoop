@@ -1,122 +1,161 @@
-{
-	"InputTableName": "inc_service_provider_document",
-	"OutputTableName": "dq_service_provider_document",
-	"SourceDB": "LEGACY_INCOMING_DB",
-	"TargetDB": "LEGACY_GOLD_DB",
-	"DQHiveTableLocation": "$S3_BUCKET/data/gold/$SOURCE_LEGACY/angie/full/daily/dq_service_provider_document",
-	"TableValidation": [{
-		"Check": "Duplicate",
-		"keyColumns": "service_provider_document_id",
-		"Action": "Reject"
-	}],
-	"Columns": [{
-			"Name": "service_provider_document_id",
-			"Type": "INT",
-			"Validations": [{
-				"Check": "Null",
-				"Action": "Reject"
-
-			}, {
-				"Check": "DataType",
-				"Action": "Reject"
-			}]
-		}, {
-			"Name": "file_display_name",
-			"Type": "STRING",
-			"Validations": [{
-				"Check": "Null",
-				"Action": "Reject"
-
-			}]
-		}, {
-			"Name": "file_name",
-			"Type": "STRING",
-			"Validations": [{
-				"Check": "Null",
-				"Action": "Reject"
-
-			}]
-		}, {
-			"Name": "file_path",
-			"Type": "STRING",
-			"Validations": [{
-				"Check": "Null",
-				"Action": "Reject"
-
-			}]
-		}, {
-			"Name": "document_type_id",
-			"Type": "INT",
-			"Validations": [{
-				"Check": "DataType",
-				"Action": "Reject"
-			}]
-		}, {
-			"Name": "sp_id",
-			"Type": "INT",
-			"Validations": [{
-				"Check": "Null",
-				"Action": "Reject"
-
-			}, {
-				"Check": "DataType",
-				"Action": "Reject"
-			}]
-		}, {
-			"Name": "userdocument_type",
-			"Type": "STRING",
-			"Validations": [
-
-			]
-		}, {
-			"Name": "start_date",
-			"Type": "TIMESTAMP",
-			"Format": "yyyy-MM-dd HH:mm:ss.SSS",
-			"Validations": [{
-				"Check": "Null",
-				"Action": "Reject"
-
-			}, {
-				"Check": "DataType",
-				"Action": "Reject"
-			}]
-		}, {
-			"Name": "end_date",
-			"Type": "TIMESTAMP",
-			"Format": "yyyy-MM-dd HH:mm:ss.SSS",
-			"Validations": [{
-				"Check": "Null",
-				"Action": "Reject"
-
-			}, {
-				"Check": "DataType",
-				"Action": "Reject"
-			}]
-		},
-
-		{
-			"Name": "approval_status_id",
-			"Type": "INT",
-			"Validations": [{
-				"Check": "Null",
-				"Action": "Reject"
-			}, {
-				"Check": "DataType",
-				"Action": "Reject"
-			}]
-		}, {
-			"Name": "process_date",
-			"Type": "TIMESTAMP",
-			"Format": "yyyy-MM-dd HH:mm:ss.SSS",
-			"Validations": [{
-				"Check": "Null",
-				"Action": "Reject"
-
-			}, {
-				"Check": "DataType",
-				"Action": "Reject"
-			}]
-		}
-
-	]
+{  
+   "InputTableName":"inc_service_provider_document",
+   "OutputTableName":"dq_service_provider_document",
+   "SourceDB":"LEGACY_INCOMING_DB",
+   "TargetDB":"LEGACY_GOLD_DB",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_LEGACY/angie/full/daily/dq_service_provider_document",
+   "TableValidation":[  
+            {  
+               "Check":"Duplicate",
+               "keyColumns":"service_provider_document_id",
+               "Action":"Reject"
+            }
+         ],
+   "Columns":[
+   {
+         "Name":"service_provider_document_id",
+         "Type":"INT",
+         "Validations":[
+            {
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"file_display_name",
+         "Type":"STRING",
+         "Validations":[
+            {
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"file_name",
+         "Type":"STRING",
+         "Validations":[
+            {
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"file_path",
+         "Type":"STRING",
+         "Validations":[
+            {
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"document_type_id",
+         "Type":"INT",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"sp_id",
+         "Type":"INT",
+         "Validations":[
+            {
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"user_document_type",
+         "Type":"STRING",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"start_date",
+         "Type":"TIMESTAMP",
+         "Format":"yyyy-MM-dd HH:mm:ss",
+         "Validations":[
+            {
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"end_date",
+         "Type":"TIMESTAMP",
+         "Format":"yyyy-MM-dd HH:mm:ss",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"approval_status_id",
+         "Type":"INT",
+         "Validations":[
+            {
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"process_date",
+         "Type":"TIMESTAMP",
+         "Format":"yyyy-MM-dd HH:mm:ss",
+         "Validations":[
+            {
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      }
+    ]
 }
