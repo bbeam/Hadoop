@@ -45,6 +45,10 @@
          "Type":"STRING",
          "Validations":[
             {
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {
                "Check":"DataType",
                "Action":"Reject"
             }
@@ -55,6 +59,10 @@
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss",
          "Validations":[
+            {
+               "Check":"Null",
+               "Action":"Reject"
+            },
             {
                "Check":"DataType",
                "Action":"Reject"
@@ -355,6 +363,10 @@
          "Type":"INT",
          "Validations":[
             {
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {
                "Check":"DataType",
                "Action":"Reject"
             }
@@ -401,6 +413,10 @@
             {
                "Check":"DataType",
                "Action":"Reject"
+            },
+            {
+               "Check":"DataType",
+               "Action":"Reject"
             }
          ]
       },
@@ -408,6 +424,10 @@
          "Name":"phone_status_id",
          "Type":"INT",
          "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            },
             {
                "Check":"DataType",
                "Action":"Reject"
