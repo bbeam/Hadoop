@@ -100,7 +100,11 @@
 			"Validations": [{
 				"Check": "DataType",
 				"Action": "Reject"
-			}]
+			},
+            {
+            	"Check":"ValuesConstraint",
+            	"Values":"true,false"
+            }]
 		},
 
 		{
@@ -172,7 +176,11 @@
 			"Validations": [{
 				"Check": "DataType",
 				"Action": "Reject"
-			}]
+			},
+            {
+            	"Check":"ValuesConstraint",
+            	"Values":"true,false"
+            }]
 		}, {
 			"Name": "context_network_carrier",
 			"Type": "VARCHAR(256)",
@@ -186,7 +194,11 @@
 			"Validations": [{
 				"Check": "DataType",
 				"Action": "Reject"
-			}]
+			},
+            {
+            	"Check":"ValuesConstraint",
+            	"Values":"true,false"
+            }]
 		},
 
 		{

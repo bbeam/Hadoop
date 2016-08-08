@@ -13,6 +13,76 @@
    ],
    "Columns":[  
       {  
+         "Name":"report_id",
+         "Type":"INT",
+         "Validations":[ 
+			{  
+               "Check":"Null",
+               "Action":"Reject"
+            },		 
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  {  
+         "Name":"member_id",
+         "Type":"INT",
+         "Validations":[ 
+			{  
+               "Check":"Null",
+               "Action":"Reject"
+            },		 
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	   {  
+         "Name":"report_date",
+		 "Type":"TIMESTAMP",
+		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+			{  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  {  
+         "Name":"work_completed_date",
+		 "Type":"TIMESTAMP",
+		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
+         "Validations":[  
+           	{  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  {  
+         "Name":"report_ip_address",
+         "Type":"BIGINT",
+         "Validations":[  
+		 {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  {  
          "Name":"cost",
          "Type":"DECIMAL",
          "Validations":[  
@@ -26,35 +96,8 @@
             }
          ]
       },
-		{  
-         "Name":"create_by",
-		 "Type":"STRING",
-         "Validations":[  
-            {  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-            
-         ]
-      },
-      {  
-         "Name":"create_date",
-		 "Type":"TIMESTAMP",
-		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
-         "Validations":[  
-            {  
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-            
-         ]
-      },
 	  {  
-         "Name":"do_not_share_with_our_block",
+         "Name":"work_not_done",
          "Type":"TINYINT",
          "Validations":[
 			{  
@@ -68,34 +111,6 @@
             {  
                "Check":"ValuesConstraint",
                "Values":"0,1"
-            }
-         ]
-      },
-      {  
-         "Name":"employee_id",
-         "Type":"INT",
-         "Validations":[
-			{  
-               "Check":"Null",
-               "Action":"Reject"
-            },		 
-            {  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {  
-         "Name":"grade_exclude_type_id",
-         "Type":"INT",
-         "Validations":[  
-            {  
-               "Check":"Null",
-               "Action":"Reject"
-            },
-			{  
-               "Check":"DataType",
-               "Action":"Reject"
             }
          ]
       },
@@ -117,130 +132,10 @@
             }
          ]
       },
-      {  
-         "Name":"home_build_year",
-         "Type":"STRING",
-         "Validations":[  
-		   {  
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
 	  {  
-         "Name":"location_privacy",
-         "Type":"TINYINT",
+         "Name":"employee_id",
+         "Type":"INT",
          "Validations":[
-			{  
-               "Check":"Null",
-               "Action":"Reject"
-            },		 
-            {  
-               "Check":"DataType",
-               "Action":"Reject"
-            },
-            {  
-               "Check":"ValuesConstraint",
-               "Values":"0,1"
-            }
-         ]
-      },
-      {  
-         "Name":"member_id",
-         "Type":"INT",
-         "Validations":[ 
-			{  
-               "Check":"Null",
-               "Action":"Reject"
-            },		 
-            {  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-	  {  
-         "Name":"member_nominated_poh",
-         "Type":"TINYINT",
-         "Validations":[
-			{  
-               "Check":"Null",
-               "Action":"Reject"
-            },		 
-            {  
-               "Check":"DataType",
-               "Action":"Reject"
-            },
-            {  
-               "Check":"ValuesConstraint",
-               "Values":"0,1"
-            }
-         ]
-      },
-	  {  
-         "Name":"modified_date",
-		 "Type":"TIMESTAMP",
-		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
-         "Validations":[  
-            {  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-            
-         ]
-      },
-	  {  
-         "Name":"page_of_happiness_eligibility_id",
-         "Type":"INT",
-         "Validations":[ 
-			{  
-               "Check":"Null",
-               "Action":"Reject"
-            },		 
-            {  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-	  {  
-         "Name":"report_completeness_id",
-         "Type":"INT",
-         "Validations":[ 
-			{  
-               "Check":"Null",
-               "Action":"Reject"
-            },		 
-            {  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-	  {  
-         "Name":"report_date",
-		 "Type":"TIMESTAMP",
-		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
-         "Validations":[  
-            {  
-               "Check":"Null",
-               "Action":"Reject"
-            },
-			{  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-            
-         ]
-      },
-	   {  
-         "Name":"report_id",
-         "Type":"INT",
-         "Validations":[ 
 			{  
                "Check":"Null",
                "Action":"Reject"
@@ -252,20 +147,19 @@
          ]
       },
 	   {  
-         "Name":"report_ip_address",
-         "Type":"BIGINT",
+         "Name":"grade_exclude_type_id",
+         "Type":"INT",
          "Validations":[  
-		 {  
+            {  
                "Check":"Null",
                "Action":"Reject"
             },
-            {  
+			{  
                "Check":"DataType",
                "Action":"Reject"
             }
          ]
-      },
-	  {  
+      },{  
          "Name":"report_origin_type_id",
          "Type":"INT",
          "Validations":[ 
@@ -294,11 +188,99 @@
          ]
       },
        {  
-         "Name":"work_completed_date",
+         "Name":"member_nominated_poh",
+         "Type":"TINYINT",
+         "Validations":[
+			{  
+               "Check":"Null",
+               "Action":"Reject"
+            },		 
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"ValuesConstraint",
+               "Values":"0,1"
+            }
+         ]
+      },
+	  
+	  {  
+         "Name":"page_of_happiness_eligibility_id",
+         "Type":"INT",
+         "Validations":[ 
+			{  
+               "Check":"Null",
+               "Action":"Reject"
+            },		 
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {  
+         "Name":"home_build_year",
+         "Type":"STRING",
+         "Validations":[  
+		   {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	   {  
+         "Name":"create_date",
 		 "Type":"TIMESTAMP",
 		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
          "Validations":[  
-           	{  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  {  
+         "Name":"create_by",
+		 "Type":"STRING",
+         "Validations":[  
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },    
+	  {  
+         "Name":"report_completeness_id",
+         "Type":"INT",
+         "Validations":[ 
+			{  
+               "Check":"Null",
+               "Action":"Reject"
+            },		 
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  {  
+         "Name":"modified_date",
+		 "Type":"TIMESTAMP",
+		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
+         "Validations":[  
+            {  
                "Check":"DataType",
                "Action":"Reject"
             }
@@ -306,7 +288,25 @@
          ]
       },
 	   {  
-         "Name":"work_not_done",
+         "Name":"location_privacy",
+         "Type":"TINYINT",
+         "Validations":[
+			{  
+               "Check":"Null",
+               "Action":"Reject"
+            },		 
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"ValuesConstraint",
+               "Values":"0,1"
+            }
+         ]
+      },
+      {  
+         "Name":"do_not_share_with_our_block",
          "Type":"TINYINT",
          "Validations":[
 			{  

@@ -1,5 +1,5 @@
 --query 
-'select TOP 1000 * from StorefrontProductEventType where $CONDITIONS'
+'select StorefrontProductEventTypeId, StorefrontProductEventTypeName, StorefrontProductEventTypeDescription, CreateDate, CreateBy, UpdateDate, UpdateBy from AngieAnalytics.dbo.StorefrontProductEventType where $CONDITIONS'
 --split-by 
 StorefrontProductEventTypeId 
 --hive-drop-import-delims

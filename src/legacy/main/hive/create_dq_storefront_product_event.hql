@@ -12,16 +12,16 @@
 --  Creating a DQ hive table(inc_storefront_product_event) over the incoming data
 CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_storefront_product_event
 ( 
-	campaign_id STRING,
-	create_by STRING,
-	create_date TIMESTAMP,  
-	expiration_date	TIMESTAMP,
-	member_id INT,
-	storefront_item_id INT,	
 	storefront_product_event_id INT,
-	storefront_product_event_type_id INT,     
-	update_by STRING,
+	storefront_item_id INT,
+	member_id INT,
+	storefront_product_event_type_id INT,
+	expiration_date	TIMESTAMP,
+	campaign_id STRING,
+	create_date TIMESTAMP,
+	create_by STRING,
 	update_date TIMESTAMP,
+	update_by STRING,	
 	load_timestamp TIMESTAMP
 )
-LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_LEGACY}/angie/full/daily/dq_storefront_product_event';
+LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_LEGACY}/angieanalytics/full/daily/dq_storefront_product_event';
