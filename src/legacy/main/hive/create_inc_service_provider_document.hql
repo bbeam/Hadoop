@@ -1,12 +1,12 @@
 --/*
 --  HIVE SCRIPT  : create_inc_service_provider_document.hql
---  AUTHOR       : Ashoka Reddy
+--  AUTHOR       : Abhijeet Purwar
 --  DATE         : Jun 23, 2016
 --  DESCRIPTION  : Creation of hive incoming table(inc_service_provider_document). 
---  USAGE		 : hive -f ${S3_BUCKET}/src/legacy/main/hive/create_inc_service_provider_document.hql \
-							--hivevar LEGACY_INCOMING_DB="${LEGACY_INCOMING_DB}" \
-							--hivevar SOURCE_LEGACY="${SOURCE_LEGACY}" \
-							--hivevar S3_BUCKET="${S3_BUCKET}"
+--  USAGE        : hive -f ${S3_BUCKET}/src/legacy/main/hive/create_inc_service_provider_document.hql \
+-- --hivevar LEGACY_INCOMING_DB="${LEGACY_INCOMING_DB}" \
+-- --hivevar SOURCE_LEGACY="${SOURCE_LEGACY}" \
+-- --hivevar S3_BUCKET="${S3_BUCKET}"
 --*/
 
 
@@ -19,7 +19,7 @@ file_name STRING,
 file_path STRING,
 document_type_id STRING,
 sp_id STRING,
-userdocument_type STRING,
+user_document_type STRING,
 start_date STRING,
 end_date STRING,
 approval_status_id STRING,
