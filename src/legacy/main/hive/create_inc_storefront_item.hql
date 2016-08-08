@@ -4,9 +4,9 @@
 --  DATE         : Jun 23, 2016
 --  DESCRIPTION  : Creation of hive incoming table(inc_storefront_item). 
 --  USAGE		 : hive -f ${S3_BUCKET}/src/legacy/main/hive/create_inc_storefront_item.hql \
-							--hivevar LEGACY_INCOMING_DB="${LEGACY_INCOMING_DB}" \
-							--hivevar SOURCE_LEGACY="${SOURCE_LEGACY}" \
-							--hivevar S3_BUCKET="${S3_BUCKET}"
+-- -hivevar LEGACY_INCOMING_DB="${LEGACY_INCOMING_DB}" \
+-- -hivevar SOURCE_LEGACY="${SOURCE_LEGACY}" \
+-- -hivevar S3_BUCKET="${S3_BUCKET}"
 --*/
 
 
@@ -20,8 +20,8 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_INCOMING_DB}.inc_storefront
   title STRING,
   description STRING,
   redemption_instructions STRING,
-  start_datetime STRING,
-  end_datetime STRING,
+  start_date_time STRING,
+  end_date_time STRING,
   contact_name STRING,
   contact_phone STRING,
   contact_email STRING,

@@ -16,7 +16,7 @@
 	  "workerGroup": "ALWorkerGroup",
 	  "scriptArgument": [
 		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
-		"s3://al-edh-dev/src/legacy/main/conf/ingestion_service_provider_group.properties",
+		"s3://al-edh-dev/src/legacy/main/conf/ingestion_storefront_item.properties",
 		"#{format(minusDays(@scheduledStartTime,1),'YYYY-MM-dd')}"
 	  ],
 	  "type": "ShellCommandActivity"

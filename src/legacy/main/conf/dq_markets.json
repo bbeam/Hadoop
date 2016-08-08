@@ -42,7 +42,7 @@
          ]
       },
 	  {  
-         "Name":"address1",
+         "Name":"address_1",
 		 "Type":"STRING",
          "Validations":[  
              {  
@@ -53,7 +53,7 @@
          ]
       },
 	  {  
-         "Name":"address2",
+         "Name":"address_2",
 		 "Type":"STRING",
          "Validations":[  
              {  
@@ -97,7 +97,7 @@
          ]
       },
 	  {  
-         "Name":"phone1",
+         "Name":"phone_1",
 		 "Type":"STRING",
          "Validations":[  
              {  
@@ -108,7 +108,7 @@
          ]
       },
 	  {  
-         "Name":"phone2",
+         "Name":"phone_2",
 		 "Type":"STRING",
          "Validations":[  
              {  
@@ -141,7 +141,7 @@
          ]
       },
 	  {  
-         "Name":"email2",
+         "Name":"email_2",
 		 "Type":"STRING",
          "Validations":[  
              {  
@@ -152,7 +152,7 @@
          ]
       },
 	  {  
-         "Name":"email3",
+         "Name":"email_3",
 		 "Type":"STRING",
          "Validations":[  
              {  
@@ -196,7 +196,7 @@
          ]
       },
 	  {  
-         "Name":"phone3",
+         "Name":"phone_3",
 		 "Type":"STRING",
          "Validations":[  
              {  
@@ -207,7 +207,7 @@
          ]
       },
 	  {  
-         "Name":"phone4",
+         "Name":"phone_4",
 		 "Type":"STRING",
          "Validations":[  
              {  
@@ -218,7 +218,7 @@
          ]
       },
 	  {  
-         "Name":"phone5",
+         "Name":"phone_5",
 		 "Type":"STRING",
          "Validations":[  
              {  
@@ -274,7 +274,7 @@
          ]
       },
 	  {  
-         "Name":"market_place_email",
+         "Name":"marketplace_email",
 		 "Type":"STRING",
          "Validations":[  
              {  

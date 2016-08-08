@@ -59,7 +59,7 @@
       },
 		
       {  
-         "Name":"category_group_is_Active",
+         "Name":"category_group_is_active",
 		 "Type":"TINYINT",
          "Validations":[  
             {  

@@ -99,7 +99,7 @@
          ]
       },
 	  {  
-         "Name":"start_datetime",
+         "Name":"start_date_time",
          "Type":"TIMESTAMP",
 		 "Format":"yyyy-MM-dd HH:mm:ss.SSS",
          "Validations":[  
@@ -114,7 +114,7 @@
          ]
       },
 	  {  
-         "Name":"end_datetime",
+         "Name":"end_date_time",
          "Type":"TIMESTAMP",
 		 "Format":"yyyy-MM-dd HH:mm:ss.SSS",
          "Validations":[  
@@ -403,24 +403,14 @@
 	  {  
          "Name":"editorial",
          "Type":"STRING",
-         "Validations":[  
-         
-			{  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
+         "Validations":[ 
+		 ]
       },
 	  {  
          "Name":"storefront_item_sku",
          "Type":"STRING",
          "Validations":[  
-            
-			{  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
+          ]
       },
 	  {  
          "Name":"title_with_placeholders",
@@ -432,10 +422,6 @@
                "Check":"Null",
                "Action":"Reject"
 			   
-            },
-			{  
-               "Check":"DataType",
-               "Action":"Reject"
             }
          ]
       },
@@ -449,10 +435,6 @@
                "Check":"Null",
                "Action":"Reject"
 			   
-            },
-			{  
-               "Check":"DataType",
-               "Action":"Reject"
             }
          ]
       },
