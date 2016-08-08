@@ -15,7 +15,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_category_group
 	category_group STRING,
 	category_group_description STRING,
 	category_group_id INT,
-	category_group_is_Active TINYINT,
+	category_group_is_active TINYINT,
 	category_group_type_id INT,
 	display_order INT,
 	load_timestamp TIMESTAMP
