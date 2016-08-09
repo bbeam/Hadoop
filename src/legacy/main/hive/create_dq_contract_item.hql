@@ -19,7 +19,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_contract_item
   contract_item_pulled_reason_id INT,
   category_id INT,
   est_start_date TIMESTAMP,
-  utc_start_date TIMESTAMP,
+  start_date TIMESTAMP,
   est_end_date TIMESTAMP,
   utc_end_date TIMESTAMP,
   classified_ad_text STRING,
@@ -38,18 +38,18 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_contract_item
   employee_id INT,
   modified_by_employee_id INT,
   est_create_date TIMESTAMP,
-  utc_create_date TIMESTAMP,
+  create_date TIMESTAMP,
   create_by STRING,
   est_modified_date TIMESTAMP,
-  ust_modified_date TIMESTAMP,
+  modified_date TIMESTAMP,
   est_targeted_end_date TIMESTAMP,
-  utc_targeted_end_date TIMESTAMP,
+  targeted_end_date TIMESTAMP,
   est_targeted_end_date_changed_date TIMESTAMP,
-  ust_targeted_end_date_changed_date TIMESTAMP,
+  targeted_end_date_changed_date TIMESTAMP,
   targeted_end_date_changed_by_employee_id INT,
   revenue_change_reason_id INT,
   eligibility_date DATE,
-  ust_load_timestamp TIMESTAMP,
-  est_load_timestamp TIMESTAMP
+  est_load_timestamp TIMESTAMP,
+  utc_load_timestamp TIMESTAMP
 )
 LOCATION '${hivevar:S3_BUCKET}/data/gold/legacy/angie/dbo/full/daily/dq_contract_item';
