@@ -1,6 +1,7 @@
 --table 
 t_SkuItem
---fields-terminated-by 
+--hive-delims-replacement
+'#'
 '\001' 
 --lines-terminated-by 
 '\n'

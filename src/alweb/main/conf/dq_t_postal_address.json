@@ -1,9 +1,9 @@
 {  
    "InputTableName":"inc_t_postal_address",
    "OutputTableName":"dq_t_postal_address",
-   "SourceDB":"ALWEB_INCOMING_DB",
-   "TargetDB":"ALWEB_GOLD_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_ALWEB/angieslist/full/daily/dq_t_postal_address",
+   "SourceDB":"INCOMING_ALWEB_AL_DB",
+   "TargetDB":"GOLD_ALWEB_AL_DB",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/alweb/angieslist/full/daily/dq_t_postal_address",
    "TableValidation":[  
       {  
          "Check":"Duplicate",
@@ -163,6 +163,8 @@
          "Name":"create_date",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+         "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
          "Validations":[  
             {  
                "Check":"Null",
@@ -192,6 +194,8 @@
          "Name":"update_date",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+         "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
          "Validations":[  
             {  
                "Check":"Null",

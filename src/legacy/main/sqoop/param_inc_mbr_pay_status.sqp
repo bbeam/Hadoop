@@ -2,7 +2,8 @@
 'select MemberID, PayStatus, StatusDate,ID from MbrPayStatus where $CONDITIONS'
 --split-by 
 ID 
---hive-drop-import-delims
+--hive-delims-replacement
+'#'
 --fields-terminated-by 
 '\001' 
 --lines-terminated-by 

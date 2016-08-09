@@ -3,18 +3,9 @@
 --  AUTHOR       : Abhijeet Purwar
 --  DATE         : Jun 27, 2016
 --  DESCRIPTION  : Creation of hive DQ table(angie.Contract). 
---  Execute command:
---
---
--- hive -f $S3_BUCKET/src/$SOURCE_LEGACY/main/hive/create_dq_contract.hql \
--- -hivevar LEGACY_GOLD_DB=$LEGACY_GOLD_DB \
--- -hivevar S3_BUCKET=$S3_BUCKET \
--- -hivevar SOURCE_LEGACY=$SOURCE_LEGACY
---
---
 --*/
 
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_contract
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_contract
 (
   contract_id INT,
   title STRING,
@@ -40,16 +31,22 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_contract
   sp_membership_id INT,
   ad_discount_schedule_id INT,
   anniversary_day INT,
+  est_published_date TIMESTAMP,
   published_date TIMESTAMP,
+  est_signed_date TIMESTAMP,
   signed_date TIMESTAMP,
+  est_oca_expiration_date TIMESTAMP,
   oca_expiration_date TIMESTAMP,
   oca_associate_message STRING,
   ccv_date TIMESTAMP,
   notes_id INT,
   modified_by_employee_id INT,
+  est_create_date TIMESTAMP,
   create_date TIMESTAMP,
   create_by STRING,
+  est_modified_date TIMESTAMP,
   modified_date TIMESTAMP,
+  est_activation_date TIMESTAMP,
   activation_date TIMESTAMP,
   ad_sale_employee_id INT,
   is_amended TINYINT,
@@ -60,6 +57,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_contract
   sales_force_opportunity_id STRING,
   national_indicator TINYINT,
   show_in_business_center TINYINT,
-  load_timestamp TIMESTAMP
+  est_load_timestamp TIMESTAMP,
+	utc_load_timestamp TIMESTAMP
 )
-LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_LEGACY}/angie/full/daily/dq_contract';
+LOCATION '${hivevar:S3_BUCKET}/data/gold/legacy/angie/dbo/full/daily/dq_contract';

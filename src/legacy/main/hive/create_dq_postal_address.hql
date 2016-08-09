@@ -2,15 +2,10 @@
 --  HIVE SCRIPT  : create_dq_postal_address.hql
 --  AUTHOR       : Varun Rauthan
 --  DATE         : Aug 03, 2016
---  DESCRIPTION  : Creation of hive dq table(angie.PostalAddress) 
---  Execute command:
--- 			hive -f $S3_BUCKET/src/$SOURCE_LEGACY/main/hive/create_dq_postal_address.hql \
--- 			-hivevar LEGACY_GOLD_DB=$LEGACY_GOLD_DB \ 
--- 			-hivevar S3_BUCKET=$S3_BUCKET \ 
--- 			-hivevar SOURCE_LEGACY=$SOURCE_LEGACY
+--  DESCRIPTION  : Creation of hive dq table(angie.PostalAddress)
 --*/
 
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_postal_address
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_postal_address
 (
 	postal_address_id INT,
 	postal_format_id INT,
@@ -23,7 +18,9 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_postal_address
 	latitude DECIMAL(19,9),
 	longitude DECIMAL(19,9),
 	coordinate_confidence INT,
+	est_process_date TIMESTAMP,
 	process_date TIMESTAMP,
-	load_timestamp TIMESTAMP
+	est_load_timestamp TIMESTAMP,
+	utc_load_timestamp TIMESTAMP
 )
-LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_LEGACY}/angie/full/daily/dq_postal_address';
+LOCATION '${hivevar:S3_BUCKET}/data/gold/legacy/angie/dbo/full/daily/dq_postal_address';

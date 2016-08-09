@@ -3,14 +3,10 @@
 --  AUTHOR       : Gaurav Maheshwari
 --  DATE         : Aug 09, 2016
 --  DESCRIPTION  : Creation of hive DQ table(dq_markets). 
---  USAGE 		 : hive -f s3://al-edh-dev/src/$SOURCE_LEGACY/main/hive/create_dq_markets.hql \
---					--hivevar LEGACY_GOLD_DB="${LEGACY_GOLD_DB}" \
---					--hivevar S3_BUCKET="${S3_BUCKET}" \
---					--hivevar SOURCE_legacy="${SOURCE_legacy}"
 --*/
 
 --  Creating a DQ hive table(inc_markets) over the incoming data
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_markets
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_markets
 (
 	market_id INT,    
 	market STRING,     
@@ -40,7 +36,9 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_markets
 	fundraiser_phone STRING,
 	fundraiser_email STRING,
 	new_market_check TINYINT,
+	est_market_open_date TIMESTAMP,
 	market_open_date TIMESTAMP,
+	est_charter_end_date TIMESTAMP,
 	charter_end_date TIMESTAMP,
 	alm  TINYINT,
 	toll_free_phone STRING,
@@ -49,6 +47,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_markets
 	country_code_id INT,
 	market_url STRING,
 	big_deal TINYINT,
-	load_timestamp TIMESTAMP
+	est_load_timestamp TIMESTAMP,
+	utc_load_timestamp TIMESTAMP
 )
-LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_LEGACY}/angie/full/daily/dq_markets';
+LOCATION '${hivevar:S3_BUCKET}/data/gold/legacy/angie/dbo/full/daily/dq_markets';

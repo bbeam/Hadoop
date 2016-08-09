@@ -3,15 +3,10 @@
 --  AUTHOR       : Ashoka Reddy
 --  DATE         : Jun 23, 2016
 --  DESCRIPTION  : Creation of hive DQ table(dq_storefront_item). 
---  USAGE        :
--- hive -f ${S3_BUCKET}/src/legacy/main/hive/create_dq_storefront_item.hql \
--- -hivevar LEGACY_GOLD_DB="${LEGACY_GOLD_DB}" \
--- -hivevar SOURCE_LEGACY="${SOURCE_LEGACY}" \
--- -hivevar S3_BUCKET="${S3_BUCKET}" 
 --*/
 
 --  Creating a dq hive table(dq_storefront_item) over the incoming table
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_storefront_item
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_storefront_item
 (
   storefront_item_id INT,
   storefront_item_status_id INT,
@@ -20,7 +15,9 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_storefront_item
   title STRING,
   description STRING,
   redemption_instructions STRING,
+  est_start_date_time TIMESTAMP,
   start_date_time TIMESTAMP,
+  est_end_date_time TIMESTAMP,
   end_date_time TIMESTAMP,
   contact_name STRING,
   contact_phone STRING,
@@ -32,8 +29,10 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_storefront_item
   payment_approved TINYINT,
   storefront_sales_representative_id INT,
   last_modified_by INT,
+  est_create_date TIMESTAMP,
   create_date TIMESTAMP,
   create_by STRING,
+  est_update_date TIMESTAMP,
   update_date TIMESTAMP,
   update_by STRING,
   maximum_quantity INT,
@@ -54,6 +53,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_storefront_item
   storefront_order_fulfillment_method_id INT,
   do_not_override_fulfillment_method TINYINT,
   premium_deal TINYINT,
-  load_timestamp TIMESTAMP
+  est_load_timestamp TIMESTAMP,
+  utc_load_timestamp TIMESTAMP
 )
-LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_LEGACY}/angie/full/daily/dq_storefront_item';
+LOCATION '${hivevar:S3_BUCKET}/data/gold/legacy/angie/dbo/full/daily/dq_storefront_item';

@@ -1,9 +1,9 @@
 {  
    "InputTableName":"inc_exclude_test_member_ids",
    "OutputTableName":"dq_exclude_test_member_ids",
-   "SourceDB":"LEGACY_INCOMING_DB",
-   "TargetDB":"LEGACY_GOLD_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_LEGACY/reports/full/daily/dq_exclude_test_member_ids",
+   "SourceDB":"INCOMING_LEGACY_REPORTS_DBO_DB",
+   "TargetDB":"GOLD_LEGACY_REPORTS_DBO_DB",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/legacy/reports/dbo/full/daily/dq_exclude_test_member_ids",
    "TableValidation":[  
             {  
                "Check":"Duplicate",
@@ -30,6 +30,8 @@
          "Name":"date_added",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss",
+         "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST", 
          "Validations":[
             {
                "Check":"DataType",
