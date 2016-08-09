@@ -2,7 +2,8 @@
 'Select ServiceProviderGroupID,ServiceProviderGroup,ServiceProviderGroupDescription,ServiceProviderGroupTypeId,ServiceProviderGroupPhotoId from ServiceProviderGroup where $CONDITIONS'
 --split-by
 ServiceProviderGroupID
---hive-drop-import-delims
+--hive-delims-replacement
+'#'
 --fields-terminated-by 
 '\001' 
 --lines-terminated-by 

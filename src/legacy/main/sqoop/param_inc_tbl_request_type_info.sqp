@@ -2,7 +2,8 @@
 'select TOP 10000 * from tblRequestTypeInfo  where $CONDITIONS'
 --split-by
 RequestInfoID
---hive-drop-import-delims
+--hive-delims-replacement
+'#'
 --fields-terminated-by 
 '\001' 
 --lines-terminated-by 

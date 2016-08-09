@@ -2,7 +2,8 @@
 'select TOP 1000 * from CategoryGroup where $CONDITIONS'
 --split-by 
 CategoryGroupId 
---hive-drop-import-delims
+--hive-delims-replacement
+'#'
 --fields-terminated-by 
 '\001' 
 --lines-terminated-by 

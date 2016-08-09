@@ -2,7 +2,8 @@
 'select * from t_Region where $CONDITIONS LIMIT 10000'
 --split-by 
 RegionId
---hive-drop-import-delims
+--hive-delims-replacement
+'#'
 --fields-terminated-by 
 '\001' 
 --lines-terminated-by 

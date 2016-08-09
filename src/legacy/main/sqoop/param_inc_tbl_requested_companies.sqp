@@ -2,7 +2,8 @@
 'select TOP 10000 * from tblRequestedCompanies  where $CONDITIONS'
 --split-by
 GaveID
---hive-drop-import-delims
+--hive-delims-replacement
+'#'
 --fields-terminated-by 
 '\001' 
 --lines-terminated-by 

@@ -2,7 +2,8 @@
 'select ReportId, MemberId, ReportDate, WorkCompletedDate, ReportIPAddress,  Cost, WorkNotDone, HireAgain, EmployeeId, GradeExcludeTypeId, ReportOriginTypeId, ReportStatusId, MemberNominatedPOH, PageOfHappinessEligibilityId, HomeBuildYear, CreateDate, CreateBy, ReportCompletenessId, ModifiedDate, LocationPrivacy, DoNotShareWithOurBlock from Report where $CONDITIONS'
 --split-by 
 ReportId 
---hive-drop-import-delims
+--hive-delims-replacement
+'#'
 --fields-terminated-by 
 '\001' 
 --lines-terminated-by 
