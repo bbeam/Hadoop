@@ -20,7 +20,8 @@ SELECT       '${hivevar:EDH_BUS_DATE}' AS edh_bus_date,
              from_unixtime(unix_timestamp()) AS time_stamp,
              '${hivevar:USER_NAME}' AS user_name,
              '${hivevar:EDH_BUS_MONTH}' AS edh_bus_month
- FROM ${GOLD_DB}.${hivevar:DQ_TABLE};
+ FROM ${GOLD_DB}.${hivevar:DQ_TABLE} 
+ WHERE edh_bus_date = '${hivevar:EDH_BUS_DATE}';
  
 INSERT INTO TABLE common_operations.edh_batch_audit
 PARTITION(edh_bus_month)
