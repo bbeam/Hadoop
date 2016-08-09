@@ -12,10 +12,13 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_member_membership_tier
 	member_id INT,
 	membership_tier_id INT,
 	original_purchase_price DECIMAL(10,2),
+	est_create_date TIMESTAMP,
 	create_date TIMESTAMP,
 	create_by STRING,
+	est_update_date TIMESTAMP,
 	update_date TIMESTAMP,
 	update_by STRING,
-	load_timestamp TIMESTAMP
+	est_load_timestamp TIMESTAMP,
+	utc_load_timestamp TIMESTAMP
 )
 LOCATION '${hivevar:S3_BUCKET}/data/gold/legacy/angie/dbo/full/daily/dq_member_membership_tier';
