@@ -1,7 +1,7 @@
 --query 
-'select TOP 100 * from WebRequest where $CONDITIONS'
---split-by 
-MemberId 
+'select * from WebLogging.dbo.WebRequest where cast(TimeUtc as DATE)='EXTRACT_DATE' and $CONDITIONS'
+--split-by
+TimeUtc
 --hive-drop-import-delims
 --fields-terminated-by 
 '\001' 
