@@ -47,10 +47,6 @@
             {  
                "Check":"DataType",
                "Action":"Reject"
-            },
-            {  
-               "Check":"Null",
-               "Action":"Reject"
             }
          ]
       },
@@ -58,10 +54,7 @@
          "Name":"address2",
          "Type":"STRING",
          "Validations":[
-            {  
-               "Check":"Null",
-               "Action":"Reject"
-            },
+            
             {  
                "Check":"DataType",
                "Action":"Reject"
@@ -73,10 +66,6 @@
          "Type":"STRING",
          "Validations":[
             {  
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {  
                "Check":"DataType",
                "Action":"Reject"
             }
@@ -86,10 +75,6 @@
          "Name":"state",
          "Type":"STRING",
          "Validations":[
-            {  
-               "Check":"Null",
-               "Action":"Reject"
-            },
             {  
                "Check":"DataType",
                "Action":"Reject"
