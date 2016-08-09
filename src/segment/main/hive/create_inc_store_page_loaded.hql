@@ -68,10 +68,4 @@ context_traits_experiment_launch_geosort STRING ,
 context_traits_experiment_search_results_hide_description_and_review_counts_for_non_advertisers STRING 
 )
 PARTITIONED BY (edh_bus_date STRING)
-ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde' 
-WITH SERDEPROPERTIES (
-   "separatorChar" = "\u0001",
-   "quoteChar"     = "\"",
-   "escapeChar"    = "\\"
-)
 LOCATION '${hivevar:S3_BUCKET}/data/incoming/${hivevar:SOURCE_SEGMENT}/greenpoint_android_prod/incremental/daily/inc_store_page_loaded';
