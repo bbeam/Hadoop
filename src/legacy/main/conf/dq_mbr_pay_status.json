@@ -12,20 +12,6 @@
       }
    ],
    "Columns":[  
-      {  
-         "Name":"id",
-         "Type":"INT",
-         "Validations":[  
-            {  
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
 		{  
          "Name":"member_id",
 		 "Type":"INT",
@@ -53,6 +39,20 @@
                "Action":"Reject"
             }
          ]
-         }
+         },
+         {  
+         "Name":"id",
+         "Type":"INT",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      }
   ]
 }
