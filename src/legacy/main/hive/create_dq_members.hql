@@ -14,6 +14,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_members
 	email STRING,
 	known_invalid_email TINYINT,
 	employee STRING,
+	est_expiration TIMESTAMP,
 	expiration TIMESTAMP,
 	extension STRING,
 	fax STRING,
@@ -22,6 +23,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_members
 	gender STRING,
 	home_phone STRING,
 	market STRING,
+	est_member_date TIMESTAMP,
 	member_date TIMESTAMP,
 	sign_up_id INT,
 	source_id INT,
@@ -32,9 +34,11 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_members
 	b_text_only_emails SMALLINT,
 	b_active_sent SMALLINT,
 	external_id INT,
+	est_create_date TIMESTAMP,
 	create_date TIMESTAMP,
 	auto_renewal_notification_indicator TINYINT,
 	message_center_enabled TINYINT,
-	load_timestamp TIMESTAMP
+	est_load_timestamp TIMESTAMP,
+	utc_load_timestamp TIMESTAMP
 )
 LOCATION '${hivevar:S3_BUCKET}/data/gold/legacy/angie/dbo/full/daily/dq_members';
