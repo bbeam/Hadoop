@@ -21,7 +21,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_contract_item
   est_start_date TIMESTAMP,
   start_date TIMESTAMP,
   est_end_date TIMESTAMP,
-  utc_end_date TIMESTAMP,
+  end_date TIMESTAMP,
   classified_ad_text STRING,
   coupon_text STRING,
   ad_note STRING,
