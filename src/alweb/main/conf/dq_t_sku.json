@@ -1,9 +1,9 @@
 {  
    "InputTableName":"inc_t_Sku",
    "OutputTableName":"dq_t_Sku",
-   "SourceDB":"ALWEB_INCOMING_DB",
-   "TargetDB":"ALWEB_GOLD_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_LEGACY/angie/full/daily/dq_service_provider_group",
+   "SourceDB":"INCOMING_ALWEB_AL_DB",
+   "TargetDB":"GOLD_ALWEB_AL_DB",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/alweb/angieslist/full/daily/dq_service_provider_group",
    "TableValidation":[  
             {  
                "Check":"Duplicate",
@@ -16,6 +16,8 @@
          "Name":"SkuId",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+         "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
          "Validations":[  
             {  
                "Check":"Null",

@@ -1,9 +1,9 @@
 {
 	"InputTableName": "inc_t_sku_item",
 	"OutputTableName": "dq_t_sku_item",
-	"SourceDB": "ALWEB_INCOMING_DB",
-	"TargetDB": "ALWEB_GOLD_DB",
-	"DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_ALWEB/angieslist/full/daily/dq_t_sku_item",
+   "SourceDB":"INCOMING_ALWEB_AL_DB",
+   "TargetDB":"GOLD_ALWEB_AL_DB",
+	"DQHiveTableLocation":"$S3_BUCKET/data/gold/alweb/angieslist/full/daily/dq_t_sku_item",
 	"TableValidation": [{
 		"Check": "Duplicate",
 		"keyColumns": "sku_item_id",
@@ -95,6 +95,8 @@
 		"Name": "create_date",
 		"Type": "TIMESTAMP",
 		"Format": "yyyy-MM-dd HH:mm:ss.SSS",
+		"TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
 		"Validations": [{
 			"Check": "Null",
 			"Action": "Reject"
@@ -116,6 +118,8 @@
 		"Name": "update_date",
 		"Type": "TIMESTAMP",
 		"Format": "yyyy-MM-dd HH:mm:ss.SSS",
+		"TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
 		"Validations": [{
 			"Check": "Null",
 			"Action": "Reject"
