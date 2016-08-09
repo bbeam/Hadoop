@@ -3,14 +3,9 @@
 --  AUTHOR       : Varun Rauthan
 --  DATE         : Aug 8, 2016
 --  DESCRIPTION  : Creation of hive incoming table(angie.Membership_Tier) 
---  Execute command:
---  hive -f $S3_BUCKET/src/$SOURCE_LEGACY/main/hive/create_inc_membership_tier.hql \
--- -hivevar LEGACY_INCOMING_DB=$LEGACY_INCOMING_DB \ 
--- -hivevar S3_BUCKET=$S3_BUCKET \ 
--- -hivevar SOURCE_LEGACY=$SOURCE_LEGACY
 --*/
 
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_INCOMING_DB}.inc_membership_tier
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.inc_membership_tier
 (
 	membership_tier_id STRING,
 	membership_tier_name STRING,
@@ -35,4 +30,4 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_INCOMING_DB}.inc_membership
 	update_by STRING
 )
 PARTITIONED BY (edh_bus_date STRING)
-LOCATION '${hivevar:S3_BUCKET}/data/incoming/${hivevar:SOURCE_LEGACY}/angie/full/daily/inc_membership_tier';
+LOCATION '${hivevar:S3_BUCKET}/data/incoming/legacy/angie/dbo/full/daily/inc_membership_tier';

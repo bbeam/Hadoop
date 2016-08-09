@@ -3,15 +3,11 @@
 --  AUTHOR       : Ashoka Reddy
 --  DATE         : Jun 23, 2016
 --  DESCRIPTION  : Creation of hive incoming table(inc_product). 
---  USAGE		 : hive -f ${S3_BUCKET}/src/legacy/main/hive/create_inc_product.hql \
-							--hivevar LEGACY_INCOMING_DB="${LEGACY_INCOMING_DB}" \
-							--hivevar SOURCE_LEGACY="${SOURCE_LEGACY}" \
-							--hivevar S3_BUCKET="${S3_BUCKET}"
 --*/
 
 
 --  Creating a incoming hive table(inc_product) over the incoming data
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_INCOMING_DB}.inc_product
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.inc_product
 (
 	product_id STRING,
 	product_name STRING,
@@ -24,4 +20,4 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_INCOMING_DB}.inc_product
 	update_by STRING
 )
 PARTITIONED BY(edh_bus_date STRING) 
-LOCATION '${hivevar:S3_BUCKET}/data/incoming/${hivevar:SOURCE_LEGACY}/angie/full/daily/inc_product';
+LOCATION '${hivevar:S3_BUCKET}/data/incoming/legacy/angie/dbo/full/daily/inc_product';

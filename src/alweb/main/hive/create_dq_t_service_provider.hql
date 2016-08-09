@@ -3,25 +3,16 @@
 --  AUTHOR       : Gaurav Maheshwari
 --  DATE         : July 27, 2016
 --  DESCRIPTION  : Creation of hive incoming DQtable(dq_t_service_provider). 
---  USAGE 		 : hive -f s3://al-edh-dev/src/alweb/main/hive/create_dq_t_service_provider.hql \
---					--hivevar ALWEB_GOLD_DB="${ALWEB_GOLD_DB}" \
---					--hivevar S3_BUCKET="${S3_BUCKET}" \
---					--hivevar SOURCE_ALWEB="${SOURCE_ALWEB}"
 --*/
-
-
-
--- Create the database if it doesnot exists.
-CREATE DATABASE IF NOT EXISTS ${hivevar:ALWEB_GOLD_DB};
-
 --  Creating a DQ hive table(dq_t_service_provider) over the incoming data
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:ALWEB_GOLD_DB}.dq_t_service_provider
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_t_service_provider
 (	
 	service_provider_id INT, 
 	listing_id INT, 
 	al_id INT, 
 	name VARCHAR(254), 
 	hours VARCHAR(254), 
+	est_joined_date TIMESTAMP, 
 	joined_date TIMESTAMP, 
 	description STRING, 
 	services_offered STRING, 
@@ -30,10 +21,13 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:ALWEB_GOLD_DB}.dq_t_service_provid
 	is_national TINYINT, 
 	status VARCHAR(254), 
 	version INT, 
+	est_create_date TIMESTAMP,
 	create_date TIMESTAMP, 
 	create_by INT, 
+	est_update_date TIMESTAMP, 
 	update_date TIMESTAMP, 
 	update_by INT,
-	load_timestamp TIMESTAMP
+	est_load_timestamp TIMESTAMP,
+	utc_load_timestamp TIMESTAMP
 )
-LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_ALWEB}/angieslist/full/daily/dq_t_service_provider';
+LOCATION '${hivevar:S3_BUCKET}/data/gold/alweb/angieslist/full/daily/dq_t_service_provider';

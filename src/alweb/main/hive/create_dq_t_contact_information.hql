@@ -3,18 +3,9 @@
 --  AUTHOR       : Anil Aleppy
 --  DATE         : Aug 1, 2016
 --  DESCRIPTION  : Creation of hive dq table(AngiesList.t_ContactInformation) 
---  Execute command:
---
---
--- hive -f $S3_BUCKET/src/$SOURCE_ALWEB/main/hive/create_dq_t_contact_information.hql \
--- -hivevar ALWEB_GOLD_DB=$ALWEB_GOLD_DB \ 
--- -hivevar S3_BUCKET=$S3_BUCKET \ 
--- -hivevar SOURCE_ALWEB=$SOURCE_ALWEB
---
---
 --*/
 
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:ALWEB_GOLD_DB}.dq_t_contact_information
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_t_contact_information
 (
 	contact_information_id INT ,
 	context_entity_id INT ,
@@ -32,10 +23,13 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:ALWEB_GOLD_DB}.dq_t_contact_inform
 	twitter VARCHAR(254),
 	mobile_phone_number VARCHAR(254),
 	version INT,
+	est_create_date TIMESTAMP,
 	create_date TIMESTAMP,
 	create_by INT ,
+	est_update_date TIMESTAMP,	
 	update_date TIMESTAMP,
 	update_by INT, 
-	load_timestamp	TIMESTAMP
+	est_load_timestamp	TIMESTAMP,
+	utc_load_timestamp	TIMESTAMP
 )
-LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_ALWEB}/angieslist/full/daily/dq_t_contact_information';
+LOCATION '${hivevar:S3_BUCKET}/data/gold/alweb/angieslist/full/daily/dq_t_contact_information';

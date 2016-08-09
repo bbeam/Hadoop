@@ -3,17 +3,10 @@
 --  AUTHOR       : Abhijeet Purwar
 --  DATE         : Jun 27, 2016
 --  DESCRIPTION  : Creation of hive incoming table(angie.ContractItem). 
---  Execute command:
---
---
--- hive -f $S3_BUCKET/src/$SOURCE_LEGACY/main/hive/create_inc_contract_item.hql \
--- -hivevar LEGACY_INCOMING_DB=$LEGACY_INCOMING_DB \
--- -hivevar S3_BUCKET=$S3_BUCKET \
--- -hivevar SOURCE_LEGACY=$SOURCE_LEGACY
 --*/
 
 
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_INCOMING_DB}.inc_contract_item
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.inc_contract_item
 (
   contract_item_id STRING,
   ad_element_id STRING,
@@ -53,4 +46,4 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_INCOMING_DB}.inc_contract_i
   eligibility_date STRING
 )
 PARTITIONED BY (edh_bus_date STRING)
-LOCATION '${hivevar:S3_BUCKET}/data/incoming/${hivevar:SOURCE_LEGACY}/angie/full/daily/inc_contract_item';
+LOCATION '${hivevar:S3_BUCKET}/data/incoming/legacy/angie/dbo/full/daily/inc_contract_item';

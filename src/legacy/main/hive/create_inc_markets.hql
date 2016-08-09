@@ -3,14 +3,10 @@
 --  AUTHOR       : Gaurav maheshwari
 --  DATE         : Aug 02, 2016
 --  DESCRIPTION  : Creation of hive incoming table(inc_markets). 
---  USAGE 		 : hive -f s3://al-edh-dev/src/$SOURCE_LEGACY/main/hive/create_inc_markets.hql \
---					--hivevar LEGACY_INCOMING_DB=${LEGACY_INCOMING_DB} \
---					--hivevar S3_BUCKET=${S3_BUCKET} \
---					--hivevar SOURCE_LEGACY=${SOURCE_LEGACY}
 --*/
 
 --  Creating a incoming hive table(inc_markets) over the incoming data
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_INCOMING_DB}.inc_markets
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.inc_markets
 (
 	market_id STRING,    
 	market STRING,     
@@ -51,4 +47,4 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_INCOMING_DB}.inc_markets
 	big_deal STRING
 	)
 PARTITIONED BY (edh_bus_date STRING)
-LOCATION '${hivevar:S3_BUCKET}/data/incoming/${hivevar:SOURCE_LEGACY}/angie/full/daily/inc_markets';
+LOCATION '${hivevar:S3_BUCKET}/data/incoming/legacy/angie/dbo/full/daily/inc_markets';

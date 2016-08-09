@@ -3,15 +3,11 @@
 --  AUTHOR       : Ashoka Reddy
 --  DATE         : Jun 23, 2016
 --  DESCRIPTION  : Creation of hive incoming table(inc_storefront_item). 
---  USAGE		 : hive -f ${S3_BUCKET}/src/legacy/main/hive/create_inc_storefront_item.hql \
--- -hivevar LEGACY_INCOMING_DB="${LEGACY_INCOMING_DB}" \
--- -hivevar SOURCE_LEGACY="${SOURCE_LEGACY}" \
--- -hivevar S3_BUCKET="${S3_BUCKET}"
 --*/
 
 
 --  Creating a incoming hive table(inc_storefront_item) over the incoming data
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_INCOMING_DB}.inc_storefront_item
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.inc_storefront_item
 (
   storefront_item_id STRING,
   storefront_item_status_id STRING,
@@ -56,4 +52,4 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_INCOMING_DB}.inc_storefront
   premium_deal STRING
 )
 PARTITIONED BY(edh_bus_date STRING)
-LOCATION '${hivevar:S3_BUCKET}/data/incoming/${hivevar:SOURCE_LEGACY}/angie/full/daily/inc_storefront_item';
+LOCATION '${hivevar:S3_BUCKET}/data/incoming/legacy/angie/dbo/full/daily/inc_storefront_item';

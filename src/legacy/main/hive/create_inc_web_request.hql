@@ -3,14 +3,10 @@
 --  AUTHOR       : Gaurav maheshwari
 --  DATE         : Aug 02, 2016
 --  DESCRIPTION  : Creation of hive incoming table(inc_web_request). 
---  USAGE 		 : hive -f s3://al-edh-dev/src/$SOURCE_LEGACY/main/hive/create_inc_web_request.hql \
---					--hivevar LEGACY_INCOMING_DB=${LEGACY_INCOMING_DB} \
---					--hivevar S3_BUCKET=${S3_BUCKET} \
---					--hivevar SOURCE_LEGACY=${SOURCE_LEGACY}
 --*/
 
 --  Creating a incoming hive table(inc_web_request) over the incoming data
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_INCOMING_DB}.inc_web_request
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.inc_web_request
 (
 	request_id STRING,
 	time_utc STRING,    
@@ -28,4 +24,4 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_INCOMING_DB}.inc_web_reques
 	member_id STRING
 	)
 PARTITIONED BY (edh_bus_date STRING)
-LOCATION '${hivevar:S3_BUCKET}/data/incoming/${hivevar:SOURCE_LEGACY}/weblogging/incremental/daily/inc_web_request';
+LOCATION '${hivevar:S3_BUCKET}/data/incoming/legacy/weblogging/dbo/incremental/daily/inc_web_request';

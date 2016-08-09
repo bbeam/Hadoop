@@ -3,14 +3,10 @@
 --  AUTHOR       : Ashoka Reddy
 --  DATE         : Jun 23, 2016
 --  DESCRIPTION  : Creation of hive DQ table(dq_lead). 
---  USAGE		 : hive -f ${S3_BUCKET}/src/alweb/main/hive/create_dq_lead.hql \
-						--hivevar ALWEB_INCOMING_DB="${ALWEB_INCOMING_DB}" \
-						--hivevar SOURCE_ALWEB="${SOURCE_ALWEB}" \
-						--hivevar S3_BUCKET="${S3_BUCKET}"
 --*/
 
 --  Creating a dq hive table(dq_lead) over the incoming data
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:ALWEB_GOLD_DB}.dq_lead
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_lead
 (
   lead_id INT,
   title VARCHAR(254),
@@ -26,10 +22,13 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:ALWEB_GOLD_DB}.dq_lead
   category_id INT,
   postal_address_id INT,
   version INT,
+  est_create_date TIMESTAMP, 
   create_date TIMESTAMP,
   create_by INT,
+  est_update_date TIMESTAMP,
   update_date TIMESTAMP,
   update_by INT,
-  load_timestamp TIMESTAMP
+  est_load_timestamp TIMESTAMP,
+  utc_load_timestamp TIMESTAMP
 )
-LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_ALWEB}/fulfilment/full/daily/inc_lead';
+LOCATION '${hivevar:S3_BUCKET}/data/gold/alweb/fulfilment/full/daily/inc_lead';
