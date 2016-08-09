@@ -18,7 +18,9 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_postal_address
 	latitude DECIMAL(19,9),
 	longitude DECIMAL(19,9),
 	coordinate_confidence INT,
+	est_process_date TIMESTAMP,
 	process_date TIMESTAMP,
-	load_timestamp TIMESTAMP
+	est_load_timestamp TIMESTAMP,
+	utc_load_timestamp TIMESTAMP
 )
 LOCATION '${hivevar:S3_BUCKET}/data/gold/legacy/angie/dbo/full/daily/dq_postal_address';
