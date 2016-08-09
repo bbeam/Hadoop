@@ -1,9 +1,9 @@
 {  
    "InputTableName":"inc_service_provider_document",
    "OutputTableName":"dq_service_provider_document",
-   "SourceDB":"LEGACY_INCOMING_DB",
-   "TargetDB":"LEGACY_GOLD_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_LEGACY/angie/full/daily/dq_service_provider_document",
+   "SourceDB":"INCOMING_LEGACY_ANGIE_DBO_DB",
+   "TargetDB":"GOLD_LEGACY_ANGIE_DBO_DB",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/legacy/angie/dbo/full/daily/dq_service_provider_document",
    "TableValidation":[  
             {  
                "Check":"Duplicate",
@@ -106,6 +106,8 @@
          "Name":"start_date",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss",
+         "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
          "Validations":[
             {
                "Check":"Null",
@@ -121,6 +123,8 @@
          "Name":"end_date",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss",
+         "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
          "Validations":[
             {
                "Check":"DataType",
@@ -146,6 +150,8 @@
          "Name":"process_date",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss",
+         "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
          "Validations":[
             {
                "Check":"Null",

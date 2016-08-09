@@ -1,9 +1,9 @@
 {
    "InputTableName":"inc_storefront_order",
    "OutputTableName":"dq_storefront_order",
-   "SourceDB":"LEGACY_INCOMING_DB",
-   "TargetDB":"LEGACY_GOLD_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_LEGACY/angie/incremental/daily/dq_storefront_order",
+   "SourceDB":"INCOMING_LEGACY_ANGIE_DBO_DB",
+   "TargetDB":"GOLD_LEGACY_ANGIE_DBO_DB",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/legacy/angie/dbo/incremental/daily/dq_storefront_order",
    "TableValidation":[  
             {  
                "Check":"Duplicate",
@@ -82,6 +82,8 @@
          "Name":"create_date",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss",
+         "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
          "Validations":[
             {
                "Check":"Null",
@@ -111,6 +113,8 @@
          "Name":"update_date",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss",
+         "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
          "Validations":[
             {
                "Check":"DataType",

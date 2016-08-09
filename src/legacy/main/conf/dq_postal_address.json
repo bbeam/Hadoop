@@ -1,9 +1,9 @@
 {  
    "InputTableName":"inc_postal_address",
    "OutputTableName":"dq_postal_address",
-   "SourceDB":"LEGACY_INCOMING_DB",
-   "TargetDB":"LEGACY_GOLD_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_LEGACY/angie/full/daily/dq_postal_address",
+   "SourceDB":"INCOMING_LEGACY_ANGIE_DBO_DB",
+   "TargetDB":"GOLD_LEGACY_ANGIE_DBO_DB",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/legacy/angie/dbo/full/daily/dq_postal_address",
    "TableValidation":[  
             {  
                "Check":"Duplicate",
@@ -151,6 +151,8 @@
          "Name":"process_date",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+         "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
          "Validations":[  
             {  
                "Check":"DataType",

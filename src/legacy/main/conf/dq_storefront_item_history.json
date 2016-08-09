@@ -1,9 +1,9 @@
 {  
    "InputTableName":"inc_storefront_item_history",
    "OutputTableName":"dq_storefront_item_history",
-   "SourceDB":"LEGACY_INCOMING_DB",
-   "TargetDB":"LEGACY_GOLD_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_LEGACY/angiehistory/full/daily/dq_storefront_item_history",
+   "SourceDB":"INCOMING_LEGACY_ANGIE_HISTORY_DBO_DB",
+   "TargetDB":"GOLD_LEGACY_ANGIE_HISTORY_DBO_DB",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/legacy/angiehistory/dbo/full/daily/dq_storefront_item_history",
    "TableValidation":[  
             {  
                "Check":"Duplicate",
@@ -104,6 +104,8 @@
          "Name":"start_datetime",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss",
+         "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
          "Validations":[
             {
                "Check":"DataType",
@@ -115,6 +117,8 @@
          "Name":"end_datetime",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss",
+         "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
          "Validations":[
             {
                "Check":"DataType",
@@ -230,6 +234,8 @@
          "Name":"create_date",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss",
+         "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
          "Validations":[
             {
                "Check":"Null",
@@ -259,6 +265,8 @@
          "Name":"update_date",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss",
+         "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
          "Validations":[
             {
                "Check":"DataType",
@@ -280,6 +288,8 @@
          "Name":"history_date",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss",
+         "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
          "Validations":[
             {
                "Check":"Null",
@@ -409,6 +419,8 @@
          "Name":"history_end_date",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss",
+         "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
          "Validations":[
             {
                "Check":"DataType",

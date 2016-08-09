@@ -1,9 +1,9 @@
 {  
    "InputTableName":"inc_contract",
    "OutputTableName":"dq_contract",
-   "SourceDB":"LEGACY_INCOMING_DB",
-   "TargetDB":"LEGACY_GOLD_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_LEGACY/angie/full/daily/dq_contract",
+   "SourceDB":"INCOMING_LEGACY_ANGIE_DBO_DB",
+   "TargetDB":"GOLD_LEGACY_ANGIE_DBO_DB",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/legacy/angie/dbo/full/daily/dq_contract",
    "TableValidation":[  
             {  
                "Check":"Duplicate",
@@ -308,6 +308,8 @@
          "Name":"published_date",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss",
+         "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST", 
          "Validations":[
             {
                "Check":"DataType",
@@ -318,7 +320,9 @@
        {
          "Name":"signed_date",
          "Type":"TIMESTAMP",
-          "Format":"yyyy-MM-dd HH:mm:ss",
+         "Format":"yyyy-MM-dd HH:mm:ss",
+         "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST", 
          "Validations":[
             {
                "Check":"DataType",
@@ -330,6 +334,8 @@
          "Name":"oca_expiration_date",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss",
+         "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST", 
          "Validations":[
             {
                "Check":"DataType",
@@ -351,6 +357,8 @@
          "Name":"ccv_date",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss",
+         "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST", 
          "Validations":[
             {
                "Check":"DataType",
@@ -382,6 +390,8 @@
          "Name":"create_date",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss",
+         "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST", 
          "Validations":[
             {
                "Check":"Null",
@@ -411,6 +421,8 @@
          "Name":"modified_date",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss",
+         "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST", 
          "Validations":[
             {
                "Check":"DataType",
@@ -422,6 +434,8 @@
          "Name":"activation_date",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss",
+         "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST", 
          "Validations":[
             {
                "Check":"DataType",
