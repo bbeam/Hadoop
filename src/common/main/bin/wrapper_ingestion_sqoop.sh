@@ -233,6 +233,8 @@ fi
 hive -f $DQ_AUDIT_HQL_PATH \
 	-hivevar ENTITY_NAME=$SOURCE \
 	-hivevar GOLD_DB=$GOLD_DB \
+	-hivevar INCOMING_DB=$INCOMING_DB \
+	-hivevar INCOMING_TABLE=$TABLE_NAME_INC \
 	-hivevar DQ_TABLE=$TABLE_NAME_DQ \
 	-hivevar USER_NAME=$USER_NAME \
 	-hivevar EDH_BUS_MONTH=$EDH_BUS_MONTH \

@@ -12,10 +12,10 @@
 
 CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_mbr_pay_status
 (
-	id INT,
 	member_id INT,
 	pay_status char(4),
 	status_date TIMESTAMP,
+	id INT,
 	load_timestamp TIMESTAMP
 )
 LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_LEGACY}/reports/full/daily/dq_mbr_pay_status';
