@@ -3,16 +3,9 @@
 --  AUTHOR       : Abhijeet Purwar
 --  DATE         : Jul 27, 2016
 --  DESCRIPTION  : Creation of hive DQ table(angie.ContractItem). 
---  Execute command:
---
---
--- hive -f $S3_BUCKET/src/$SOURCE_LEGACY/main/hive/create_dq_contract_item.hql \
--- -hivevar LEGACY_GOLD_DB=$LEGACY_GOLD_DB \
--- -hivevar S3_BUCKET=$S3_BUCKET \
--- -hivevar SOURCE_LEGACY=$SOURCE_LEGACY
 --*/
 
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_contract_item
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_contract_item
 (
   contract_item_id INT,
   ad_element_id INT,
@@ -52,4 +45,4 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_contract_item
   eligibility_date DATE,
   load_timestamp TIMESTAMP
 )
-LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_LEGACY}/angie/full/daily/dq_contract_item';
+LOCATION '${hivevar:S3_BUCKET}/data/gold/legacy/angie/dbo/full/daily/dq_contract_item';
