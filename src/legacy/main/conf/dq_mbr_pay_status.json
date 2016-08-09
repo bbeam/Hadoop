@@ -1,9 +1,9 @@
 {  
    "InputTableName":"inc_mbr_pay_status",
    "OutputTableName":"dq_mbr_pay_status",
-   "SourceDB":"LEGACY_INCOMING_DB",
-   "TargetDB":"LEGACY_GOLD_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_LEGACY/reports/full/daily/dq_mbr_pay_status",
+   "SourceDB":"INCOMING_LEGACY_REPORTS_DBO_DB",
+   "TargetDB":"GOLD_LEGACY_REPORTS_DBO_DB",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/legacy/reports/dbo/full/daily/dq_mbr_pay_status",
    "TableValidation":[],
    "Columns":[  
 		{  
@@ -27,6 +27,8 @@
          "Name":"status_date",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+         "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
          "Validations":[
             {
                "Check":"DataType",

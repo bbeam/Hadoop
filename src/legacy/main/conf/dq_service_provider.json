@@ -339,8 +339,8 @@
          "Name":"create_date",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss",
-         "Format":"yyyy-MM-dd HH:mm:ss",
-		 "TimeZone":"UTC",		 
+		 "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST", 
          "Validations":[
             {
                "Check":"Null",

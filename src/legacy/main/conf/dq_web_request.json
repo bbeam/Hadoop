@@ -1,9 +1,9 @@
 {  
    "InputTableName":"inc_web_request",
    "OutputTableName":"dq_web_request",
-   "SourceDB":"LEGACY_INCOMING_DB",
-   "TargetDB":"LEGACY_GOLD_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_LEGACY/weblogging/incremental/daily/dq_web_request/edh_bus_date=$EDHBUSDATE",
+   "SourceDB":"INCOMING_LEGACY_WEBLOGGING_DBO_DB",
+   "TargetDB":"GOLD_LEGACY_WEBLOGGING_DBO_DB",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/legacy/weblogging/dbo/incremental/daily/dq_web_request/edh_bus_date=$EDHBUSDATE",
    "TableValidation":[  
       {  
          "Check":"Duplicate",
@@ -31,6 +31,8 @@
          "Name":"time_utc",
 		 "Type":"TIMESTAMP",
 		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
+		 "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
          "Validations":[  
            {  
                "Check":"Null",

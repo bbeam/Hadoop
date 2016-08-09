@@ -1,9 +1,9 @@
 {  
    "InputTableName":"inc_membership_tier",
    "OutputTableName":"dq_membership_tier",
-   "SourceDB":"LEGACY_INCOMING_DB",
-   "TargetDB":"LEGACY_GOLD_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_LEGACY/angie/full/daily/dq_membership_tier",
+   "SourceDB":"INCOMING_LEGACY_ANGIE_DBO_DB",
+   "TargetDB":"GOLD_LEGACY_ANGIE_DBO_DB",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/legacy/angie/dbo/full/daily/dq_membership_tier",
    "TableValidation":[  
             {  
                "Check":"Duplicate",
@@ -300,6 +300,8 @@
          "Name":"create_date",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+         "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
          "Validations":[  
             {  
                "Check":"Null",
@@ -325,6 +327,8 @@
          "Name":"update_date",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+         "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
          "Validations":[  
             {  
                "Check":"DataType",

@@ -1,9 +1,9 @@
 {  
    "InputTableName":"inc_storefront_product_event_type",
    "OutputTableName":"dq_storefront_product_event_type",
-   "SourceDB":"LEGACY_INCOMING_DB",
-   "TargetDB":"LEGACY_GOLD_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_LEGACY/angieanalytics/full/daily/dq_storefront_product_event_type",
+   "SourceDB":"INCOMING_LEGACY_ANGIE_ANALYTICS_DBO_DB",
+   "TargetDB":"GOLD_LEGACY_ANGIE_ANALYTICS_DBO_DB",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/legacy/angieanalytics/dbo/full/daily/dq_storefront_product_event_type",
    "TableValidation":[  
       {  
          "Check":"Duplicate",
@@ -61,6 +61,8 @@
          "Name":"create_date",
 		 "Type":"TIMESTAMP",
 		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
+		 "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
          "Validations":[  
            {  
                "Check":"Null",
@@ -93,6 +95,8 @@
          "Name":"update_date",
 		 "Type":"TIMESTAMP",
 		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
+		 "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
          "Validations":[  
            {  
                "Check":"DataType",

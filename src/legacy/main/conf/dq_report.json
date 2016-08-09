@@ -1,9 +1,9 @@
 {  
    "InputTableName":"inc_report",
    "OutputTableName":"dq_report",
-   "SourceDB":"LEGACY_INCOMING_DB",
-   "TargetDB":"LEGACY_GOLD_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_LEGACY/angie/full/daily/dq_report",
+   "SourceDB":"INCOMING_LEGACY_ANGIE_DBO_DB",
+   "TargetDB":"GOLD_LEGACY_ANGIE_DBO_DB",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/legacy/angie/dbo/full/daily/dq_report",
    "TableValidation":[  
       {  
          "Check":"Duplicate",
@@ -44,6 +44,8 @@
          "Name":"report_date",
 		 "Type":"TIMESTAMP",
 		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
+		 "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
          "Validations":[  
             {  
                "Check":"Null",
@@ -60,6 +62,8 @@
          "Name":"work_completed_date",
 		 "Type":"TIMESTAMP",
 		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
+		 "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
          "Validations":[  
            	{  
                "Check":"DataType",
@@ -238,6 +242,8 @@
          "Name":"create_date",
 		 "Type":"TIMESTAMP",
 		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
+		 "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
          "Validations":[  
             {  
                "Check":"Null",
@@ -279,6 +285,8 @@
          "Name":"modified_date",
 		 "Type":"TIMESTAMP",
 		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
+		 "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
          "Validations":[  
             {  
                "Check":"DataType",
