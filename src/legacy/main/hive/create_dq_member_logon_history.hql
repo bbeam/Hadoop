@@ -11,8 +11,10 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_member_logon_history
 	member_logon_history_id INT,
 	member_id INT,
 	ip_address BIGINT,
+	est_logon_date TIMESTAMP,
 	logon_date TIMESTAMP,
 	user_agent_string STRING,
-	load_timestamp TIMESTAMP
+	est_load_timestamp TIMESTAMP,
+	utc_load_timestamp TIMESTAMP
 )
 LOCATION '${hivevar:S3_BUCKET}/data/gold/legacy/angie/dbo/full/daily/dq_member_logon_history';
