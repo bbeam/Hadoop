@@ -2,14 +2,7 @@
 --  HIVE SCRIPT  : create_dq_service_provider.hql
 --  AUTHOR       : Abhijeet Purwar
 --  DATE         : Aug 1, 2016
---  DESCRIPTION  : Creation of hive DQ table(angie.ServiceProvider). 
---  Execute command:
---
---
--- hive -f $S3_BUCKET/src/$SOURCE_LEGACY/main/hive/create_dq_service_provider.hql \
--- -hivevar LEGACY_GOLD_DB=$LEGACY_GOLD_DB \
--- -hivevar S3_BUCKET=$S3_BUCKET \
--- -hivevar SOURCE_LEGACY=$SOURCE_LEGACY
+--  DESCRIPTION  : Creation of hive DQ table(angie.ServiceProvider).
 --*/
 
 CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_service_provider
