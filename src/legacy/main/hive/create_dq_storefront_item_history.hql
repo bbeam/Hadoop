@@ -2,19 +2,10 @@
 --  HIVE SCRIPT  : create_dq_storefront_item_history.hql
 --  AUTHOR       : Abhijeet Purwar
 --  DATE         : Jun 27, 2016
---  DESCRIPTION  : Creation of hive DQ table(AngieHistory.StorefrontItemHistory). 
---  Execute command:
---
---
--- hive -f $S3_BUCKET/src/$SOURCE_LEGACY/main/hive/create_dq_storefront_item_history.hql \
--- -hivevar LEGACY_GOLD_DB=$LEGACY_GOLD_DB \
--- -hivevar S3_BUCKET=$S3_BUCKET \
--- -hivevar SOURCE_LEGACY=$SOURCE_LEGACY
---
---
+--  DESCRIPTION  : Creation of hive DQ table(AngieHistory.StorefrontItemHistory).
 --*/
 
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_storefront_item_history
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_storefront_item_history
 (
   storefront_item_history_id INT,
   storefront_item_id INT,
@@ -24,7 +15,9 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_storefront_item
   title STRING,
   description STRING,
   redemption_instructions STRING,
+  est_start_datetime TIMESTAMP,
   start_datetime TIMESTAMP,
+  est_end_datetime TIMESTAMP,
   end_datetime TIMESTAMP,
   contact_name STRING,
   contact_phone STRING,
@@ -36,10 +29,13 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_storefront_item
   payment_approved TINYINT,
   storefront_sales_representative_id INT,
   last_modified_by INT,
+  est_create_date TIMESTAMP,
   create_date TIMESTAMP,
   create_by STRING,
+  est_update_date TIMESTAMP,
   update_date TIMESTAMP,
   update_by STRING,
+  est_history_date TIMESTAMP,
   history_date TIMESTAMP,
   maximum_quantity INT,
   maximum_quantity_per_member INT,
@@ -52,6 +48,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_storefront_item
   contract_item_sp_id INT,
   editorial STRING,
   storefront_item_sku STRING,
+  est_history_end_date TIMESTAMP,
   history_end_date TIMESTAMP,
   title_with_placeholders STRING,
   description_with_placeholders STRING,
@@ -60,6 +57,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_storefront_item
   do_not_override_fulfillment_method TINYINT,
   storefront_order_fulfillment_method_id INT,
   premium_deal TINYINT,
-  load_timestamp TIMESTAMP
+  est_load_timestamp TIMESTAMP,
+  utc_load_timestamp TIMESTAMP
 )
-LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_LEGACY}/angiehistory/full/daily/dq_storefront_item_history';
+LOCATION '${hivevar:S3_BUCKET}/data/gold/legacy/angiehistory/dbo/full/daily/dq_storefront_item_history';
