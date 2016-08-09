@@ -3,7 +3,7 @@
    "OutputTableName":"dq_storefront_product_event_type",
    "SourceDB":"LEGACY_INCOMING_DB",
    "TargetDB":"LEGACY_GOLD_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_LEGACY/angie/full/daily/dq_storefront_product_event_type",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_LEGACY/angieanalytics/full/daily/dq_storefront_product_event_type",
    "TableValidation":[  
       {  
          "Check":"Duplicate",
