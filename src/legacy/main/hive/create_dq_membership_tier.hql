@@ -24,10 +24,13 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_membership_tier
 	is_digital_magazine_enabled TINYINT,
 	is_active_for_purchase_enabled TINYINT,
 	term_id INT,
+	est_create_date  TIMESTAMP,
 	create_date  TIMESTAMP,
 	create_by STRING,
+	est_update_date  TIMESTAMP,
 	update_date  TIMESTAMP,
 	update_by STRING,
-	load_timestamp TIMESTAMP
+	est_load_timestamp TIMESTAMP,
+	utc_load_timestamp TIMESTAMP
 )
 LOCATION '${hivevar:S3_BUCKET}/data/gold/legacy/angie/dbo/full/daily/dq_membership_tier';

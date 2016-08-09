@@ -4,7 +4,8 @@
 LeadId 
 --fields-terminated-by 
 '\001' 
---hive-drop-import-delims
+--hive-delims-replacement
+'#'
 --lines-terminated-by 
 '\n'
 --optionally-enclosed-by 

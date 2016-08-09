@@ -2,7 +2,8 @@
 'select ServiceProviderDocumentId,FileDisplayName,FileName,FilePath,DocumentTypeId,SPID,UserDocumentType,StartDate,EndDate,ApprovalStatusId,ProcessDate from Angie.dbo.ServiceProviderDocument where $CONDITIONS'
 --split-by 
 ServiceProviderDocumentId 
---hive-drop-import-delims
+--hive-delims-replacement
+'#'
 --fields-terminated-by 
 '\001' 
 --lines-terminated-by 

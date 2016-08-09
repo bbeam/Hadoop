@@ -2,7 +2,8 @@
 'select StorefrontProductEventId, StorefrontItemId, MemberId, StorefrontProductEventTypeId, ExpirationDate, CampaignId, CreateDate, CreateBy, UpdateDate, UpdateBy from AngieAnalytics.dbo.StorefrontProductEvent where $CONDITIONS'
 --split-by 
 StorefrontProductEventId 
---hive-drop-import-delims
+--hive-delims-replacement
+'#'
 --fields-terminated-by 
 '\001' 
 --lines-terminated-by 
