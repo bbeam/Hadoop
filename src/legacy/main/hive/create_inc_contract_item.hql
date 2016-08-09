@@ -2,13 +2,13 @@
 --  HIVE SCRIPT  : create_inc_contract_item.hql
 --  AUTHOR       : Abhijeet Purwar
 --  DATE         : Jun 27, 2016
---  DESCRIPTION  : Creation of hive incoming table(inc_contract_item). 
+--  DESCRIPTION  : Creation of hive incoming table(angie.ContractItem). 
 --  Execute command:
 --
 --
 -- hive -f $S3_BUCKET/src/$SOURCE_LEGACY/main/hive/create_inc_contract_item.hql \
--- -hivevar LEGACY_INCOMING_DB=$LEGACY_INCOMING_DB \ 
--- -hivevar S3_BUCKET=$S3_BUCKET \ 
+-- -hivevar LEGACY_INCOMING_DB=$LEGACY_INCOMING_DB \
+-- -hivevar S3_BUCKET=$S3_BUCKET \
 -- -hivevar SOURCE_LEGACY=$SOURCE_LEGACY
 --*/
 
