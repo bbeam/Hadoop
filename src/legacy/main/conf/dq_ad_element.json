@@ -1,19 +1,19 @@
 {  
-   "InputTableName":"inc_service_provider_document",
-   "OutputTableName":"dq_service_provider_document",
+   "InputTableName":"inc_ad_element",
+   "OutputTableName":"dq_ad_element",
    "SourceDB":"LEGACY_INCOMING_DB",
    "TargetDB":"LEGACY_GOLD_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_LEGACY/angie/full/daily/dq_service_provider_document",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_LEGACY/angie/full/daily/dq_ad_element",
    "TableValidation":[  
             {  
                "Check":"Duplicate",
-               "keyColumns":"service_provider_document_id",
+               "keyColumns":"ad_element_id",
                "Action":"Reject"
             }
          ],
    "Columns":[
-   {
-         "Name":"service_provider_document_id",
+       {
+         "Name":"ad_element_id",
          "Type":"INT",
          "Validations":[
             {
@@ -27,7 +27,7 @@
          ]
       },
        {
-         "Name":"file_display_name",
+         "Name":"ad_element_name",
          "Type":"STRING",
          "Validations":[
             {
@@ -41,7 +41,7 @@
          ]
       },
        {
-         "Name":"file_name",
+         "Name":"ad_element_description",
          "Type":"STRING",
          "Validations":[
             {
@@ -55,8 +55,8 @@
          ]
       },
        {
-         "Name":"file_path",
-         "Type":"STRING",
+         "Name":"ad_element_active",
+         "Type":"TINYINT",
          "Validations":[
             {
                "Check":"Null",
@@ -65,21 +65,15 @@
             {
                "Check":"DataType",
                "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"document_type_id",
-         "Type":"INT",
-         "Validations":[
+            },
             {
-               "Check":"DataType",
-               "Action":"Reject"
+               "Check":"ValuesConstraint",
+               "Values":"0,1"
             }
          ]
       },
        {
-         "Name":"sp_id",
+         "Name":"ad_element_inventory_model_id",
          "Type":"INT",
          "Validations":[
             {
@@ -93,19 +87,8 @@
          ]
       },
        {
-         "Name":"user_document_type",
-         "Type":"STRING",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"start_date",
-         "Type":"TIMESTAMP",
-         "Format":"yyyy-MM-dd HH:mm:ss",
+         "Name":"default_price",
+         "Type":"DECIMAL(10,2)",
          "Validations":[
             {
                "Check":"Null",
@@ -118,18 +101,7 @@
          ]
       },
        {
-         "Name":"end_date",
-         "Type":"TIMESTAMP",
-         "Format":"yyyy-MM-dd HH:mm:ss",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-       {
-         "Name":"approval_status_id",
+         "Name":"currency_code_id",
          "Type":"INT",
          "Validations":[
             {
@@ -143,9 +115,8 @@
          ]
       },
        {
-         "Name":"process_date",
-         "Type":"TIMESTAMP",
-         "Format":"yyyy-MM-dd HH:mm:ss",
+         "Name":"ad_type_id",
+         "Type":"INT",
          "Validations":[
             {
                "Check":"Null",
@@ -154,6 +125,108 @@
             {
                "Check":"DataType",
                "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"service_provider_pricing_model_id",
+         "Type":"INT",
+         "Validations":[
+            {
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"can_sell_at_market_level",
+         "Type":"TINYINT",
+         "Validations":[
+            {
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            },
+            {
+               "Check":"ValuesConstraint",
+               "Values":"0,1"
+            }
+         ]
+      },
+       {
+         "Name":"min_paid_months",
+         "Type":"INT",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"max_paid_months",
+         "Type":"INT",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"ad_element_color",
+         "Type":"TINYINT",
+         "Validations":[
+            {
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            },
+            {
+               "Check":"ValuesConstraint",
+               "Values":"0,1"
+            }
+         ]
+      },
+       {
+         "Name":"billing_lead_time",
+         "Type":"INT",
+         "Validations":[
+            {
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"is_advertiser",
+         "Type":"TINYINT",
+         "Validations":[
+            {
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            },
+            {
+               "Check":"ValuesConstraint",
+               "Values":"0,1"
             }
          ]
       }

@@ -28,7 +28,8 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_web_request
 	member_id INT,
 	load_timestamp TIMESTAMP
 )
-LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_LEGACY}/angie/full/daily/dq_web_request';
+PARTITIONED BY (edh_bus_date STRING)
+LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_LEGACY}/weblogging/incremental/daily/dq_web_request';
 
 
 	

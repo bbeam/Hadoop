@@ -15,7 +15,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_INCOMING_DB}.inc_category_g
 	category_group STRING,
 	category_group_description STRING,
 	category_group_id STRING,
-	category_group_is_Active STRING,
+	category_group_is_active STRING,
 	category_group_type_id STRING,
 	display_order STRING
 	)

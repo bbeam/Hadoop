@@ -3,9 +3,9 @@
 --  DATE         : Jul 13, 2016
 --  DESCRIPTION  : Creation of hive dq table(Dq_Store_Page_Loaded). 
 --  USAGE    : hive -f s3://al-edh-dev/src/segment/main/hive/create_dq_greenpoint_android_prod_screens.hql \
---     --hivevar SEGMENT_GOLD_DB="${SEGMENT_GOLD_DB}" \
---     --hivevar S3_BUCKET="${S3_BUCKET}" \
---     --hivevar SOURCE_SEGMENT="${SOURCE_SEGMENT}" 
+     --hivevar SEGMENT_GOLD_DB="${SEGMENT_GOLD_DB}" \
+     --hivevar S3_BUCKET="${S3_BUCKET}" \
+     --hivevar SOURCE_SEGMENT="${SOURCE_SEGMENT}" 
 
 --*/
 
@@ -23,6 +23,7 @@ context_app_version VARCHAR(256),
 context_device_ad_tracking_enabled BOOLEAN,
 context_device_advertising_id VARCHAR(256),
 context_device_id VARCHAR(256),
+context_device_manufacturer VARCHAR(256),
 context_device_model VARCHAR(256),
 context_device_name VARCHAR(256),
 context_device_type VARCHAR(256),

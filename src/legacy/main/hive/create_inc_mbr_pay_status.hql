@@ -12,10 +12,10 @@
 
 CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_INCOMING_DB}.inc_mbr_pay_status
 (
-	id STRING,
 	member_id STRING,
 	pay_status STRING,
-	status_date STRING
+	status_date STRING,
+	id STRING
 )
 PARTITIONED BY (edh_bus_date STRING)
 LOCATION '${hivevar:S3_BUCKET}/data/incoming/${hivevar:SOURCE_LEGACY}/reports/full/daily/inc_mbr_pay_status';

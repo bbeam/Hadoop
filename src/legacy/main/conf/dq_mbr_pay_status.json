@@ -4,28 +4,8 @@
    "SourceDB":"LEGACY_INCOMING_DB",
    "TargetDB":"LEGACY_GOLD_DB",
    "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_LEGACY/reports/full/daily/dq_mbr_pay_status",
-   "TableValidation":[  
-      {  
-         "Check":"Duplicate",
-         "keyColumns":"id",
-         "Action":"Reject"
-      }
-   ],
+   "TableValidation":[],
    "Columns":[  
-      {  
-         "Name":"id",
-         "Type":"INT",
-         "Validations":[  
-            {  
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
 		{  
          "Name":"member_id",
 		 "Type":"INT",
@@ -53,6 +33,20 @@
                "Action":"Reject"
             }
          ]
-         }
+         },
+         {  
+         "Name":"id",
+         "Type":"INT",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      }
   ]
 }

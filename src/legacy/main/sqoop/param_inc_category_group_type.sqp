@@ -1,7 +1,5 @@
---query 
-'select * from WebLogging.dbo.WebRequest where cast(TimeUtc as DATE)='EXTRACT_DATE' and $CONDITIONS'
---split-by
-TimeUtc
+--table 
+CategoryGroupType
 --hive-drop-import-delims
 --fields-terminated-by 
 '\001' 
