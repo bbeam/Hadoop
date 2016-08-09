@@ -36,7 +36,9 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_markets
 	fundraiser_phone STRING,
 	fundraiser_email STRING,
 	new_market_check TINYINT,
+	est_market_open_date TIMESTAMP,
 	market_open_date TIMESTAMP,
+	est_charter_end_date TIMESTAMP,
 	charter_end_date TIMESTAMP,
 	alm  TINYINT,
 	toll_free_phone STRING,
@@ -45,6 +47,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_markets
 	country_code_id INT,
 	market_url STRING,
 	big_deal TINYINT,
-	load_timestamp TIMESTAMP
+	est_load_timestamp TIMESTAMP,
+	utc_load_timestamp TIMESTAMP
 )
 LOCATION '${hivevar:S3_BUCKET}/data/gold/legacy/angie/dbo/full/daily/dq_markets';
