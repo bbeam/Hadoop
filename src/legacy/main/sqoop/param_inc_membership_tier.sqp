@@ -1,6 +1,7 @@
 --table 
 MembershipTier
---hive-drop-import-delims
+--hive-delims-replacement
+'#'
 --fields-terminated-by 
 '\001' 
 --lines-terminated-by 

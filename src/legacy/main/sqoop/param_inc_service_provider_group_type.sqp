@@ -2,7 +2,8 @@
 'select ServiceProviderGroupTypeId, ServiceProviderGroupTypeName, ServiceProviderGroupTypeDescription, ServiceProviderGroupTypeStatus  from Angie.dbo.ServiceProviderGroupType where $CONDITIONS'
 --split-by 
 ServiceProviderGroupTypeId
---hive-drop-import-delims
+--hive-delims-replacement
+'#'
 --fields-terminated-by 
 '\001' 
 --lines-terminated-by 
