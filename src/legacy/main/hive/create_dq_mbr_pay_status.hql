@@ -9,8 +9,10 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_mbr_pay_status
 (
 	member_id INT,
 	pay_status char(4),
+	est_status_date TIMESTAMP,
 	status_date TIMESTAMP,
 	id INT,
-	load_timestamp TIMESTAMP
+	est_load_timestamp TIMESTAMP,
+	utc_load_timestamp TIMESTAMP
 )
 LOCATION '${hivevar:S3_BUCKET}/data/gold/legacy/reports/dbo/full/daily/dq_mbr_pay_status';
