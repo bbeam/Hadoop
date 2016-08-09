@@ -1,5 +1,7 @@
---table 
-MbrPayStatus
+--query 
+'select MemberID, PayStatus, StatusDate,ID from MbrPayStatus where $CONDITIONS'
+--split-by 
+ID 
 --hive-drop-import-delims
 --fields-terminated-by 
 '\001' 
