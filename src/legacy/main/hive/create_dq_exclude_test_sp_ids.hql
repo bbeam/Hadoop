@@ -8,7 +8,9 @@
 CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_exclude_test_sp_ids
 (
   sp_id INT,
+  est_date_added TIMESTAMP,
   date_added TIMESTAMP,
-  load_timestamp TIMESTAMP
+  est_load_timestamp TIMESTAMP,
+  utc_load_timestamp TIMESTAMP
 )
 LOCATION '${hivevar:S3_BUCKET}/data/gold/legacy/reports/dbo/full/daily/dq_exclude_test_sp_ids';
