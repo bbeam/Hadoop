@@ -18,7 +18,8 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_categories
 	seo_category_id INT, 
 	average_job_cost DECIMAL(18,2), 
 	is_active TINYINT, 
-	category_travel_direction_id INT, 
-	load_timestamp TIMESTAMP
+	category_travel_direction_id INT,
+	est_load_timestamp TIMESTAMP,
+	utc_load_timestamp TIMESTAMP
 )
 LOCATION '${hivevar:S3_BUCKET}/data/gold/legacy/angie/dbo/full/daily/dq_categories';
