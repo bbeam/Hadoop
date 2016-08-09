@@ -12,11 +12,12 @@
 -- -hivevar SOURCE_LEGACY=$SOURCE_LEGACY
 --*/
 
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_service_provider
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_service_provider
 (
   sp_id INT,
   sp_status_id INT,
   company_name STRING,
+  est_entered_date TIMESTAMP,
   entered_date TIMESTAMP,
   address_1 STRING,
   address_2 STRING,
@@ -44,6 +45,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_service_provide
   exclude_reason STRING,
   internal_comment STRING,
   emergency_service TINYINT,
+  est_create_date TIMESTAMP,
   create_date TIMESTAMP,
   create_by STRING,
   country_code_id INT,
@@ -52,6 +54,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_service_provide
   known_invalid_email_address TINYINT,
   postal_address_status_id INT,
   phone_status_id INT,
-  load_timestamp TIMESTAMP
+  est_load_timestamp TIMESTAMP,
+  utc_load_timestamp TIMESTAMP
 )
-LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_LEGACY}/angie/full/daily/dq_service_provider';
+LOCATION '${hivevar:S3_BUCKET}/data/gold/legacy/angie/dbo/full/daily/dq_service_provider';

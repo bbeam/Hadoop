@@ -1,7 +1,8 @@
---table 
-ServiceProvider
---hive-delims-replacement
-'#'
+--table
+AdType
+--m
+1
+--hive-drop-import-delims
 --fields-terminated-by 
 '\001' 
 --lines-terminated-by 
