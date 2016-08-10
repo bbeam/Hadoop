@@ -2,15 +2,11 @@
 --  HIVE SCRIPT  : create_inc_greenpoint_android_prod_popular_category_tapped.hql
 --  AUTHOR       : Abhinav Mehar
 --  DATE         : Jul 13, 2016
---  DESCRIPTION  : Creation of hive incoming table(inc_greenpoint_android_prod_popular_category_tapped). 
---  USAGE    : hive -f s3://al-edh-dev/src/segment/main/hive/create_inc_greenpoint_android_prod_popular_category_tapped.hql \
---     --hivevar SEGMENT_INCOMING_DB="${SEGMENT_INCOMING_DB}" \
---     --hivevar S3_BUCKET="${S3_BUCKET}" \
---     --hivevar SOURCE_SEGMENT="${SOURCE_SEGMENT}" 
+--  DESCRIPTION  : Creation of hive incoming table(inc_popular_category_tapped). 
 --*/
 
 --  Creating a incoming hive table(inc_greenpoint_android_prod_popular_category_tapped) over the incoming data
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:SEGMENT_INCOMING_DB}.inc_greenpoint_android_prod_popular_category_tapped
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.inc_popular_category_tapped
 (
 id STRING,
 received_at STRING,
@@ -62,4 +58,4 @@ member_id_legacy STRING,
 uuid_ts STRING
 )
 PARTITIONED BY (edh_bus_date STRING)
-LOCATION '${hivevar:S3_BUCKET}/data/incoming/${hivevar:SOURCE_SEGMENT}/greenpoint_android_prod/incremental/daily/inc_greenpoint_android_prod_popular_category_tapped';
+LOCATION '${hivevar:S3_BUCKET}/data/incoming/segment/events/greenpoint_android_prod/incremental/daily/inc_popular_category_tapped';

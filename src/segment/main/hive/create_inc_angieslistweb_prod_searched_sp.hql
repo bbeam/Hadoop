@@ -2,11 +2,11 @@
 --  HIVE SCRIPT  : create_inc_angieslistweb_prod_searched_sp.hql
 --  AUTHOR       : Abhinav Mehar
 --  DATE         : Jul 13, 2016
---  DESCRIPTION  : Creation of hive incoming table(inc_angieslistweb_prod_searched_sp). 
+--  DESCRIPTION  : Creation of hive incoming table(inc_searched_sp). 
 --*/
 
 --  Creating a incoming hive table(inc_angieslistweb_prod_searched_sp) over the incoming data
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.inc_angieslistweb_prod_searched_sp
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.inc_searched_sp
 (
 id STRING,
 received_at STRING,
@@ -53,4 +53,4 @@ context_page_title STRING,
 context_page_url STRING
 )
 PARTITIONED BY (edh_bus_date STRING)
-LOCATION '${hivevar:S3_BUCKET}/data/incoming/events/angieslistweb_prod/incremental/daily/inc_angieslistweb_prod_searched_sp';
+LOCATION '${hivevar:S3_BUCKET}/data/incoming/segment/events/angieslistweb_prod/incremental/daily/inc_searched_sp';
