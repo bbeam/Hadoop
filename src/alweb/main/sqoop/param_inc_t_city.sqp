@@ -1,7 +1,5 @@
---query 
-'select * from t_City where $CONDITIONS LIMIT 10000'
---split-by 
-CityId
+--table
+t_City
 --hive-delims-replacement
 '#'
 --fields-terminated-by 

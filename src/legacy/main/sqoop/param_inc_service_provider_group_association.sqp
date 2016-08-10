@@ -1,7 +1,5 @@
---query 
-'select TOP 10000 * from ServiceProviderGroupAssociation where $CONDITIONS'
---split-by 
-ServiceProviderGroupAssociationID
+--table 
+ServiceProviderGroupAssociation
 --hive-delims-replacement
 '#'
 --fields-terminated-by 

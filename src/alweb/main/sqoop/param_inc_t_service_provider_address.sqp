@@ -1,7 +1,5 @@
---query 
-'select * from t_ServiceProviderAddress where $CONDITIONS LIMIT 10000'
---split-by 
-ServiceProviderAddressId
+--table
+t_ServiceProviderAddress
 --hive-delims-replacement
 '#'
 --fields-terminated-by 

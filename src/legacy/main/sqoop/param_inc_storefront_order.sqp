@@ -1,7 +1,5 @@
---query
-"select * from StorefrontOrder where cast(coalesce(UpdateDate,CreateDate) as DATE)='EXTRACT_DATE' and $CONDITIONS"
---split-by
-StorefrontOrderId
+--table
+StorefrontOrder
 --hive-delims-replacement
 '#'
 --fields-terminated-by 

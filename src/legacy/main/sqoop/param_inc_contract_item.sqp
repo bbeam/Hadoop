@@ -1,7 +1,5 @@
---query 
-'select TOP 10000 * from ContractItem where $CONDITIONS'
---split-by 
-contractItemId
+--table
+ContractItem
 --hive-delims-replacement
 '#'
 --fields-terminated-by 
