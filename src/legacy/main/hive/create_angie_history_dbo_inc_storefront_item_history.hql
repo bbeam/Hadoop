@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_inc_storefront_item_history.hql
+--  HIVE SCRIPT  : create_angie_history_dbo_inc_storefront_item_history.hql
 --  AUTHOR       : Abhijeet Purwar
 --  DATE         : Aug 03, 2016
 --  DESCRIPTION  : Creation of hive incoming table(AngieHistory.StorefrontItemHistory). 

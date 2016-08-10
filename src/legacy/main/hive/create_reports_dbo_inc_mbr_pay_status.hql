@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_inc_mbr_pay_status.hql
+--  HIVE SCRIPT  : create_reports_dbo_inc_mbr_pay_status.hql
 --  AUTHOR       : Varun Rauthan
 --  DATE         : Aug 03, 2016
 --  DESCRIPTION  : Creation of hive incoming table(angie.mbr_pay_status) 

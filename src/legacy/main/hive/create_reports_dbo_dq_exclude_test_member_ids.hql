@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_dq_exclude_test_member_ids.hql
+--  HIVE SCRIPT  : create_reports_dbo_dq_exclude_test_member_ids.hql
 --  AUTHOR       : Varun Rauthan
 --  DATE         : Aug 04, 2016
 --  DESCRIPTION  : Creation of hive DQ table(dq_exclude_test_member_ids). 

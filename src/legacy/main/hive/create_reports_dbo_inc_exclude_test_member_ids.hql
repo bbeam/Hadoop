@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_inc_exclude_test_member_ids.hql
+--  HIVE SCRIPT  : create_reports_dbo_inc_exclude_test_member_ids.hql
 --  AUTHOR       : Varun 
 --  DATE         : Aug 08, 2016
 --  DESCRIPTION  : Creation of hive incoming table(inc_exclude_test_member_ids). 
