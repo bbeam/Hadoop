@@ -4,7 +4,8 @@ com.amazon.redshift.jdbc4.Driver
 "select * from angieslistweb_prod.review_submitted where cast(sent_at as DATE)='EXTRACT_DATE' and $CONDITIONS" 
 -m 
 4
---hive-drop-import-delims
+--hive-delims-replacement
+'#'
 --split-by
 sent_at
 -fields-terminated-by 
