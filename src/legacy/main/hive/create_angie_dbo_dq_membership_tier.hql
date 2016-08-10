@@ -1,11 +1,11 @@
 --/*
---  HIVE SCRIPT  : create_angie_dbo_dq_membership_tier.hql
+--  HIVE SCRIPT  : create_dq_membership_tier.hql
 --  AUTHOR       : Varun Rauthan
 --  DATE         : Aug 8, 2016
 --  DESCRIPTION  : Creation of hive dq table(angie.Membership_Tier) 
 --*/
 
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_membership_tier
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_membership_tier
 (
 	membership_tier_id INT,
 	membership_tier_name STRING,

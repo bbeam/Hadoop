@@ -1,12 +1,12 @@
 --/*
---  HIVE SCRIPT  : create_angie_dbo_dq_report.hql
+--  HIVE SCRIPT  : create_dq_report.hql
 --  AUTHOR       : Gaurav Maheshwari
 --  DATE         : Aug 02, 2016
 --  DESCRIPTION  : Creation of hive DQ table(dq_report). 
 --*/
 
 --  Creating a DQ hive table(inc_report) over the incoming data
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_report
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_report
 (
 	report_id INT,
 	member_id INT,

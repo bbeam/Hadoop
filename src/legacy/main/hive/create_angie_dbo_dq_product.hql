@@ -1,12 +1,12 @@
 --/*
---  HIVE SCRIPT  : create_angie_dbo_dq_product.hql
+--  HIVE SCRIPT  : create_dq_product.hql
 --  AUTHOR       : Ashoka Reddy
 --  DATE         : Jun 23, 2016
 --  DESCRIPTION  : Creation of hive DQ table(dq_product). 
 --*/
 
 --  Creating a dq hive table(dq_product) over the incoming data
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_product
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_product
 (
   product_id INT,
   product_name VARCHAR(100),

@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_angie_dbo_dq_storefront_order_line_item.hql
+--  HIVE SCRIPT  : create_dq_storefront_order_line_item.hql
 --  AUTHOR       : Abhijeet Purwar
 --  DATE         : Jul 27, 2016
 --  DESCRIPTION  : Creation of hive DQ table(Angie.StorefrontOrderLineItem). 
@@ -18,7 +18,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_storefront_order_line_
   storefront_item_fee DECIMAL(10, 2),
   storefront_source_id INT,
   marked_read TINYINT,
-  est_ load_timestamp TIMESTAMP,
+  est_load_timestamp TIMESTAMP,
   utc_load_timestamp TIMESTAMP
 )
 LOCATION '${hivevar:S3_BUCKET}/data/gold/legacy/angie/dbo/full/daily/dq_storefront_order_line_item';
