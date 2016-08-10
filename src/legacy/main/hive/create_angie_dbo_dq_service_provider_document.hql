@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_dq_service_provider_document.hql
+--  HIVE SCRIPT  : create_angie_dbo_dq_service_provider_document.hql
 --  AUTHOR       : Abhijeet Purwar
 --  DATE         : Jun 23, 2016
 --  DESCRIPTION  : Creation of hive DQ table(dq_service_provider_document).

@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_dq_markets.hql
+--  HIVE SCRIPT  : create_angie_dbo_dq_markets.hql
 --  AUTHOR       : Gaurav Maheshwari
 --  DATE         : Aug 09, 2016
 --  DESCRIPTION  : Creation of hive DQ table(dq_markets). 

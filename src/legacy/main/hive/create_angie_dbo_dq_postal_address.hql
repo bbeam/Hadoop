@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_dq_postal_address.hql
+--  HIVE SCRIPT  : create_angie_dbo_dq_postal_address.hql
 --  AUTHOR       : Varun Rauthan
 --  DATE         : Aug 03, 2016
 --  DESCRIPTION  : Creation of hive dq table(angie.PostalAddress)

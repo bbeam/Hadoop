@@ -1,12 +1,12 @@
 --/*
---  HIVE SCRIPT  : create_inc_ad_element.hql
+--  HIVE SCRIPT  : create_angie_dbo_inc_ad_element.hql
 --  AUTHOR       : Abhijeet Purwar
 --  DATE         : Jun 27, 2016
 --  DESCRIPTION  : Creation of hive incoming table(Angie.AdElement). 
 --  Execute command:
 --
 --
--- hive -f $S3_BUCKET/src/$SOURCE_LEGACY/main/hive/create_inc_ad_element.hql \
+-- hive -f $S3_BUCKET/src/$SOURCE_LEGACY/main/hive/create_angie_dbo_inc_ad_element.hql \
 -- -hivevar LEGACY_INCOMING_DB=$LEGACY_INCOMING_DB \
 -- -hivevar S3_BUCKET=$S3_BUCKET \
 -- -hivevar SOURCE_LEGACY=$SOURCE_LEGACY

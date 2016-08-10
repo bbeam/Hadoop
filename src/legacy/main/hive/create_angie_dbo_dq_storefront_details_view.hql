@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_dq_storefront_details_view.hql
+--  HIVE SCRIPT  : create_angie_dbo_dq_storefront_details_view.hql
 --  AUTHOR       : Ashoka Reddy
 --  DATE         : Jun 23, 2016
 --  DESCRIPTION  : Creation of hive DQ table(dq_storefront_details_view). 

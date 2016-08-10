@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_dq_tbl_requested_type_info.hql
+--  HIVE SCRIPT  : create_angie_dbo_dq_tbl_requested_type_info.hql
 --  AUTHOR       : Ashoka Reddy
 --  DATE         : Jun 23, 2016
 --  DESCRIPTION  : Creation of hive DQ table(dq_tbl_requested_type_info). 

@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_dq_service_provider_background_check.hql
+--  HIVE SCRIPT  : create_angie_dbo_dq_service_provider_background_check.hql
 --  AUTHOR       : Abhijeet Purwar
 --  DATE         : Jul 27, 2016
 --  DESCRIPTION  : Creation of hive DQ table(Angie.ServiceProviderBackgroundCheck). 

@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_dq_service_provider_group_association.hql
+--  HIVE SCRIPT  : create_angie_dbo_dq_service_provider_group_association.hql
 --  AUTHOR       : Abhijeet Purwar
 --  DATE         : Aug 1, 2016
 --  DESCRIPTION  : Creation of hive DQ table(angie.ServiceProviderGroupAssociation). 

@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_dq_storefront_product_event_type.hql
+--  HIVE SCRIPT  : create_angie_analytics_dbo_dq_storefront_product_event_type.hql
 --  AUTHOR       : Gaurav Maheshwari
 --  DATE         : Aug 02, 2016
 --  DESCRIPTION  : Creation of hive DQ table(dq_storefront_product_event_type). 

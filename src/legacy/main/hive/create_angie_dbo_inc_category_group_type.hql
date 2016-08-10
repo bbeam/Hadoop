@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_inc_category_group_type.hql
+--  HIVE SCRIPT  : create_angie_dbo_inc_category_group_type.hql
 --  AUTHOR       : Varun Rauthan
 --  DATE         : Aug 08, 2016
 --  DESCRIPTION  : Creation of hive incoming table(inc_category_group_type). 

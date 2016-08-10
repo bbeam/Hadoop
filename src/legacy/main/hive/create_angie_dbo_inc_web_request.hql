@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_inc_web_request.hql
+--  HIVE SCRIPT  : create_angie_dbo_inc_web_request.hql
 --  AUTHOR       : Gaurav maheshwari
 --  DATE         : Aug 02, 2016
 --  DESCRIPTION  : Creation of hive incoming table(inc_web_request). 

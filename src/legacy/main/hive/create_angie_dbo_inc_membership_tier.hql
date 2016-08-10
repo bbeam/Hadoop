@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_inc_membership_tier.hql
+--  HIVE SCRIPT  : create_angie_dbo_inc_membership_tier.hql
 --  AUTHOR       : Varun Rauthan
 --  DATE         : Aug 8, 2016
 --  DESCRIPTION  : Creation of hive incoming table(angie.Membership_Tier) 

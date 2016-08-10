@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_inc_service_provider_document.hql
+--  HIVE SCRIPT  : create_angie_dbo_inc_service_provider_document.hql
 --  AUTHOR       : Abhijeet Purwar
 --  DATE         : Jun 23, 2016
 --  DESCRIPTION  : Creation of hive incoming table(inc_service_provider_document). 

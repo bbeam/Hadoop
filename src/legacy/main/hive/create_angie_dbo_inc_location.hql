@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_inc_location.hql
+--  HIVE SCRIPT  : create_angie_dbo_inc_location.hql
 --  AUTHOR       : Abhijeet Purwar
 --  DATE         : Jun 27, 2016
 --  DESCRIPTION  : Creation of hive incoming table(Angie.Location). 
