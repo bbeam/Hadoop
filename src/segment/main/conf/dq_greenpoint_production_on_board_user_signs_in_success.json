@@ -1,9 +1,9 @@
 {
    "InputTableName":"inc_greenpoint_production_on_board_user_signs_in_success",
    "OutputTableName":"dq_greenpoint_production_on_board_user_signs_in_success",   
-   "SourceDB":"SEGMENT_INCOMING_DB",
-   "TargetDB":"SEGMENT_GOLD_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_SEGMENT/greenpoint_production/incremental/daily/dq_greenpoint_production_on_board_user_signs_in_success/edh_bus_date=$EDHBUSDATE",
+   "SourceDB":"INCOMING_SEGMENT_EVENTS_GPP_DB",
+   "TargetDB":"GOLD_SEGMENT_EVENTS_GPP_DB",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/segment/events/greenpoint_production/incremental/daily/dq_greenpoint_production_on_board_user_signs_in_success/edh_bus_date=$EDHBUSDATE",
    "TableValidation":[  
             {  
                "Check":"Duplicate",
@@ -30,6 +30,8 @@
          "Name":"received_at",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+		 "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
          "Validations":[
             {
                "Check":"DataType",
@@ -313,6 +315,8 @@
          "Name":"sent_at",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+		 "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
          "Validations":[
             {
                "Check":"DataType",
@@ -324,6 +328,8 @@
          "Name":"timestamp",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+		 "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
          "Validations":[
             {
                "Check":"DataType",
@@ -365,6 +371,8 @@
          "Name":"uuid_ts",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+		 "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
          "Validations":[
             {
                "Check":"DataType",

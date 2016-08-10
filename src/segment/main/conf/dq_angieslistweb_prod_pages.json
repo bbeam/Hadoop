@@ -1,9 +1,9 @@
 {
    "InputTableName":"inc_angieslistweb_prod_pages",
    "OutputTableName":"dq_angieslistweb_prod_pages",   
-   "SourceDB":"SEGMENT_INCOMING_DB",
-   "TargetDB":"SEGMENT_GOLD_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/$SOURCE_SEGMENT/angieslistweb_prod/incremental/daily/dq_angieslistweb_prod_pages/edh_bus_date=$EDHBUSDATE",
+   "SourceDB":"INCOMING_SEGMENT_EVENTS_ALWP_DB",
+   "TargetDB":"GOLD_SEGMENT_EVENTS_ALWP_DB",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/segment/events/angieslistweb_prod/incremental/daily/dq_angieslistweb_prod_pages/edh_bus_date=$EDHBUSDATE",
    "TableValidation":[  
             {  
                "Check":"Duplicate",
@@ -30,6 +30,8 @@
          "Name":"received_at",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+		 "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
          "Validations":[
             {
                "Check":"DataType",
@@ -161,6 +163,8 @@
          "Name":"original_timestamp",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+		 "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
          "Validations":[
             {
                "Check":"DataType",
@@ -222,6 +226,8 @@
          "Name":"sent_at",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+		 "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
          "Validations":[
             {
                "Check":"DataType",
@@ -233,6 +239,8 @@
          "Name":"timestamp",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+		 "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
          "Validations":[
             {
                "Check":"DataType",
@@ -334,6 +342,8 @@
          "Name":"uuid_ts",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+		 "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
          "Validations":[
             {
                "Check":"DataType",
