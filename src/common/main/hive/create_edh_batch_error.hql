@@ -14,6 +14,7 @@ error_type STRING,
 error_desc STRING, 
 record_header STRING,
 error_record STRING,
+est_time_stamp STRING,
 time_stamp STRING, 
 user_name  STRING)     
 PARTITIONED BY (table_name STRING,edh_bus_date STRING)

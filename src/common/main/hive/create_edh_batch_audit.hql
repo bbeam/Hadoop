@@ -14,6 +14,7 @@ process STRING,
 type STRING,
 sub_type STRING,
 record_count STRING,
+est_time_stamp STRING,
 time_stamp STRING,
 user_name STRING) 
 PARTITIONED BY (edh_bus_month STRING)
