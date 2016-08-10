@@ -2,15 +2,10 @@
 --  AUTHOR       : Varun Rauthan
 --  DATE         : Aug 5, 2016
 --  DESCRIPTION  : Creation of hive inc table(inc_angieslistweb_prod_pages). 
---  USAGE    : hive -f s3://al-edh-dev/src/segment/main/hive/create_inc_angieslistweb_prod_pages.hql \
---     --hivevar SEGMENT_INCOMING_DB="${SEGMENT_INCOMING_DB}" \
---     --hivevar S3_BUCKET="${S3_BUCKET}" \
---     --hivevar SOURCE_SEGMENT="${SOURCE_SEGMENT}" 
-
 --*/
 
 --  Creating a DQ hive table(Dq_alwp_pages) over the incoming data
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:SEGMENT_INCOMING_DB}.inc_angieslistweb_prod_pages
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.inc_angieslistweb_prod_pages
 ( 
 	id STRING,
 	received_at STRING,
@@ -82,5 +77,5 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:SEGMENT_INCOMING_DB}.inc_angieslis
 	context_traits_experiment_z100_search_results_hide_description_and_review_counts STRING
 )
 PARTITIONED BY (edh_bus_date STRING)
-LOCATION '${hivevar:S3_BUCKET}/data/incoming/${hivevar:SOURCE_SEGMENT}/angieslistweb_prod/incremental/daily/inc_angieslistweb_prod_pages';
+LOCATION '${hivevar:S3_BUCKET}/data/incoming/events/angieslistweb_prod/incremental/daily/inc_angieslistweb_prod_pages';
 

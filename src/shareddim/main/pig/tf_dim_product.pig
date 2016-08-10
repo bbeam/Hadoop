@@ -1,13 +1,13 @@
 /*
 PIG SCRIPT    : tf_dim_product.pig
-AUTHOR        : Varun Rauthan
-DATE          : JUL 01, 2016
-DESCRIPTION   : Data Transformation and cleansing stage
+AUTHOR        : Anil Aleppy
+DATE          : Aug 10, 2016
+DESCRIPTION   : Transformation for Dimension Product
 */
 
 /* LOADING THE LOOKUP TABLES */
 table_dq_t_sku = 
-	LOAD '$WORK_DB.dq_t_sku' 
+	LOAD '$GOLD_LEGACYDB.dq_t_sku' 
 	USING org.apache.hive.hcatalog.pig.HCatLoader();
 
 table_dq_t_skuitem = 

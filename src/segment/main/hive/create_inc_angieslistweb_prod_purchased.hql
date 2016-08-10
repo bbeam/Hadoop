@@ -3,14 +3,10 @@
 --  AUTHOR       : Abhinav Mehar
 --  DATE         : Jul 13, 2016
 --  DESCRIPTION  : Creation of hive incoming table(inc_angieslistweb_prod_purchased). 
---  USAGE    : hive -f s3://al-edh-dev/src/segment/main/hive/create_inc_angieslistweb_prod_purchased.hql \
---     --hivevar SEGMENT_INCOMING_DB="${SEGMENT_INCOMING_DB}" \
---     --hivevar S3_BUCKET="${S3_BUCKET}" \
---     --hivevar SOURCE_SEGMENT="${SOURCE_SEGMENT}" 
 --*/
 
 --  Creating a incoming hive table(inc_angieslistweb_prod_purchased) over the incoming data
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:SEGMENT_INCOMING_DB}.inc_angieslistweb_prod_purchased
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.inc_angieslistweb_prod_purchased
 (
 id STRING,
 received_at STRING,
@@ -316,4 +312,4 @@ deal_info_sku_category_249 STRING,
 deal_info_sku_category_604 STRING
 )
 PARTITIONED BY (edh_bus_date STRING)
-LOCATION '${hivevar:S3_BUCKET}/data/incoming/${hivevar:SOURCE_SEGMENT}/angieslistweb_prod/incremental/daily/inc_angieslistweb_prod_purchased';
+LOCATION '${hivevar:S3_BUCKET}/data/incoming/events/angieslistweb_prod/incremental/daily/inc_angieslistweb_prod_purchased';
