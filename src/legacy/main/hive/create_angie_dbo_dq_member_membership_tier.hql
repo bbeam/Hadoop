@@ -18,6 +18,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_member_membership_tier
 	est_update_date TIMESTAMP,
 	update_date TIMESTAMP,
 	update_by STRING,
+	green_thunder_membership_tier_id INT,
 	est_load_timestamp TIMESTAMP,
 	utc_load_timestamp TIMESTAMP
 )
