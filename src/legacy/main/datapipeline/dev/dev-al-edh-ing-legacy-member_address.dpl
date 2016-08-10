@@ -13,7 +13,7 @@
 	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
 	  "name": "ing-legacy-member_address",
 	  "id": "ShellCommandActivity",
-	  "workerGroup": "ALWorkerGroup",
+	  "workerGroup": "#{myWorkerGroup}",
 	  "scriptArgument": [
 		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
 		"s3://al-edh-dev/src/legacy/main/conf/ingestion_member_address.properties",
