@@ -1,4 +1,4 @@
--/*
+--/*
 --  HIVE SCRIPT  : create_angieslist_inc_t_service_provider.hql
 --  AUTHOR       : Gaurav Maheshwari
 --  DATE         : July 28, 2016
