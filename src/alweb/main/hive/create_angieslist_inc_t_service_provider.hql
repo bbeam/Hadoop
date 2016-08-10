@@ -1,5 +1,5 @@
 -/*
---  HIVE SCRIPT  : create_inc_t_service_provider.hql
+--  HIVE SCRIPT  : create_angieslist_inc_t_service_provider.hql
 --  AUTHOR       : Gaurav Maheshwari
 --  DATE         : July 28, 2016
 --  DESCRIPTION  : Creation of hive incoming table(inc_t_service_provider). 

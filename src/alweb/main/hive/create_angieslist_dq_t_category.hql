@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_dq_t_category.hql
+--  HIVE SCRIPT  : create_angieslist_dq_t_category.hql
 --  AUTHOR       : Gaurav Maheshwari
 --  DATE         : Aug 08, 2016
 --  DESCRIPTION  : Creation of hive DQ table(dq_t_category). 

@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_inc_t_sku_item.hql
+--  HIVE SCRIPT  : create_angieslist_inc_t_sku_item.hql
 --  AUTHOR       : Ashoka Reddy
 --  DATE         : Jun 23, 2016
 --  DESCRIPTION  : Creation of hive incoming table(inc_t_sku_item). 

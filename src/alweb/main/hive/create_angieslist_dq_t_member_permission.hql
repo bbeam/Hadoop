@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_dq_t_member_permission.hql
+--  HIVE SCRIPT  : create_angieslist_dq_t_member_permission.hql
 --  AUTHOR       : Anil Aleppy
 --  DATE         : Aug 2, 2016
 --  DESCRIPTION  : Creation of hive dq table(AngiesList.t_MemberPermission) 
