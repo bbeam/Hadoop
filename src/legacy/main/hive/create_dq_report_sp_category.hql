@@ -8,14 +8,14 @@
 --  Creating a dq hive table(dq_report_sp_category) over the incoming table
 CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_report_sp_category
 (
+	report_sp_category_id INT,  
+	report_id INT,
+	sp_id INT, 
 	category_id INT,
-	create_by VARCHAR(50),
+	is_primary TINYINT,
 	est_create_date TIMESTAMP,
 	create_date TIMESTAMP,
-	is_primary TINYINT,
-	report_id INT,
-	report_sp_category_id INT,
-	sp_id INT,
+	create_by STRING,
 	est_load_timestamp TIMESTAMP,
 	utc_load_timestamp TIMESTAMP
 )
