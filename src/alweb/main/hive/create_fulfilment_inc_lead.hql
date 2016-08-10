@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_inc_lead.hql
+--  HIVE SCRIPT  : create_fulfilment_inc_lead.hql
 --  AUTHOR       : Ashoka Reddy
 --  DATE         : Jun 23, 2016
 --  DESCRIPTION  : Creation of hive incoming table(inc_lead). 

@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_dq_t_service_provider.hql
+--  HIVE SCRIPT  : create_angieslist_dq_t_service_provider.hql
 --  AUTHOR       : Gaurav Maheshwari
 --  DATE         : July 27, 2016
 --  DESCRIPTION  : Creation of hive incoming DQtable(dq_t_service_provider). 

@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_inc_t_user_address.hql
+--  HIVE SCRIPT  : create_angieslist_inc_t_user_address.hql
 --  AUTHOR       : Varun Rauthan
 --  DATE         : Jul 28, 2016
 --  DESCRIPTION  : Creation of hive incoming table(inc_t_user_address). 

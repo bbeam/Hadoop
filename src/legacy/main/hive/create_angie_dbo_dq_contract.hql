@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_dq_contract.hql
+--  HIVE SCRIPT  : create_angie_dbo_dq_contract.hql
 --  AUTHOR       : Abhijeet Purwar
 --  DATE         : Jun 27, 2016
 --  DESCRIPTION  : Creation of hive DQ table(angie.Contract). 

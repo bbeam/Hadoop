@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_inc_member_primary_address.hql
+--  HIVE SCRIPT  : create_angie_dbo_inc_member_primary_address.hql
 --  AUTHOR       : Varun Rauthan
 --  DATE         : Aug 03, 2016
 --  DESCRIPTION  : Creation of hive incoming table(angie.ServiceProvider). 

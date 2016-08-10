@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_inc_report_sp_category.hql
+--  HIVE SCRIPT  : create_angie_dbo_inc_report_sp_category.hql
 --  AUTHOR       : Ashoka Reddy
 --  DATE         : Jun 23, 2016
 --  DESCRIPTION  : Creation of hive incoming table(inc_report_sp_category). 

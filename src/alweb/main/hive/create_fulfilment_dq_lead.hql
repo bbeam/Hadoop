@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_dq_lead.hql
+--  HIVE SCRIPT  : create_fulfilment_dq_lead.hql
 --  AUTHOR       : Ashoka Reddy
 --  DATE         : Jun 23, 2016
 --  DESCRIPTION  : Creation of hive DQ table(dq_lead). 

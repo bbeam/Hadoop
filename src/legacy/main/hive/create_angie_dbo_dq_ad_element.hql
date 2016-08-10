@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_dq_ad_element.hql
+--  HIVE SCRIPT  : create_angie_dbo_dq_ad_element.hql
 --  AUTHOR       : Abhijeet Purwar
 --  DATE         : Jul 27, 2016
 --  DESCRIPTION  : Creation of hive DQ table(Angie.AdElement).

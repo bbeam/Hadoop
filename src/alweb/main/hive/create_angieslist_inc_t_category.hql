@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_inc_t_category.hql
+--  HIVE SCRIPT  : create_angieslist_inc_t_category.hql
 --  AUTHOR       : Gaurav Maheshwari
 --  DATE         : Aug 08, 2016
 --  DESCRIPTION  : Creation of hive incoming table(inc_t_category). 

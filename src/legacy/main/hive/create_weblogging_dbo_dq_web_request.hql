@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_dq_web_request.hql
+--  HIVE SCRIPT  : create_angie_dbo_dq_web_request.hql
 --  AUTHOR       : Gaurav Maheshwari
 --  DATE         : Aug 02, 2016
 --  DESCRIPTION  : Creation of hive DQ table(dq_web_request).

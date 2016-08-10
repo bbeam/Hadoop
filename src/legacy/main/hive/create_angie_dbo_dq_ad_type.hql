@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_dq_ad_type.hql
+--  HIVE SCRIPT  : create_angie_dbo_dq_ad_type.hql
 --  AUTHOR       : Anil Aleppy
 --  DATE         : Aug 08, 2016
 --  DESCRIPTION  : Creation of hive dq table(angie.ad_type) 

@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_dq_t_region.hql
+--  HIVE SCRIPT  : create_angieslist_dq_t_region.hql
 --  AUTHOR       : Abhijeet Purwar
 --  DATE         : Aug 2, 2016
 --  DESCRIPTION  : Creation of hive DQ table(AngiesList.t_City). 

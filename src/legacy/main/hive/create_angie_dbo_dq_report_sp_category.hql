@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_dq_report_sp_category.hql
+--  HIVE SCRIPT  : create_angie_dbo_dq_report_sp_category.hql
 --  AUTHOR       : Ashoka Reddy
 --  DATE         : Jun 23, 2016
 --  DESCRIPTION  : Creation of hive DQ table(dq_report_sp_category).

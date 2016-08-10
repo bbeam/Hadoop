@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_dq_category_group.hql
+--  HIVE SCRIPT  : create_angie_dbo_dq_category_group.hql
 --  AUTHOR       : Gaurav Maheshwari
 --  DATE         : Aug 08, 2016
 --  DESCRIPTION  : Creation of hive DQ table(dq_category_group). 

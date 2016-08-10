@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_dq_mbr_pay_status.hql
+--  HIVE SCRIPT  : create_reports_dbo_dq_mbr_pay_status.hql
 --  AUTHOR       : Varun Rauthan
 --  DATE         : Aug 02, 2016
 --  DESCRIPTION  : Creation of hive dq table(angie.mbr_pay_status) 

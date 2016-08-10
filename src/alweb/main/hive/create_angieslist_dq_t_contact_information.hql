@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_dq_t_contact_information.hql
+--  HIVE SCRIPT  : create_angieslist_dq_t_contact_information.hql
 --  AUTHOR       : Anil Aleppy
 --  DATE         : Aug 1, 2016
 --  DESCRIPTION  : Creation of hive dq table(AngiesList.t_ContactInformation) 

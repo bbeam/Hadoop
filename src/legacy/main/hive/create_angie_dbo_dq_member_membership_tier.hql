@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_inc_member_membership_tier.hql
+--  HIVE SCRIPT  : create_angie_dbo_inc_member_membership_tier.hql
 --  AUTHOR       : Varun Rauthan
 --  DATE         : Aug 2, 2016
 --  DESCRIPTION  : Creation of hive incoming table(inc_member_membership_tier). 
@@ -18,6 +18,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_member_membership_tier
 	est_update_date TIMESTAMP,
 	update_date TIMESTAMP,
 	update_by STRING,
+	green_thunder_membership_tier_id INT,
 	est_load_timestamp TIMESTAMP,
 	utc_load_timestamp TIMESTAMP
 )

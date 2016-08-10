@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_inc_categories.hql
+--  HIVE SCRIPT  : create_angie_dbo_inc_categories.hql
 --  AUTHOR       : Gaurav Maheshwari
 --  DATE         : Aug 08, 2016
 --  DESCRIPTION  : Creation of hive incoming table(inc_categories). 

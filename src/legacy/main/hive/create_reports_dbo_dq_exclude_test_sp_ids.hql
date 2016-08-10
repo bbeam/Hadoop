@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_dq_exclude_test_sp_ids.hql
+--  HIVE SCRIPT  : create_reports_dbo_dq_exclude_test_sp_ids.hql
 --  AUTHOR       : Abhijeet Purwar
 --  DATE         : Jun 27, 2016
 --  DESCRIPTION  : Creation of hive DQ table(Reports.ExcludeTestSPIDs). 

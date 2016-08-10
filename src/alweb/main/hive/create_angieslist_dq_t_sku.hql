@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_dq_t_sku.hql
+--  HIVE SCRIPT  : create_angieslist_dq_t_sku.hql
 --  AUTHOR       : Varun Rauthan
 --  DATE         : Jun 23, 2016
 --  DESCRIPTION  : Creation of hive incoming table(dq_t_sku). 

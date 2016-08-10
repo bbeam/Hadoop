@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_dq_members.hql
+--  HIVE SCRIPT  : create_angie_dbo_dq_members.hql
 --  AUTHOR       : Varun Rauthan
 --  DATE         : Aug 02, 2016
 --  DESCRIPTION  : Creation of hive dq table(angie.Members) 

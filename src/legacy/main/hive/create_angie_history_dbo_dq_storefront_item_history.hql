@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_dq_storefront_item_history.hql
+--  HIVE SCRIPT  : create_angie_history_dbo_dq_storefront_item_history.hql
 --  AUTHOR       : Abhijeet Purwar
 --  DATE         : Jun 27, 2016
 --  DESCRIPTION  : Creation of hive DQ table(AngieHistory.StorefrontItemHistory).

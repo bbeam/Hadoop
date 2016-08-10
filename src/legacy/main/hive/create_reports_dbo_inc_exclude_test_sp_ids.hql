@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_inc_exclude_test_sp_ids.hql
+--  HIVE SCRIPT  : create_reports_dbo_inc_exclude_test_sp_ids.hql
 --  AUTHOR       : Abhijeet Purwar
 --  DATE         : Aug 03, 2016
 --  DESCRIPTION  : Creation of hive incoming table(Reports.ExcludeTestSPIDs). 

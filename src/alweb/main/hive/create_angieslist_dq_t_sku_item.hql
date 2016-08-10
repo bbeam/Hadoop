@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_dq_t_skuitem.hql
+--  HIVE SCRIPT  : create_angieslist_dq_t_skuitem.hql
 --  AUTHOR       : Ashoka Reddy
 --  DATE         : Jun 23, 2016
 --  DESCRIPTION  : Creation of hive DQ table(t_skuitem). 

@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_dq_member_logon_history.hql
+--  HIVE SCRIPT  : create_angie_dbo_dq_member_logon_history.hql
 --  AUTHOR       : Ashoka Reddy
 --  DATE         : Jun 23, 2016
 --  DESCRIPTION  : Creation of hive DQ table(dq_member_logon_history). 
