@@ -1,10 +1,10 @@
+--/*
 --  HIVE SCRIPT  : create_inc_angieslistweb_prod_pages.hql
 --  AUTHOR       : Varun Rauthan
 --  DATE         : Aug 5, 2016
 --  DESCRIPTION  : Creation of hive inc table(inc_angieslistweb_prod_pages). 
 --*/
-
---  Creating a DQ hive table(Dq_alwp_pages) over the incoming data
+--  Creating a DQ hive table(inc_alwp_pages) over the incoming data
 CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.inc_pages
 ( 
 	id STRING,

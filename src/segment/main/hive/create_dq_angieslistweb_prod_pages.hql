@@ -1,18 +1,15 @@
 --  HIVE SCRIPT  : create_dq_angieslistweb_prod_pages.hql
 --  AUTHOR       : Varun Rauthan
 --  DATE         : Aug 5, 2016
---  DESCRIPTION  : Creation of hive dq table(dq_angieslistweb_prod_pages). 
---  USAGE    : hive -f s3://al-edh-dev/src/segment/main/hive/create_dq_angieslistweb_prod_pages.hql \
---     --hivevar SEGMENT_GOLD_DB="${SEGMENT_GOLD_DB}" \
---     --hivevar S3_BUCKET="${S3_BUCKET}" \
---     --hivevar SOURCE_SEGMENT="${SOURCE_SEGMENT}" 
+--  DESCRIPTION  : Creation of hive dq table(dq_pages). 
 
 --*/
 
---  Creating a DQ hive table(Dq_alwp_pages) over the incoming data
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:SEGMENT_GOLD_DB}.dq_angieslistweb_prod_pages
+--  Creating a DQ hive table(dq_pages) over the incoming data
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_pages
 ( 
 	id VARCHAR(254),
+	est_received_at TIMESTAMP,	
 	received_at TIMESTAMP,
 	uuid BIGINT,
 	anonymous_id VARCHAR(256),
@@ -26,13 +23,16 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:SEGMENT_GOLD_DB}.dq_angieslistweb_
 	context_page_url VARCHAR(256),
 	context_user_agent VARCHAR(256),
 	name VARCHAR(256),
+	est_original_timestamp TIMESTAMP,	
 	original_timestamp TIMESTAMP,
 	path VARCHAR(256),
 	properties_title VARCHAR(256),
 	properties_url VARCHAR(256),
 	referrer VARCHAR(256),
 	search VARCHAR(256),
+	est_sent_at TIMESTAMP,	
 	sent_at TIMESTAMP,
+	est_timestamp TIMESTAMP,	
 	timestamp TIMESTAMP,
 	title VARCHAR(256),
 	type VARCHAR(256),
@@ -43,6 +43,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:SEGMENT_GOLD_DB}.dq_angieslistweb_
 	s_kwcid VARCHAR(256),
 	cid VARCHAR(256),
 	context_campaign_name VARCHAR(256),
+	est_uuid_ts TIMESTAMP,	
 	uuid_ts TIMESTAMP,
 	context_campaign_medium VARCHAR(256),
 	test_prop VARCHAR(256),
@@ -80,8 +81,9 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:SEGMENT_GOLD_DB}.dq_angieslistweb_
 	context_traits_experiment_launch_geosort VARCHAR(256),
 	context_traits_experiment_search_results_hide_description_and_review_counts_for_non_advertisers VARCHAR(256),
 	context_traits_experiment_z100_search_results_hide_description_and_review_counts VARCHAR(256),
-	load_timestamp TIMESTAMP
+	est_load_timestamp TIMESTAMP,	
+	utc_load_timestamp TIMESTAMP
 )
 PARTITIONED BY (edh_bus_date STRING)
-LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_SEGMENT}/angieslistweb_prod/incremental/daily/dq_angieslistweb_prod_pages';
+LOCATION '${hivevar:S3_BUCKET}/data/gold/segment/events/angieslistweb_prod/incremental/daily/dq_pages';
 

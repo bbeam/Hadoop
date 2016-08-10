@@ -1,18 +1,14 @@
 --  HIVE SCRIPT  : create_dq_angieslistweb_prod_purchased.hql
 --  AUTHOR       : Abhinav Mehar
 --  DATE         : Jul 13, 2016
---  DESCRIPTION  : Creation of hive dq table(Dq_angieslistweb_prod_purchased). 
---  USAGE    : hive -f s3://al-edh-dev/src/segment/main/hive/create_dq_angieslistweb_prod_purchased.hql \
---     --hivevar SEGMENT_GOLD_DB="${SEGMENT_GOLD_DB}" \
---     --hivevar S3_BUCKET="${S3_BUCKET}" \
---     --hivevar SOURCE_SEGMENT="${SOURCE_SEGMENT}" 
-
+--  DESCRIPTION  : Creation of hive dq table(dq_purchased). 
 --*/
 
---  Creating a DQ hive table(Dq_angieslistweb_prod_purchased) over the incoming data
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:SEGMENT_GOLD_DB}.dq_angieslistweb_prod_purchased
+--  Creating a DQ hive table(dq_purchased) over the incoming data
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_purchased
 (
 id  VARCHAR(254),
+est_received_at TIMESTAMP,
 received_at TIMESTAMP,
 uuid    BIGINT,
 context_auth_token  VARCHAR(256),
@@ -174,8 +170,10 @@ member_last_name    VARCHAR(256),
 member_middle_name  VARCHAR(256),
 member_primary_phone    VARCHAR(256),
 member_secondary_phone  VARCHAR(256),
+est_original_timestamp  TIMESTAMP,
 original_timestamp  TIMESTAMP,
 revenue BIGINT,
+est_sent_at TIMESTAMP,
 sent_at TIMESTAMP,
 service_provider_address_city   VARCHAR(256),
 service_provider_address_first_line VARCHAR(256),
@@ -190,6 +188,7 @@ service_provider_middle_name    VARCHAR(256),
 service_provider_primary_phone  VARCHAR(256),
 service_provider_secondary_phone    VARCHAR(256),
 service_provider_spid   VARCHAR(256),
+est_timestamp   TIMESTAMP,
 timestamp   TIMESTAMP,
 user_id VARCHAR(256),
 user_zip_code   VARCHAR(256),
@@ -293,6 +292,7 @@ deal_info_sku_category_888  VARCHAR(256),
 deal_info_sku_category_892  VARCHAR(256),
 deal_info_sku_category_489  VARCHAR(256),
 deal_info_sku_category_437  VARCHAR(256),
+est_uuid_ts TIMESTAMP,
 uuid_ts TIMESTAMP,
 deal_info_sku_category_518  VARCHAR(256),
 deal_info_sku_category_519  VARCHAR(256),
@@ -314,8 +314,9 @@ deal_info_sku_category_563  VARCHAR(256),
 deal_info_sku_category_566  VARCHAR(256),
 deal_info_sku_category_249  VARCHAR(256),
 deal_info_sku_category_604  VARCHAR(256),
-load_timestamp TIMESTAMP
+est_load_timestamp TIMESTAMP,
+utc_load_timestamp TIMESTAMP
 )
 PARTITIONED BY (edh_bus_date STRING)
-LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_SEGMENT}/angieslistweb_prod/incremental/daily/dq_angieslistweb_prod_purchased';
+LOCATION '${hivevar:S3_BUCKET}/data/gold/segment/events/angieslistweb_prod/incremental/daily/dq_purchased';
 

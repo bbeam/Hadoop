@@ -5,7 +5,7 @@
 --  DESCRIPTION  : Creation of hive incoming table(inc_searched_sp). 
 --*/
 
---  Creating a incoming hive table(inc_angieslistweb_prod_searched_sp) over the incoming data
+--  Creating a incoming hive table(inc_searched_sp) over the incoming data
 CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.inc_searched_sp
 (
 id STRING,

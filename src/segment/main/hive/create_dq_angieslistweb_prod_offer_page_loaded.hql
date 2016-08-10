@@ -1,18 +1,15 @@
 --  HIVE SCRIPT  : create_dq_angieslistweb_prod_offer_page_loaded.hql
 --  AUTHOR       : Varun Rauthan
 --  DATE         : Aug 5, 2016
---  DESCRIPTION  : Creation of hive dq table(dq_angieslistweb_prod_offer_page_loaded). 
---  USAGE    : hive -f s3://al-edh-dev/src/segment/main/hive/create_dq_angieslistweb_prod_offer_page_loaded.hql \
---     --hivevar SEGMENT_GOLD_DB="${SEGMENT_GOLD_DB}" \
---     --hivevar S3_BUCKET="${S3_BUCKET}" \
---     --hivevar SOURCE_SEGMENT="${SOURCE_SEGMENT}" 
+--  DESCRIPTION  : Creation of hive dq table(dq_offer_page_loaded). 
 
 --*/
 
---  Creating a DQ hive table(Dq_alwp_offer_page_loaded) over the incoming data
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:SEGMENT_GOLD_DB}.dq_angieslistweb_prod_offer_page_loaded
+--  Creating a DQ hive table(dq_offer_page_loaded) over the incoming data
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_offer_page_loaded
 ( 
 	id VARCHAR(254),
+	est_received_at TIMESTAMP,	
 	received_at TIMESTAMP,
 	uuid BIGINT,
 	anonymous_id VARCHAR(256),
@@ -29,7 +26,9 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:SEGMENT_GOLD_DB}.dq_angieslistweb_
 	event VARCHAR(256),
 	event_text VARCHAR(256),
 	event_type VARCHAR(256),
+	est_original_timestamp TIMESTAMP,	
 	original_timestamp TIMESTAMP,
+	est_sent_at TIMESTAMP,	
 	sent_at TIMESTAMP,
 	service_provider_id VARCHAR(256),
 	sku_id VARCHAR(256),
@@ -38,6 +37,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:SEGMENT_GOLD_DB}.dq_angieslistweb_
 	sku_member_price_currency VARCHAR(256),
 	sku_status VARCHAR(256),
 	sku_title VARCHAR(256),
+	est_timestamp TIMESTAMP,	
 	timestamp TIMESTAMP,
 	user_id VARCHAR(256),
 	user_primary_ad_zone BIGINT,
@@ -46,6 +46,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:SEGMENT_GOLD_DB}.dq_angieslistweb_
 	user_selected_zip_code VARCHAR(256),
 	context_campaign_source VARCHAR(256),
 	context_campaign_name VARCHAR(256),
+	est_uuid_ts TIMESTAMP,	
 	uuid_ts TIMESTAMP,
 	context_campaign_medium VARCHAR(256),
 	sku_category_name VARCHAR(256),
@@ -70,8 +71,9 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:SEGMENT_GOLD_DB}.dq_angieslistweb_
 	context_traits_last_name VARCHAR(256),
 	context_traits_experiment_sp_profile_ecom_link_or_shop_tab VARCHAR(256),
 	context_traits_experiment_launch_geosort VARCHAR(256),
-	load_timestamp TIMESTAMP
+	est_load_timestamp TIMESTAMP,	
+	utc_load_timestamp TIMESTAMP
 )
 PARTITIONED BY (edh_bus_date STRING)
-LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_SEGMENT}/angieslistweb_prod/incremental/daily/dq_angieslistweb_prod_offer_page_loaded';
+LOCATION '${hivevar:S3_BUCKET}/data/gold/segment/events/angieslistweb_prod/incremental/daily/dq_offer_page_loaded';
 

@@ -311,5 +311,4 @@ deal_info_sku_category_566 STRING,
 deal_info_sku_category_249 STRING,
 deal_info_sku_category_604 STRING
 )
-PARTITIONED BY (edh_bus_date STRING)
 LOCATION '${hivevar:S3_BUCKET}/data/incoming/segment/events/angieslistweb_prod/incremental/daily/inc_purchased';

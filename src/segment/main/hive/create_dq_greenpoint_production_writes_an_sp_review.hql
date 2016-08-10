@@ -2,18 +2,15 @@
 --  HIVE SCRIPT  : create_dq_greenpoint_production_writes_an_sp_review.hql
 --  AUTHOR       : Ashoka Reddy
 --  DATE         : Jul 13, 2016
---  DESCRIPTION  : Creation of hive dq table(dq_greenpoint_production_writes_an_sp_review). 
---  USAGE    : hive -f s3://al-edh-dev/src/segment/main/hive/create_dq_greenpoint_production_writes_an_sp_review.hql \
-     --hivevar SEGMENT_GOLD_DB="${SEGMENT_GOLD_DB}" \
-     --hivevar S3_BUCKET="${S3_BUCKET}" \
-     --hivevar SOURCE_SEGMENT="${SOURCE_SEGMENT}" 
+--  DESCRIPTION  : Creation of hive dq table(dq_writes_an_sp_review). 
 --*/
 
---  Creating a DQ hive table(dq_greenpoint_production_writes_an_sp_review) over the incoming data
+--  Creating a DQ hive table(dq_writes_an_sp_review) over the incoming data
 
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:SEGMENT_GOLD_DB}.dq_greenpoint_production_writes_an_sp_review
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_writes_an_sp_review
 ( 
 id	VARCHAR(254),
+est_received_at	TIMESTAMP,
 received_at	TIMESTAMP,
 uuid BIGINT,
 anonymous_id VARCHAR(256),
@@ -41,15 +38,19 @@ event	VARCHAR(256),
 event_text	VARCHAR(256),
 original_timestamp	VARCHAR(256),
 review_origin	VARCHAR(256),
+est_sent_at	TIMESTAMP,
 sent_at	TIMESTAMP,
 spid	BIGINT,
 spidreview	BIGINT,
+est_timestamp	TIMESTAMP,
 timestamp	TIMESTAMP,
 user_id	VARCHAR(256),
 member_id_legacy	BIGINT,
 user_id40	BIGINT,
+est_uuid_ts	TIMESTAMP,
 uuid_ts	TIMESTAMP,
-load_timestamp TIMESTAMP
+est_load_timestamp TIMESTAMP,
+utc_load_timestamp TIMESTAMP
 )
 PARTITIONED BY (edh_bus_date STRING)
-LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_SEGMENT}/greenpoint_production/incremental/daily/dq_greenpoint_production_writes_an_sp_review';
+LOCATION '${hivevar:S3_BUCKET}/data/gold/segment/events/greenpoint_production/incremental/daily/dq_writes_an_sp_review';

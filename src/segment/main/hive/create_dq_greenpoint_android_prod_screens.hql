@@ -1,18 +1,14 @@
 --  HIVE SCRIPT  : create_dq_greenpoint_android_prod_screens.hql
 --  AUTHOR       : Abhinav Mehar
 --  DATE         : Jul 13, 2016
---  DESCRIPTION  : Creation of hive dq table(Dq_Store_Page_Loaded). 
---  USAGE    : hive -f s3://al-edh-dev/src/segment/main/hive/create_dq_greenpoint_android_prod_screens.hql \
-     --hivevar SEGMENT_GOLD_DB="${SEGMENT_GOLD_DB}" \
-     --hivevar S3_BUCKET="${S3_BUCKET}" \
-     --hivevar SOURCE_SEGMENT="${SOURCE_SEGMENT}" 
-
+--  DESCRIPTION  : Creation of hive dq table(dq_screens). 
 --*/
 
 --  Creating a DQ hive table(dq_screens) over the incoming data
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:SEGMENT_GOLD_DB}.dq_greenpoint_android_prod_screens
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_screens
 (
 id VARCHAR(254),
+est_received_at TIMESTAMP,
 received_at TIMESTAMP,
 uuid BIGINT,
 anonymous_id VARCHAR(256),
@@ -56,12 +52,15 @@ op_system VARCHAR(256),
 original_timestamp VARCHAR(256),
 sent_at TIMESTAMP,
 service_provider_id BIGINT,
+est_timestamp TIMESTAMP,
 timestamp TIMESTAMP,
 user_id VARCHAR(256),
 user_id40 BIGINT,
 member_id_legacy BIGINT,
+est_uuid_ts TIMESTAMP,
 uuid_ts TIMESTAMP,
-load_timestamp TIMESTAMP
+est_load_timestamp TIMESTAMP,
+utc_load_timestamp TIMESTAMP
 )
 PARTITIONED BY (edh_bus_date STRING)
-LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_SEGMENT}/greenpoint_android_prod/incremental/daily/dq_greenpoint_android_prod_screens';
+LOCATION '${hivevar:S3_BUCKET}/data/gold/segment/events/greenpoint_android_prod/incremental/daily/dq_screens';

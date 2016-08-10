@@ -4,7 +4,6 @@
 --  DATE         : Jul 13, 2016
 --  DESCRIPTION  : Creation of hive incoming table(inc_user_login_successful). 
 --*/
-
 --  Creating a incoming hive table(inc_angieslistweb_prod_user_login_successful) over the incoming data
 CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.inc_user_login_successful
 (

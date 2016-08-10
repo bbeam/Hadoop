@@ -1,18 +1,15 @@
 --/*  HIVE SCRIPT  : create_dq_angieslistweb_prod_review_submitted.hql
 --  AUTHOR       : Ashoka Reddy
 --  DATE         : Jul 13, 2016
---  DESCRIPTION  : Creation of hive dq table(dq_angieslistweb_prod_review_submitted). 
---  USAGE    : hive -f s3://al-edh-dev/src/segment/main/hive/create_dq_angieslistweb_prod_review_submitted.hql \
---     --hivevar SEGMENT_GOLD_DB="${SEGMENT_GOLD_DB}" \
---     --hivevar S3_BUCKET="${S3_BUCKET}" \
---     --hivevar SOURCE_SEGMENT="${SOURCE_SEGMENT}" 
+--  DESCRIPTION  : Creation of hive dq table(dq_review_submitted). 
 --*/
 
---  Creating a DQ hive table(dq_angieslistweb_prod_review_submitted) over the incoming data
+--  Creating a DQ hive table(dq_review_submitted) over the incoming data
 
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:SEGMENT_GOLD_DB}.dq_angieslistweb_prod_review_submitted
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_review_submitted
 ( 
 id VARCHAR(254),
+est_received_at TIMESTAMP,
 received_at TIMESTAMP,
 uuid BIGINT,
 `overall_13` VARCHAR(256),
@@ -81,19 +78,24 @@ job_id VARCHAR(256),
 latitude VARCHAR(256),
 listing_id VARCHAR(256),
 longitude VARCHAR(256),
+est_original_timestamp TIMESTAMP,
 original_timestamp TIMESTAMP,
 postal_code VARCHAR(256),
 region_id VARCHAR(256),
 review_status VARCHAR(256),
+est_sent_at TIMESTAMP,
 sent_at TIMESTAMP,
 service_provider_id VARCHAR(256),
 sp_id VARCHAR(256),
 sp_name VARCHAR(256),
+est_timestamp TIMESTAMP,
 timestamp TIMESTAMP,
 user_id VARCHAR(256),
 user_zip_code VARCHAR(256),
+est_uuid_ts TIMESTAMP,
 uuid_ts TIMESTAMP,
-load_timestamp TIMESTAMP
+est_load_timestamp TIMESTAMP,
+utc_load_timestamp TIMESTAMP
 )
 PARTITIONED BY (edh_bus_date STRING)
-LOCATION '${hivevar:S3_BUCKET}/data/gold/${hivevar:SOURCE_SEGMENT}/angieslistweb_prod/incremental/daily/dq_angieslistweb_prod_review_submitted';
+LOCATION '${hivevar:S3_BUCKET}/data/gold/segment/events/angieslistweb_prod/incremental/daily/dq_review_submitted';
