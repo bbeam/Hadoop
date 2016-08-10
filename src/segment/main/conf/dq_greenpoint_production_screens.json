@@ -24,7 +24,7 @@
 		{
 			"Name": "received_at",
 			"Type": "TIMESTAMP",
-			"Format": "yyyy-MM-dd HH:mm:ss.SSS",
+			"Format": "yyyy-MM-dd HH:mm:ss.SSSSSS",
 			"Validations": [{
 				"Check": "DataType",
 				"Action": "Reject"
@@ -104,7 +104,8 @@
             {
             	"Check":"ValuesConstraint",
             	"Values":"true,false"
-            }]
+            }
+			]
 		},
 
 		{
@@ -294,7 +295,16 @@
 				"Check": "DataType",
 				"Action": "Reject"
 			}]
-		}, {
+		},
+		{
+			"Name": "member_id",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+		{
 			"Name": "name",
 			"Type": "VARCHAR(256)",
 			"Validations": [{
@@ -346,12 +356,19 @@
 		}, {
 			"Name": "sent_at",
 			"Type": "TIMESTAMP",
-			"Format": "yyyy-MM-dd HH:mm:ss.SSS",
+			"Format": "yyyy-MM-dd HH:mm:ss.SSSSSS",
 			"Validations": [{
 				"Check": "DataType",
 				"Action": "Reject"
 			}]
 		}, {
+			"Name": "sort_by",
+			"Type": "BIGINT",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},{
 			"Name": "sp_id",
 			"Type": "BIGINT",
 			"Validations": [{
@@ -386,7 +403,7 @@
 		{
 			"Name": "timestamp",
 			"Type": "TIMESTAMP",
-			"Format": "yyyy-MM-dd HH:mm:ss.SSS",
+			"Format": "yyyy-MM-dd HH:mm:ss.SSSSSS",
 			"Validations": [{
 				"Check": "DataType",
 				"Action": "Reject"
@@ -395,8 +412,7 @@
 
 		{
 			"Name": "user_id",
-			"Type": "TIMESTAMP",
-			"Format": "yyyy-MM-dd HH:mm:ss.SSS",
+			"Type": "VARCHAR(256)",
 			"Validations": [{
 				"Check": "DataType",
 				"Action": "Reject"
@@ -433,7 +449,7 @@
 		{
 			"Name": "uuid_ts",
 			"Type": "TIMESTAMP",
-			"Format": "yyyy-MM-dd HH:mm:ss.SSS",
+			"Format": "yyyy-MM-dd HH:mm:ss.SSSSSS",
 			"Validations": [{
 				"Check": "DataType",
 				"Action": "Reject"
