@@ -5,7 +5,7 @@
 --*/
 
 --  Creating a DQ hive table(Dq_alwp_pages) over the incoming data
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.inc_angieslistweb_prod_pages
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.inc_pages
 ( 
 	id STRING,
 	received_at STRING,
@@ -77,5 +77,5 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.inc_angieslistweb_prod_pa
 	context_traits_experiment_z100_search_results_hide_description_and_review_counts STRING
 )
 PARTITIONED BY (edh_bus_date STRING)
-LOCATION '${hivevar:S3_BUCKET}/data/incoming/events/angieslistweb_prod/incremental/daily/inc_angieslistweb_prod_pages';
+LOCATION '${hivevar:S3_BUCKET}/data/incoming/segment/events/angieslistweb_prod/incremental/daily/inc_pages';
 

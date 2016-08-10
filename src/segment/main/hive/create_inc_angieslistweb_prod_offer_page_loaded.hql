@@ -2,12 +2,12 @@
 --  HIVE SCRIPT  : create_inc_angieslistweb_prod_offer_page_loaded.hql
 --  AUTHOR       : Varun Rauthan
 --  DATE         : Aug 5, 2016
---  DESCRIPTION  : Creation of hive incoming table(inc_angieslistweb_prod_offer_page_loaded). 
+--  DESCRIPTION  : Creation of hive incoming table(inc_offer_page_loaded). 
 
 --*/
 
 --  Creating a incoming hive table(inc_angieslistweb_prod_offer_page_loaded) over the incoming data
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.inc_angieslistweb_prod_offer_page_loaded
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.inc_offer_page_loaded
 (
 	id STRING,
 	received_at STRING,
@@ -69,4 +69,4 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.inc_angieslistweb_prod_of
 	context_traits_experiment_launch_geosort STRING
 )
 PARTITIONED BY (edh_bus_date STRING)
-LOCATION '${hivevar:S3_BUCKET}/data/incoming/events/angieslistweb_prod/incremental/daily/inc_angieslistweb_prod_offer_page_loaded';
+LOCATION '${hivevar:S3_BUCKET}/data/incoming/segment/events/angieslistweb_prod/incremental/daily/inc_offer_page_loaded';

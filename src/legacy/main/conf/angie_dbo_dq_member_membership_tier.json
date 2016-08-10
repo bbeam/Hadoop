@@ -112,6 +112,16 @@
          "Name":"update_by",
          "Type":"STRING",
          "Validations":[]
-      }	   
+      },
+      {  
+         "Name":"green_thunder_membership_tier_id",
+         "Type":"INT",
+         "Validations":[  
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      } 
    ]
 }

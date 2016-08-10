@@ -2,11 +2,11 @@
 --  HIVE SCRIPT  : create_inc_angieslistweb_prod_review_submitted.hql
 --  AUTHOR       : Ashoka Reddy
 --  DATE         : Jul 13, 2016
---  DESCRIPTION  : Creation of hive incoming table(inc_angieslistweb_prod_review_submitted). 
+--  DESCRIPTION  : Creation of hive incoming table(inc_review_submitted). 
 --*/
 
 --  Creating a incoming hive table(inc_angieslistweb_prod_review_submitted) over the incoming data
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:SEGMENT_INCOMING_DB}.inc_angieslistweb_prod_review_submitted
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.inc_review_submitted
 (
 id STRING,
 received_at STRING,
@@ -91,4 +91,4 @@ user_zip_code STRING,
 uuid_ts STRING
 )
 PARTITIONED BY (edh_bus_date STRING)
-LOCATION '${hivevar:S3_BUCKET}/data/incoming/events/angieslistweb_prod/incremental/daily/inc_angieslistweb_prod_review_submitted';
+LOCATION '${hivevar:S3_BUCKET}/data/incoming/segement/events/angieslistweb_prod/incremental/daily/inc_review_submitted';
