@@ -19,12 +19,18 @@
 # FYI, SCRIPT_HOME will be /var/tmp/, if script is copied into /var/tmp/ and run from there.
 SCRIPT_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-if [ "$#" -ne 2 ]; then
-    echo "Provide 2 arguments in proper order as below:"
-    echo "usage: .\wrapper_cdc_pig_generator GLOBAL_PROPERTY_FILE_PATH LOCAL_PROPERTY_FILE_PATH"
-fi
+# Usage descriptor for invalid input arguments to the wrapper
+Show_Usage()
+{
+    echo "Invalid arguments. Please provide 2 arguments in exactly as below: "
+    echo "Usage: "$0" <global properties file with path> <path of local properties file with path>"
+    exit 1
+}
 
-#./wrapper_cdc_pig_generator.sh 
+if [ $# -ne 2 ]
+then
+    Show_Usage
+fi
 
 # Assigning input arguments to proper variable names
 GLOBAL_PROPERTY_FILE_PATH=$1
@@ -112,7 +118,7 @@ fi
 
 
 # Run java jar program for to generate pig and hql files for SCD
-java -jar $JAR_FILE_NAME $INPUT_JSON_FILE_NAME $JSON_SCHEMA_FILE_NAME
+java -jar /var/tmp/$JAR_FILE_NAME $INPUT_JSON_FILE_NAME $JSON_SCHEMA_FILE_NAME
 
 if [ $? -eq 0 ]
 then
@@ -123,7 +129,7 @@ else
 fi
 
 # Copy output .pig file to s3
-aws s3 cp $CDC_PIG_FILE_NAME $CDC_PIG_FILE_PATH
+aws s3 cp /var/tmp/$CDC_PIG_FILE_NAME $CDC_PIG_FILE_PATH
 if [ $? -eq 0 ]
 then
   echo "pig file copied to s3 successfully"
@@ -133,7 +139,7 @@ else
 fi
 
 # Copy output hive .hql file to s3
-aws s3 cp $LOAD_DIM_HIVE_FILE_NAME $LOAD_DIM_HIVE_FILE_PATH
+aws s3 cp /var/tmp/$LOAD_DIM_HIVE_FILE_NAME $LOAD_DIM_HIVE_FILE_PATH
 if [ $? -eq 0 ]
 then
   echo "hive file copied to s3 successfully"
