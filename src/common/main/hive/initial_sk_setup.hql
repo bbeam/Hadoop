@@ -4,4 +4,4 @@ zero_val TINYINT
 )
 LOCATION 's3://al-edh-dev/data/operations/common/initial_sk_setup';
 
-INSERT INTO TABLE common_operations.initial_sk_setup values (0);
+INSERT INTO TABLE ops_common.initial_sk_setup values (0);
