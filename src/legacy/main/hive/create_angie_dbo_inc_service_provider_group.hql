@@ -5,7 +5,7 @@
 --  DESCRIPTION  : Creation of hive incoming table(angie.ServiceProviderGroup) 
 --*/
 
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_INCOMING_DB}.inc_service_provider_group
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.inc_service_provider_group
 (
 	service_provider_group_id STRING, 
 	service_provider_group STRING, 
