@@ -1,5 +1,5 @@
 {
-   "InputTableName":"inc_angieslistweb_prod_user_login_successful",
+   "InputTableName":"inc_user_login_successful",
    "OutputTableName":"dq_angieslistweb_prod_user_login_successful",   
    "SourceDB":"INCOMING_SEGMENT_EVENTS_ALWP_DB",
    "TargetDB":"GOLD_SEGMENT_EVENTS_ALWP_DB",
