@@ -1,5 +1,5 @@
 --query
-'select TOP 10000 * from tblRequestTypeInfo  where $CONDITIONS'
+'SELECT RequestInfoID,RequestID,RequestTypeID,CatID,Keyword,SPID,RequestCount,blnDeclinedAlarm FROM angieHistory.dbo.tblRequestTypeInfo WHERE $CONDITIONS'
 --split-by
 RequestInfoID
 --hive-delims-replacement
