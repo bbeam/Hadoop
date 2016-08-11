@@ -1,5 +1,7 @@
---table 
-tblRequestType
+--query
+'select RequestTypeID,RequestType,RequestTypeDescription from angieHistory.dbo.tblRequestType  where $CONDITIONS'
+--split-by
+RequestTypeID
 --hive-delims-replacement
 '#'
 --fields-terminated-by 

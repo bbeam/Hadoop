@@ -60,7 +60,7 @@ user_id40   BIGINT ,
 member_id_legacy    BIGINT ,
 est_uuid_ts TIMESTAMP ,
 uuid_ts TIMESTAMP ,
-est_load_timestamp TIMESTAMP
+est_load_timestamp TIMESTAMP,
 utc_load_timestamp TIMESTAMP
 )
 PARTITIONED BY (edh_bus_date STRING)

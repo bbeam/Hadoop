@@ -12,6 +12,20 @@
             }
          ],
    "Columns":[  
+       {  
+         "Name":"request_type_id",
+         "Type":"SMALLINT",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
       {  
          "Name":"request_type",
          "Type":"STRING",
@@ -27,20 +41,6 @@
                "Check":"Null",
                "Action":"Reject"
 			   
-            }
-         ]
-      },
-	  {  
-         "Name":"request_type_id",
-         "Type":"SMALLINT",
-         "Validations":[  
-            {  
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {  
-               "Check":"DataType",
-               "Action":"Reject"
             }
          ]
       }

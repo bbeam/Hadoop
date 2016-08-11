@@ -12,7 +12,53 @@
             }
          ],
    "Columns":[  
-      {  
+       {  
+         "Name":"report_sp_category_id",
+         "Type":"INT",
+         "Validations":[  
+           {  
+               "Check":"Null",
+               "Action":"Reject"
+			   
+            },
+			{  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  {  
+         "Name":"report_id",
+         "Type":"INT",
+         "Validations":[  
+           {  
+               "Check":"Null",
+               "Action":"Reject"
+			   
+            },
+			{  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  
+	  {  
+         "Name":"sp_id",
+         "Type":"INT",
+         "Validations":[  
+           {  
+               "Check":"Null",
+               "Action":"Reject"
+			   
+            },
+			{  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  {  
          "Name":"category_id",
          "Type":"INT",
          "Validations":[  
@@ -23,23 +69,6 @@
             {  
                "Check":"DataType",
                "Action":"Reject"
-            }
-         ]
-      },
-	  {  
-         "Name":"create_by",
-         "Type":"VARCHAR(50)",
-         "Validations":[  
-         ]
-      },
-	  {  
-         "Name":"create_date",
-         "Type":"VARCHAR(255)",
-         "Validations":[  
-           {  
-               "Check":"Null",
-               "Action":"Reject"
-			   
             }
          ]
       },
@@ -63,48 +92,23 @@
          ]
       },
 	  {  
-         "Name":"report_id",
-         "Type":"INT",
+         "Name":"create_date",
+         "Type":"TIMESTAMP",
+		 "Format": "yyyy-MM-dd HH:mm:ss.SSS",
+		 "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
          "Validations":[  
            {  
                "Check":"Null",
                "Action":"Reject"
 			   
-            },
-			{  
-               "Check":"DataType",
-               "Action":"Reject"
             }
          ]
       },
 	  {  
-         "Name":"report_sp_category_id",
-         "Type":"INT",
+         "Name":"create_by",
+         "Type":"STRING",
          "Validations":[  
-           {  
-               "Check":"Null",
-               "Action":"Reject"
-			   
-            },
-			{  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-	  {  
-         "Name":"sp_id",
-         "Type":"INT",
-         "Validations":[  
-           {  
-               "Check":"Null",
-               "Action":"Reject"
-			   
-            },
-			{  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
          ]
       }
 	
