@@ -51,6 +51,12 @@
           "Format": {
             "type": "string"
           },
+          "TimeZone": {
+            "type": "string"
+          },
+          "ConvertToTimeZone": {
+            "type": "string"
+          },
           "Validations": {
             "type": "array",
             "items": {
