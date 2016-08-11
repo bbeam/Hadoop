@@ -13,7 +13,33 @@
          ],
    "Columns":[  
       {  
-         "Name":"bln_declined_alarm",
+         "Name":"request_info_id",
+         "Type":"INT",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  {  
+         "Name":"request_id",
+         "Type":"INT",
+         "Validations":[  
+           
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  
+	  {  
+         "Name":"request_type_id",
          "Type":"SMALLINT",
          "Validations":[  
             
@@ -42,6 +68,17 @@
          ]
       },
 	  {  
+         "Name":"sp_id",
+         "Type":"INT",
+         "Validations":[  
+           
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  {  
          "Name":"request_count",
          "Type":"SMALLINT",
          "Validations":[  
@@ -53,46 +90,10 @@
          ]
       },
 	  {  
-         "Name":"request_id",
-         "Type":"INT",
-         "Validations":[  
-           
-            {  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-	  {  
-         "Name":"request_info_id",
-         "Type":"INT",
-         "Validations":[  
-            {  
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-	  {  
-         "Name":"request_type_id",
+         "Name":"bln_declined_alarm",
          "Type":"SMALLINT",
          "Validations":[  
             
-            {  
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-	  {  
-         "Name":"sp_id",
-         "Type":"INT",
-         "Validations":[  
-           
             {  
                "Check":"DataType",
                "Action":"Reject"
