@@ -3,7 +3,7 @@
    "OutputTableName":"dq_lead",
    "SourceDB":"INCOMING_ALWEB_FULFILLMENT_DB",
    "TargetDB":"GOLD_ALWEB_FULFILLMENT_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/alweb/fulfilment/full/daily/dq_lead",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/alweb/fulfillment/full/daily/dq_lead",
    "TableValidation":[  
             {  
                "Check":"Duplicate",

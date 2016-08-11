@@ -1,9 +1,9 @@
-{  
-   "InputTableName":"inc_angieslistweb_prod_store_page_loaded",
-   "OutputTableName":"dq_angieslistweb_prod_store_page_loaded",
-   "SourceDB":"INCOMING_SEGMENT_EVENTS_ALWP_DB",
-   "TargetDB":"GOLD_SEGMENT_EVENTS_ALWP_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/segment/events/angieslistweb_prod/incremental/daily/dq_angieslistweb_prod_store_page_loaded/edh_bus_date=$EDHBUSDATE",      
+{
+   "InputTableName":"inc_popular_category_tapped",
+   "OutputTableName":"dq_popular_category_tapped",   
+   "SourceDB":"INCOMING_SEGMENT_EVENTS_GPAP_DB",
+   "TargetDB":"GOLD_SEGMENT_EVENTS_GPAP_DB",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/segment/events/greenpoint_android_prod/incremental/daily/dq_greenpoint_android_prod_popular_category_tapped/edh_bus_date=$EDHBUSDATE",
    "TableValidation":[  
             {  
                "Check":"Duplicate",
@@ -14,19 +14,18 @@
    "Columns":[  
       {
          "Name":"id",
-         "Type":"varchar(254)",
+         "Type":"VARCHAR(254)",
          "Validations":[
            {
                "Check":"Null",
                "Action":"Reject"
-            },		 
+           },
             {
                "Check":"DataType",
                "Action":"Reject"
             }
          ]
       },
-
       {
          "Name":"received_at",
          "Type":"TIMESTAMP",
@@ -40,7 +39,6 @@
             }
          ]
       },
-
       {
          "Name":"uuid",
          "Type":"BIGINT",
@@ -51,10 +49,9 @@
             }
          ]
       },
-
       {
          "Name":"anonymous_id",
-         "Type":"varchar(256)",
+         "Type":"VARCHAR(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -62,10 +59,123 @@
             }
          ]
       },
-
+      {
+         "Name":"context_app_build",
+         "Type":"BIGINT",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"context_app_name",
+         "Type":"VARCHAR(256)",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"context_app_namespace",
+         "Type":"VARCHAR(256)",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"context_app_version",
+         "Type":"VARCHAR(256)",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"context_device_ad_tracking_enabled",
+         "Type":"BOOLEAN",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            },
+            {
+            	"Check":"ValuesConstraint",
+	            "Values":"true,false"
+            }			
+         ]
+      },
+      {
+         "Name":"context_device_advertising_id",
+         "Type":"VARCHAR(256)",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"context_device_id",
+         "Type":"VARCHAR(256)",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"context_device_manufacturer",
+         "Type":"VARCHAR(256)",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"context_device_model",
+         "Type":"VARCHAR(256)",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"context_device_name",
+         "Type":"VARCHAR(256)",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"context_device_type",
+         "Type":"VARCHAR(256)",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
       {
          "Name":"context_ip",
-         "Type":"varchar(256)",
+         "Type":"VARCHAR(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -73,10 +183,9 @@
             }
          ]
       },
-
       {
          "Name":"context_library_name",
-         "Type":"varchar(256)",
+         "Type":"VARCHAR(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -84,10 +193,9 @@
             }
          ]
       },
-
       {
          "Name":"context_library_version",
-         "Type":"varchar(256)",
+         "Type":"VARCHAR(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -95,10 +203,9 @@
             }
          ]
       },
-
       {
-         "Name":"context_page_path",
-         "Type":"varchar(256)",
+         "Name":"context_library_version_name",
+         "Type":"VARCHAR(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -106,10 +213,9 @@
             }
          ]
       },
-
       {
-         "Name":"context_page_referrer",
-         "Type":"varchar(256)",
+         "Name":"context_locale",
+         "Type":"VARCHAR(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -117,21 +223,23 @@
             }
          ]
       },
-
       {
-         "Name":"context_page_search",
-         "Type":"varchar(256)",
+         "Name":"context_network_bluetooth",
+         "Type":"BOOLEAN",
          "Validations":[
             {
                "Check":"DataType",
                "Action":"Reject"
-            }
+            },
+            {
+            	"Check":"ValuesConstraint",
+	            "Values":"true,false"
+            }			
          ]
       },
-
       {
-         "Name":"context_page_title",
-         "Type":"varchar(256)",
+         "Name":"context_network_carrier",
+         "Type":"VARCHAR(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -139,10 +247,37 @@
             }
          ]
       },
-
       {
-         "Name":"context_page_url",
-         "Type":"varchar(256)",
+         "Name":"context_network_cellular",
+         "Type":"BOOLEAN",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            },
+            {
+            	"Check":"ValuesConstraint",
+	            "Values":"true,false"
+            }			
+         ]
+      },
+      {
+         "Name":"context_network_wifi",
+         "Type":"BOOLEAN",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            },
+            {
+            	"Check":"ValuesConstraint",
+	            "Values":"true,false"
+            }			
+         ]
+      },
+      {
+         "Name":"context_os_name",
+         "Type":"VARCHAR(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -150,10 +285,129 @@
             }
          ]
       },
-
+      {
+         "Name":"context_os_sdk",
+         "Type":"BIGINT",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"context_os_version",
+         "Type":"VARCHAR(256)",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"context_screen_density",
+         "Type":"DOUBLE",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"context_screen_density_bucket",
+         "Type":"VARCHAR(256)",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"context_screen_density_dpi",
+         "Type":"BIGINT",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"context_screen_height",
+         "Type":"BIGINT",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"context_screen_scaled_density",
+         "Type":"DOUBLE",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"context_screen_width",
+         "Type":"BIGINT",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"context_timezone",
+         "Type":"VARCHAR(256)",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"context_traits_anonymous_id",
+         "Type":"VARCHAR(256)",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"context_traits_email",
+         "Type":"VARCHAR(256)",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"context_traits_user_id",
+         "Type":"VARCHAR(256)",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
       {
          "Name":"context_user_agent",
-         "Type":"varchar(256)",
+         "Type":"VARCHAR(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -161,21 +415,9 @@
             }
          ]
       },
-
-      {
-         "Name":"description",
-         "Type":"varchar(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-
       {
          "Name":"event",
-         "Type":"varchar(256)",
+         "Type":"VARCHAR(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -183,10 +425,9 @@
             }
          ]
       },
-
       {
          "Name":"event_text",
-         "Type":"varchar(256)",
+         "Type":"VARCHAR(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -194,24 +435,9 @@
             }
          ]
       },
-
-      {
-         "Name":"event_type",
-         "Type":"varchar(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-
       {
          "Name":"original_timestamp",
-         "Type":"TIMESTAMP",
-         "Format":"yyyy-MM-dd HH:mm:ss.SSS",
-		 "TimeZone":"UTC",
-		 "ConvertToTimeZone":"EST",
+         "Type":"VARCHAR(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -219,7 +445,16 @@
             }
          ]
       },
-
+      {
+         "Name":"popular_category_name",
+         "Type":"VARCHAR(256)",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
       {
          "Name":"sent_at",
          "Type":"TIMESTAMP",
@@ -233,40 +468,6 @@
             }
          ]
       },
-
-      {
-         "Name":"service_provider_id",
-         "Type":"varchar(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-
-      {
-         "Name":"service_provider_name",
-         "Type":"varchar(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-
-      {
-         "Name":"service_provider_status",
-         "Type":"varchar(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-
       {
          "Name":"timestamp",
          "Type":"TIMESTAMP",
@@ -280,10 +481,9 @@
             }
          ]
       },
-
       {
          "Name":"user_id",
-         "Type":"varchar(256)",
+         "Type":"VARCHAR(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -291,9 +491,8 @@
             }
          ]
       },
-
       {
-         "Name":"user_primary_ad_zone",
+         "Name":"user_id40",
          "Type":"BIGINT",
          "Validations":[
             {
@@ -302,20 +501,8 @@
             }
          ]
       },
-
       {
-         "Name":"user_primary_zip_code",
-         "Type":"varchar(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-
-      {
-         "Name":"user_selected_ad_zone",
+         "Name":"member_id_legacy",
          "Type":"BIGINT",
          "Validations":[
             {
@@ -324,299 +511,12 @@
             }
          ]
       },
-
-      {
-         "Name":"user_selected_zip_code",
-         "Type":"varchar(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-
       {
          "Name":"uuid_ts",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss.SSS",
 		 "TimeZone":"UTC",
 		 "ConvertToTimeZone":"EST",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-
-      {
-         "Name":"context_campaign_medium",
-         "Type":"varchar(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-
-      {
-         "Name":"context_campaign_name",
-         "Type":"varchar(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-
-      {
-         "Name":"context_campaign_source",
-         "Type":"varchar(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-
-      {
-         "Name":"context_traits_alid",
-         "Type":"BIGINT",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-
-      {
-         "Name":"context_traits_email",
-         "Type":"varchar(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-
-      {
-         "Name":"context_traits_experiment_4_0_dpw_login_update",
-         "Type":"varchar(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-
-      {
-         "Name":"context_traits_experiment_4_0_ecom_offer_detail_display_phone_number_45_sec_delay",
-         "Type":"varchar(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-
-      {
-         "Name":"context_traits_experiment_4_0_login_spring_ecom",
-         "Type":"varchar(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-
-      {
-         "Name":"context_traits_experiment_4_0_member_global_header_hide_search_bar_on_ecom_pages",
-         "Type":"varchar(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-
-      {
-         "Name":"context_traits_experiment_4_0_member_global_header_hide_search_bar_on_ecom_pages_1",
-         "Type":"varchar(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-
-      {
-         "Name":"context_traits_experiment_ecom_checkout_cc_fields_hide_steps_1",
-         "Type":"varchar(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-
-      {
-         "Name":"context_traits_experiment_ecom_checkout_cc_fields_only_update",
-         "Type":"varchar(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-
-      {
-         "Name":"context_traits_experiment_my_account_display_member_plan_and_notice",
-         "Type":"varchar(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-
-      {
-         "Name":"context_traits_experiment_my_angie_popular_services_to_ecom",
-         "Type":"varchar(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-
-      {
-         "Name":"context_traits_experiment_my_angie_popular_services_to_ecom_v2",
-         "Type":"varchar(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-
-      {
-         "Name":"context_traits_experiment_review_form_update_and_my_reviews_page",
-         "Type":"varchar(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-
-      {
-         "Name":"context_traits_experiment_sp_profile_ecom_link_or_shop_tab",
-         "Type":"varchar(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-
-      {
-         "Name":"context_traits_experiment_sp_profile_shop_tab_v2",
-         "Type":"varchar(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-
-      {
-         "Name":"context_traits_experiment_sp_profile_shop_tab_v2_1",
-         "Type":"varchar(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-
-      {
-         "Name":"context_traits_experiment_z100_review_form_update_and_my_reviews_page",
-         "Type":"varchar(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-
-      {
-         "Name":"context_traits_first_name",
-         "Type":"varchar(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-
-      {
-         "Name":"context_traits_last_name",
-         "Type":"varchar(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-
-      {
-         "Name":"context_traits_experiment_ecom_checkout_cc_fields_hide_steps",
-         "Type":"varchar(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-
-      {
-         "Name":"context_traits_experiment_launch_geosort",
-         "Type":"varchar(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-
-      {
-         "Name":"context_traits_experiment_search_results_hide_description_and_review_counts_for_non_advertisers",
-         "Type":"varchar(256)",
          "Validations":[
             {
                "Check":"DataType",

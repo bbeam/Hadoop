@@ -1,7 +1,5 @@
---query
-'select * from Lead  where $CONDITIONS limit 7000'
---split-by
-LeadId 
+--table 
+Lead 
 --fields-terminated-by 
 '\001' 
 --hive-delims-replacement

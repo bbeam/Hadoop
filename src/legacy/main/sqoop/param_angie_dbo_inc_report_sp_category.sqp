@@ -1,6 +1,6 @@
---query
-'select TOP 10000 * from ReportSPCategory  where $CONDITIONS'
---split-by
+--query 
+'select ReportSPCategoryId,ReportId,SpId,CategoryId,IsPrimary,CreateDate,CreateBy from ReportSPCategory where $CONDITIONS'
+--split-by 
 ReportSPCategoryId
 --hive-delims-replacement
 '#'
