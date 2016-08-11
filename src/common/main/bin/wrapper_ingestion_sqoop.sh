@@ -189,7 +189,7 @@ else
 fi
 
 # Hive Metastore refresh for error table .
-hive -e "msck repair table ${COMMON_OPERATIONS_DB}.${ERROR_TABLE_NAME}"
+hive -e "msck repair table ${OPERATIONS_COMMON_DB}.${ERROR_TABLE_NAME}"
 
 # Hive Metastore refresh status check
 if [ $? -eq 0 ]
