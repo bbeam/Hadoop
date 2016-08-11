@@ -1,7 +1,5 @@
---query 
-'select TOP 1000 * from Markets where $CONDITIONS'
---split-by 
-MarketID 
+--table 
+Markets
 --hive-delims-replacement
 '#'
 --fields-terminated-by 

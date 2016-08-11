@@ -1,5 +1,5 @@
 --query 
-'select TOP 1000 * from CategoryGroup where $CONDITIONS'
+'select CategoryGroupId, CategoryGroup, CategoryGroupDescription, CategoryGroupTypeId, DisplayOrder, CategoryGroupIsActive from CategoryGroup where $CONDITIONS'
 --split-by 
 CategoryGroupId 
 --hive-delims-replacement
