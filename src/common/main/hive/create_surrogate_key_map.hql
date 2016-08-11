@@ -4,10 +4,12 @@
 --  DESCRIPTION  : The script is used for surrogate key generation. 
 --*/
 
---  Drop the table if already exists
-DROP TABLE IF EXISTS common_operations.surrogate_key_map;
 
-CREATE EXTERNAL TABLE IF NOT EXISTS common_operations.surrogate_key_map
+<<<<<<< HEAD
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:OPERATIONS_COMMON_DB}.surrogate_key_map
+=======
+CREATE EXTERNAL TABLE IF NOT EXISTS ops_common.surrogate_key_map
+>>>>>>> f4b0034217bdf9fd1e215b17687167acdf5184a7
 (
 max_sk int
 )

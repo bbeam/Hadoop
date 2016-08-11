@@ -8,9 +8,9 @@
 --  Creating a dq hive table(dq_tbl_requested_type) over the incoming data
 CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_tbl_request_type
 (
+	request_type_id SMALLINT ,
 	request_type STRING,
 	request_type_description STRING ,
-	request_type_id SMALLINT ,
 	est_load_timestamp TIMESTAMP,
 	load_timestamp TIMESTAMP
 )

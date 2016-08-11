@@ -99,7 +99,7 @@
          ]
       },
 	  {  
-         "Name":"start_date_time",
+         "Name":"start_datetime",
          "Type":"TIMESTAMP",
 		 "Format":"yyyy-MM-dd HH:mm:ss.SSS",
 		 "TimeZone":"UTC",
@@ -116,7 +116,7 @@
          ]
       },
 	  {  
-         "Name":"end_date_time",
+         "Name":"end_datetime",
          "Type":"TIMESTAMP",
 		 "Format":"yyyy-MM-dd HH:mm:ss.SSS",
 		 "TimeZone":"UTC",

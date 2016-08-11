@@ -156,19 +156,19 @@ java -cp /var/tmp/EDH_JAVA-1.0-jar-with-dependencies.jar com.angieslist.edh.dq.d
 
 if [ $? -eq 0 ]
 then
-  		echo "$OUTPUT_PIG_FILE_NAME for performing DQ activity created successfully"
+  		echo "$TABLE_NAME_DQ".pig" for performing DQ activity created successfully"
 else
-  		echo "$OUTPUT_PIG_FILE_NAME generation failed"
+  		echo "$TABLE_NAME_DQ".pig" generation failed"
   		exit 1
 fi
 
 # Copy output pig file to s3
-aws s3 cp $OUTPUT_PIG_FILE_NAME $OUTPUT_PIG_FILE_PATH
+aws s3 cp $TABLE_NAME_DQ".pig" $OUTPUT_PIG_FILE_PATH
 if [ $? -eq 0 ]
 then
-  		echo "$OUTPUT_PIG_FILE_NAME copied to s3"
+  		echo "$TABLE_NAME_DQ".pig" copied to s3"
 else
-  		echo "copying $OUTPUT_PIG_FILE_NAME to s3 failed"
+  		echo "copying $TABLE_NAME_DQ".pig" to s3 failed"
   		exit 1
 fi
 
@@ -189,7 +189,7 @@ else
 fi
 
 # Hive Metastore refresh for error table .
-hive -e "msck repair table ${COMMON_OPERATIONS_DB}.${ERROR_TABLE_NAME}"
+hive -e "msck repair table ${OPERATIONS_COMMON_DB}.${ERROR_TABLE_NAME}"
 
 # Hive Metastore refresh status check
 if [ $? -eq 0 ]
