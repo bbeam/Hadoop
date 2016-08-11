@@ -5,11 +5,7 @@
 --*/
 
 
-<<<<<<< HEAD
 CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:OPERATIONS_COMMON_DB}.surrogate_key_map
-=======
-CREATE EXTERNAL TABLE IF NOT EXISTS ops_common.surrogate_key_map
->>>>>>> f4b0034217bdf9fd1e215b17687167acdf5184a7
 (
 max_sk int
 )
