@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_fulfilment_inc_lead.hql
+--  HIVE SCRIPT  : create_fulfillment_inc_lead.hql
 --  AUTHOR       : Ashoka Reddy
 --  DATE         : Jun 23, 2016
 --  DESCRIPTION  : Creation of hive incoming table(inc_lead). 
@@ -28,4 +28,4 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.inc_lead
   update_by STRING
 )
 PARTITIONED BY (edh_bus_date STRING)
-LOCATION '${hivevar:S3_BUCKET}/data/incoming/alweb/fulfilment/full/daily/inc_lead';
+LOCATION '${hivevar:S3_BUCKET}/data/incoming/alweb/fulfillment/full/daily/inc_lead';

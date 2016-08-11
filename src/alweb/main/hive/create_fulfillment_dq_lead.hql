@@ -1,5 +1,5 @@
 --/*
---  HIVE SCRIPT  : create_fulfilment_dq_lead.hql
+--  HIVE SCRIPT  : create_fulfillment_dq_lead.hql
 --  AUTHOR       : Ashoka Reddy
 --  DATE         : Jun 23, 2016
 --  DESCRIPTION  : Creation of hive DQ table(dq_lead). 
@@ -31,4 +31,4 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_lead
   est_load_timestamp TIMESTAMP,
   utc_load_timestamp TIMESTAMP
 )
-LOCATION '${hivevar:S3_BUCKET}/data/gold/alweb/fulfilment/full/daily/inc_lead';
+LOCATION '${hivevar:S3_BUCKET}/data/gold/alweb/fulfillment/full/daily/inc_lead';
