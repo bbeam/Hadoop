@@ -1,5 +1,5 @@
 --query
-'select RequestTypeID,RequestType,RequestTypeDescription from angieHistory.dbo.tblRequestType  where $CONDITIONS'
+'select RequestTypeID,RequestType,RequestTypeDescription from tblRequestType  where $CONDITIONS'
 --split-by
 RequestTypeID
 --hive-delims-replacement
