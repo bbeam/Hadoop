@@ -1,5 +1,5 @@
 --query 
-'select * from WebLogging.dbo.WebRequest where cast(TimeUtc as DATE)='EXTRACT_DATE' and $CONDITIONS'
+'select * from WebRequest where cast(TimeUtc as DATE)='EXTRACT_DATE' and $CONDITIONS'
 --split-by
 TimeUtc
 --hive-delims-replacement
