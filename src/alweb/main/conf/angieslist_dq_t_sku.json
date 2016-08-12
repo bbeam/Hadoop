@@ -1,60 +1,271 @@
 {  
-   "InputTableName":"inc_t_Sku",
-   "OutputTableName":"dq_t_Sku",
+   "InputTableName":"inc_t_sku",
+   "OutputTableName":"dq_t_sku",
    "SourceDB":"INCOMING_ALWEB_AL_DB",
    "TargetDB":"GOLD_ALWEB_AL_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/alweb/angieslist/full/daily/dq_service_provider_group",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/alweb/angieslist/full/daily/dq_t_sku",
    "TableValidation":[  
             {  
                "Check":"Duplicate",
-               "keyColumns":"SkuId",
+               "keyColumns":"sku_id",
                "Action":"Reject"
             }
          ],
-   "Columns":[  
-      {  
-         "Name":"SkuId",
-         "Type":"TIMESTAMP",
-         "Format":"yyyy-MM-dd HH:mm:ss.SSS",
-         "TimeZone":"UTC",
-		 "ConvertToTimeZone":"EST",
-         "Validations":[  
-            {  
+   "Columns":[
+      {
+         "Name":"sku_id",
+         "Type":"INT",
+         "Validations":[
+            {
                "Check":"Null",
                "Action":"Reject"
             },
-            {  
+            {
                "Check":"DataType",
                "Action":"Reject"
             }
          ]
       },
-	  {  
-         "Name":"Title",
-         "Type":"STRING",
-         "Validations":[  
-           {  
-               "Check":"Null",
+      {
+         "Name":"al_id",
+         "Type":"INT",
+         "Validations":[
+            {
+               "Check":"DataType",
                "Action":"Reject"
             }
          ]
       },
-	  {  
-         "Name":"IsEmailPromotable",
-		 "Type":"TINYINT",
-         "Validations":[  
-            {  
+      {
+         "Name":"contract_id",
+         "Type":"INT",
+         "Validations":[
+            {
                "Check":"Null",
-               "Action":"Replace",
-               "Default":"0"
+               "Action":"Reject"
             },
-            {  
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"title",
+         "Type":"VARCHAR(254)",
+         "Validations":[
+
+         ]
+      },
+      {
+         "Name":"description",
+         "Type":"VARCHAR(254)",
+         "Validations":[
+
+         ]
+      },
+      {
+         "Name":"terms_and_conditions",
+         "Type":"VARCHAR(254)",
+         "Validations":[
+
+         ]
+      },
+      {
+         "Name":"status",
+         "Type":"VARCHAR(254)",
+         "Validations":[
+
+         ]
+      },
+      {
+         "Name":"sku_type",
+         "Type":"VARCHAR(254)",
+         "Validations":[
+
+         ]
+      },
+      {
+         "Name":"start_datetime",
+         "Type":"TIMESTAMP",
+         "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+         "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+         "TimeZone":"UTC",
+         "Validations":[
+
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"end_datetime",
+         "Type":"TIMESTAMP",
+         "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+         "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+         "TimeZone":"UTC",
+         "Validations":[
+
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"min_quantity",
+         "Type":"INT",
+         "Validations":[
+
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"max_quantity",
+         "Type":"INT",
+         "Validations":[
+
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"max_purchase_quantity",
+         "Type":"INT",
+         "Validations":[
+
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"rapid_connect",
+         "Type":"TINYINT",
+         "Validations":[
+
+            {
                "Check":"DataType",
                "Action":"Reject"
             },
             {
-            	"Check":"ValuesConstraint",
-	            "Values":"0,1"
+               "Check":"ValuesConstraint",
+               "Values":"0,1"
+            }
+         ]
+      },
+      {
+         "Name":"is_auto_renew",
+         "Type":"TINYINT",
+         "Validations":[
+
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            },
+            {
+               "Check":"ValuesConstraint",
+               "Values":"0,1"
+            }
+         ]
+      },
+      {
+         "Name":"product_id",
+         "Type":"INT",
+         "Validations":[
+
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"version",
+         "Type":"INT",
+         "Validations":[
+
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"placement",
+         "Type":"STRING",
+         "Validations":
+         []
+      },
+      {
+         "Name":"is_email_promotable",
+         "Type":"TINYINT",
+         "Validations":[
+
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            },
+            {
+               "Check":"ValuesConstraint",
+               "Values":"0,1"
+            }
+         ]
+      },
+      {
+         "Name":"create_date",
+         "Type":"TIMESTAMP",
+         "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+         "TimeZone":"UTC",
+         "ConvertToTimeZone":"EST",
+         "Validations":[
+
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"create_by",
+         "Type":"INT",
+         "Validations":[
+
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"update_date",
+         "Type":"TIMESTAMP",
+         "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+         "TimeZone":"UTC",
+         "ConvertToTimeZone":"EST",
+         "Validations":[
+
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {
+         "Name":"update_by",
+         "Type":"INT",
+         "Validations":[
+
+            {
+               "Check":"DataType",
+               "Action":"Reject"
             }
          ]
       }
