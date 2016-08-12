@@ -71,12 +71,11 @@ echo "*****************CDC PROCESS STARTS*******************"
 TF_PIG_FILE_NAME=$(basename $TF_PIG_FILE_PATH)
 
 # Pig Script to be triggered for data checking and cleansing.
-pig \
-	-param EDHBUSDATE=$EDH_BUS_DATE \
+pig  \
 	-param_file /var/tmp/$global_file \
 	-param_file /var/tmp/$local_file \
-	-file $TF_PIG_FILE_PATH \
 	-useHCatalog
+	-file $TF_PIG_FILE_PATH
 
 if [ $? -eq 0 ]
 then
