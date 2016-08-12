@@ -19,6 +19,6 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_member_primary_address
 	update_date TIMESTAMP ,
 	update_by STRING,
 	est_load_timestamp TIMESTAMP,
-	load_timestamp TIMESTAMP
+	utc_load_timestamp TIMESTAMP
 )
 LOCATION '${hivevar:S3_BUCKET}/data/gold/legacy/angie/dbo/full/daily/dq_member_primary_address';

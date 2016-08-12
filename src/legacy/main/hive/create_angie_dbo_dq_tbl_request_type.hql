@@ -12,6 +12,6 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_tbl_request_type
 	request_type STRING,
 	request_type_description STRING ,
 	est_load_timestamp TIMESTAMP,
-	load_timestamp TIMESTAMP
+	utc_load_timestamp TIMESTAMP
 )
 LOCATION '${hivevar:S3_BUCKET}/data/gold/legacy/angie/dbo/full/daily/dq_tbl_request_type';

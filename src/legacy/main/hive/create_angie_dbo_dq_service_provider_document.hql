@@ -22,6 +22,6 @@ approval_status_id INT,
 est_process_date TIMESTAMP,
 process_date TIMESTAMP,
 est_load_timestamp TIMESTAMP,
-load_timestamp TIMESTAMP
+utc_load_timestamp TIMESTAMP
 )
 LOCATION '${hivevar:S3_BUCKET}/data/gold/legacy/angie/dbo/full/daily/dq_service_provider_document';
