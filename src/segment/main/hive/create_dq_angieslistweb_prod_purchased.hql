@@ -314,6 +314,10 @@ deal_info_sku_category_563  VARCHAR(256),
 deal_info_sku_category_566  VARCHAR(256),
 deal_info_sku_category_249  VARCHAR(256),
 deal_info_sku_category_604  VARCHAR(256),
+deal_info_sku_category_502 VARCHAR(256),
+deal_info_sku_category_515 VARCHAR(256),
+deal_info_sku_category_516 VARCHAR(256),
+deal_info_sku_category_239 VARCHAR(512),
 est_load_timestamp TIMESTAMP,
 utc_load_timestamp TIMESTAMP
 )

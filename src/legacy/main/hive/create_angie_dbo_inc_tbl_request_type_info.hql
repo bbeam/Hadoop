@@ -7,7 +7,7 @@
 
 
 --  Creating a incoming hive table(inc_tbl_requested_type_info) over the incoming data
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.inc_tbl_requested_type_info
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.inc_tbl_request_type_info
 (
 	request_info_id STRING,
 	request_id STRING,
@@ -19,4 +19,4 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.inc_tbl_requested_type_in
 	bln_declined_alarm STRING
 )
 PARTITIONED BY(edh_bus_date STRING) 
-LOCATION '${hivevar:S3_BUCKET}/data/incoming/legacy/angie/dbo/full/daily/inc_tbl_requested_type_info';
+LOCATION '${hivevar:S3_BUCKET}/data/incoming/legacy/angie/dbo/full/daily/inc_tbl_request_type_info';

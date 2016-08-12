@@ -16,7 +16,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.inc_t_user
 	email STRING, 
 	password_hash STRING, 
 	status STRING, 
-	test_user TINYSTRING,
+	test_user STRING,
 	version STRING,
 	create_date STRING,
 	create_by STRING,
