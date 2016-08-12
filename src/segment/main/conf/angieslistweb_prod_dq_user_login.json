@@ -1,9 +1,9 @@
 {
-   "InputTableName":"inc_angieslistweb_prod_purchased_cart",
-   "OutputTableName":"dq_angieslistweb_prod_purchased_cart",   
+   "InputTableName":"inc_user_login",
+   "OutputTableName":"dq_angieslistweb_prod_user_login",   
    "SourceDB":"INCOMING_SEGMENT_EVENTS_ALWP_DB",
    "TargetDB":"GOLD_SEGMENT_EVENTS_ALWP_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/segment/events/angieslistweb_prod/incremental/daily/dq_angieslistweb_prod_purchased_cart/edh_bus_date=$EDHBUSDATE",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/segment/events/angieslistweb_prod/incremental/daily/dq_angieslistweb_prod_user_login/edh_bus_date=$EDHBUSDATE",
    "TableValidation":[  
             {  
                "Check":"Duplicate",
@@ -12,9 +12,9 @@
             }
          ],
    "Columns":[  
-      {
+       {
          "Name":"id",
-         "Type":"VARCHAR(254)",
+         "Type":"VARCHAR(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -24,10 +24,9 @@
                "Check":"Null",
                "Action":"Reject"
             }
-         ]
-      },
-
-      {
+		]
+	  },	
+       {
          "Name":"received_at",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss.SSS",
@@ -40,8 +39,7 @@
             }
          ]
       },
-
-      {
+       {
          "Name":"uuid",
          "Type":"BIGINT",
          "Validations":[
@@ -51,19 +49,7 @@
             }
          ]
       },
-
-      {
-         "Name":"cart_id",
-         "Type":"VARCHAR(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-
-      {
+       {
          "Name":"context_auth_token",
          "Type":"VARCHAR(256)",
          "Validations":[
@@ -73,8 +59,7 @@
             }
          ]
       },
-
-      {
+       {
          "Name":"context_ip",
          "Type":"VARCHAR(256)",
          "Validations":[
@@ -84,8 +69,7 @@
             }
          ]
       },
-
-      {
+       {
          "Name":"context_library_name",
          "Type":"VARCHAR(256)",
          "Validations":[
@@ -95,8 +79,7 @@
             }
          ]
       },
-
-      {
+       {
          "Name":"context_library_version",
          "Type":"VARCHAR(256)",
          "Validations":[
@@ -106,8 +89,7 @@
             }
          ]
       },
-
-      {
+       {
          "Name":"context_referer",
          "Type":"VARCHAR(256)",
          "Validations":[
@@ -117,8 +99,7 @@
             }
          ]
       },
-
-      {
+       {
          "Name":"context_user_agent",
          "Type":"VARCHAR(256)",
          "Validations":[
@@ -128,8 +109,7 @@
             }
          ]
       },
-
-      {
+       {
          "Name":"event",
          "Type":"VARCHAR(256)",
          "Validations":[
@@ -139,8 +119,7 @@
             }
          ]
       },
-
-      {
+       {
          "Name":"event_text",
          "Type":"VARCHAR(256)",
          "Validations":[
@@ -150,8 +129,7 @@
             }
          ]
       },
-
-      {
+       {
          "Name":"original_timestamp",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss.SSS",
@@ -164,19 +142,7 @@
             }
          ]
       },
-
-      {
-         "Name":"purchased_items",
-         "Type":"VARCHAR(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-
-      {
+       {
          "Name":"sent_at",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss.SSS",
@@ -189,15 +155,22 @@
             }
          ]
       },
-
-      {
+       {
+         "Name":"source",
+         "Type":"VARCHAR(256)",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
          "Name":"timestamp",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss.SSS",
 		 "TimeZone":"UTC",
 		 "ConvertToTimeZone":"EST",
-		 "TimeZone":"UTC",
-		 "ConvertToTimeZone":"EST",
          "Validations":[
             {
                "Check":"DataType",
@@ -205,30 +178,7 @@
             }
          ]
       },
-
-      {
-         "Name":"total_al_take",
-         "Type":"VARCHAR(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-
-      {
-         "Name":"total_revenue",
-         "Type":"VARCHAR(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-
-      {
+       {
          "Name":"user_id",
          "Type":"VARCHAR(256)",
          "Validations":[
@@ -238,8 +188,7 @@
             }
          ]
       },
-
-      {
+       {
          "Name":"user_zip_code",
          "Type":"VARCHAR(256)",
          "Validations":[
@@ -249,8 +198,45 @@
             }
          ]
       },
-
-      {
+       {
+         "Name":"anonymous_id",
+         "Type":"VARCHAR(256)",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"context_page_path",
+         "Type":"VARCHAR(256)",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+       {
+         "Name":"context_page_title",
+         "Type":"VARCHAR(256)",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },{
+         "Name":"context_page_url",
+         "Type":"VARCHAR(256)",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },{
          "Name":"uuid_ts",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss.SSS",
@@ -264,4 +250,4 @@
          ]
       }
   ]
-}	  
+} 	  

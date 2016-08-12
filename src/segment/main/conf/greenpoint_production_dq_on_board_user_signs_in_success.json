@@ -1,9 +1,9 @@
 {
-   "InputTableName":"inc_greenpoint_android_prod_popular_category_tapped",
-   "OutputTableName":"dq_greenpoint_android_prod_popular_category_tapped",   
-   "SourceDB":"INCOMING_SEGMENT_EVENTS_GPAP_DB",
-   "TargetDB":"GOLD_SEGMENT_EVENTS_GPAP_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/segment/events/greenpoint_android_prod/incremental/daily/dq_greenpoint_android_prod_popular_category_tapped/edh_bus_date=$EDHBUSDATE",
+   "InputTableName":"inc_on_board_user_signs_in_success",
+   "OutputTableName":"dq_on_board_user_signs_in_success",   
+   "SourceDB":"INCOMING_SEGMENT_EVENTS_GPP_DB",
+   "TargetDB":"GOLD_SEGMENT_EVENTS_GPP_DB",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/segment/events/greenpoint_production/incremental/daily/dq_greenpoint_production_on_board_user_signs_in_success/edh_bus_date=$EDHBUSDATE",
    "TableValidation":[  
             {  
                "Check":"Duplicate",
@@ -16,7 +16,7 @@
          "Name":"id",
          "Type":"VARCHAR(254)",
          "Validations":[
-           {
+		   {
                "Check":"Null",
                "Action":"Reject"
            },
@@ -61,16 +61,6 @@
       },
       {
          "Name":"context_app_build",
-         "Type":"BIGINT",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {
-         "Name":"context_app_name",
          "Type":"VARCHAR(256)",
          "Validations":[
             {
@@ -80,7 +70,7 @@
          ]
       },
       {
-         "Name":"context_app_namespace",
+         "Name":"context_app_name",
          "Type":"VARCHAR(256)",
          "Validations":[
             {
@@ -114,7 +104,7 @@
          ]
       },
       {
-         "Name":"context_device_advertising_id",
+         "Name":"context_device_idfa",
          "Type":"VARCHAR(256)",
          "Validations":[
             {
@@ -124,7 +114,7 @@
          ]
       },
       {
-         "Name":"context_device_id",
+         "Name":"context_device_idfv",
          "Type":"VARCHAR(256)",
          "Validations":[
             {
@@ -145,16 +135,6 @@
       },
       {
          "Name":"context_device_model",
-         "Type":"VARCHAR(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {
-         "Name":"context_device_name",
          "Type":"VARCHAR(256)",
          "Validations":[
             {
@@ -204,16 +184,6 @@
          ]
       },
       {
-         "Name":"context_library_version_name",
-         "Type":"VARCHAR(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {
          "Name":"context_locale",
          "Type":"VARCHAR(256)",
          "Validations":[
@@ -248,20 +218,6 @@
          ]
       },
       {
-         "Name":"context_network_cellular",
-         "Type":"BOOLEAN",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            },
-            {
-            	"Check":"ValuesConstraint",
-	            "Values":"true,false"
-            }			
-         ]
-      },
-      {
          "Name":"context_network_wifi",
          "Type":"BOOLEAN",
          "Validations":[
@@ -286,48 +242,8 @@
          ]
       },
       {
-         "Name":"context_os_sdk",
-         "Type":"BIGINT",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {
          "Name":"context_os_version",
          "Type":"VARCHAR(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {
-         "Name":"context_screen_density",
-         "Type":"DOUBLE",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {
-         "Name":"context_screen_density_bucket",
-         "Type":"VARCHAR(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {
-         "Name":"context_screen_density_dpi",
-         "Type":"BIGINT",
          "Validations":[
             {
                "Check":"DataType",
@@ -346,68 +262,8 @@
          ]
       },
       {
-         "Name":"context_screen_scaled_density",
-         "Type":"DOUBLE",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {
          "Name":"context_screen_width",
          "Type":"BIGINT",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {
-         "Name":"context_timezone",
-         "Type":"VARCHAR(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {
-         "Name":"context_traits_anonymous_id",
-         "Type":"VARCHAR(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {
-         "Name":"context_traits_email",
-         "Type":"VARCHAR(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {
-         "Name":"context_traits_user_id",
-         "Type":"VARCHAR(256)",
-         "Validations":[
-            {
-               "Check":"DataType",
-               "Action":"Reject"
-            }
-         ]
-      },
-      {
-         "Name":"context_user_agent",
-         "Type":"VARCHAR(256)",
          "Validations":[
             {
                "Check":"DataType",
@@ -436,7 +292,7 @@
          ]
       },
       {
-         "Name":"original_timestamp",
+         "Name":"member_id",
          "Type":"VARCHAR(256)",
          "Validations":[
             {
@@ -446,7 +302,7 @@
          ]
       },
       {
-         "Name":"popular_category_name",
+         "Name":"original_timestamp",
          "Type":"VARCHAR(256)",
          "Validations":[
             {
@@ -524,5 +380,5 @@
             }
          ]
       }
-   ]
-}
+  ]
+}	 

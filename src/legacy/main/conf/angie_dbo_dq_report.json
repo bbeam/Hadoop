@@ -228,11 +228,7 @@
          "Name":"home_build_year",
          "Type":"STRING",
          "Validations":[  
-		   {  
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {  
+		  {  
                "Check":"DataType",
                "Action":"Reject"
             }
