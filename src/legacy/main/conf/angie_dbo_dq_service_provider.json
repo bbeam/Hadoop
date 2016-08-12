@@ -415,7 +415,7 @@
          "Type":"INT",
          "Validations":[
             {
-               "Check":"DataType",
+               "Check":"null",
                "Action":"Reject"
             },
             {
@@ -429,7 +429,7 @@
          "Type":"INT",
          "Validations":[
             {
-               "Check":"DataType",
+               "Check":"null",
                "Action":"Reject"
             },
             {
