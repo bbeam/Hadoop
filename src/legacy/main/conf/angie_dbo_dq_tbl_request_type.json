@@ -1,0 +1,49 @@
+{  
+   "InputTableName":"inc_tbl_request_type",
+   "OutputTableName":"dq_tbl_request_type",
+   "SourceDB":"INCOMING_LEGACY_ANGIE_DBO_DB",
+   "TargetDB":"GOLD_LEGACY_ANGIE_DBO_DB",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/legacy/angie/dbo/full/daily/dq_tbl_request_type",
+   "TableValidation":[  
+            {  
+               "Check":"Duplicate",
+               "keyColumns":"request_type_id",
+               "Action":"Reject"
+            }
+         ],
+   "Columns":[  
+       {  
+         "Name":"request_type_id",
+         "Type":"SMALLINT",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+      {  
+         "Name":"request_type",
+         "Type":"STRING",
+         "Validations":[  
+           
+         ]
+      },
+	  {  
+         "Name":"request_type_description",
+         "Type":"STRING",
+         "Validations":[  
+           {  
+               "Check":"Null",
+               "Action":"Reject"
+			   
+            }
+         ]
+      }
+	
+   ]
+}

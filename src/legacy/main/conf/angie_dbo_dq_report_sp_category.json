@@ -1,0 +1,116 @@
+{  
+   "InputTableName":"inc_report_sp_category",
+   "OutputTableName":"dq_report_sp_category",
+   "SourceDB":"INCOMING_LEGACY_ANGIE_DBO_DB",
+   "TargetDB":"GOLD_LEGACY_ANGIE_DBO_DB",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/legacy/angie/dbo/full/daily/dq_report_sp_category",
+   "TableValidation":[  
+            {  
+               "Check":"Duplicate",
+               "keyColumns":"report_sp_category_id",
+               "Action":"Reject"
+            }
+         ],
+   "Columns":[  
+       {  
+         "Name":"report_sp_category_id",
+         "Type":"INT",
+         "Validations":[  
+           {  
+               "Check":"Null",
+               "Action":"Reject"
+			   
+            },
+			{  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  {  
+         "Name":"report_id",
+         "Type":"INT",
+         "Validations":[  
+           {  
+               "Check":"Null",
+               "Action":"Reject"
+			   
+            },
+			{  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  
+	  {  
+         "Name":"sp_id",
+         "Type":"INT",
+         "Validations":[  
+           {  
+               "Check":"Null",
+               "Action":"Reject"
+			   
+            },
+			{  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  {  
+         "Name":"category_id",
+         "Type":"INT",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  {  
+         "Name":"is_primary",
+         "Type":"TINYINT",
+         "Validations":[  
+           {  
+               "Check":"Null",
+               "Action":"Reject"
+			   
+            },
+			{  
+               "Check":"DataType",
+               "Action":"Reject"
+            },
+			{
+            	"Check":"ValuesConstraint",
+	            "Values":"0,1"
+            }
+         ]
+      },
+	  {  
+         "Name":"create_date",
+         "Type":"TIMESTAMP",
+		 "Format": "yyyy-MM-dd HH:mm:ss.SSS",
+		 "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
+         "Validations":[  
+           {  
+               "Check":"Null",
+               "Action":"Reject"
+			   
+            }
+         ]
+      },
+	  {  
+         "Name":"create_by",
+         "Type":"STRING",
+         "Validations":[  
+         ]
+      }
+	
+   ]
+}

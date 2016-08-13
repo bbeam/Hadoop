@@ -1,0 +1,16 @@
+--query 
+'select SPMarketId,Spid,MarketId,PrimaryMarket,CreateDate,CreateBy FROM SPMarket where $CONDITIONS'
+--split-by 
+SPMarketId 
+--hive-delims-replacement
+'#'
+--fields-terminated-by 
+'\001' 
+--lines-terminated-by 
+'\n'
+--optionally-enclosed-by 
+'\"'
+--null-string 
+'' 
+--null-non-string 
+''

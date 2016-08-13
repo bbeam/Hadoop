@@ -1,0 +1,54 @@
+{  
+   "InputTableName":"inc_mbr_pay_status",
+   "OutputTableName":"dq_mbr_pay_status",
+   "SourceDB":"INCOMING_LEGACY_REPORTS_DBO_DB",
+   "TargetDB":"GOLD_LEGACY_REPORTS_DBO_DB",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/legacy/reports/dbo/full/daily/dq_mbr_pay_status",
+   "TableValidation":[],
+   "Columns":[  
+		{  
+         "Name":"member_id",
+		 "Type":"INT",
+         "Validations":[  
+			{  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  {  
+         "Name":"pay_status",
+		 "Type":"CHAR(4)",
+         "Validations":[  
+         ]
+      },
+	  {
+         "Name":"status_date",
+         "Type":"TIMESTAMP",
+         "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+         "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
+         "Validations":[
+            {
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+         },
+         {  
+         "Name":"id",
+         "Type":"INT",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      }
+  ]
+}

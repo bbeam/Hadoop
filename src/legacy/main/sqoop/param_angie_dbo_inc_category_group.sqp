@@ -1,0 +1,16 @@
+--query 
+'select CategoryGroupId, CategoryGroup, CategoryGroupDescription, CategoryGroupTypeId, DisplayOrder, CategoryGroupIsActive from CategoryGroup where $CONDITIONS'
+--split-by 
+CategoryGroupId 
+--hive-delims-replacement
+'#'
+--fields-terminated-by 
+'\001' 
+--lines-terminated-by 
+'\n'
+--optionally-enclosed-by 
+'\"'
+--null-string 
+'' 
+--null-non-string 
+''

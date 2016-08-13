@@ -1,0 +1,643 @@
+{
+	"InputTableName": "inc_review_submitted",
+	"OutputTableName": "dq_review_submitted",
+	"SourceDB": "INCOMING_SEGMENT_EVENTS_ALWP_DB",
+	"TargetDB": "GOLD_SEGMENT_EVENTS_ALWP_DB",
+	"DQHiveTableLocation": "$S3_BUCKET/data/gold/segment/events/angieslistweb_prod/incremental/daily/dq_angieslistweb_prod_review_submitted/edh_bus_date=$EDHBUSDATE",
+	"TableValidation": [{
+		"Check": "Duplicate",
+		"keyColumns": "id",
+		"Action": "Reject"
+	}],
+	"Columns": [{
+			"Name": "id",
+			"Type": "VARCHAR(254)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}, {
+				"Check": "Null",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "received_at",
+			"Type": "TIMESTAMP",
+			"Format": "yyyy-MM-dd HH:mm:ss.SSS",
+			"TimeZone":"UTC",
+		    "ConvertToTimeZone":"EST",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "uuid",
+			"Type": "BIGINT",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "overall_13",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "availability_14",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "price_14",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "office_environment_15",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "quality_15",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "availability_16",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "punctuality_16",
+			"Type": "BOOLEAN",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "office_environment_17",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "staff_friendliness_17",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "bedside_manner_18",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "punctuality_18",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "communication_19",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "staff_friendliness_19",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "overall_1",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "bedside_manner_20",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "effectiveness_of_treatment_20",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "billing_and_administration_21",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "communication_21",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "effectiveness_of_treatment_22",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "billing_and_administration_23",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "coverage_24",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "responsiveness_25",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "customer_service_26",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "professionalism_27",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "price_2",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "quality_3",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "responsiveness_4",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "punctuality_5",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "professionalism_6",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "are_status",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "category_ids",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "city",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "context_auth_token",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "context_ip",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "context_library_name",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "context_library_version",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "context_referer",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "context_user_agent",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "draft_review_id",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "event",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "event_text",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "grades_1",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "grades_13",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "grades_14",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "grades_15",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "grades_16",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "grades_17",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "grades_18",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "grades_19",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "grades_2",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "grades_20",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "grades_21",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "grades_22",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "grades_23",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "grades_24",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "grades_25",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "grades_26",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "grades_27",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "grades_3",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "grades_4",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "grades_5",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "grades_6",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "job_id",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "latitude",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "listing_id",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "longitude",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "original_timestamp",
+			"Type": "TIMESTAMP",
+			"Format": "yyyy-MM-dd HH:mm:ss.SSS",
+			"TimeZone":"UTC",
+		    "ConvertToTimeZone":"EST",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "postal_code",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "region_id",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "review_status",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "sent_at",
+			"Type": "TIMESTAMP",
+			"Format": "yyyy-MM-dd HH:mm:ss.SSS",
+			"TimeZone":"UTC",
+		    "ConvertToTimeZone":"EST",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "service_provider_id",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "sp_id",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "sp_name",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "timestamp",
+			"Type": "TIMESTAMP",
+			"Format": "yyyy-MM-dd HH:mm:ss.SSS",
+			"TimeZone":"UTC",
+		    "ConvertToTimeZone":"EST",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "user_id",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}, {
+			"Name": "user_zip_code",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+
+		{
+			"Name": "uuid_ts",
+			"Type": "TIMESTAMP",
+			"Format": "yyyy-MM-dd HH:mm:ss.SSS",
+			"TimeZone":"UTC",
+		    "ConvertToTimeZone":"EST",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		}
+	]
+}

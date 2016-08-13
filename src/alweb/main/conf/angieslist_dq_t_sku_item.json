@@ -1,0 +1,141 @@
+{
+	"InputTableName": "inc_t_sku_item",
+	"OutputTableName": "dq_t_sku_item",
+   "SourceDB":"INCOMING_ALWEB_AL_DB",
+   "TargetDB":"GOLD_ALWEB_AL_DB",
+	"DQHiveTableLocation":"$S3_BUCKET/data/gold/alweb/angieslist/full/daily/dq_t_sku_item",
+	"TableValidation": [{
+		"Check": "Duplicate",
+		"keyColumns": "sku_item_id",
+		"Action": "Reject"
+	}],
+	"Columns": [{
+		"Name": "sku_item_id",
+		"Type": "INT",
+		"Validations": [{
+			"Check": "Null",
+			"Action": "Reject"
+		}, {
+			"Check": "DataType",
+			"Action": "Reject"
+		}]
+	}, {
+		"Name": "context_entity_id",
+		"Type": "INT",
+		"Validations": [{
+			"Check": "Null",
+			"Action": "Reject"
+		}, {
+			"Check": "DataType",
+			"Action": "Reject"
+		}]
+	}, {
+		"Name": "entity_type",
+		"Type": "VARCHAR(254)",
+		"Validations": [{
+			"Check": "Null",
+			"Action": "Reject"
+		}]
+	}, {
+		"Name": "sku_id",
+		"Type": "INT",
+		"Validations": [{
+			"Check": "Null",
+			"Action": "Reject"
+		}, {
+			"Check": "DataType",
+			"Action": "Reject"
+		}]
+	}, {
+		"Name": "original_price",
+		"Type": "DECIMAL",
+		"Validations": [{
+			"Check": "Null",
+			"Action": "Reject"
+		}, {
+			"Check": "DataType",
+			"Action": "Reject"
+		}]
+	}, {
+		"Name": "non_member_price",
+		"Type": "DECIMAL",
+		"Validations": [{
+				"Check": "Null",
+				"Action": "Reject"
+			},
+
+			{
+				"Check": "DataType",
+				"Action": "Reject"
+			}
+		]
+	}, {
+		"Name": "member_price",
+		"Type": "DECIMAL",
+		"Validations": [{
+				"Check": "Null",
+				"Action": "Reject"
+			}, {
+				"Check": "DataType",
+				"Action": "Reject"
+			}
+
+		]
+	}, {
+		"Name": "version",
+		"Type": "INT",
+		"Validations": [{
+			"Check": "Null",
+			"Action": "Reject"
+		}, {
+			"Check": "DataType",
+			"Action": "Reject"
+		}]
+	}, {
+		"Name": "create_date",
+		"Type": "TIMESTAMP",
+		"Format": "yyyy-MM-dd HH:mm:ss.SSS",
+		"TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
+		"Validations": [{
+			"Check": "Null",
+			"Action": "Reject"
+		}, {
+			"Check": "DataType",
+			"Action": "Reject"
+		}]
+	}, {
+		"Name": "create_by",
+		"Type": "INT",
+		"Validations": [{
+			"Check": "Null",
+			"Action": "Reject"
+		}, {
+			"Check": "DataType",
+			"Action": "Reject"
+		}]
+	}, {
+		"Name": "update_date",
+		"Type": "TIMESTAMP",
+		"Format": "yyyy-MM-dd HH:mm:ss.SSS",
+		"TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
+		"Validations": [{
+			"Check": "Null",
+			"Action": "Reject"
+		}, {
+			"Check": "DataType",
+			"Action": "Reject"
+		}]
+	}, {
+		"Name": "update_by",
+		"Type": "INT",
+		"Validations": [{
+			"Check": "Null",
+			"Action": "Reject"
+		}, {
+			"Check": "DataType",
+			"Action": "Reject"
+		}]
+	}]
+}

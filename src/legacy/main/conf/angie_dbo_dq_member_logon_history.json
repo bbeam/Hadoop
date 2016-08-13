@@ -1,0 +1,86 @@
+{  
+   "InputTableName":"inc_member_logon_history",
+   "OutputTableName":"dq_member_logon_history",
+   "SourceDB":"INCOMING_LEGACY_ANGIE_DBO_DB",
+   "TargetDB":"GOLD_LEGACY_ANGIE_DBO_DB",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/legacy/angie/dbo/full/daily/dq_member_logon_history",
+   "TableValidation":[  
+            {  
+               "Check":"Duplicate",
+               "keyColumns":"member_logon_history_id",
+               "Action":"Reject"
+            }
+         ],
+   "Columns":[  
+      {  
+         "Name":"member_logon_history_id",
+         "Type":"INT",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  {  
+         "Name":"member_id",
+         "Type":"INT",
+         "Validations":[  
+           {  
+               "Check":"Null",
+               "Action":"Reject"
+			   
+            },
+			{  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  {  
+         "Name":"ip_address",
+         "Type":"BIGINT",
+         "Validations":[  
+           {  
+               "Check":"Null",
+               "Action":"Reject"
+			   
+            },
+			{  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  {  
+         "Name":"logon_date",
+         "Type":"TIMESTAMP",
+		 "Format": "yyyy-MM-dd HH:mm:ss.SSS",
+		 "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
+         "Validations":[  
+           {  
+               "Check":"Null",
+               "Action":"Reject"
+			   
+            },
+			{  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  {  
+         "Name":"user_agent_string",
+         "Type":"STRING",
+         "Validations":[  
+           
+         ]
+      }
+	
+   ]
+}
