@@ -1,0 +1,16 @@
+--query 
+'select StorefrontProductEventTypeId, StorefrontProductEventTypeName, StorefrontProductEventTypeDescription, CreateDate, CreateBy, UpdateDate, UpdateBy from AngieAnalytics.dbo.StorefrontProductEventType where $CONDITIONS'
+--split-by 
+StorefrontProductEventTypeId 
+--hive-delims-replacement
+'#'
+--fields-terminated-by 
+'\001' 
+--lines-terminated-by 
+'\n'
+--optionally-enclosed-by 
+'\"'
+--null-string 
+'' 
+--null-non-string 
+''

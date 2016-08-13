@@ -1,0 +1,14 @@
+--table 
+Lead 
+--fields-terminated-by 
+'\001' 
+--hive-delims-replacement
+'#'
+--lines-terminated-by 
+'\n'
+--optionally-enclosed-by 
+'\"'
+--null-string 
+'' 
+--null-non-string 
+''

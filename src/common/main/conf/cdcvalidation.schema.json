@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "sourceDbName": {
+      "type": "string"
+    },
+    "sourceTableName": {
+      "type": "string"
+    },
+    "targetDbName": {
+      "type": "string"
+    },
+    "targetTableName": {
+      "type": "string"
+    },
+    "surrogateKey": {
+      "type": "string"
+    },
+    "columns": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "isKeyColumn": {
+            "type": "string"
+          },
+          "isNonKeyColumn": {
+            "type": "string"
+          },
+          "isDateColumn": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "isKeyColumn",
+          "isNonKeyColumn",
+          "isDateColumn"
+        ]
+      }
+    },
+    "workDbName": {
+      "type": "string"
+    },
+    "workTableName": {
+      "type": "string"
+    },
+    "cdcPigFileForDim": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "sourceDbName",
+    "sourceTableName",
+    "targetDbName",
+    "targetTableName",
+    "surrogateKey",
+    "columns",
+    "workDbName",
+    "workTableName",
+    "cdcPigFileForDim"
+  ]
+}

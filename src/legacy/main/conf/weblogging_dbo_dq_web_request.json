@@ -1,0 +1,208 @@
+{  
+   "InputTableName":"inc_web_request",
+   "OutputTableName":"dq_web_request",
+   "SourceDB":"INCOMING_LEGACY_WEBLOGGING_DBO_DB",
+   "TargetDB":"GOLD_LEGACY_WEBLOGGING_DBO_DB",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/legacy/weblogging/dbo/incremental/daily/dq_web_request/edh_bus_date=$EDHBUSDATE",
+   "TableValidation":[  
+      {  
+         "Check":"Duplicate",
+         "keyColumns":"request_id",
+         "Action":"Reject"
+      }
+   ],
+   "Columns":[  
+      {  
+         "Name":"request_id",
+		 "Type":"VARCHAR(64)",
+         "Validations":[  
+             {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+			{  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	   {  
+         "Name":"time_utc",
+		 "Type":"TIMESTAMP",
+		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
+		 "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
+         "Validations":[  
+           {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+			{  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  {  
+         "Name":"verb",
+		 "Type":"STRING",
+         "Validations":[  
+             {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+			{  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  {  
+         "Name":"path",
+		 "Type":"STRING",
+         "Validations":[  
+             {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+			{  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  {  
+         "Name":"query",
+		 "Type":"STRING",
+         "Validations":[  
+             {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  
+	   {  
+         "Name":"host",
+		 "Type":"STRING",
+         "Validations":[  
+             {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+			{  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	   {  
+         "Name":"port",
+		 "Type":"INT",
+         "Validations":[  
+             {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+			{  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	   {  
+         "Name":"user_agent",
+		 "Type":"STRING",
+         "Validations":[  
+             {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+			{  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  
+	    {  
+         "Name":"user_ip",
+		 "Type":"STRING",
+         "Validations":[  
+             {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	    {  
+         "Name":"x_forwarded_for",
+		 "Type":"STRING",
+         "Validations":[  
+             {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  {  
+         "Name":"response_status",
+		 "Type":"INT",
+         "Validations":[  
+             {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+			{  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	    {  
+         "Name":"response_sub_status",
+		 "Type":"INT",
+         "Validations":[  
+             {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	    {  
+         "Name":"source_param",
+		 "Type":"STRING",
+         "Validations":[  
+             {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  {  
+         "Name":"member_id",
+		 "Type":"INT",
+         "Validations":[  
+             {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      }
+  ]
+	  
+}

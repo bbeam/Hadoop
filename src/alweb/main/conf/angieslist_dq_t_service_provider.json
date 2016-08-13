@@ -1,0 +1,283 @@
+{  
+   "InputTableName":"inc_t_service_provider",
+   "OutputTableName":"dq_t_service_provider",
+   "SourceDB":"INCOMING_ALWEB_AL_DB",
+   "TargetDB":"GOLD_ALWEB_AL_DB",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/alweb/angieslist/full/daily/dq_t_service_provider",
+   "TableValidation":[  
+            {  
+               "Check":"Duplicate",
+               "keyColumns":"service_provider_id",
+               "Action":"Reject"
+            }
+         ],
+   "Columns":[  
+      {  
+         "Name":"service_provider_id",
+         "Type":"INT",
+          "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  {  
+         "Name":"listing_id",
+         "Type":"INT",
+         "Validations":[  
+           {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+			{  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  {  
+         "Name":"al_id",
+		 "Type":"INT",
+         "Validations":[  
+            
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  
+	  {  
+         "Name":"name",
+		 "Type":"varchar(254)",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  
+	  {  
+         "Name":"hours",
+		 "Type":"varchar(254)",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  
+	  {  
+         "Name":"joined_date",
+		 "Type":"TIMESTAMP",
+		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
+		 "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  
+	  {  
+         "Name":"description",
+		 "Type":"STRING",
+         "Validations":[  
+            
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  
+	  {  
+         "Name":"services_offered",
+		 "Type":"STRING",
+         "Validations":[  
+            
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  {  
+         "Name":"service_provider_type",
+		 "Type":"varchar(254)",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  {  
+         "Name":"in_business_since",
+		 "Type":"INT",
+         "Validations":[  
+            
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  
+	  
+	  {  
+         "Name":"is_national",
+		 "Type":"TINYINT",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            },
+            {
+            	"Check":"ValuesConstraint",
+            	"Values":"0,1"
+            }
+         ]
+      },
+	  
+	  {  
+         "Name":"status",
+		 "Type":"varchar(254)",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  
+	  {  
+         "Name":"version",
+		 "Type":"INT",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  
+	  {  
+         "Name":"create_date",
+		 "Type":"TIMESTAMP",
+		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
+		 "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  
+	  {  
+         "Name":"create_by",
+		 "Type":"INT",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  
+	  {  
+         "Name":"update_date",
+		 "Type":"TIMESTAMP",
+		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
+		 "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  {  
+         "Name":"update_by",
+		 "Type":"INT",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      }
+	  
+   ]
+}

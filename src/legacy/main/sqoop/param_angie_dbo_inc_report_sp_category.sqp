@@ -1,0 +1,16 @@
+--query 
+'select ReportSPCategoryId,ReportId,SpId,CategoryId,IsPrimary,CreateDate,CreateBy from ReportSPCategory where $CONDITIONS'
+--split-by 
+ReportSPCategoryId
+--hive-delims-replacement
+'#'
+--fields-terminated-by 
+'\001' 
+--lines-terminated-by 
+'\n'
+--optionally-enclosed-by 
+'\"'
+--null-string 
+'' 
+--null-non-string 
+''

@@ -1,0 +1,105 @@
+{  
+   "InputTableName":"inc_tbl_request_type_info",
+   "OutputTableName":"dq_tbl_request_type_info",
+   "SourceDB":"INCOMING_LEGACY_ANGIE_DBO_DB",
+   "TargetDB":"GOLD_LEGACY_ANGIE_DBO_DB",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/legacy/angie/dbo/full/daily/dq_tbl_request_type_info",
+   "TableValidation":[  
+            {  
+               "Check":"Duplicate",
+               "keyColumns":"request_info_id",
+               "Action":"Reject"
+            }
+         ],
+   "Columns":[  
+      {  
+         "Name":"request_info_id",
+         "Type":"INT",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  {  
+         "Name":"request_id",
+         "Type":"INT",
+         "Validations":[  
+           
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  
+	  {  
+         "Name":"request_type_id",
+         "Type":"SMALLINT",
+         "Validations":[  
+            
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  {  
+         "Name":"cat_id",
+         "Type":"INT",
+         "Validations":[  
+           
+			{  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  {  
+         "Name":"key_word",
+         "Type":"STRING",
+         "Validations":[  
+           
+         ]
+      },
+	  {  
+         "Name":"sp_id",
+         "Type":"INT",
+         "Validations":[  
+           
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  {  
+         "Name":"request_count",
+         "Type":"SMALLINT",
+         "Validations":[  
+            
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  {  
+         "Name":"bln_declined_alarm",
+         "Type":"SMALLINT",
+         "Validations":[  
+            
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      }
+	
+   ]
+}

@@ -1,0 +1,16 @@
+--query 
+'select ServiceProviderGroupTypeId, ServiceProviderGroupTypeName, ServiceProviderGroupTypeDescription, ServiceProviderGroupTypeStatus  from Angie.dbo.ServiceProviderGroupType where $CONDITIONS'
+--split-by 
+ServiceProviderGroupTypeId
+--hive-delims-replacement
+'#'
+--fields-terminated-by 
+'\001' 
+--lines-terminated-by 
+'\n'
+--optionally-enclosed-by 
+'\"'
+--null-string 
+'' 
+--null-non-string 
+''
