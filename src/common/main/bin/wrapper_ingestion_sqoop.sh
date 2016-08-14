@@ -2,7 +2,7 @@
 #                               General Details                                #
 ################################################################################
 # Name        : AngiesList                                                     #
-# File        : wrapper_dq_t_sku.sh                                            #
+# File        : wrapper_ingestion_sqoop.sh                                            #
 # Description : This script performs data quality and cleansing on the data,   #
 #				and finally creates a new table with the elements according to #
 #				the incoming schema							 				   #
