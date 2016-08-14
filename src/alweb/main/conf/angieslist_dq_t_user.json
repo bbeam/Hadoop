@@ -37,10 +37,7 @@
          "Name":"middle_name",
          "Type":"VARCHAR(128)",
          "Validations":[  
-            {  
-               "Check":"Null",
-               "Action":"Reject"
-            }
+            
          ]
       },
       {  
