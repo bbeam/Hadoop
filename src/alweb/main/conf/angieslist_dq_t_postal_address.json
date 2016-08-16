@@ -38,7 +38,7 @@
       },
       {  
          "Name":"address_first_line",
-         "Type":"STRING",
+         "Type":"VARCHAR(254)",
          "Validations":[  
             {  
                "Check":"Null",
@@ -48,7 +48,7 @@
       },
       {  
          "Name":"address_second_line",
-         "Type":"STRING",
+         "Type":"VARCHAR(254)",
          "Validations":[  
 
          ]
