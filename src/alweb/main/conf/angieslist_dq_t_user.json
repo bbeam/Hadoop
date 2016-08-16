@@ -100,8 +100,12 @@
       {  
          "Name":"test_user",
          "Type":"TINYINT",
-         "Validations":[  
-            {  
+         "Validations":[
+            {
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {
                "Check":"DataType",
                "Action":"Reject"
             },
