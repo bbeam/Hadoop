@@ -1,5 +1,5 @@
 --query
-'select TOP 10000 * from tblRequestedCompanies  where $CONDITIONS'
+'select * from tblRequestedCompanies where cast(GaveDate as DATE)='EXTRACT_DATE' and $CONDITIONS'
 --split-by
 GaveID
 --hive-delims-replacement

@@ -53,4 +53,4 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.inc_storefront_item_histo
   premium_deal STRING
 )
 PARTITIONED BY (edh_bus_date STRING)
-LOCATION '${hivevar:S3_BUCKET}/data/incoming/legacy/angiehistory/dbo/full/daily/inc_storefront_item_history';
+LOCATION '${hivevar:S3_BUCKET}/data/incoming/legacy/angiehistory/dbo/incremental/daily/inc_storefront_item_history';

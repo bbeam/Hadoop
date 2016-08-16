@@ -1,5 +1,7 @@
---table
-tblRequests
+--query
+'select * from tblRequests where cast(RequestDate as DATE)='EXTRACT_DATE' and $CONDITIONS'
+--split-by
+RequestID
 --hive-delims-replacement
 '#'
 --fields-terminated-by

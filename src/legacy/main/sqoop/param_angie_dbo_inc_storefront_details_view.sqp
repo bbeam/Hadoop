@@ -1,5 +1,5 @@
 --query
-'select TOP 10000 * from StorefrontDetailsView  where $CONDITIONS'
+'select * from StorefrontDetailsView where cast(CreateDate as DATE)='EXTRACT_DATE' and $CONDITIONS'
 --split-by
 StorefrontDetailsViewId
 --hive-delims-replacement

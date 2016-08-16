@@ -22,4 +22,5 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_cash_posting
 	est_load_timestamp TIMESTAMP,
 	utc_load_timestamp TIMESTAMP
 )
-LOCATION '${hivevar:S3_BUCKET}/data/gold/legacy/angie/dbo/full/daily/dq_cash_posting';
+PARTITIONED BY (edh_bus_date STRING)
+LOCATION '${hivevar:S3_BUCKET}/data/gold/legacy/angie/dbo/incremental/daily/dq_cash_posting';

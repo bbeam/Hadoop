@@ -3,7 +3,7 @@
    "OutputTableName":"dq_tbl_requested_companies",
    "SourceDB":"INCOMING_LEGACY_ANGIE_DBO_DB",
    "TargetDB":"GOLD_LEGACY_ANGIE_DBO_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/legacy/angie/dbo/full/daily/dq_tbl_requested_companies",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/legacy/angie/dbo/incremental/daily/dq_tbl_requested_companies/edh_bus_date=$EDHBUSDATE",
    "TableValidation":[  
             {  
                "Check":"Duplicate",

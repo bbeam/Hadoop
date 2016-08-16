@@ -1,5 +1,7 @@
---table 
-MemberLogonHistory
+--query 
+'select * from MemberLogonHistory where cast(LogonDate as DATE)='EXTRACT_DATE' and $CONDITIONS'
+--split-by
+MemberLogonHistoryID
 --hive-delims-replacement
 '#'
 --fields-terminated-by 

@@ -60,4 +60,5 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_storefront_item_histor
   est_load_timestamp TIMESTAMP,
   utc_load_timestamp TIMESTAMP
 )
-LOCATION '${hivevar:S3_BUCKET}/data/gold/legacy/angiehistory/dbo/full/daily/dq_storefront_item_history';
+PARTITIONED BY(edh_bus_date STRING)
+LOCATION '${hivevar:S3_BUCKET}/data/gold/legacy/angiehistory/dbo/incremental/daily/dq_storefront_item_history';
