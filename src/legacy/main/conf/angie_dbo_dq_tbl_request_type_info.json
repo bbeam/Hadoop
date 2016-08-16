@@ -61,7 +61,7 @@
          ]
       },
 	  {  
-         "Name":"key_word",
+         "Name":"keyword",
          "Type":"STRING",
          "Validations":[  
            

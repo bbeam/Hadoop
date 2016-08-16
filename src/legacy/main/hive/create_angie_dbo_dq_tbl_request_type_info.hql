@@ -12,7 +12,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_tbl_request_type_info
 	request_id INT,
 	request_type_id SMALLINT,
 	cat_id INT,
-	key_word STRING,
+	keyword STRING,
 	sp_id INT,
 	request_count SMALLINT,
 	bln_declined_alarm SMALLINT,
