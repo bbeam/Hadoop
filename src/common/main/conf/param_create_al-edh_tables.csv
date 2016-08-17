@@ -106,7 +106,6 @@ src/alweb/main/hive,create_angieslist_inc_t_service_provider.hql,INCOMING_ALWEB_
 src/alweb/main/hive,create_angieslist_inc_t_service_provider_address.hql,INCOMING_ALWEB_AL_DB
 src/alweb/main/hive,create_angieslist_inc_t_sku.hql,INCOMING_ALWEB_AL_DB
 src/alweb/main/hive,create_angieslist_inc_t_sku_item.hql,INCOMING_ALWEB_AL_DB
-src/alweb/main/hive,create_angieslist_inc_t_skuitem.hql,INCOMING_ALWEB_AL_DB
 src/alweb/main/hive,create_angieslist_inc_t_user_address.hql,INCOMING_ALWEB_AL_DB
 src/alweb/main/hive,create_fulfillment_dq_lead.hql,GOLD_ALWEB_FULFILLMENT_DB
 src/alweb/main/hive,create_fulfillment_inc_lead.hql,INCOMING_ALWEB_FULFILLMENT_DB
