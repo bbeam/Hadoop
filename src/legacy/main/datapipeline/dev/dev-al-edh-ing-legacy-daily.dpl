@@ -102,7 +102,7 @@
         "ref": "ing-legacy-angie-dbo-categories-full"
       },
 	  "name": "ing-legacy-angie-dbo-category_group-full",
-	  "id": "ing-legacy-angie-dbo-category_group",
+	  "id": "ing-legacy-angie-dbo-category_group-full",
 	  "workerGroup": "#{myWorkerGroup}",
 	  "scriptArgument": [
 		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
