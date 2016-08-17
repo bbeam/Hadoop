@@ -26,8 +26,8 @@
 	  "dependsOn": {
         "ref": "ing-legacy-angie-dbo-sp_market-full"
       },
-	  "name": "ing-legacy-angie-dbo-tbl_requests-full",
-	  "id": "ing-legacy-angie-dbo-tbl_requests-full",
+	  "name": "ing-legacy-angie-dbo-tbl_requests-inc",
+	  "id": "ing-legacy-angie-dbo-tbl_requests-inc",
 	  "workerGroup": "#{myWorkerGroup}",
 	  "scriptArgument": [
 		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
@@ -38,10 +38,10 @@
 	},
 	{
 	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
-	  "name": "ing-legacy-angie-dbo-cash_posting-full",
-	  "id": "ing-legacy-angie-dbo-cash_posting-full",
+	  "name": "ing-legacy-angie-dbo-cash_posting-inc",
+	  "id": "ing-legacy-angie-dbo-cash_posting-inc",
 	  "dependsOn": {
-        "ref": "ing-legacy-angie-dbo-tbl_requests-full"
+        "ref": "ing-legacy-angie-dbo-tbl_requests-inc"
       },
 	  "workerGroup": "#{myWorkerGroup}",
 	  "scriptArgument": [
@@ -54,7 +54,7 @@
 	{
 	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
 	  "dependsOn": {
-        "ref": "ing-legacy-angie-dbo-cash_posting-full"
+        "ref": "ing-legacy-angie-dbo-cash_posting-inc"
       },
 	  "name": "ing-legacy-angie-dbo-ad_element-full",
 	  "id": "ing-legacy-angie-dbo-ad_element-full",
@@ -206,8 +206,8 @@
 	  "dependsOn": {
         "ref": "ing-legacy-angie-dbo-member_address-full"
       },
-	  "name": "ing-legacy-angie-dbo-member_logon_history-full",
-	  "id": "ing-legacy-angie-dbo-member_logon_history-full",
+	  "name": "ing-legacy-angie-dbo-member_logon_history-inc",
+	  "id": "ing-legacy-angie-dbo-member_logon_history-inc",
 	  "workerGroup": "#{myWorkerGroup}",
 	  "scriptArgument": [
 		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
@@ -219,7 +219,7 @@
 	{
 	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
 	  "dependsOn": {
-        "ref": "ing-legacy-angie-dbo-member_logon_history-full"
+        "ref": "ing-legacy-angie-dbo-member_logon_history-inc"
       },
 	  "name": "ing-legacy-angie-dbo-member_membership_tier-full",
 	  "id": "ing-legacy-angie-dbo-member_membership_tier-full",
@@ -326,8 +326,8 @@
 	  "dependsOn": {
         "ref": "ing-legacy-angie-dbo-product_type-full"
       },
-	  "name": "ing-legacy-angie-dbo-report-full",
-	  "id": "ing-legacy-angie-dbo-report-full",
+	  "name": "ing-legacy-angie-dbo-report-inc",
+	  "id": "ing-legacy-angie-dbo-report-inc",
 	  "workerGroup": "#{myWorkerGroup}",
 	  "scriptArgument": [
 		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
@@ -339,10 +339,10 @@
 	{
 	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
 	  "dependsOn": {
-        "ref": "ing-legacy-angie-dbo-report-full"
+        "ref": "ing-legacy-angie-dbo-report-inc"
       },
-	  "name": "ing-legacy-angie-dbo-report_sp_category-full",
-	  "id": "ing-legacy-angie-dbo-report_sp_category-full",
+	  "name": "ing-legacy-angie-dbo-report_sp_category-inc",
+	  "id": "ing-legacy-angie-dbo-report_sp_category-inc",
 	  "workerGroup": "#{myWorkerGroup}",
 	  "scriptArgument": [
 		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
@@ -354,7 +354,7 @@
 	{
 	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
 	  "dependsOn": {
-        "ref": "ing-legacy-angie-dbo-report_sp_category-full"
+        "ref": "ing-legacy-angie-dbo-report_sp_category-inc"
       },
 	  "name": "ing-legacy-angie-dbo-service_provider-full",
 	  "id": "ing-legacy-angie-dbo-service_provider-full",
@@ -446,8 +446,8 @@
 	  "dependsOn": {
         "ref": "ing-legacy-angie-dbo-service_provider_group_type-full"
       },
-	  "name": "ing-legacy-angie-dbo-storefront_details_view-full",
-	  "id": "ing-legacy-angie-dbo-storefront_details_view-full",
+	  "name": "ing-legacy-angie-dbo-storefront_details_view-inc",
+	  "id": "ing-legacy-angie-dbo-storefront_details_view-inc",
 	  "workerGroup": "#{myWorkerGroup}",
 	  "scriptArgument": [
 		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
@@ -459,7 +459,7 @@
 	{
 	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
 	  "dependsOn": {
-        "ref": "ing-legacy-angie-dbo-storefront_details_view-full"
+        "ref": "ing-legacy-angie-dbo-storefront_details_view-inc"
       },
 	  "name": "ing-legacy-angie-dbo-storefront_item-full",
 	  "id": "ing-legacy-angie-dbo-storefront_item-full",
@@ -551,8 +551,8 @@
 	  "dependsOn": {
         "ref": "ing-legacy-angie-dbo-tbl_request_type_info-full"
       },
-	  "name": "ing-legacy-angie-dbo-tbl_requested_companies-full",
-	  "id": "ing-legacy-angie-dbo-tbl_requested_companies-full",
+	  "name": "ing-legacy-angie-dbo-tbl_requested_companies-inc",
+	  "id": "ing-legacy-angie-dbo-tbl_requested_companies-inc",
 	  "workerGroup": "#{myWorkerGroup}",
 	  "scriptArgument": [
 		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
@@ -564,7 +564,7 @@
 	{
 	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
 	  "dependsOn": {
-        "ref": "ing-legacy-angie-dbo-tbl_requested_companies-full"
+        "ref": "ing-legacy-angie-dbo-tbl_requested_companies-inc"
       },
 	  "name": "ing-legacy-angieanalytics-dbo-storefront_product_event-full",
 	  "id": "ing-legacy-angieanalytics-dbo-storefront_product_event-full",
@@ -596,8 +596,8 @@
 	  "dependsOn": {
         "ref": "ing-legacy-angieanalytics-dbo-storefront_product_event_type-full"
       },
-	  "name": "ing-legacy-angiehistory-dbo-storefront_item_history-full",
-	  "id": "ing-legacy-angiehistory-dbo-storefront_item_history-full",
+	  "name": "ing-legacy-angiehistory-dbo-storefront_item_history-inc",
+	  "id": "ing-legacy-angiehistory-dbo-storefront_item_history-inc",
 	  "workerGroup": "#{myWorkerGroup}",
 	  "scriptArgument": [
 		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
@@ -609,7 +609,7 @@
 	{
 	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
 	  "dependsOn": {
-        "ref": "ing-legacy-angiehistory-dbo-storefront_item_history-full"
+        "ref": "ing-legacy-angiehistory-dbo-storefront_item_history-inc"
       },
 	  "name": "ing-legacy-reports-dbo-exclude_test_member_ids-full",
 	  "id": "ing-legacy-reports-dbo-exclude_test_member_ids-full",
@@ -656,8 +656,8 @@
 	  "dependsOn": {
         "ref": "ing-legacy-reports-dbo-mbr_pay_status-full"
       },
-	  "name": "ing-legacy-weblogging-dbo-web_request-full",
-	  "id": "ing-legacy-weblogging-dbo-web_request-full",
+	  "name": "ing-legacy-weblogging-dbo-web_request-inc",
+	  "id": "ing-legacy-weblogging-dbo-web_request-inc",
 	  "workerGroup": "#{myWorkerGroup}",
 	  "scriptArgument": [
 		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",

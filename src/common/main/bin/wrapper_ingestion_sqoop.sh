@@ -81,9 +81,14 @@ EDH_BUS_MONTH=$(date -d "$EDH_BUS_DATE" '+%Y%m')
 echo "Business Month :$EDH_BUS_MONTH"
 
 echo "*************SQOOP IMPORT JOB UTILITY*******************"
-# deleting the sqoop target location, if it already exists.
+# deleting the sqoop target location,error location and gold table location, if it already exists.
 echo "executing : aws s3 rm $S3_BUCKET/$DATA_DIRECTORY=$EDH_BUS_DATE --recursive"
 aws s3 rm $S3_BUCKET/$DATA_DIRECTORY=$EDH_BUS_DATE --recursive
+echo "executing : aws s3 rm $S3_BUCKET/data/operations/common/edh_batch_error/table_name=$INCOMING_DB.$TABLE_NAME_INC/edh_bus_date=$EDH_BUS_DATE --recursive"
+aws s3 rm $S3_BUCKET/data/operations/common/edh_batch_error/table_name=$INCOMING_DB.$TABLE_NAME_INC/edh_bus_date=$EDH_BUS_DATE --recursive
+echo "executing : aws s3 rm $DQ_HIVE_LOCATION  --recursive"
+aws s3 rm $DQ_HIVE_LOCATION  --recursive
+
 # replace the extract_date with the edh_bus_date generated in this shell in case of incremental load in the options file.
 sed -ie "s/EXTRACT_DATE/$EDH_BUS_DATE/g" /var/tmp/$OPTIONS_FILE_NAME 
 echo -e "Sqoop Command running is :\nsqoop import <DB CONNECTION_URL> --target-dir $S3_BUCKET/$DATA_DIRECTORY=$EDH_BUS_DATE --options-file /var/tmp/$OPTIONS_FILE_NAME"

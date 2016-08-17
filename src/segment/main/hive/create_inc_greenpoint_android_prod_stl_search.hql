@@ -6,7 +6,7 @@
 --*/
 
 --  Creating a incoming hive table(inc_greenpoint_android_prod_stl_search) over the incoming data
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.inc_prod_stl_search
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.inc_stl_search
 (
 id  STRING,
 received_at  STRING,
@@ -57,4 +57,4 @@ user_id40  STRING,
 uuid_ts  STRING
 )
 PARTITIONED BY (edh_bus_date STRING)
-LOCATION '${hivevar:S3_BUCKET}/data/incoming/segment/events/greenpoint_android_prod/incremental/daily/inc_prod_stl_search';
+LOCATION '${hivevar:S3_BUCKET}/data/incoming/segment/events/greenpoint_android_prod/incremental/daily/inc_stl_search';
