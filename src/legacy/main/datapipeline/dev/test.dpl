@@ -11,12 +11,12 @@
 	},
 	{
 	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
-	  "name": "ing-legacy-angie-dbo-sp_market-full",
-	  "id": "ing-legacy-angie-dbo-sp_market-full",
+	  "name": "ing-legacy-angie-dbo-categories-full",
+	  "id": "ing-legacy-angie-dbo-categories-full",
 	  "workerGroup": "#{myWorkerGroup}",
 	  "scriptArgument": [
 		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
-		"s3://al-edh-dev/src/legacy/main/conf/ingestion_angie_dbo_sp_market.properties",
+		"s3://al-edh-dev/src/legacy/main/conf/ingestion_angie_dbo_categories.properties",
 		"#{format(minusDays(@scheduledStartTime,1),'YYYY-MM-dd')}"
 	  ],
 	  "type": "ShellCommandActivity"
@@ -24,29 +24,14 @@
 	{
 	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
 	  "dependsOn": {
-        "ref": "ing-legacy-angie-dbo-sp_market-full"
+        "ref": "ing-legacy-angie-dbo-categories-full"
       },
-	  "name": "ing-legacy-angie-dbo-tbl_requests-full",
-	  "id": "ing-legacy-angie-dbo-tbl_requests-full",
+	  "name": "ing-legacy-angie-dbo-category_group-full",
+	  "id": "ing-legacy-angie-dbo-category_group-full",
 	  "workerGroup": "#{myWorkerGroup}",
 	  "scriptArgument": [
 		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
-		"s3://al-edh-dev/src/legacy/main/conf/ingestion_angie_dbo_tbl_requests.properties",
-		"#{format(minusDays(@scheduledStartTime,1),'YYYY-MM-dd')}"
-	  ],
-	  "type": "ShellCommandActivity"
-	},
-	{
-	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
-	  "name": "ing-legacy-angie-dbo-cash_posting-full",
-	  "id": "ing-legacy-angie-dbo-cash_posting-full",
-	  "dependsOn": {
-        "ref": "ing-legacy-angie-dbo-tbl_requests-full"
-      },
-	  "workerGroup": "#{myWorkerGroup}",
-	  "scriptArgument": [
-		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
-		"s3://al-edh-dev/src/legacy/main/conf/ingestion_angie_dbo_cash_posting.properties",
+		"s3://al-edh-dev/src/legacy/main/conf/ingestion_angie_dbo_category_group.properties",
 		"#{format(minusDays(@scheduledStartTime,1),'YYYY-MM-dd')}"
 	  ],
 	  "type": "ShellCommandActivity"
@@ -54,14 +39,14 @@
 	{
 	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
 	  "dependsOn": {
-        "ref": "ing-legacy-angie-dbo-cash_posting-full"
+        "ref": "ing-legacy-angie-dbo-category_group-full"
       },
-	  "name": "ing-legacy-angie-dbo-ad_element-full",
-	  "id": "ing-legacy-angie-dbo-ad_element-full",
+	  "name": "ing-legacy-angie-dbo-category_group_type-full",
+	  "id": "ing-legacy-angie-dbo-category_group_type-full",
 	  "workerGroup": "#{myWorkerGroup}",
 	  "scriptArgument": [
 		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
-		"s3://al-edh-dev/src/legacy/main/conf/ingestion_angie_dbo_ad_element.properties",
+		"s3://al-edh-dev/src/legacy/main/conf/ingestion_angie_dbo_category_group_type.properties",
 		"#{format(minusDays(@scheduledStartTime,1),'YYYY-MM-dd')}"
 	  ],
 	  "type": "ShellCommandActivity"
@@ -69,14 +54,44 @@
 	{
 	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
 	  "dependsOn": {
-        "ref": "ing-legacy-angie-dbo-ad_element-full"
+        "ref": "ing-legacy-angie-dbo-category_group_type-full"
       },
-	  "name": "ing-legacy-angie-dbo-ad_type-full",
-	  "id": "ing-legacy-angie-dbo-ad_type-full",
+	  "name": "ing-legacy-angie-dbo-contract-full",
+	  "id": "ing-legacy-angie-dbo-contract-full",
 	  "workerGroup": "#{myWorkerGroup}",
 	  "scriptArgument": [
 		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
-		"s3://al-edh-dev/src/legacy/main/conf/ingestion_angie_dbo_ad_type.properties",
+		"s3://al-edh-dev/src/legacy/main/conf/ingestion_angie_dbo_contract.properties",
+		"#{format(minusDays(@scheduledStartTime,1),'YYYY-MM-dd')}"
+	  ],
+	  "type": "ShellCommandActivity"
+	},
+	{
+	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "dependsOn": {
+        "ref": "ing-legacy-angie-dbo-contract-full"
+      },
+	  "name": "ing-legacy-angie-dbo-contract_item-full",
+	  "id": "ing-legacy-angie-dbo-contract_item-full",
+	  "workerGroup": "#{myWorkerGroup}",
+	  "scriptArgument": [
+		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
+		"s3://al-edh-dev/src/legacy/main/conf/ingestion_angie_dbo_contract_item.properties",
+		"#{format(minusDays(@scheduledStartTime,1),'YYYY-MM-dd')}"
+	  ],
+	  "type": "ShellCommandActivity"
+	},
+	{
+	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "dependsOn": {
+        "ref": "ing-legacy-angie-dbo-contract_item-full"
+      },
+	  "name": "ing-legacy-angie-dbo-location-full",
+	  "id": "ing-legacy-angie-dbo-location-full",
+	  "workerGroup": "#{myWorkerGroup}",
+	  "scriptArgument": [
+		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
+		"s3://al-edh-dev/src/legacy/main/conf/ingestion_angie_dbo_location.properties",
 		"#{format(minusDays(@scheduledStartTime,1),'YYYY-MM-dd')}"
 	  ],
 	  "type": "ShellCommandActivity"
