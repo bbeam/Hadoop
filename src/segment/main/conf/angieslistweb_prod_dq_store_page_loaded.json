@@ -1,9 +1,9 @@
 {  
    "InputTableName":"inc_store_page_loaded",
-   "OutputTableName":"dq_angieslistweb_prod_store_page_loaded",
+   "OutputTableName":"dq_store_page_loaded",
    "SourceDB":"INCOMING_SEGMENT_EVENTS_ALWP_DB",
    "TargetDB":"GOLD_SEGMENT_EVENTS_ALWP_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/segment/events/angieslistweb_prod/incremental/daily/dq_angieslistweb_prod_store_page_loaded/edh_bus_date=$EDHBUSDATE",      
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/segment/events/angieslistweb_prod/incremental/daily/dq_store_page_loaded/edh_bus_date=$EDHBUSDATE",      
    "TableValidation":[  
             {  
                "Check":"Duplicate",
