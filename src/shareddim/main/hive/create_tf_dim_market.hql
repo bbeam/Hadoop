@@ -11,8 +11,10 @@
 -- -hivevar S3_BUCKET=$S3_BUCKET 
 --*/
 
-CREATE TABLE IF NOT EXISTS ${hivevar:HIVE_DB}.tf_dim_market
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:HIVE_DB}.tf_dim_market
 (
-	market_id	int,
-	market_nm	string
-);
+   market_nm string,
+   market_id int
+
+)
+LOCATION 'hdfs://ip-172-26-40-211.ec2.internal:8020/user/hadoop/data/work/shareddim/tf_dim_market';
