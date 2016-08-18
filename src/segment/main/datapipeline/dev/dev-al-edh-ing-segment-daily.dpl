@@ -113,7 +113,7 @@
 	  "workerGroup": "#{myWorkerGroup}",
 	  "scriptArgument": [
 		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
-		"s3://al-edh-dev/src/segment/main/conf/ingestion_angieslistweb_prod_angieslistweb_prod_searched_sp.properties",
+		"s3://al-edh-dev/src/segment/main/conf/ingestion_angieslistweb_prod_searched_sp.properties",
 		"#{format(minusDays(@scheduledStartTime,1),'YYYY-MM-dd')}"
 	  ],
 	  "type": "ShellCommandActivity"
