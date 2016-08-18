@@ -152,13 +152,6 @@ gen_lojoin_base_membersplus_with_postal_address =
 	
 
 /* Step 8: Derive PayStatus by applying left join with [Reports].[dbo].[MbrPayStatus] on MemberID to select distinct Member and paystatus where paystatus is based on maximum ID if paystatus = 'Paid' for a given Member ID */
-groupby_table_legacy_mbr_pay_status_memberid_paystatus = 
-	GROUP table_legacy_mbr_pay_status BY (member_id,pay_status);
-	
-gen_groupby_table_legacy_mbr_pay_status_memberid_paystatus = 
-	FOREACH groupby_table_legacy_mbr_pay_status_memberid_paystatus 
-	GENERATE group.member_id AS member_id:INT, group.pay_status AS pay_status:chararray;
-	
 filter_paid_pay_status_table_legacy_mbr_pay_status = 
 	FILTER table_legacy_mbr_pay_status BY pay_status=='Paid';
 	
@@ -167,10 +160,212 @@ groupby_table_legacy_mbr_pay_status_memberid =
 
 gen_groupby_table_legacy_mbr_pay_status_memberid = 
 	FOREACH groupby_table_legacy_mbr_pay_status_memberid 
-	GENERATE group AS member_id:INT, MAX(table_legacy_mbr_pay_status.id) AS MaxPaid:INT;
+	GENERATE group AS member_id:INT, MAX(filter_paid_pay_status_table_legacy_mbr_pay_status.id) AS MaxPaid:INT;
+	
+join_paid_paystatus_with_table_legacy = 
+	JOIN table_legacy_mbr_pay_status BY member_id, gen_groupby_table_legacy_mbr_pay_status_memberid BY member_id;
 
-join_table_legacy_mbr_pay_status = 
-	JOIN 
+gen_join_paid_paystatus_with_table_legacy =
+	FOREACH join_paid_paystatus_with_table_legacy 
+	GENERATE table_legacy_mbr_pay_status::member_id AS member_id: int,
+			 table_legacy_mbr_pay_status::pay_status AS pay_status: chararray,
+			 table_legacy_mbr_pay_status::id AS id:INT,
+			 (gen_groupby_table_legacy_mbr_pay_status_memberid::MaxPaid is null?table_legacy_mbr_pay_status::id:gen_groupby_table_legacy_mbr_pay_status_memberid::MaxPaid) AS derived_id:INT;
+
+filt_gen_join_paid_paystatus_with_table_legacy = 
+	FILTER gen_join_paid_paystatus_with_table_legacy BY id==derived_id;
+	
+distinct_table_legacy_mbr_pay_status = 
+	DISTINCT (FOREACH filt_gen_join_paid_paystatus_with_table_legacy 
+			  GENERATE member_id, pay_status);
+
+lojoin_base_membersplus_with_mbr_pay_status = 
+	JOIN gen_lojoin_base_membersplus_with_postal_address BY member_id LEFT OUTER,
+		 distinct_table_legacy_mbr_pay_status BY member_id;
+
+gen_lojoin_base_membersplus_with_mbr_pay_status = 
+	FOREACH lojoin_base_membersplus_with_mbr_pay_status
+	GENERATE gen_lojoin_base_membersplus_with_postal_address::member_id AS member_id: int,
+			 gen_lojoin_base_membersplus_with_postal_address::user_id AS user_id: int,
+			 gen_lojoin_base_membersplus_with_postal_address::exclude_test_member_id AS exclude_test_member_id: int,
+			 gen_lojoin_base_membersplus_with_postal_address::postal_address_id AS postal_address_id: int,
+			 gen_lojoin_base_membersplus_with_postal_address::market_zone_id AS market_zone_id: int,
+			 gen_lojoin_base_membersplus_with_postal_address::postal_code AS postal_code: chararray,
+			 distinct_table_legacy_mbr_pay_status::pay_status AS pay_status: chararray;
+
+
+/* Step 9: MembershipTierName_TypeII is Angie.dbo.MembershipTier.MembershipTierName which is joined with Angie.dbo.MemberMembershipTier on MembershipTierID which has MemberID as foreign key.*/
+join_table_legacy_membership_tier_with_table_legacy_member_membership_tier = 
+	JOIN table_legacy_membership_tier BY membership_tier_id, table_legacy_member_membership_tier BY membership_tier_id;
+
+lojoin_join_base_membersplus_with_table_legacy_member_membership_tier = 
+	JOIN gen_lojoin_base_membersplus_with_mbr_pay_status BY member_id LEFT OUTER, join_table_legacy_membership_tier_with_table_legacy_member_membership_tier BY member_id;
+	
+	
+gen_lojoin_join_base_membersplus_with_table_legacy_member_membership_tier = 
+	FOREACH lojoin_join_base_membersplus_with_table_legacy_member_membership_tier
+	GENERATE gen_lojoin_base_membersplus_with_mbr_pay_status::member_id AS member_id: int,
+		     gen_lojoin_base_membersplus_with_mbr_pay_status::user_id AS user_id: int,
+		     gen_lojoin_base_membersplus_with_mbr_pay_status::exclude_test_member_id AS exclude_test_member_id: int,
+		     gen_lojoin_base_membersplus_with_mbr_pay_status::postal_address_id AS postal_address_id: int,
+		     gen_lojoin_base_membersplus_with_mbr_pay_status::market_zone_id AS market_zone_id: int,
+		     gen_lojoin_base_membersplus_with_mbr_pay_status::postal_code AS postal_code: chararray,
+		     gen_lojoin_base_membersplus_with_mbr_pay_status::pay_status AS pay_status: chararray,
+		     join_table_legacy_membership_tier_with_table_legacy_member_membership_tier::table_legacy_membership_tier::membership_tier_name AS membership_tier_name: chararray;
+
+
+/* Step 10: Find the current primary address of each user in the new system. To do this, select all primary addresses (IsPrimary = 1) from AngiesList.dbo.t_UserAddress and find the latest record for each user on UpdateDate. Left join on UserId. */
+lojoin_base_membersplus_with_t_user = 
+	JOIN gen_lojoin_join_base_membersplus_with_table_legacy_member_membership_tier BY user_id LEFT OUTER,
+		 table_al4_t_user BY user_id;
+	 
+gen_lojoin_base_membersplus_with_t_user = 
+	FOREACH lojoin_base_membersplus_with_t_user 
+	GENERATE gen_lojoin_join_base_membersplus_with_table_legacy_member_membership_tier::member_id AS member_id: int,
+		     gen_lojoin_join_base_membersplus_with_table_legacy_member_membership_tier::user_id AS user_id: int,
+		     gen_lojoin_join_base_membersplus_with_table_legacy_member_membership_tier::exclude_test_member_id AS exclude_test_member_id: int,
+		     gen_lojoin_join_base_membersplus_with_table_legacy_member_membership_tier::postal_address_id AS postal_address_id: int,
+		     gen_lojoin_join_base_membersplus_with_table_legacy_member_membership_tier::market_zone_id AS market_zone_id: int,
+		     gen_lojoin_join_base_membersplus_with_table_legacy_member_membership_tier::postal_code AS postal_code: chararray,
+		     gen_lojoin_join_base_membersplus_with_table_legacy_member_membership_tier::pay_status AS pay_status: chararray,
+		     gen_lojoin_join_base_membersplus_with_table_legacy_member_membership_tier::membership_tier_name AS membership_tier_name: chararray,
+		     table_al4_t_user::first_name AS first_name: chararray, 
+		     table_al4_t_user::last_name AS last_name: chararray, 
+		     table_al4_t_user::status AS status: chararray, 
+		     table_al4_t_user::test_user AS test_user: int;
+
+filter_isprimary_table_al4_t_user_address = 
+	FILTER table_al4_t_user_address BY is_primary==1;
+	
+groupby_table_al4_t_user_address_user_id = 
+	GROUP filter_isprimary_table_al4_t_user_address BY user_id;
+
+gen_groupby_table_al4_t_user_address_user_id = 
+	FOREACH groupby_table_al4_t_user_address_user_id 
+	GENERATE group AS user_id:INT, MAX(filter_isprimary_table_al4_t_user_address.update_date) AS maxupdatedate;
+
+join_t_user_with_gen_groupby_table_al4_t_user_address_user_id = 
+	JOIN gen_lojoin_base_membersplus_with_t_user BY user_id, gen_groupby_table_al4_t_user_address_user_id BY user_id;
+
+gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id =
+	FOREACH join_t_user_with_gen_groupby_table_al4_t_user_address_user_id 
+	GENERATE gen_lojoin_base_membersplus_with_t_user::member_id AS member_id: int,
+		     gen_lojoin_base_membersplus_with_t_user::user_id AS user_id: int,
+		     gen_lojoin_base_membersplus_with_t_user::exclude_test_member_id AS exclude_test_member_id: int,
+		     gen_lojoin_base_membersplus_with_t_user::postal_address_id AS postal_address_id: int,
+		     gen_lojoin_base_membersplus_with_t_user::market_zone_id AS market_zone_id: int,
+		     gen_lojoin_base_membersplus_with_t_user::postal_code AS postal_code: chararray,
+		     gen_lojoin_base_membersplus_with_t_user::pay_status AS pay_status: chararray,
+		     gen_lojoin_base_membersplus_with_t_user::membership_tier_name AS membership_tier_name: chararray,
+		     gen_lojoin_base_membersplus_with_t_user::first_name AS first_name: chararray, 
+		     gen_lojoin_base_membersplus_with_t_user::last_name AS last_name: chararray, 
+		     gen_lojoin_base_membersplus_with_t_user::status AS status: chararray, 
+		     gen_lojoin_base_membersplus_with_t_user::test_user AS test_user: int,
+		     gen_groupby_table_al4_t_user_address_user_id::user_id AS t_user_user_id: int,
+			 gen_groupby_table_al4_t_user_address_user_id::maxupdatedate AS maxupdatedate;
+
+
+/* Step 11: To accomodate cases of more than one address change in a single day, filter all primary addresses (IsPrimary = 1), group by UserId and UpdateDate to find max of PostalAddressId. Left Join on UserId and UpdateDate.*/
+groupby_table_al4_t_user_address_userid_updatedate = 
+	GROUP filter_isprimary_table_al4_t_user_address BY (user_id,update_date);
+
+gen_groupby_table_al4_t_user_address_userid_updatedate = 
+	FOREACH groupby_table_al4_t_user_address_userid_updatedate 
+	GENERATE group.user_id AS user_id:INT, group.update_date AS update_date:DATETIME, 
+	         MAX(filter_isprimary_table_al4_t_user_address.postal_address_id) AS maxpostaladdressid:INT;
+	
+lojoin_base_members_with_postal_address_id = 
+	JOIN gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id BY postal_address_id LEFT OUTER,
+	     gen_groupby_table_al4_t_user_address_userid_updatedate BY maxpostaladdressid;	
+	
+filter_lojoin_base_members_with_postal_address_id = 
+	FILTER lojoin_base_members_with_postal_address_id BY 
+	gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::t_user_user_id == gen_groupby_table_al4_t_user_address_userid_updatedate::user_id and 
+	gen_groupby_table_al4_t_user_address_userid_updatedate::update_date == gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::maxupdatedate;
+
+gen_filter_lojoin_base_members_with_postal_address_id = 
+	FOREACH filter_lojoin_base_members_with_postal_address_id 
+	GENERATE gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::member_id AS member_id: int,
+		     gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::user_id AS user_id: int,
+		     gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::exclude_test_member_id AS exclude_test_member_id: int,
+		     gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::postal_address_id AS postal_address_id: int,
+		     gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::market_zone_id AS market_zone_id: int,
+		     gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::postal_code AS postal_code: chararray,
+		     gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::pay_status AS pay_status: chararray,
+		     gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::membership_tier_name AS membership_tier_name: chararray,
+		     gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::first_name AS first_name: chararray,
+		     gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::last_name AS last_name: chararray,
+		     gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::status AS status: chararray,
+		     gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::test_user AS test_user: int,
+		     gen_groupby_table_al4_t_user_address_userid_updatedate::update_date AS update_date: datetime,
+		     gen_groupby_table_al4_t_user_address_userid_updatedate::maxpostaladdressid AS maxpostaladdressid: int;
+
+/* Step 12: Left join with AngiesList.dbo.t_PostalAddress on PostalAddressId to derive AdvertisingZoneID where primary address of the member falls as AdvertisingZoneID_TypeII */
+lojoin_gen_filter_lojoin_base_members_with_postal_address_id = 
+	JOIN gen_filter_lojoin_base_members_with_postal_address_id BY maxpostaladdressid LEFT OUTER,
+		 table_al4_t_postal_address BY postal_address_id;
+
+gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id = 
+	FOREACH lojoin_gen_filter_lojoin_base_members_with_postal_address_id 
+	GENERATE gen_filter_lojoin_base_members_with_postal_address_id::member_id AS member_id: int,
+			 gen_filter_lojoin_base_members_with_postal_address_id::user_id AS user_id: int,
+			 gen_filter_lojoin_base_members_with_postal_address_id::exclude_test_member_id AS exclude_test_member_id: int,
+			 gen_filter_lojoin_base_members_with_postal_address_id::postal_address_id AS postal_address_id: int,
+			 gen_filter_lojoin_base_members_with_postal_address_id::market_zone_id AS market_zone_id: int,
+			 gen_filter_lojoin_base_members_with_postal_address_id::postal_code AS postal_code: chararray,
+			 gen_filter_lojoin_base_members_with_postal_address_id::pay_status AS pay_status: chararray,
+			 gen_filter_lojoin_base_members_with_postal_address_id::membership_tier_name AS membership_tier_name: chararray,
+			 gen_filter_lojoin_base_members_with_postal_address_id::first_name AS first_name: chararray,
+			 gen_filter_lojoin_base_members_with_postal_address_id::last_name AS last_name: chararray,
+			 gen_filter_lojoin_base_members_with_postal_address_id::status AS status: chararray,
+			 gen_filter_lojoin_base_members_with_postal_address_id::test_user AS test_user: int,
+			 table_al4_t_postal_address::advertising_zone AS advertising_zone: int;
+
+
+/* ++Step 13: Left join the resulting table with AngiesList.dbo.t_ContactInformation on ContactInformationId to derive PrimaryPhoneNumber and Email. Now we have the member's contact details and primary address derived from both legacy and new system. */
+filter_isprimary_table_al4_t_contact_information = 
+	FILTER table_al4_t_contact_information BY is_primary==1;
+
+groupby_table_al4_t_contact_information_contextentityid = 
+	GROUP filter_isprimary_table_al4_t_contact_information BY context_entity_id;
+
+gen_groupby_table_al4_t_contact_information_contextentityid = 
+	FOREACH groupby_table_al4_t_contact_information_contextentityid 
+	GENERATE group AS user_id:INT, MAX(filter_isprimary_table_al4_t_contact_information.update_date) AS maxupdatedate;
+
+lojoin_base_member_with_gen_groupby_t_contact_information = 
+	JOIN gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id BY user_id LEFT OUTER,
+	     gen_groupby_table_al4_t_contact_information_contextentityid by user_id;
+
+gen_lojoin_base_member_with_gen_groupby_t_contact_information = 
+	FOREACH lojoin_base_member_with_gen_groupby_t_contact_information 
+	GENERATE gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::member_id AS member_id: int,
+			gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::user_id AS user_id: int,
+			gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::exclude_test_member_id AS exclude_test_member_id: int,
+			gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::postal_address_id AS postal_address_id: int,
+			gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::market_zone_id AS market_zone_id: int,
+			gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::postal_code AS postal_code: chararray,
+			gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::pay_status AS pay_status: chararray,
+			gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::membership_tier_name AS membership_tier_name: chararray,
+			gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::first_name AS first_name: chararray,
+			gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::last_name AS last_name: chararray,
+			gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::status AS status: chararray,
+			gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::test_user AS test_user: int,
+			gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::advertising_zone AS advertising_zone: int,
+			gen_groupby_table_al4_t_contact_information_contextentityid::maxupdatedate AS maxupdatedate;
+
+groupby_table_al4_t_contact_information_contextentityid_updatedate = 
+	GROUP 
+
+
+
+
+
+
+
+
+
+
 
 
 

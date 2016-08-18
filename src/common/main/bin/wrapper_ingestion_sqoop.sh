@@ -28,7 +28,6 @@ echo "Business Date : $EDH_BUS_DATE"
 EDH_BUS_MONTH=$(date -d "$EDH_BUS_DATE" '+%Y%m')
 echo "Business Month :$EDH_BUS_MONTH"
 
-
 # Copy the al-edh-global.properties file from S3 to local and load the properties.
 global_file=`echo "$(basename $1)"`
 aws s3 cp $1 /var/tmp/
@@ -86,8 +85,16 @@ echo "executing : aws s3 rm $S3_BUCKET/$DATA_DIRECTORY=$EDH_BUS_DATE --recursive
 aws s3 rm $S3_BUCKET/$DATA_DIRECTORY=$EDH_BUS_DATE --recursive
 echo "executing : aws s3 rm $S3_BUCKET/data/operations/common/edh_batch_error/table_name=$INCOMING_DB.$TABLE_NAME_INC/edh_bus_date=$EDH_BUS_DATE --recursive"
 aws s3 rm $S3_BUCKET/data/operations/common/edh_batch_error/table_name=$INCOMING_DB.$TABLE_NAME_INC/edh_bus_date=$EDH_BUS_DATE --recursive
-echo "executing : aws s3 rm $DQ_HIVE_LOCATION  --recursive"
-aws s3 rm $DQ_HIVE_LOCATION  --recursive
+
+if [ $EXTRACTION_TYPE == "INCREMENTAL" ]
+then
+	echo "executing : aws s3 rm $DQ_HIVE_LOCATION=$EDH_BUS_DATE  --recursive"
+	aws s3 rm $DQ_HIVE_LOCATION=$EDH_BUS_DATE  --recursive
+elif [ $EXTRACTION_TYPE == "FULL" ]
+then
+	echo "executing : aws s3 rm $DQ_HIVE_LOCATION  --recursive"
+	aws s3 rm $DQ_HIVE_LOCATION  --recursive
+fi
 
 # replace the extract_date with the edh_bus_date generated in this shell in case of incremental load in the options file.
 sed -ie "s/EXTRACT_DATE/$EDH_BUS_DATE/g" /var/tmp/$OPTIONS_FILE_NAME 
@@ -234,22 +241,49 @@ else
 		exit 1
 fi
 
+
 # Hive script to insert DQ audit record
-hive -f $DQ_AUDIT_HQL_PATH \
-	-hivevar ENTITY_NAME=$SOURCE \
-	-hivevar GOLD_DB=$GOLD_DB \
-	-hivevar INCOMING_DB=$INCOMING_DB \
-	-hivevar INCOMING_TABLE=$TABLE_NAME_INC \
-	-hivevar DQ_TABLE=$TABLE_NAME_DQ \
-	-hivevar USER_NAME=$USER_NAME \
-	-hivevar EDH_BUS_MONTH=$EDH_BUS_MONTH \
-	-hivevar EDH_BUS_DATE=$EDH_BUS_DATE
-		
-# Hive Status check
-if [ $? -eq 0 ]
+if [ $EXTRACTION_TYPE == "INCREMENTAL" ]
 then
-		echo "$DQ_AUDIT_HQL_PATH executed without any error."
-else
-		echo "$DQ_AUDIT_HQL_PATH execution failed."
-		exit 1
+	hive -f $DQ_INCREMENTAL_AUDIT_HQL_PATH \
+		-hivevar ENTITY_NAME=$SOURCE \
+		-hivevar GOLD_DB=$GOLD_DB \
+		-hivevar INCOMING_DB=$INCOMING_DB \
+		-hivevar INCOMING_TABLE=$TABLE_NAME_INC \
+		-hivevar DQ_TABLE=$TABLE_NAME_DQ \
+		-hivevar USER_NAME=$USER_NAME \
+		-hivevar EDH_BUS_MONTH=$EDH_BUS_MONTH \
+		-hivevar EDH_BUS_DATE=$EDH_BUS_DATE
+		
+		# Hive Status check
+	if [ $? -eq 0 ]
+	then
+			echo "$DQ_INCREMENTAL_AUDIT_HQL_PATH executed without any error."
+	else
+			echo "$DQ_INCREMENTAL_AUDIT_HQL_PATH execution failed."
+			exit 1
+	fi
+elif [ $EXTRACTION_TYPE == "FULL" ]
+then
+	hive -f $DQ_FULL_AUDIT_HQL_PATH \
+		-hivevar ENTITY_NAME=$SOURCE \
+		-hivevar GOLD_DB=$GOLD_DB \
+		-hivevar INCOMING_DB=$INCOMING_DB \
+		-hivevar INCOMING_TABLE=$TABLE_NAME_INC \
+		-hivevar DQ_TABLE=$TABLE_NAME_DQ \
+		-hivevar USER_NAME=$USER_NAME \
+		-hivevar EDH_BUS_MONTH=$EDH_BUS_MONTH \
+		-hivevar EDH_BUS_DATE=$EDH_BUS_DATE
+		
+		# Hive Status check
+	if [ $? -eq 0 ]
+	then
+			echo "$DQ_FULL_AUDIT_HQL_PATH executed without any error."
+	else
+			echo "$DQ_FULL_AUDIT_HQL_PATH execution failed."
+			exit 1
+	fi
 fi
+		
+		
+
