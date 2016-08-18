@@ -22,6 +22,13 @@ then
     	Show_Usage
 fi
 
+echo "****************BUSINESS DATE/MONTH*****************"
+EDH_BUS_DATE=$3
+echo "Business Date : $EDH_BUS_DATE"
+EDH_BUS_MONTH=$(date -d "$EDH_BUS_DATE" '+%Y%m')
+echo "Business Month :$EDH_BUS_MONTH"
+
+
 # Copy the al-edh-global.properties file from S3 to local and load the properties.
 global_file=`echo "$(basename $1)"`
 aws s3 cp $1 /var/tmp/
@@ -72,13 +79,6 @@ else
    		echo "Copy of ${OPTIONS_FILE_NAME} failed from S3"
     	exit 1
 fi
-
-
-echo "****************BUSINESS DATE/MONTH*****************"
-EDH_BUS_DATE=$3
-echo "Business Date : $EDH_BUS_DATE"
-EDH_BUS_MONTH=$(date -d "$EDH_BUS_DATE" '+%Y%m')
-echo "Business Month :$EDH_BUS_MONTH"
 
 echo "*************SQOOP IMPORT JOB UTILITY*******************"
 # deleting the sqoop target location,error location and gold table location, if it already exists.
