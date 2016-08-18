@@ -12,6 +12,7 @@
 	{
 	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
 	  "name": "ing-segment-angieslistweb_prod-offer_page_loaded-inc",
+	  "maximumRetries": "0",
 	  "id": "ing-segment-angieslistweb_prod-offer_page_loaded-inc",
 	  "workerGroup": "#{myWorkerGroup}",
 	  "scriptArgument": [
@@ -23,6 +24,7 @@
 	},
 	{
 	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "maximumRetries": "0",
 	  "dependsOn": {
         "ref": "ing-segment-angieslistweb_prod-offer_page_loaded-inc"
       },
@@ -38,6 +40,7 @@
 	},
 	{
 	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "maximumRetries": "0",
 	  "dependsOn": {
         "ref": "ing-segment-angieslistweb_prod-pages-inc"
       },
@@ -53,6 +56,7 @@
 	},
 	{
 	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "maximumRetries": "0",
 	  "dependsOn": {
         "ref": "ing-segment-angieslistweb_prod-purchased-inc"
       },
@@ -68,6 +72,7 @@
 	},
 	{
 	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "maximumRetries": "0",
 	  "dependsOn": {
         "ref": "ing-segment-angieslistweb_prod-purchased_an_item-inc"
       },
@@ -83,6 +88,7 @@
 	},
 	{
 	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "maximumRetries": "0",
 	  "dependsOn": {
         "ref": "ing-segment-angieslistweb_prod-purchased_cart-inc"
       },
@@ -98,6 +104,7 @@
 	},
 	{
 	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "maximumRetries": "0",
 	  "dependsOn": {
         "ref": "ing-segment-angieslistweb_prod-review_submitted-inc"
       },
@@ -113,6 +120,7 @@
 	},
 	{
 	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "maximumRetries": "0",
 	  "dependsOn": {
         "ref": "ing-segment-angieslistweb_prod-searched_sp-inc"
       },
@@ -128,6 +136,7 @@
 	},
 	{
 	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "maximumRetries": "0",
 	  "dependsOn": {
         "ref": "ing-segment-angieslistweb_prod-store_page_loaded-inc"
       },
@@ -143,6 +152,7 @@
 	},
 	{
 	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "maximumRetries": "0",
 	  "dependsOn": {
         "ref": "ing-segment-angieslistweb_prod-user_login-inc"
       },
@@ -158,6 +168,7 @@
 	},
 	{
 	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "maximumRetries": "0",
 	  "dependsOn": {
         "ref": "ing-segment-angieslistweb_prod-user_login_successful-inc"
       },
@@ -173,6 +184,7 @@
 	},
 	{
 	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "maximumRetries": "0",
 	  "dependsOn": {
         "ref": "ing-segment-greenpoint_android_prod-on_board_user_signs_in_success-inc"
       },
@@ -188,6 +200,7 @@
 	},
 	{
 	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "maximumRetries": "0",
 	  "dependsOn": {
         "ref": "ing-segment-greenpoint_android_prod-popular_category_tapped-inc"
       },
@@ -203,6 +216,7 @@
 	},
 	{
 	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "maximumRetries": "0",
 	  "dependsOn": {
         "ref": "ing-segment-greenpoint_android_prod-review_submitted-inc"
       },
@@ -218,6 +232,7 @@
 	},
 	{
 	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "maximumRetries": "0",
 	  "dependsOn": {
         "ref": "ing-segment-greenpoint_android_prod-screens-inc"
       },
@@ -233,6 +248,7 @@
 	},
 	{
 	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "maximumRetries": "0",
 	  "dependsOn": {
         "ref": "ing-segment-greenpoint_android_prod-stl_search-inc"
       },
@@ -248,6 +264,7 @@
 	},
 	{
 	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "maximumRetries": "0",
 	  "dependsOn": {
         "ref": "ing-segment-greenpoint_production-on_board_user_signs_in_success-inc"
       },
@@ -263,6 +280,7 @@
 	},
 	{
 	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "maximumRetries": "0",
 	  "dependsOn": {
         "ref": "ing-segment-greenpoint_production-screens-inc"
       },
@@ -278,6 +296,7 @@
 	},
 	{
 	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "maximumRetries": "0",
 	  "dependsOn": {
         "ref": "ing-segment-greenpoint_production-search_the_list-inc"
       },
