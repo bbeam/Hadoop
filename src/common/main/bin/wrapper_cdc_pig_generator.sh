@@ -80,7 +80,7 @@ else
     exit 1
 fi
 
-JAR_FILE_NAME=$(basename $CDC_PIG_GENERATOR_JAR_FILE_PATH)
+JAR_FILE_NAME=$(basename $DQ_GENERATOR_JAR_FILE_PATH)
 INPUT_JSON_FILE_NAME=$(basename $INPUT_JSON_FILE_PATH)
 JSON_SCHEMA_FILE_NAME=$(basename $VALIDATION_SCHEMA_FILE_PATH)
 CDC_PIG_FILE_NAME=$(basename $CDC_PIG_FILE_PATH)
@@ -107,7 +107,7 @@ else
 fi
 
 # Copy CDC_PIG_GENERATOR_JAR file
-aws s3 cp $CDC_PIG_GENERATOR_JAR_FILE_PATH /var/tmp/
+aws s3 cp $DQ_GENERATOR_JAR_FILE_PATH /var/tmp/
 if [ $? -eq 0 ]
 then
     echo "$JAR_FILE_NAME file copied succecfully"
@@ -118,7 +118,8 @@ fi
 
 
 # Run java jar program for to generate pig and hql files for SCD
-java -jar /var/tmp/$JAR_FILE_NAME $INPUT_JSON_FILE_NAME $JSON_SCHEMA_FILE_NAME
+#java -jar /var/tmp/$JAR_FILE_NAME /var/tmp/$INPUT_JSON_FILE_NAME /var/tmp/$JSON_SCHEMA_FILE_NAME
+java -cp /var/tmp/EDH_JAVA-1.0-jar-with-dependencies.jar com.angieslist.edh.scd.scdgenerator.SCDPigGenerator /var/tmp/$INPUT_JSON_FILE_NAME /var/tmp/$JSON_SCHEMA_FILE_NAME
 
 if [ $? -eq 0 ]
 then
@@ -129,7 +130,7 @@ else
 fi
 
 # Copy output .pig file to s3
-aws s3 cp /var/tmp/$CDC_PIG_FILE_NAME $CDC_PIG_FILE_PATH
+aws s3 cp $CDC_PIG_FILE_NAME $CDC_PIG_FILE_PATH
 if [ $? -eq 0 ]
 then
   echo "pig file copied to s3 successfully"
@@ -139,7 +140,7 @@ else
 fi
 
 # Copy output hive .hql file to s3
-aws s3 cp /var/tmp/$LOAD_DIM_HIVE_FILE_NAME $LOAD_DIM_HIVE_FILE_PATH
+aws s3 cp $LOAD_DIM_HIVE_FILE_NAME $LOAD_DIM_HIVE_FILE_PATH
 if [ $? -eq 0 ]
 then
   echo "hive file copied to s3 successfully"
