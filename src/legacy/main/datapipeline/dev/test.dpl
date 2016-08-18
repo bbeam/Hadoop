@@ -12,54 +12,6 @@
 	{
 	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
  	 "maximumRetries": "0",
-	  "name": "ing-legacy-angie-dbo-members-full",
-	  "id": "ing-legacy-angie-dbo-members-full",
-	  "workerGroup": "#{myWorkerGroup}",
-	  "scriptArgument": [
-		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
-		"s3://al-edh-dev/src/legacy/main/conf/ingestion_angie_dbo_members.properties",
-		"#{format(minusDays(@scheduledStartTime,1),'YYYY-MM-dd')}"
-	  ],
-	  "type": "ShellCommandActivity"
-	},
-	{
-	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
- 	 "maximumRetries": "0",
-	  "dependsOn": {
-        "ref": "ing-legacy-angie-dbo-members-full"
-      },
-	  "name": "ing-legacy-angie-dbo-membership_tier-full",
-	  "id": "ing-legacy-angie-dbo-membership_tier-full",
-	  "workerGroup": "#{myWorkerGroup}",
-	  "scriptArgument": [
-		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
-		"s3://al-edh-dev/src/legacy/main/conf/ingestion_angie_dbo_membership_tier.properties",
-		"#{format(minusDays(@scheduledStartTime,1),'YYYY-MM-dd')}"
-	  ],
-	  "type": "ShellCommandActivity"
-	},
-	{
-	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
- 	 "maximumRetries": "0",
-	  "dependsOn": {
-        "ref": "ing-legacy-angie-dbo-membership_tier-full"
-      },
-	  "name": "ing-legacy-angie-dbo-postal_address-full",
-	  "id": "ing-legacy-angie-dbo-postal_address-full",
-	  "workerGroup": "#{myWorkerGroup}",
-	  "scriptArgument": [
-		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
-		"s3://al-edh-dev/src/legacy/main/conf/ingestion_angie_dbo_postal_address.properties",
-		"#{format(minusDays(@scheduledStartTime,1),'YYYY-MM-dd')}"
-	  ],
-	  "type": "ShellCommandActivity"
-	},
-	{
-	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
- 	 "maximumRetries": "0",
-	  "dependsOn": {
-        "ref": "ing-legacy-angie-dbo-postal_address-full"
-      },
 	  "name": "ing-legacy-angie-dbo-product-full",
 	  "id": "ing-legacy-angie-dbo-product-full",
 	  "workerGroup": "#{myWorkerGroup}",
