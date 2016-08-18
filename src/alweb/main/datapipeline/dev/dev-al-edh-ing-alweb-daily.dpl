@@ -234,7 +234,7 @@
 	{
 	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
 	  "dependsOn": {
-        "ref": "ing-alweb-angieslist-t_user_address-full"
+        "ref": "ing-alweb-angieslist-t_user-full"
       },
 	  "name": "ing-alweb-fulfillment-lead-full",
 	  "id": "ing-alweb-fulfillment-lead-full",
