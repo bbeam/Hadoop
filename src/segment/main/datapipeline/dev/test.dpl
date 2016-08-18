@@ -1,0 +1,218 @@
+{
+  "objects": [
+	{
+	  "failureAndRerunMode": "CASCADE",
+	  "resourceRole": "DataPipelineDefaultResourceRole",
+	  "role": "DataPipelineDefaultRole",
+	  "pipelineLogUri": "s3://al-edh-dev/logs/datapipelines/segment/dev-al-edh-ing-segment-daily",
+	  "scheduleType": "ONDEMAND",
+	  "name": "Default",
+	  "id": "Default"
+	},
+	{
+	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "maximumRetries": "0",
+	  "name": "ing-segment-angieslistweb_prod-searched_sp-inc",
+	  "id": "ing-segment-angieslistweb_prod-searched_sp-inc",
+	  "workerGroup": "#{myWorkerGroup}",
+	  "scriptArgument": [
+		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
+		"s3://al-edh-dev/src/segment/main/conf/ingestion_angieslistweb_prod_searched_sp.properties",
+		"#{format(minusDays(@scheduledStartTime,1),'YYYY-MM-dd')}"
+	  ],
+	  "type": "ShellCommandActivity"
+	},
+	{
+	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "maximumRetries": "0",
+	  "dependsOn": {
+        "ref": "ing-segment-angieslistweb_prod-searched_sp-inc"
+      },
+	  "name": "ing-segment-angieslistweb_prod-store_page_loaded-inc",
+	  "id": "ing-segment-angieslistweb_prod-store_page_loaded-inc",
+	  "workerGroup": "#{myWorkerGroup}",
+	  "scriptArgument": [
+		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
+		"s3://al-edh-dev/src/segment/main/conf/ingestion_angieslistweb_prod_store_page_loaded.properties",
+		"#{format(minusDays(@scheduledStartTime,1),'YYYY-MM-dd')}"
+	  ],
+	  "type": "ShellCommandActivity"
+	},
+	{
+	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "maximumRetries": "0",
+	  "dependsOn": {
+        "ref": "ing-segment-angieslistweb_prod-store_page_loaded-inc"
+      },
+	  "name": "ing-segment-angieslistweb_prod-user_login-inc",
+	  "id": "ing-segment-angieslistweb_prod-user_login-inc",
+	  "workerGroup": "#{myWorkerGroup}",
+	  "scriptArgument": [
+		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
+		"s3://al-edh-dev/src/segment/main/conf/ingestion_angieslistweb_prod_user_login.properties",
+		"#{format(minusDays(@scheduledStartTime,1),'YYYY-MM-dd')}"
+	  ],
+	  "type": "ShellCommandActivity"
+	},
+	{
+	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "maximumRetries": "0",
+	  "dependsOn": {
+        "ref": "ing-segment-angieslistweb_prod-user_login-inc"
+      },
+	  "name": "ing-segment-angieslistweb_prod-user_login_successful-inc",
+	  "id": "ing-segment-angieslistweb_prod-user_login_successful-inc",
+	  "workerGroup": "#{myWorkerGroup}",
+	  "scriptArgument": [
+		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
+		"s3://al-edh-dev/src/segment/main/conf/ingestion_angieslistweb_prod_user_login_successful.properties",
+		"#{format(minusDays(@scheduledStartTime,1),'YYYY-MM-dd')}"
+	  ],
+	  "type": "ShellCommandActivity"
+	},
+	{
+	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "maximumRetries": "0",
+	  "dependsOn": {
+        "ref": "ing-segment-angieslistweb_prod-user_login_successful-inc"
+      },
+	  "name": "ing-segment-greenpoint_android_prod-on_board_user_signs_in_success-inc",
+	  "id": "ing-segment-greenpoint_android_prod-on_board_user_signs_in_success-inc",
+	  "workerGroup": "#{myWorkerGroup}",
+	  "scriptArgument": [
+		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
+		"s3://al-edh-dev/src/segment/main/conf/ingestion_greenpoint_android_prod_on_board_user_signs_in_success.properties",
+		"#{format(minusDays(@scheduledStartTime,1),'YYYY-MM-dd')}"
+	  ],
+	  "type": "ShellCommandActivity"
+	},
+	{
+	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "maximumRetries": "0",
+	  "dependsOn": {
+        "ref": "ing-segment-greenpoint_android_prod-on_board_user_signs_in_success-inc"
+      },
+	  "name": "ing-segment-greenpoint_android_prod-popular_category_tapped-inc",
+	  "id": "ing-segment-greenpoint_android_prod-popular_category_tapped-inc",
+	  "workerGroup": "#{myWorkerGroup}",
+	  "scriptArgument": [
+		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
+		"s3://al-edh-dev/src/segment/main/conf/ingestion_greenpoint_android_prod_popular_category_tapped.properties",
+		"#{format(minusDays(@scheduledStartTime,1),'YYYY-MM-dd')}"
+	  ],
+	  "type": "ShellCommandActivity"
+	},
+	{
+	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "maximumRetries": "0",
+	  "dependsOn": {
+        "ref": "ing-segment-greenpoint_android_prod-popular_category_tapped-inc"
+      },
+	  "name": "ing-segment-greenpoint_android_prod-review_submitted-inc",
+	  "id": "ing-segment-greenpoint_android_prod-review_submitted-inc",
+	  "workerGroup": "#{myWorkerGroup}",
+	  "scriptArgument": [
+		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
+		"s3://al-edh-dev/src/segment/main/conf/ingestion_greenpoint_android_prod_review_submitted.properties",
+		"#{format(minusDays(@scheduledStartTime,1),'YYYY-MM-dd')}"
+	  ],
+	  "type": "ShellCommandActivity"
+	},
+	{
+	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "maximumRetries": "0",
+	  "dependsOn": {
+        "ref": "ing-segment-greenpoint_android_prod-review_submitted-inc"
+      },
+	  "name": "ing-segment-greenpoint_android_prod-screens-inc",
+	  "id": "ing-segment-greenpoint_android_prod-screens-inc",
+	  "workerGroup": "#{myWorkerGroup}",
+	  "scriptArgument": [
+		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
+		"s3://al-edh-dev/src/segment/main/conf/ingestion_greenpoint_android_prod_screens.properties",
+		"#{format(minusDays(@scheduledStartTime,1),'YYYY-MM-dd')}"
+	  ],
+	  "type": "ShellCommandActivity"
+	},
+	{
+	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "maximumRetries": "0",
+	  "dependsOn": {
+        "ref": "ing-segment-greenpoint_android_prod-screens-inc"
+      },
+	  "name": "ing-segment-greenpoint_android_prod-stl_search-inc",
+	  "id": "ing-segment-greenpoint_android_prod-stl_search-inc",
+	  "workerGroup": "#{myWorkerGroup}",
+	  "scriptArgument": [
+		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
+		"s3://al-edh-dev/src/segment/main/conf/ingestion_greenpoint_android_prod_stl_search.properties",
+		"#{format(minusDays(@scheduledStartTime,1),'YYYY-MM-dd')}"
+	  ],
+	  "type": "ShellCommandActivity"
+	},
+	{
+	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "maximumRetries": "0",
+	  "dependsOn": {
+        "ref": "ing-segment-greenpoint_android_prod-stl_search-inc"
+      },
+	  "name": "ing-segment-greenpoint_production-on_board_user_signs_in_success-inc",
+	  "id": "ing-segment-greenpoint_production-on_board_user_signs_in_success-inc",
+	  "workerGroup": "#{myWorkerGroup}",
+	  "scriptArgument": [
+		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
+		"s3://al-edh-dev/src/segment/main/conf/ingestion_greenpoint_production_on_board_user_signs_in_success.properties",
+		"#{format(minusDays(@scheduledStartTime,1),'YYYY-MM-dd')}"
+	  ],
+	  "type": "ShellCommandActivity"
+	},
+	{
+	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "maximumRetries": "0",
+	  "dependsOn": {
+        "ref": "ing-segment-greenpoint_production-on_board_user_signs_in_success-inc"
+      },
+	  "name": "ing-segment-greenpoint_production-screens-inc",
+	  "id": "ing-segment-greenpoint_production-screens-inc",
+	  "workerGroup": "#{myWorkerGroup}",
+	  "scriptArgument": [
+		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
+		"s3://al-edh-dev/src/segment/main/conf/ingestion_greenpoint_production_screens.properties",
+		"#{format(minusDays(@scheduledStartTime,1),'YYYY-MM-dd')}"
+	  ],
+	  "type": "ShellCommandActivity"
+	},
+	{
+	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "maximumRetries": "0",
+	  "dependsOn": {
+        "ref": "ing-segment-greenpoint_production-screens-inc"
+      },
+	  "name": "ing-segment-greenpoint_production-search_the_list-inc",
+	  "id": "ing-segment-greenpoint_production-search_the_list-inc",
+	  "workerGroup": "#{myWorkerGroup}",
+	  "scriptArgument": [
+		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
+		"s3://al-edh-dev/src/segment/main/conf/ingestion_greenpoint_production_search_the_list.properties",
+		"#{format(minusDays(@scheduledStartTime,1),'YYYY-MM-dd')}"
+	  ],
+	  "type": "ShellCommandActivity"
+	},
+	{
+	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "maximumRetries": "0",
+	  "dependsOn": {
+        "ref": "ing-segment-greenpoint_production-search_the_list-inc"
+      },
+	  "name": "ing-segment-greenpoint_production-writes_an_sp_review-inc",
+	  "id": "ing-segment-greenpoint_production-writes_an_sp_review-inc",
+	  "workerGroup": "#{myWorkerGroup}",
+	  "scriptArgument": [
+		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
+		"s3://al-edh-dev/src/segment/main/conf/ingestion_greenpoint_production_writes_an_sp_review.properties",
+		"#{format(minusDays(@scheduledStartTime,1),'YYYY-MM-dd')}"
+	  ],
+	  "type": "ShellCommandActivity"
+	}
+	]
+	}

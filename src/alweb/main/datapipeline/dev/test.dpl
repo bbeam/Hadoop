@@ -1,0 +1,170 @@
+{
+  "objects": [
+	{
+	  "failureAndRerunMode": "CASCADE",
+	  "resourceRole": "DataPipelineDefaultResourceRole",
+	  "role": "DataPipelineDefaultRole",
+	  "pipelineLogUri": "s3://al-edh-dev/logs/datapipelines/alweb/dev-al-edh-ing-alweb-daily",
+	  "scheduleType": "ONDEMAND",
+	  "name": "Default",
+	  "id": "Default"
+	},
+	{
+	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "name": "ing-alweb-angieslist-t_member_permission-full",
+	  "id": "ing-alweb-angieslist-t_member_permission-full",
+	  "maximumRetries": "0",
+	  "workerGroup": "#{myWorkerGroup}",
+	  "scriptArgument": [
+		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
+		"s3://al-edh-dev/src/alweb/main/conf/ingestion_angieslist_t_member_permission.properties",
+		"#{format(minusDays(@scheduledStartTime,1),'YYYY-MM-dd')}"
+	  ],
+	  "type": "ShellCommandActivity"
+	},
+	{
+	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "dependsOn": {
+        "ref": "ing-alweb-angieslist-t_member_permission-full"
+      },
+	  "name": "ing-alweb-angieslist-t_postal_address-full",
+	  "id": "ing-alweb-angieslist-t_postal_address-full",
+	  "maximumRetries": "0",
+	  "workerGroup": "#{myWorkerGroup}",
+	  "scriptArgument": [
+		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
+		"s3://al-edh-dev/src/alweb/main/conf/ingestion_angieslist_t_postal_address.properties",
+		"#{format(minusDays(@scheduledStartTime,1),'YYYY-MM-dd')}"
+	  ],
+	  "type": "ShellCommandActivity"
+	},
+	{
+	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "dependsOn": {
+        "ref": "ing-alweb-angieslist-t_postal_address-full"
+      },
+	  "name": "ing-alweb-angieslist-t_region-full",
+	  "id": "ing-alweb-angieslist-t_region-full",
+	  "maximumRetries": "0",
+	  "workerGroup": "#{myWorkerGroup}",
+	  "scriptArgument": [
+		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
+		"s3://al-edh-dev/src/alweb/main/conf/ingestion_angieslist_t_region.properties",
+		"#{format(minusDays(@scheduledStartTime,1),'YYYY-MM-dd')}"
+	  ],
+	  "type": "ShellCommandActivity"
+	},
+	{
+	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "dependsOn": {
+        "ref": "ing-alweb-angieslist-t_region-full"
+      },
+	  "name": "ing-alweb-angieslist-t_service_provider-full",
+	  "id": "ing-alweb-angieslist-t_service_provider-full",
+	  "maximumRetries": "0",
+	  "workerGroup": "#{myWorkerGroup}",
+	  "scriptArgument": [
+		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
+		"s3://al-edh-dev/src/alweb/main/conf/ingestion_angieslist_t_service_provider.properties",
+		"#{format(minusDays(@scheduledStartTime,1),'YYYY-MM-dd')}"
+	  ],
+	  "type": "ShellCommandActivity"
+	},
+	{
+	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "dependsOn": {
+        "ref": "ing-alweb-angieslist-t_service_provider-full"
+      },
+	  "name": "ing-alweb-angieslist-t_service_provider_address-full",
+	  "id": "ing-alweb-angieslist-t_service_provider_address-full",
+	  "maximumRetries": "0",
+	  "workerGroup": "#{myWorkerGroup}",
+	  "scriptArgument": [
+		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
+		"s3://al-edh-dev/src/alweb/main/conf/ingestion_angieslist_t_service_provider_address.properties",
+		"#{format(minusDays(@scheduledStartTime,1),'YYYY-MM-dd')}"
+	  ],
+	  "type": "ShellCommandActivity"
+	},
+	{
+	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "dependsOn": {
+        "ref": "ing-alweb-angieslist-t_service_provider_address-full"
+      },
+	  "name": "ing-alweb-angieslist-t_sku-full",
+	  "id": "ing-alweb-angieslist-t_sku-full",
+	  "maximumRetries": "0",
+	  "workerGroup": "#{myWorkerGroup}",
+	  "scriptArgument": [
+		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
+		"s3://al-edh-dev/src/alweb/main/conf/ingestion_angieslist_t_sku.properties",
+		"#{format(minusDays(@scheduledStartTime,1),'YYYY-MM-dd')}"
+	  ],
+	  "type": "ShellCommandActivity"
+	},
+	{
+	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "dependsOn": {
+        "ref": "ing-alweb-angieslist-t_sku-full"
+      },
+	  "name": "ing-alweb-angieslist-t_sku_item-full",
+	  "id": "ing-alweb-angieslist-t_sku_item-full",
+	  "maximumRetries": "0",
+	  "workerGroup": "#{myWorkerGroup}",
+	  "scriptArgument": [
+		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
+		"s3://al-edh-dev/src/alweb/main/conf/ingestion_angieslist_t_sku_item.properties",
+		"#{format(minusDays(@scheduledStartTime,1),'YYYY-MM-dd')}"
+	  ],
+	  "type": "ShellCommandActivity"
+	},
+	{
+	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "dependsOn": {
+        "ref": "ing-alweb-angieslist-t_sku_item-full"
+      },
+	  "name": "ing-alweb-angieslist-t_user_address-full",
+	  "id": "ing-alweb-angieslist-t_user_address-full",
+	  "maximumRetries": "0",
+	  "workerGroup": "#{myWorkerGroup}",
+	  "scriptArgument": [
+		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
+		"s3://al-edh-dev/src/alweb/main/conf/ingestion_angieslist_t_user_address.properties",
+		"#{format(minusDays(@scheduledStartTime,1),'YYYY-MM-dd')}"
+	  ],
+	  "type": "ShellCommandActivity"
+	},
+	{
+	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "dependsOn": {
+        "ref": "ing-alweb-angieslist-t_user_address-full"
+      },
+	  "name": "ing-alweb-angieslist-t_user-full",
+	  "id": "ing-alweb-angieslist-t_user-full",
+	  "maximumRetries": "0",
+	  "workerGroup": "#{myWorkerGroup}",
+	  "scriptArgument": [
+		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
+		"s3://al-edh-dev/src/alweb/main/conf/ingestion_angieslist_t_user.properties",
+		"#{format(minusDays(@scheduledStartTime,1),'YYYY-MM-dd')}"
+	  ],
+	  "type": "ShellCommandActivity"
+	},
+	{
+	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
+	  "dependsOn": {
+        "ref": "ing-alweb-angieslist-t_user_address-full"
+      },
+	  "name": "ing-alweb-fulfillment-lead-full",
+	  "id": "ing-alweb-fulfillment-lead-full",
+	  "maximumRetries": "0",
+	  "workerGroup": "#{myWorkerGroup}",
+	  "scriptArgument": [
+		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
+		"s3://al-edh-dev/src/alweb/main/conf/ingestion_fulfillment_lead.properties",
+		"#{format(minusDays(@scheduledStartTime,1),'YYYY-MM-dd')}"
+	  ],
+	  "type": "ShellCommandActivity"
+	}
+	]
+	}
