@@ -179,7 +179,7 @@ fi
 
 # Pig Script to be triggered for data checking and cleansing.
 pig \
-	-param EDHBUSDATE=$EDH_BUS_DATE \
+	-param EDH_BUS_DATE=$EDH_BUS_DATE \
 	-param_file /var/tmp/$global_file \
 	-param_file /var/tmp/$local_file \
 	-file $OUTPUT_PIG_FILE_PATH \
