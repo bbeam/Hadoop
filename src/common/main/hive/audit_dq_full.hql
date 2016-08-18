@@ -1,6 +1,6 @@
 SET hive.exec.dynamic.partition.mode=non-strict;
 --/*
---  HIVE SCRIPT  : audit_dq.hql
+--  HIVE SCRIPT  : audit_dq_full.hql
 --  AUTHOR       : Ashoka Reddy
 --  DATE         : Jul 11, 2016
 --  DESCRIPTION  : Loading data into table (EDH_BATCH_AUDIT) . 
