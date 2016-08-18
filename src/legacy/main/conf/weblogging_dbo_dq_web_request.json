@@ -3,7 +3,7 @@
    "OutputTableName":"dq_web_request",
    "SourceDB":"INCOMING_LEGACY_WEBLOGGING_DBO_DB",
    "TargetDB":"GOLD_LEGACY_WEBLOGGING_DBO_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/legacy/weblogging/dbo/incremental/daily/dq_web_request/edh_bus_date=$EDHBUSDATE",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/legacy/weblogging/dbo/incremental/daily/dq_web_request/edh_bus_date=$EDH_BUS_DATE",
    "TableValidation":[  
       {  
          "Check":"Duplicate",

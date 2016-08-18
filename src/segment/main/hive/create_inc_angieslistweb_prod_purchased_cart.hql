@@ -31,4 +31,4 @@ user_zip_code STRING,
 uuid_ts STRING
 )
 PARTITIONED BY (edh_bus_date STRING)
-LOCATION '${hivevar:S3_BUCKET}/data/incoming/events/angieslistweb_prod/incremental/daily/inc_purchased_cart';
+LOCATION '${hivevar:S3_BUCKET}/data/incoming/segment/events/angieslistweb_prod/incremental/daily/inc_purchased_cart';

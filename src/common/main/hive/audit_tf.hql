@@ -10,7 +10,7 @@ SET hive.exec.dynamic.partition.mode=non-strict;
 
 INSERT INTO TABLE ${hivevar:OPERATIONS_COMMON_DB}.${hivevar:AUDIT_TABLE_NAME}
 PARTITION(edh_bus_month)
-SELECT       edh_bus_date AS edh_bus_date,
+SELECT      '${hivevar:EDH_BUS_DATE}' AS edh_bus_date,
             '${hivevar:ENTITY_NAME}' AS entity,
             '${hivevar:TF_DB}.${hivevar:TF_TABLE}' AS table_name,
             'Transformation' AS process,
@@ -20,5 +20,5 @@ SELECT       edh_bus_date AS edh_bus_date,
             FROM_UTC_TIMESTAMP(unix_timestamp()*1000, 'EST') AS est_time_stamp,
             from_unixtime(unix_timestamp()) AS time_stamp,
             '${hivevar:USER_NAME}' AS user_name,
-            CONCAT(SUBSTR((edh_bus_date),0,4),SUBSTR((edh_bus_date),6,2)) AS edh_bus_month
- FROM ${hivevar:TF_DB}.${hivevar:TF_TABLE}  
+            '${hivevar:EDH_BUS_MONTH}' AS edh_bus_month
+ FROM ${hivevar:TF_DB}.${hivevar:TF_TABLE};

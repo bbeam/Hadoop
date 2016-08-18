@@ -1,5 +1,7 @@
---table 
-MemberAddress
+--query
+'SELECT TOP 250000 * FROM MemberAddress WHERE $CONDITIONS'
+--split-by
+MemberAddressId
 --hive-delims-replacement
 '#'
 --fields-terminated-by 

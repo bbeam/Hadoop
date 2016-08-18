@@ -3,7 +3,7 @@
 	"OutputTableName": "dq_review_submitted",
 	"SourceDB": "INCOMING_SEGMENT_EVENTS_GPAP_DB",
 	"TargetDB": "GOLD_SEGMENT_EVENTS_GPAP_DB",
-	"DQHiveTableLocation": "$S3_BUCKET/data/gold/segment/events/greenpoint_android_prod/incremental/daily/dq_greenpoint_android_prod_review_submitted/edh_bus_date=$EDHBUSDATE",
+	"DQHiveTableLocation": "$S3_BUCKET/data/gold/segment/events/greenpoint_android_prod/incremental/daily/dq_review_submitted/edh_bus_date=$EDH_BUS_DATE",
 	"TableValidation": [{
 		"Check": "Duplicate",
 		"keyColumns": "id",

@@ -3,7 +3,7 @@
 	"OutputTableName": "dq_screens",
 	"SourceDB": "INCOMING_SEGMENT_EVENTS_GPP_DB",
 	"TargetDB": "GOLD_SEGMENT_EVENTS_GPP_DB",
-	"DQHiveTableLocation": "$S3_BUCKET/data/gold/segment/events/greenpoint_production/incremental/daily/dq_greenpoint_production_screens/edh_bus_date=$EDHBUSDATE",
+	"DQHiveTableLocation": "$S3_BUCKET/data/gold/segment/events/greenpoint_production/incremental/daily/dq_screens/edh_bus_date=$EDH_BUS_DATE",
 	"TableValidation": [{
 		"Check": "Duplicate",
 		"keyColumns": "id",
