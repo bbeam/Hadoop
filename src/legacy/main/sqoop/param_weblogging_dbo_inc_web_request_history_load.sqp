@@ -1,0 +1,16 @@
+--query 
+'select * from WebRequest where cast(TimeUtc as DATE)>='EXTRACT_START_DATE' and cast(TimeUtc as DATE)<='EXTRACT_END_DATE' and  $CONDITIONS'
+--split-by
+TimeUtc
+--hive-delims-replacement
+'#'
+--fields-terminated-by 
+'\001' 
+--lines-terminated-by 
+'\n'
+--optionally-enclosed-by 
+'\"'
+--null-string 
+'' 
+--null-non-string 
+''

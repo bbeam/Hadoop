@@ -1,0 +1,18 @@
+--driver 
+com.amazon.redshift.jdbc4.Driver 
+--query 
+"select * from angieslistweb_prod.review_submitted where cast(sent_at as DATE)>='EXTRACT_START_DATE' and cast(sent_at as DATE)<='EXTRACT_END_DATE' and $CONDITIONS" 
+--hive-delims-replacement
+'#'
+--split-by
+sent_at
+-fields-terminated-by 
+'\001' 
+--lines-terminated-by 
+'\n'
+--optionally-enclosed-by 
+'\"'
+--null-string 
+'' 
+--null-non-string 
+''

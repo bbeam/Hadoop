@@ -3,7 +3,7 @@
 	"OutputTableName": "dq_screens",
 	"SourceDB": "INCOMING_SEGMENT_EVENTS_GPP_DB",
 	"TargetDB": "GOLD_SEGMENT_EVENTS_GPP_DB",
-	"DQHiveTableLocation": "$S3_BUCKET/data/gold/segment/events/greenpoint_production/incremental/daily/dq_screens/edh_bus_date=$EDH_BUS_DATE",
+	"DQHiveTableLocation": "$S3_BUCKET/data/gold/segment/events/greenpoint_production/incremental/daily/dq_greenpoint_production_screens/edh_bus_date=$EDHBUSDATE",
 	"TableValidation": [{
 		"Check": "Duplicate",
 		"keyColumns": "id",
@@ -296,16 +296,7 @@
 				"Check": "DataType",
 				"Action": "Reject"
 			}]
-		},
-		{
-			"Name": "member_id",
-			"Type": "VARCHAR(256)",
-			"Validations": [{
-				"Check": "DataType",
-				"Action": "Reject"
-			}]
-		},
-		{
+		}, {
 			"Name": "name",
 			"Type": "VARCHAR(256)",
 			"Validations": [{
@@ -364,15 +355,7 @@
 				"Check": "DataType",
 				"Action": "Reject"
 			}]
-		}, 
-		{
-			"Name": "sort_by",
-			"Type": "VARCHAR(256)",
-			"Validations": [{
-				"Check": "DataType",
-				"Action": "Reject"
-			}]
-		},{
+		}, {
 			"Name": "sp_id",
 			"Type": "BIGINT",
 			"Validations": [{
@@ -408,8 +391,6 @@
 			"Name": "timestamp",
 			"Type": "TIMESTAMP",
 			"Format": "yyyy-MM-dd HH:mm:ss.SSS",
-			"TimeZone":"UTC",
-		    "ConvertToTimeZone":"EST",
 			"Validations": [{
 				"Check": "DataType",
 				"Action": "Reject"
