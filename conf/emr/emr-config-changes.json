@@ -1,9 +1,9 @@
 [{
 "classification":"hive-site",
 "properties":{
-"javax.jdo.option.ConnectionUserName":"stage_mtstr_user",
-"javax.jdo.option.ConnectionPassword":"SDdws9Sms43",
-"javax.jdo.option.ConnectionURL":"jdbc:mysql://al-stage-datahub-metastore.cavohb8ptjyr.us-east-1.rds.amazonaws.com:3306/AL-stage-DH-Metastore-DB?createDatabaseIfNotExist=true"
+"javax.jdo.option.ConnectionUserName":"dm_mtstr_user",
+"javax.jdo.option.ConnectionPassword":"628DrpddjdD",
+"javax.jdo.option.ConnectionURL":"jdbc:mysql://al-sandbox-dm-datahub-metastore.cavohb8ptjyr.us-east-1.rds.amazonaws.com:3306/AL-sandbox-dm-DH-Metastore-DB?createDatabaseIfNotExist=true"
 }},
 {
 "classification":"yarn-site",
