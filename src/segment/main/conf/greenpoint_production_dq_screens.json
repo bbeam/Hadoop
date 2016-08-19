@@ -296,7 +296,16 @@
 				"Check": "DataType",
 				"Action": "Reject"
 			}]
-		}, {
+		},
+		{
+			"Name": "member_id",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},
+		{
 			"Name": "name",
 			"Type": "VARCHAR(256)",
 			"Validations": [{
@@ -355,7 +364,15 @@
 				"Check": "DataType",
 				"Action": "Reject"
 			}]
-		}, {
+		}, 
+		{
+			"Name": "sort_by",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},{
 			"Name": "sp_id",
 			"Type": "BIGINT",
 			"Validations": [{
@@ -391,6 +408,8 @@
 			"Name": "timestamp",
 			"Type": "TIMESTAMP",
 			"Format": "yyyy-MM-dd HH:mm:ss.SSS",
+			"TimeZone":"UTC",
+		    "ConvertToTimeZone":"EST",
 			"Validations": [{
 				"Check": "DataType",
 				"Action": "Reject"
