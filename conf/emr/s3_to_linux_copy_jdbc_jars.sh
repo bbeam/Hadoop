@@ -10,6 +10,6 @@
 #                                                                                   #
 # Company      :- Datametica Solutions                                              #
 #####################################################################################
-a=`sudo aws s3 cp s3://al-edh-sandbox-dm/src/common/main/lib/RedshiftJDBC4-1.1.10.1010.jar /usr/lib/sqoop/lib/`
-b=`sudo aws s3 cp s3://al-edh-sandbox-dm/src/common/main/lib/mysql-connector-java-bin.jar /usr/lib/sqoop/lib/`
-c=`sudo aws s3 cp s3://al-edh-sandbox-dm/src/common/main/lib/sqljdbc4.jar /usr/lib/sqoop/lib/`
+a=`sudo aws s3 cp s3://al-edh-sandbox-eng/src/common/main/lib/RedshiftJDBC4-1.1.10.1010.jar /usr/lib/sqoop/lib/`
+b=`sudo aws s3 cp s3://al-edh-sandbox-eng/src/common/main/lib/mysql-connector-java-bin.jar /usr/lib/sqoop/lib/`
+c=`sudo aws s3 cp s3://al-edh-sandbox-eng/src/common/main/lib/sqljdbc4.jar /usr/lib/sqoop/lib/`
