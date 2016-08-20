@@ -9,64 +9,68 @@ DESCRIPTION   : Data Transformation script for dim_members dimension
 
 /* Reading the input tables */
 table_legacy_members=
-	LOAD 'gold_legacy_angie_dbo.dq_members'
+	LOAD '$GOLD_LEGACY_ANGIE_DBO_DB.dq_members'
 	USING org.apache.hive.hcatalog.pig.HCatLoader();
 
 table_legacy_member_address=
-	LOAD 'gold_legacy_angie_dbo.dq_member_address'
+	LOAD '$GOLD_LEGACY_ANGIE_DBO_DB.dq_member_address'
 	USING org.apache.hive.hcatalog.pig.HCatLoader();
 	
 table_legacy_postal_address=
-	LOAD 'gold_legacy_angie_dbo.dq_postal_address'
+	LOAD '$GOLD_LEGACY_ANGIE_DBO_DB.dq_postal_address'
 	USING org.apache.hive.hcatalog.pig.HCatLoader();
 
 table_legacy_membership_tier=
-	LOAD 'gold_legacy_angie_dbo.dq_membership_tier'
+	LOAD '$GOLD_LEGACY_ANGIE_DBO_DB.dq_membership_tier'
 	USING org.apache.hive.hcatalog.pig.HCatLoader();
 	
 table_legacy_member_membership_tier=
-	LOAD 'gold_legacy_angie_dbo.dq_member_membership_tier'
+	LOAD '$GOLD_LEGACY_ANGIE_DBO_DB.dq_member_membership_tier'
 	USING org.apache.hive.hcatalog.pig.HCatLoader();
 	
 table_legacy_member_primary_address=
-	LOAD 'gold_legacy_angie_dbo.dq_member_primary_address'
+	LOAD '$GOLD_LEGACY_ANGIE_DBO_DB.dq_member_primary_address'
 	USING org.apache.hive.hcatalog.pig.HCatLoader();
 	
 table_legacy_exclude_test_member_ids=
-	LOAD 'gold_legacy_reports_dbo.dq_exclude_test_member_ids'
+	LOAD '$GOLD_LEGACY_REPORTS_DBO_DB.dq_exclude_test_member_ids'
 	USING org.apache.hive.hcatalog.pig.HCatLoader();
 	
 table_legacy_mbr_pay_status=
-	LOAD 'gold_legacy_reports_dbo.dq_mbr_pay_status'
+	LOAD '$GOLD_LEGACY_REPORTS_DBO_DB.dq_mbr_pay_status'
 	USING org.apache.hive.hcatalog.pig.HCatLoader();
 		
 table_al4_t_user=
-	LOAD 'gold_alweb_al.dq_t_user'
+	LOAD '$GOLD_ALWEB_AL_DB.dq_t_user'
 	USING org.apache.hive.hcatalog.pig.HCatLoader();
 	
 table_al4_t_contact_information=
-	LOAD 'gold_alweb_al.dq_t_contact_information'
+	LOAD '$GOLD_ALWEB_AL_DB.dq_t_contact_information'
 	USING org.apache.hive.hcatalog.pig.HCatLoader();
 		
 table_al4_t_postal_address=
-	LOAD 'gold_alweb_al.dq_t_postal_address'
+	LOAD '$GOLD_ALWEB_AL_DB.dq_t_postal_address'
 	USING org.apache.hive.hcatalog.pig.HCatLoader();
 		
 table_al4_t_associate_permission=
-	LOAD 'gold_alweb_al.dq_t_associate_permission'
+	LOAD '$GOLD_ALWEB_AL_DB.dq_t_associate_permission'
 	USING org.apache.hive.hcatalog.pig.HCatLoader();
 		
 table_al4_t_employee_permission=
-	LOAD 'gold_alweb_al.dq_t_employee_permission'
+	LOAD '$GOLD_ALWEB_AL_DB.dq_t_employee_permission'
 	USING org.apache.hive.hcatalog.pig.HCatLoader();
 		
 table_al4_t_member_permission=
-	LOAD 'gold_alweb_al.dq_t_member_permission'
+	LOAD '$GOLD_ALWEB_AL_DB.dq_t_member_permission'
 	USING org.apache.hive.hcatalog.pig.HCatLoader();
 		
 table_al4_t_user_address=
-	LOAD 'gold_alweb_al.dq_t_user_address'
+	LOAD '$GOLD_ALWEB_AL_DB.dq_t_user_address'
 	USING org.apache.hive.hcatalog.pig.HCatLoader();
+	
+table_dim_market=
+        LOAD '$GOLD_SHARED_DIM_DB.dim_market'
+        USING org.apache.hive.hcatalog.pig.HCatLoader();
 
 
 /* Step 1: Angie.dbo.Members left join AngiesList.dbo.t_User on t_User.AlId = Members.MemberID to get all members from legacy and those from legacy that exist in the new system. */
@@ -324,18 +328,18 @@ gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id =
 
 /* ++Step 13: Left join the resulting table with AngiesList.dbo.t_ContactInformation on ContactInformationId to derive PrimaryPhoneNumber and Email. Now we have the member's contact details and primary address derived from both legacy and new system. */
 filter_isprimary_table_al4_t_contact_information = 
-	FILTER table_al4_t_contact_information BY is_primary==1;
+	FILTER table_al4_t_contact_information BY is_primary==1 AND entity_type=='user';
 
 groupby_table_al4_t_contact_information_contextentityid = 
 	GROUP filter_isprimary_table_al4_t_contact_information BY context_entity_id;
 
 gen_groupby_table_al4_t_contact_information_contextentityid = 
 	FOREACH groupby_table_al4_t_contact_information_contextentityid 
-	GENERATE group AS user_id:INT, MAX(filter_isprimary_table_al4_t_contact_information.update_date) AS maxupdatedate;
+	GENERATE group AS context_entity_id:INT, MAX(filter_isprimary_table_al4_t_contact_information.update_date) AS maxupdatedate;
 
 lojoin_base_member_with_gen_groupby_t_contact_information = 
 	JOIN gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id BY user_id LEFT OUTER,
-	     gen_groupby_table_al4_t_contact_information_contextentityid by user_id;
+	     gen_groupby_table_al4_t_contact_information_contextentityid by context_entity_id;
 
 gen_lojoin_base_member_with_gen_groupby_t_contact_information = 
 	FOREACH lojoin_base_member_with_gen_groupby_t_contact_information 
@@ -352,10 +356,108 @@ gen_lojoin_base_member_with_gen_groupby_t_contact_information =
 			gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::status AS status: chararray,
 			gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::test_user AS test_user: int,
 			gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::advertising_zone AS advertising_zone: int,
+			gen_groupby_table_al4_t_contact_information_contextentityid::context_entity_id AS context_entity_id:INT,
 			gen_groupby_table_al4_t_contact_information_contextentityid::maxupdatedate AS maxupdatedate;
 
 groupby_table_al4_t_contact_information_contextentityid_updatedate = 
-	GROUP 
+	GROUP filter_isprimary_table_al4_t_contact_information by (context_entity_id,update_date);
+
+gen_groupby_table_al4_t_contact_information_contextentityid_updatedate = 
+	FOREACH groupby_table_al4_t_contact_information_contextentityid_updatedate 
+	GENERATE group.context_entity_id AS context_entity_id:INT, group.update_date AS update_date:DATETIME, 
+	         MAX(filter_isprimary_table_al4_t_contact_information.contact_information_id) AS maxcontactinformationid:INT;
+
+lojoin_base_members_with_t_contact_information = 
+	JOIN gen_lojoin_base_member_with_gen_groupby_t_contact_information BY (context_entity_id, maxupdatedate) LEFT OUTER,
+	     gen_groupby_table_al4_t_contact_information_contextentityid_updatedate BY (context_entity_id, update_date);
+	     
+lojoin_base_members_with_table_al4_t_contact_information = 
+	JOIN lojoin_base_members_with_t_contact_information BY gen_groupby_table_al4_t_contact_information_contextentityid_updatedate::maxcontactinformationid LEFT OUTER,
+		 table_al4_t_contact_information BY contact_information_id;
+
+gen_lojoin_base_members_with_table_al4_t_contact_information = 
+	FOREACH lojoin_base_members_with_table_al4_t_contact_information 
+	GENERATE lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::member_id AS member_id: int,
+		     lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::user_id AS user_id: int,
+		     lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::exclude_test_member_id AS exclude_test_member_id: int,
+		     lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::postal_address_id AS postal_address_id: int,
+		     lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::market_zone_id AS market_zone_id: int,
+		     lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::postal_code AS postal_code: chararray,
+		     lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::pay_status AS pay_status: chararray,
+		     lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::membership_tier_name AS membership_tier_name: chararray,
+		     lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::first_name AS first_name: chararray,
+		     lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::last_name AS last_name: chararray,
+		     lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::status AS status: chararray,
+		     lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::test_user AS test_user: int,
+		     lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::advertising_zone AS advertising_zone: int,
+		     table_al4_t_contact_information::primary_phonenumber AS primary_phonenumber: chararray, 
+		     table_al4_t_contact_information::email AS email: chararray;
+
+
+/* Step 14: Foreach UserId in AngiesList.dbo.t_AssociatePermission, find avg(AssociatePermissionId) and left join it with the base table on UserId. This will be used to set the AssociateFlag. */
+groupby_table_al4_t_associate_permission = 
+	GROUP table_al4_t_associate_permission BY user_id;
+	
+gen_groupby_table_al4_t_associate_permission = 
+	FOREACH groupby_table_al4_t_associate_permission 
+	GENERATE group AS user_id:INT, AVG(table_al4_t_associate_permission.associate_permission_id) AS associate:INT;
+
+lojoin_base_members_with_table_al4_t_associate_permission = 
+	JOIN gen_lojoin_base_members_with_table_al4_t_contact_information BY user_id LEFT OUTER, gen_groupby_table_al4_t_associate_permission BY user_id;
+
+gen_lojoin_base_members_with_table_al4_t_associate_permission = 
+	FOREACH lojoin_base_members_with_table_al4_t_associate_permission 
+	GENERATE gen_lojoin_base_members_with_table_al4_t_contact_information::member_id AS member_id: int,
+			 gen_lojoin_base_members_with_table_al4_t_contact_information::user_id AS user_id: int,
+			 gen_lojoin_base_members_with_table_al4_t_contact_information::exclude_test_member_id AS exclude_test_member_id: int,
+			 gen_lojoin_base_members_with_table_al4_t_contact_information::postal_address_id AS postal_address_id: int,
+			 gen_lojoin_base_members_with_table_al4_t_contact_information::market_zone_id AS market_zone_id: int,
+			 gen_lojoin_base_members_with_table_al4_t_contact_information::postal_code AS postal_code: chararray,
+			 gen_lojoin_base_members_with_table_al4_t_contact_information::pay_status AS pay_status: chararray,
+			 gen_lojoin_base_members_with_table_al4_t_contact_information::membership_tier_name AS membership_tier_name: chararray,
+			 gen_lojoin_base_members_with_table_al4_t_contact_information::first_name AS first_name: chararray,
+			 gen_lojoin_base_members_with_table_al4_t_contact_information::last_name AS last_name: chararray,
+			 gen_lojoin_base_members_with_table_al4_t_contact_information::status AS status: chararray,
+			 gen_lojoin_base_members_with_table_al4_t_contact_information::test_user AS test_user: int,
+			 gen_lojoin_base_members_with_table_al4_t_contact_information::advertising_zone AS advertising_zone: int,
+			 gen_lojoin_base_members_with_table_al4_t_contact_information::primary_phonenumber AS primary_phonenumber: chararray,
+			 gen_lojoin_base_members_with_table_al4_t_contact_information::email AS email: chararray,
+			 gen_groupby_table_al4_t_associate_permission::associate AS associate: int;
+
+
+/* Step 15: Foreach UserId in AngiesList.dbo.t_EmployeePermission, find avg(EmployeePermissionId) and left join it with the base table on UserId. This will be used to set the EmployeeFlag. */
+groupby_table_al4_t_employee_permission = 
+	GROUP table_al4_t_employee_permission BY user_id;
+	
+gen_groupby_table_al4_t_employee_permission = 
+	FOREACH groupby_table_al4_t_employee_permission 
+	GENERATE group AS user_id:INT, AVG(table_al4_t_employee_permission.employee_permission_id) AS employee:INT;
+
+lojoin_base_members_with_table_al4_t_employee_permission = 
+	JOIN gen_lojoin_base_members_with_table_al4_t_associate_permission BY user_id LEFT OUTER, gen_groupby_table_al4_t_employee_permission BY user_id;
+
+gen_lojoin_base_members_with_table_al4_t_employee_permission = 
+	FOREACH lojoin_base_members_with_table_al4_t_employee_permission 
+	GENERATE gen_lojoin_base_members_with_table_al4_t_associate_permission::member_id AS member_id: int,
+			 gen_lojoin_base_members_with_table_al4_t_associate_permission::user_id AS user_id: int,
+			 gen_lojoin_base_members_with_table_al4_t_associate_permission::exclude_test_member_id AS exclude_test_member_id: int,
+			 gen_lojoin_base_members_with_table_al4_t_associate_permission::postal_address_id AS postal_address_id: int,
+			 gen_lojoin_base_members_with_table_al4_t_associate_permission::market_zone_id AS market_zone_id: int,
+			 gen_lojoin_base_members_with_table_al4_t_associate_permission::postal_code AS postal_code: chararray,
+			 gen_lojoin_base_members_with_table_al4_t_associate_permission::pay_status AS pay_status: chararray,
+			 gen_lojoin_base_members_with_table_al4_t_associate_permission::membership_tier_name AS membership_tier_name: chararray,
+			 gen_lojoin_base_members_with_table_al4_t_associate_permission::first_name AS first_name: chararray,
+			 gen_lojoin_base_members_with_table_al4_t_associate_permission::last_name AS last_name: chararray,
+			 gen_lojoin_base_members_with_table_al4_t_associate_permission::status AS status: chararray,
+			 gen_lojoin_base_members_with_table_al4_t_associate_permission::test_user AS test_user: int,
+			 gen_lojoin_base_members_with_table_al4_t_associate_permission::advertising_zone AS advertising_zone: int,
+			 gen_lojoin_base_members_with_table_al4_t_associate_permission::primary_phonenumber AS primary_phonenumber: chararray,
+			 gen_lojoin_base_members_with_table_al4_t_associate_permission::email AS email: chararray,
+			 gen_lojoin_base_members_with_table_al4_t_associate_permission::associate AS associate: int,
+			 gen_groupby_table_al4_t_employee_permission::employee AS employee: int;
+
+
+/* Step 16: Left join Angie.dbo.Members with shared.dim_market on Market and derive Market Key by selecting latest record. If Market is missing, populate Market_Key from dim_Market where market_id = -1 */
 
 
 
@@ -368,6 +470,26 @@ groupby_table_al4_t_contact_information_contextentityid_updatedate =
 
 
 
+
+
+
+
+STORE gen_lojoin_base_members_with_table_al4_t_employee_permission into '/user/hadoop/11';
+
+
+
+
+
+
+
+lojoin_base_members_with_postal_address_id = 
+	JOIN gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id BY postal_address_id LEFT OUTER,
+	     gen_groupby_table_al4_t_user_address_userid_updatedate BY maxpostaladdressid;	
+	
+filter_lojoin_base_members_with_postal_address_id = 
+	FILTER lojoin_base_members_with_postal_address_id BY 
+	gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::t_user_user_id == gen_groupby_table_al4_t_user_address_userid_updatedate::user_id and 
+	gen_groupby_table_al4_t_user_address_userid_updatedate::update_date == gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::maxupdatedate;
 
 
 

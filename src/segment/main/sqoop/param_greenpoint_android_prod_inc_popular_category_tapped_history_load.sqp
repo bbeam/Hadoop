@@ -1,0 +1,18 @@
+--driver 
+com.amazon.redshift.jdbc4.Driver 
+--query 
+"select * from greenpoint_android_prod.popular_category_tapped where cast(sent_at as DATE)>='EXTRACT_START_DATE' and cast(sent_at as DATE)<='EXTRACT_END_DATE' and $CONDITIONS" 
+--split-by
+sent_at
+--hive-delims-replacement
+'#'
+-fields-terminated-by 
+'\001' 
+--lines-terminated-by 
+'\n'
+--optionally-enclosed-by 
+'\"'
+--null-string 
+'' 
+--null-non-string 
+''
