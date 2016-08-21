@@ -289,7 +289,7 @@
 	  "workerGroup": "#{myWorkerGroup}",
 	  "scriptArgument": [
 		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
-		"s3://al-edh-dev/src/segment/main/conf/ingestion_greenpoint_production_greenpoint_production_search_the_list.properties",
+		"s3://al-edh-dev/src/segment/main/conf/ingestion_greenpoint_production_search_the_list.properties",
 		"#{format(minusDays(@scheduledStartTime,1),'YYYY-MM-dd')}"
 	  ],
 	  "type": "ShellCommandActivity"
