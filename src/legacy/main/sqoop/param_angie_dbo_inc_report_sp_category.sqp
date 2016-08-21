@@ -1,5 +1,5 @@
 --query 
-'select ReportSPCategoryId,ReportId,SpId,CategoryId,IsPrimary,CreateDate,CreateBy from ReportSPCategory where cast(CreateDate as DATE)='EXTRACT_DATE' and $CONDITIONS'
+'select ReportSPCategoryId,ReportId,SpId,CategoryId,IsPrimary,CreateDate,CreateBy from ReportSPCategory where $CONDITIONS'
 --split-by 
 ReportSPCategoryId
 --hive-delims-replacement
