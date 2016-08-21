@@ -3,7 +3,7 @@
    "OutputTableName":"dq_report",
    "SourceDB":"INCOMING_LEGACY_ANGIE_DBO_DB",
    "TargetDB":"GOLD_LEGACY_ANGIE_DBO_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/legacy/angie/dbo/incremental/daily/dq_report/edh_bus_date=$EDH_BUS_DATE",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/legacy/angie/dbo/full/daily/dq_report",
    "TableValidation":[  
       {  
          "Check":"Duplicate",
