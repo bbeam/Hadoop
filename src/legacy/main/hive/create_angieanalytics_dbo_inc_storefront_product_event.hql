@@ -20,4 +20,4 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.inc_storefront_product_ev
 	update_by STRING
 	)
 PARTITIONED BY (edh_bus_date STRING)
-LOCATION '${hivevar:S3_BUCKET}/data/incoming/legacy/angieanalytics/dbo/full/daily/inc_storefront_product_event';
+LOCATION '${hivevar:S3_BUCKET}/data/incoming/legacy/angieanalytics/dbo/incremental/daily/inc_storefront_product_event';
