@@ -98,25 +98,24 @@ base_members_legacy_with_al4 = UNION gen_lojoin_members_with_t_User ,gen_ijoin_t
 
 
 /* Step 4: Derive member details (first name, last name, homephone, email) and member subscription details (member date, expiration and status) from Angie.dbo.Members */
-member_details_and_subscription_details = FOREACH table_legacy_members 
-										  GENERATE first_name, last_name, home_phone, email, member_date, expiration, status;
+join_base_members_with_members = 
+	JOIN base_members_legacy_with_al4 BY member_id LEFT OUTER, table_legacy_members BY member_id;
+
+gen_member_details_and_subscription_details = FOREACH join_base_members_with_members 
+										  GENERATE base_members_legacy_with_al4::member_id AS member_id:INT, base_members_legacy_with_al4::user_id AS user_id: int, market, first_name, last_name, home_phone, email, member_date, expiration, status;
 
 
 /* Step 5: Left join with Reports.dbo.ExcludeTestMemberIDs on MemberID to derive TestMemberUserFlag. */
 lojoin_base_members_with_exclude_test_member_ids = 
-	JOIN base_members_legacy_with_al4 by member_id LEFT OUTER, table_legacy_exclude_test_member_ids by member_id;
+	JOIN gen_member_details_and_subscription_details by member_id LEFT OUTER, table_legacy_exclude_test_member_ids by member_id;
 
 gen_lojoin_base_members_with_exclude_test_member_ids = 
 	FOREACH lojoin_base_members_with_exclude_test_member_ids
-	GENERATE base_members_legacy_with_al4::member_id AS member_id: int,
-	base_members_legacy_with_al4::user_id AS user_id: int,
+	GENERATE gen_member_details_and_subscription_details::member_id AS member_id: int,
+	gen_member_details_and_subscription_details::user_id AS user_id: int,
+	market, first_name, last_name, home_phone, email, member_date, expiration, status,
 	table_legacy_exclude_test_member_ids::member_id AS exclude_test_member_id: int;
 	
-/*  TO CHECK
-	table_legacy_exclude_test_member_ids::date_added AS date_added: datetime,
-	table_legacy_exclude_test_member_ids::est_load_timestamp AS est_load_timestamp: datetime,
-	table_legacy_exclude_test_member_ids::utc_load_timestamp AS utc_load_timestamp: datetime;
-*/	
 
 
 /* Step 6: Derive the PostalAddressID and MarketZoneId of member primary address with Angie.dbo.MemberAddress INNER JOIN Angie.dbo.MemberPrimaryAddress on MemberId and MemberAddressId */
@@ -136,6 +135,14 @@ gen_lojoin_base_membersplus_with_m_address =
 	FOREACH lojoin_base_membersplus_with_m_address
 	GENERATE gen_lojoin_base_members_with_exclude_test_member_ids::member_id AS member_id: int,
 			 gen_lojoin_base_members_with_exclude_test_member_ids::user_id AS user_id: int,
+			 gen_lojoin_base_members_with_exclude_test_member_ids::gen_member_details_and_subscription_details::table_legacy_members::market AS market: chararray,
+			 gen_lojoin_base_members_with_exclude_test_member_ids::gen_member_details_and_subscription_details::table_legacy_members::first_name AS first_name: chararray,
+			 gen_lojoin_base_members_with_exclude_test_member_ids::gen_member_details_and_subscription_details::table_legacy_members::last_name AS last_name: chararray,
+			 gen_lojoin_base_members_with_exclude_test_member_ids::gen_member_details_and_subscription_details::table_legacy_members::home_phone AS home_phone: chararray,
+			 gen_lojoin_base_members_with_exclude_test_member_ids::gen_member_details_and_subscription_details::table_legacy_members::email AS email: chararray,
+			 gen_lojoin_base_members_with_exclude_test_member_ids::gen_member_details_and_subscription_details::table_legacy_members::member_date AS member_date: datetime,
+			 gen_lojoin_base_members_with_exclude_test_member_ids::gen_member_details_and_subscription_details::table_legacy_members::expiration AS expiration: datetime,
+			 gen_lojoin_base_members_with_exclude_test_member_ids::gen_member_details_and_subscription_details::table_legacy_members::status AS status: chararray,
 			 gen_lojoin_base_members_with_exclude_test_member_ids::exclude_test_member_id AS exclude_test_member_id: int,
 			 gen_ijoin_member_address_with_member_primary_address::postal_address_id AS postal_address_id: int,
 			 gen_ijoin_member_address_with_member_primary_address::market_zone_id AS market_zone_id: int;
@@ -148,12 +155,20 @@ lojoin_base_membersplus_with_postal_address =
 gen_lojoin_base_membersplus_with_postal_address = 
 	FOREACH lojoin_base_membersplus_with_postal_address
 	GENERATE gen_lojoin_base_membersplus_with_m_address::member_id AS member_id: int,
-	gen_lojoin_base_membersplus_with_m_address::user_id AS user_id: int,
-	gen_lojoin_base_membersplus_with_m_address::exclude_test_member_id AS exclude_test_member_id: int,
-	gen_lojoin_base_membersplus_with_m_address::postal_address_id AS postal_address_id: int,
-	gen_lojoin_base_membersplus_with_m_address::market_zone_id AS market_zone_id: int,
-	table_legacy_postal_address::postal_code AS postal_code: chararray;
-	
+			 gen_lojoin_base_membersplus_with_m_address::user_id AS user_id: int,
+			 gen_lojoin_base_membersplus_with_m_address::market AS market: chararray,
+			 gen_lojoin_base_membersplus_with_m_address::first_name AS first_name: chararray,
+			 gen_lojoin_base_membersplus_with_m_address::last_name AS last_name: chararray,
+			 gen_lojoin_base_membersplus_with_m_address::home_phone AS home_phone: chararray,
+			 gen_lojoin_base_membersplus_with_m_address::email AS email: chararray,
+			 gen_lojoin_base_membersplus_with_m_address::member_date AS member_date: datetime,
+			 gen_lojoin_base_membersplus_with_m_address::expiration AS expiration: datetime,
+			 gen_lojoin_base_membersplus_with_m_address::status AS status: chararray,
+			 gen_lojoin_base_membersplus_with_m_address::exclude_test_member_id AS exclude_test_member_id: int,
+			 gen_lojoin_base_membersplus_with_m_address::postal_address_id AS postal_address_id: int,
+			 gen_lojoin_base_membersplus_with_m_address::market_zone_id AS market_zone_id: int,
+			 table_legacy_postal_address::postal_code AS postal_code: chararray;
+
 
 /* Step 8: Derive PayStatus by applying left join with [Reports].[dbo].[MbrPayStatus] on MemberID to select distinct Member and paystatus where paystatus is based on maximum ID if paystatus = 'Paid' for a given Member ID */
 filter_paid_pay_status_table_legacy_mbr_pay_status = 
@@ -166,11 +181,11 @@ gen_groupby_table_legacy_mbr_pay_status_memberid =
 	FOREACH groupby_table_legacy_mbr_pay_status_memberid 
 	GENERATE group AS member_id:INT, MAX(filter_paid_pay_status_table_legacy_mbr_pay_status.id) AS MaxPaid:INT;
 	
-join_paid_paystatus_with_table_legacy = 
-	JOIN table_legacy_mbr_pay_status BY member_id, gen_groupby_table_legacy_mbr_pay_status_memberid BY member_id;
+lojoin_paid_paystatus_with_table_legacy = 
+	JOIN table_legacy_mbr_pay_status BY member_id LEFT OUTER, gen_groupby_table_legacy_mbr_pay_status_memberid BY member_id;
 
 gen_join_paid_paystatus_with_table_legacy =
-	FOREACH join_paid_paystatus_with_table_legacy 
+	FOREACH lojoin_paid_paystatus_with_table_legacy 
 	GENERATE table_legacy_mbr_pay_status::member_id AS member_id: int,
 			 table_legacy_mbr_pay_status::pay_status AS pay_status: chararray,
 			 table_legacy_mbr_pay_status::id AS id:INT,
@@ -191,6 +206,14 @@ gen_lojoin_base_membersplus_with_mbr_pay_status =
 	FOREACH lojoin_base_membersplus_with_mbr_pay_status
 	GENERATE gen_lojoin_base_membersplus_with_postal_address::member_id AS member_id: int,
 			 gen_lojoin_base_membersplus_with_postal_address::user_id AS user_id: int,
+			 gen_lojoin_base_membersplus_with_postal_address::market AS market: chararray,
+			 gen_lojoin_base_membersplus_with_postal_address::first_name AS first_name: chararray,
+			 gen_lojoin_base_membersplus_with_postal_address::last_name AS last_name: chararray,
+			 gen_lojoin_base_membersplus_with_postal_address::home_phone AS home_phone: chararray,
+			 gen_lojoin_base_membersplus_with_postal_address::email AS email: chararray,
+			 gen_lojoin_base_membersplus_with_postal_address::member_date AS member_date: datetime,
+			 gen_lojoin_base_membersplus_with_postal_address::expiration AS expiration: datetime,
+			 gen_lojoin_base_membersplus_with_postal_address::status AS status: chararray,
 			 gen_lojoin_base_membersplus_with_postal_address::exclude_test_member_id AS exclude_test_member_id: int,
 			 gen_lojoin_base_membersplus_with_postal_address::postal_address_id AS postal_address_id: int,
 			 gen_lojoin_base_membersplus_with_postal_address::market_zone_id AS market_zone_id: int,
@@ -209,13 +232,21 @@ lojoin_join_base_membersplus_with_table_legacy_member_membership_tier =
 gen_lojoin_join_base_membersplus_with_table_legacy_member_membership_tier = 
 	FOREACH lojoin_join_base_membersplus_with_table_legacy_member_membership_tier
 	GENERATE gen_lojoin_base_membersplus_with_mbr_pay_status::member_id AS member_id: int,
-		     gen_lojoin_base_membersplus_with_mbr_pay_status::user_id AS user_id: int,
-		     gen_lojoin_base_membersplus_with_mbr_pay_status::exclude_test_member_id AS exclude_test_member_id: int,
-		     gen_lojoin_base_membersplus_with_mbr_pay_status::postal_address_id AS postal_address_id: int,
-		     gen_lojoin_base_membersplus_with_mbr_pay_status::market_zone_id AS market_zone_id: int,
-		     gen_lojoin_base_membersplus_with_mbr_pay_status::postal_code AS postal_code: chararray,
-		     gen_lojoin_base_membersplus_with_mbr_pay_status::pay_status AS pay_status: chararray,
-		     join_table_legacy_membership_tier_with_table_legacy_member_membership_tier::table_legacy_membership_tier::membership_tier_name AS membership_tier_name: chararray;
+			 gen_lojoin_base_membersplus_with_mbr_pay_status::user_id AS user_id: int,
+			 gen_lojoin_base_membersplus_with_mbr_pay_status::market AS market: chararray,
+			 gen_lojoin_base_membersplus_with_mbr_pay_status::first_name AS first_name: chararray,
+			 gen_lojoin_base_membersplus_with_mbr_pay_status::last_name AS last_name: chararray,
+			 gen_lojoin_base_membersplus_with_mbr_pay_status::home_phone AS home_phone: chararray,
+			 gen_lojoin_base_membersplus_with_mbr_pay_status::email AS email: chararray,
+			 gen_lojoin_base_membersplus_with_mbr_pay_status::member_date AS member_date: datetime,
+			 gen_lojoin_base_membersplus_with_mbr_pay_status::expiration AS expiration: datetime,
+			 gen_lojoin_base_membersplus_with_mbr_pay_status::status AS status: chararray,
+			 gen_lojoin_base_membersplus_with_mbr_pay_status::exclude_test_member_id AS exclude_test_member_id: int,
+			 gen_lojoin_base_membersplus_with_mbr_pay_status::postal_address_id AS postal_address_id: int,
+			 gen_lojoin_base_membersplus_with_mbr_pay_status::market_zone_id AS market_zone_id: int,
+			 gen_lojoin_base_membersplus_with_mbr_pay_status::postal_code AS postal_code: chararray,
+			 gen_lojoin_base_membersplus_with_mbr_pay_status::pay_status AS pay_status: chararray,
+			 join_table_legacy_membership_tier_with_table_legacy_member_membership_tier::table_legacy_membership_tier::membership_tier_name AS membership_tier_name: chararray;
 
 
 /* Step 10: Find the current primary address of each user in the new system. To do this, select all primary addresses (IsPrimary = 1) from AngiesList.dbo.t_UserAddress and find the latest record for each user on UpdateDate. Left join on UserId. */
@@ -226,16 +257,25 @@ lojoin_base_membersplus_with_t_user =
 gen_lojoin_base_membersplus_with_t_user = 
 	FOREACH lojoin_base_membersplus_with_t_user 
 	GENERATE gen_lojoin_join_base_membersplus_with_table_legacy_member_membership_tier::member_id AS member_id: int,
-		     gen_lojoin_join_base_membersplus_with_table_legacy_member_membership_tier::user_id AS user_id: int,
-		     gen_lojoin_join_base_membersplus_with_table_legacy_member_membership_tier::exclude_test_member_id AS exclude_test_member_id: int,
-		     gen_lojoin_join_base_membersplus_with_table_legacy_member_membership_tier::postal_address_id AS postal_address_id: int,
-		     gen_lojoin_join_base_membersplus_with_table_legacy_member_membership_tier::market_zone_id AS market_zone_id: int,
-		     gen_lojoin_join_base_membersplus_with_table_legacy_member_membership_tier::postal_code AS postal_code: chararray,
-		     gen_lojoin_join_base_membersplus_with_table_legacy_member_membership_tier::pay_status AS pay_status: chararray,
-		     gen_lojoin_join_base_membersplus_with_table_legacy_member_membership_tier::membership_tier_name AS membership_tier_name: chararray,
-		     table_al4_t_user::first_name AS first_name: chararray, 
-		     table_al4_t_user::last_name AS last_name: chararray, 
-		     table_al4_t_user::status AS status: chararray, 
+			 gen_lojoin_join_base_membersplus_with_table_legacy_member_membership_tier::user_id AS user_id: int,
+			 gen_lojoin_join_base_membersplus_with_table_legacy_member_membership_tier::market AS market: chararray,
+			 gen_lojoin_join_base_membersplus_with_table_legacy_member_membership_tier::first_name AS first_name: chararray,
+			 gen_lojoin_join_base_membersplus_with_table_legacy_member_membership_tier::last_name AS last_name: chararray,
+			 gen_lojoin_join_base_membersplus_with_table_legacy_member_membership_tier::home_phone AS home_phone: chararray,
+			 gen_lojoin_join_base_membersplus_with_table_legacy_member_membership_tier::email AS email: chararray,
+			 gen_lojoin_join_base_membersplus_with_table_legacy_member_membership_tier::member_date AS member_date: datetime,
+			 gen_lojoin_join_base_membersplus_with_table_legacy_member_membership_tier::expiration AS expiration: datetime,
+			 gen_lojoin_join_base_membersplus_with_table_legacy_member_membership_tier::status AS status: chararray,
+			 gen_lojoin_join_base_membersplus_with_table_legacy_member_membership_tier::exclude_test_member_id AS exclude_test_member_id: int,
+			 gen_lojoin_join_base_membersplus_with_table_legacy_member_membership_tier::postal_address_id AS postal_address_id: int,
+			 gen_lojoin_join_base_membersplus_with_table_legacy_member_membership_tier::market_zone_id AS market_zone_id: int,
+			 gen_lojoin_join_base_membersplus_with_table_legacy_member_membership_tier::postal_code AS postal_code: chararray,
+			 gen_lojoin_join_base_membersplus_with_table_legacy_member_membership_tier::pay_status AS pay_status: chararray,
+			 gen_lojoin_join_base_membersplus_with_table_legacy_member_membership_tier::membership_tier_name AS membership_tier_name: chararray,
+			 table_al4_t_user::user_id AS tu_user_id: int,
+			 table_al4_t_user::status AS tu_status: chararray,
+			 table_al4_t_user::first_name AS tu_first_name: chararray,
+			 table_al4_t_user::last_name AS tu_last_name: chararray,
 		     table_al4_t_user::test_user AS test_user: int;
 
 filter_isprimary_table_al4_t_user_address = 
@@ -255,17 +295,26 @@ gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id =
 	FOREACH join_t_user_with_gen_groupby_table_al4_t_user_address_user_id 
 	GENERATE gen_lojoin_base_membersplus_with_t_user::member_id AS member_id: int,
 		     gen_lojoin_base_membersplus_with_t_user::user_id AS user_id: int,
-		     gen_lojoin_base_membersplus_with_t_user::exclude_test_member_id AS exclude_test_member_id: int,
-		     gen_lojoin_base_membersplus_with_t_user::postal_address_id AS postal_address_id: int,
-		     gen_lojoin_base_membersplus_with_t_user::market_zone_id AS market_zone_id: int,
-		     gen_lojoin_base_membersplus_with_t_user::postal_code AS postal_code: chararray,
-		     gen_lojoin_base_membersplus_with_t_user::pay_status AS pay_status: chararray,
-		     gen_lojoin_base_membersplus_with_t_user::membership_tier_name AS membership_tier_name: chararray,
-		     gen_lojoin_base_membersplus_with_t_user::first_name AS first_name: chararray, 
-		     gen_lojoin_base_membersplus_with_t_user::last_name AS last_name: chararray, 
-		     gen_lojoin_base_membersplus_with_t_user::status AS status: chararray, 
+			 gen_lojoin_base_membersplus_with_t_user::market AS market: chararray,
+			 gen_lojoin_base_membersplus_with_t_user::first_name AS first_name: chararray,
+			 gen_lojoin_base_membersplus_with_t_user::last_name AS last_name: chararray,
+			 gen_lojoin_base_membersplus_with_t_user::home_phone AS home_phone: chararray,
+			 gen_lojoin_base_membersplus_with_t_user::email AS email: chararray,
+			 gen_lojoin_base_membersplus_with_t_user::member_date AS member_date: datetime,
+			 gen_lojoin_base_membersplus_with_t_user::expiration AS expiration: datetime,
+			 gen_lojoin_base_membersplus_with_t_user::status AS status: chararray,
+			 gen_lojoin_base_membersplus_with_t_user::exclude_test_member_id AS exclude_test_member_id: int,
+			 gen_lojoin_base_membersplus_with_t_user::postal_address_id AS postal_address_id: int,
+			 gen_lojoin_base_membersplus_with_t_user::market_zone_id AS market_zone_id: int,
+			 gen_lojoin_base_membersplus_with_t_user::postal_code AS postal_code: chararray,
+			 gen_lojoin_base_membersplus_with_t_user::pay_status AS pay_status: chararray,
+			 gen_lojoin_base_membersplus_with_t_user::membership_tier_name AS membership_tier_name: chararray,
+			 gen_lojoin_base_membersplus_with_t_user::user_id AS tu_user_id: int,
+			 gen_lojoin_base_membersplus_with_t_user::status AS tu_status: chararray,
+			 gen_lojoin_base_membersplus_with_t_user::first_name AS tu_first_name: chararray,
+			 gen_lojoin_base_membersplus_with_t_user::last_name AS tu_last_name: chararray,
 		     gen_lojoin_base_membersplus_with_t_user::test_user AS test_user: int,
-		     gen_groupby_table_al4_t_user_address_user_id::user_id AS t_user_user_id: int,
+			 gen_groupby_table_al4_t_user_address_user_id::user_id AS t_user_user_id: int,
 			 gen_groupby_table_al4_t_user_address_user_id::maxupdatedate AS maxupdatedate;
 
 
@@ -278,51 +327,65 @@ gen_groupby_table_al4_t_user_address_userid_updatedate =
 	GENERATE group.user_id AS user_id:INT, group.update_date AS update_date:DATETIME, 
 	         MAX(filter_isprimary_table_al4_t_user_address.postal_address_id) AS maxpostaladdressid:INT;
 	
-lojoin_base_members_with_postal_address_id = 
-	JOIN gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id BY postal_address_id LEFT OUTER,
-	     gen_groupby_table_al4_t_user_address_userid_updatedate BY maxpostaladdressid;	
+lojoin_base_membersplus_with_gen_groupby_table_al4_t_user_address_userid_updatedate = 
+	JOIN gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id BY (t_user_user_id, maxupdatedate) LEFT OUTER,
+		 gen_groupby_table_al4_t_user_address_userid_updatedate BY (user_id, update_date);
 	
-filter_lojoin_base_members_with_postal_address_id = 
-	FILTER lojoin_base_members_with_postal_address_id BY 
-	gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::t_user_user_id == gen_groupby_table_al4_t_user_address_userid_updatedate::user_id and 
-	gen_groupby_table_al4_t_user_address_userid_updatedate::update_date == gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::maxupdatedate;
-
-gen_filter_lojoin_base_members_with_postal_address_id = 
-	FOREACH filter_lojoin_base_members_with_postal_address_id 
+gen_lojoin_base_membersplus_with_gen_groupby_table_al4_t_user_address_userid_updatedate = 
+	FOREACH lojoin_base_membersplus_with_gen_groupby_table_al4_t_user_address_userid_updatedate 
 	GENERATE gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::member_id AS member_id: int,
 		     gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::user_id AS user_id: int,
-		     gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::exclude_test_member_id AS exclude_test_member_id: int,
-		     gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::postal_address_id AS postal_address_id: int,
-		     gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::market_zone_id AS market_zone_id: int,
-		     gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::postal_code AS postal_code: chararray,
-		     gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::pay_status AS pay_status: chararray,
-		     gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::membership_tier_name AS membership_tier_name: chararray,
-		     gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::first_name AS first_name: chararray,
-		     gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::last_name AS last_name: chararray,
-		     gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::status AS status: chararray,
-		     gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::test_user AS test_user: int,
-		     gen_groupby_table_al4_t_user_address_userid_updatedate::update_date AS update_date: datetime,
-		     gen_groupby_table_al4_t_user_address_userid_updatedate::maxpostaladdressid AS maxpostaladdressid: int;
+			 gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::market AS market: chararray,
+			 gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::first_name AS first_name: chararray,
+			 gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::last_name AS last_name: chararray,
+			 gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::home_phone AS home_phone: chararray,
+			 gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::email AS email: chararray,
+			 gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::member_date AS member_date: datetime,
+			 gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::expiration AS expiration: datetime,
+			 gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::status AS status: chararray,
+			 gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::exclude_test_member_id AS exclude_test_member_id: int,
+			 gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::postal_address_id AS postal_address_id: int,
+			 gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::market_zone_id AS market_zone_id: int,
+			 gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::postal_code AS postal_code: chararray,
+			 gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::pay_status AS pay_status: chararray,
+			 gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::membership_tier_name AS membership_tier_name: chararray,
+			 gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::user_id AS tu_user_id: int,
+			 gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::status AS tu_status: chararray,
+			 gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::first_name AS tu_first_name: chararray,
+			 gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::last_name AS tu_last_name: chararray,
+			 gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::test_user AS test_user: int,
+			 gen_groupby_table_al4_t_user_address_userid_updatedate::update_date AS update_date: datetime,
+			 gen_groupby_table_al4_t_user_address_userid_updatedate::maxpostaladdressid AS maxpostaladdressid: int;
+
 
 /* Step 12: Left join with AngiesList.dbo.t_PostalAddress on PostalAddressId to derive AdvertisingZoneID where primary address of the member falls as AdvertisingZoneID_TypeII */
 lojoin_gen_filter_lojoin_base_members_with_postal_address_id = 
-	JOIN gen_filter_lojoin_base_members_with_postal_address_id BY maxpostaladdressid LEFT OUTER,
+	JOIN gen_lojoin_base_membersplus_with_gen_groupby_table_al4_t_user_address_userid_updatedate BY maxpostaladdressid LEFT OUTER,
 		 table_al4_t_postal_address BY postal_address_id;
 
 gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id = 
 	FOREACH lojoin_gen_filter_lojoin_base_members_with_postal_address_id 
-	GENERATE gen_filter_lojoin_base_members_with_postal_address_id::member_id AS member_id: int,
-			 gen_filter_lojoin_base_members_with_postal_address_id::user_id AS user_id: int,
-			 gen_filter_lojoin_base_members_with_postal_address_id::exclude_test_member_id AS exclude_test_member_id: int,
-			 gen_filter_lojoin_base_members_with_postal_address_id::postal_address_id AS postal_address_id: int,
-			 gen_filter_lojoin_base_members_with_postal_address_id::market_zone_id AS market_zone_id: int,
-			 gen_filter_lojoin_base_members_with_postal_address_id::postal_code AS postal_code: chararray,
-			 gen_filter_lojoin_base_members_with_postal_address_id::pay_status AS pay_status: chararray,
-			 gen_filter_lojoin_base_members_with_postal_address_id::membership_tier_name AS membership_tier_name: chararray,
-			 gen_filter_lojoin_base_members_with_postal_address_id::first_name AS first_name: chararray,
-			 gen_filter_lojoin_base_members_with_postal_address_id::last_name AS last_name: chararray,
-			 gen_filter_lojoin_base_members_with_postal_address_id::status AS status: chararray,
-			 gen_filter_lojoin_base_members_with_postal_address_id::test_user AS test_user: int,
+	GENERATE gen_lojoin_base_membersplus_with_gen_groupby_table_al4_t_user_address_userid_updatedate::member_id AS member_id: int,
+		     gen_lojoin_base_membersplus_with_gen_groupby_table_al4_t_user_address_userid_updatedate::user_id AS user_id: int,
+			 gen_lojoin_base_membersplus_with_gen_groupby_table_al4_t_user_address_userid_updatedate::market AS market: chararray,
+			 gen_lojoin_base_membersplus_with_gen_groupby_table_al4_t_user_address_userid_updatedate::first_name AS first_name: chararray,
+			 gen_lojoin_base_membersplus_with_gen_groupby_table_al4_t_user_address_userid_updatedate::last_name AS last_name: chararray,
+			 gen_lojoin_base_membersplus_with_gen_groupby_table_al4_t_user_address_userid_updatedate::home_phone AS home_phone: chararray,
+			 gen_lojoin_base_membersplus_with_gen_groupby_table_al4_t_user_address_userid_updatedate::email AS email: chararray,
+			 gen_lojoin_base_membersplus_with_gen_groupby_table_al4_t_user_address_userid_updatedate::member_date AS member_date: datetime,
+			 gen_lojoin_base_membersplus_with_gen_groupby_table_al4_t_user_address_userid_updatedate::expiration AS expiration: datetime,
+			 gen_lojoin_base_membersplus_with_gen_groupby_table_al4_t_user_address_userid_updatedate::status AS status: chararray,
+			 gen_lojoin_base_membersplus_with_gen_groupby_table_al4_t_user_address_userid_updatedate::exclude_test_member_id AS exclude_test_member_id: int,
+			 gen_lojoin_base_membersplus_with_gen_groupby_table_al4_t_user_address_userid_updatedate::postal_address_id AS postal_address_id: int,
+			 gen_lojoin_base_membersplus_with_gen_groupby_table_al4_t_user_address_userid_updatedate::market_zone_id AS market_zone_id: int,
+			 gen_lojoin_base_membersplus_with_gen_groupby_table_al4_t_user_address_userid_updatedate::postal_code AS postal_code: chararray,
+			 gen_lojoin_base_membersplus_with_gen_groupby_table_al4_t_user_address_userid_updatedate::pay_status AS pay_status: chararray,
+			 gen_lojoin_base_membersplus_with_gen_groupby_table_al4_t_user_address_userid_updatedate::membership_tier_name AS membership_tier_name: chararray,
+			 gen_lojoin_base_membersplus_with_gen_groupby_table_al4_t_user_address_userid_updatedate::user_id AS tu_user_id: int,
+			 gen_lojoin_base_membersplus_with_gen_groupby_table_al4_t_user_address_userid_updatedate::status AS tu_status: chararray,
+			 gen_lojoin_base_membersplus_with_gen_groupby_table_al4_t_user_address_userid_updatedate::first_name AS tu_first_name: chararray,
+			 gen_lojoin_base_membersplus_with_gen_groupby_table_al4_t_user_address_userid_updatedate::last_name AS tu_last_name: chararray,
+			 gen_lojoin_base_membersplus_with_gen_groupby_table_al4_t_user_address_userid_updatedate::test_user AS test_user: int,
 			 table_al4_t_postal_address::advertising_zone AS advertising_zone: int;
 
 
@@ -344,20 +407,29 @@ lojoin_base_member_with_gen_groupby_t_contact_information =
 gen_lojoin_base_member_with_gen_groupby_t_contact_information = 
 	FOREACH lojoin_base_member_with_gen_groupby_t_contact_information 
 	GENERATE gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::member_id AS member_id: int,
-			gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::user_id AS user_id: int,
-			gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::exclude_test_member_id AS exclude_test_member_id: int,
-			gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::postal_address_id AS postal_address_id: int,
-			gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::market_zone_id AS market_zone_id: int,
-			gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::postal_code AS postal_code: chararray,
-			gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::pay_status AS pay_status: chararray,
-			gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::membership_tier_name AS membership_tier_name: chararray,
-			gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::first_name AS first_name: chararray,
-			gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::last_name AS last_name: chararray,
-			gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::status AS status: chararray,
-			gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::test_user AS test_user: int,
-			gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::advertising_zone AS advertising_zone: int,
-			gen_groupby_table_al4_t_contact_information_contextentityid::context_entity_id AS context_entity_id:INT,
-			gen_groupby_table_al4_t_contact_information_contextentityid::maxupdatedate AS maxupdatedate;
+			 gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::user_id AS user_id: int,
+			 gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::market AS market: chararray,
+			 gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::first_name AS first_name: chararray,
+			 gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::last_name AS last_name: chararray,
+			 gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::home_phone AS home_phone: chararray,
+			 gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::email AS email: chararray,
+			 gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::member_date AS member_date: datetime,
+			 gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::expiration AS expiration: datetime,
+			 gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::status AS status: chararray,
+			 gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::exclude_test_member_id AS exclude_test_member_id: int,
+			 gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::postal_address_id AS postal_address_id: int,
+			 gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::market_zone_id AS market_zone_id: int,
+			 gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::postal_code AS postal_code: chararray,
+			 gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::pay_status AS pay_status: chararray,
+			 gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::membership_tier_name AS membership_tier_name: chararray,
+			 gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::user_id AS tu_user_id: int,
+			 gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::status AS tu_status: chararray,
+			 gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::first_name AS tu_first_name: chararray,
+			 gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::last_name AS tu_last_name: chararray,
+			 gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::test_user AS test_user: int,
+			 gen_base_member_lojoin_gen_filter_lojoin_base_members_with_postal_address_id::advertising_zone AS advertising_zone: int,
+			 gen_groupby_table_al4_t_contact_information_contextentityid::context_entity_id AS context_entity_id:INT,
+			 gen_groupby_table_al4_t_contact_information_contextentityid::maxupdatedate AS maxupdatedate;
 
 groupby_table_al4_t_contact_information_contextentityid_updatedate = 
 	GROUP filter_isprimary_table_al4_t_contact_information by (context_entity_id,update_date);
@@ -378,20 +450,29 @@ lojoin_base_members_with_table_al4_t_contact_information =
 gen_lojoin_base_members_with_table_al4_t_contact_information = 
 	FOREACH lojoin_base_members_with_table_al4_t_contact_information 
 	GENERATE lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::member_id AS member_id: int,
-		     lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::user_id AS user_id: int,
-		     lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::exclude_test_member_id AS exclude_test_member_id: int,
-		     lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::postal_address_id AS postal_address_id: int,
-		     lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::market_zone_id AS market_zone_id: int,
-		     lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::postal_code AS postal_code: chararray,
-		     lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::pay_status AS pay_status: chararray,
-		     lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::membership_tier_name AS membership_tier_name: chararray,
-		     lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::first_name AS first_name: chararray,
-		     lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::last_name AS last_name: chararray,
-		     lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::status AS status: chararray,
-		     lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::test_user AS test_user: int,
-		     lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::advertising_zone AS advertising_zone: int,
-		     table_al4_t_contact_information::primary_phonenumber AS primary_phonenumber: chararray, 
-		     table_al4_t_contact_information::email AS email: chararray;
+			 lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::user_id AS user_id: int,
+			 lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::market AS market: chararray,
+			 lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::first_name AS first_name: chararray,
+			 lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::last_name AS last_name: chararray,
+			 lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::home_phone AS home_phone: chararray,
+			 lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::email AS email: chararray,
+			 lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::member_date AS member_date: datetime,
+			 lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::expiration AS expiration: datetime,
+			 lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::status AS status: chararray,
+			 lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::exclude_test_member_id AS exclude_test_member_id: int,
+			 lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::postal_address_id AS postal_address_id: int,
+			 lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::market_zone_id AS market_zone_id: int,
+			 lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::postal_code AS postal_code: chararray,
+			 lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::pay_status AS pay_status: chararray,
+			 lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::membership_tier_name AS membership_tier_name: chararray,
+			 lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::user_id AS tu_user_id: int,
+			 lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::status AS tu_status: chararray,
+			 lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::first_name AS tu_first_name: chararray,
+			 lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::last_name AS tu_last_name: chararray,
+			 lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::test_user AS test_user: int,
+			 lojoin_base_members_with_t_contact_information::gen_lojoin_base_member_with_gen_groupby_t_contact_information::advertising_zone AS advertising_zone: int,
+			 table_al4_t_contact_information::primary_phonenumber AS primary_phonenumber: chararray, 
+			 table_al4_t_contact_information::email AS tci_email: chararray;
 
 
 /* Step 14: Foreach UserId in AngiesList.dbo.t_AssociatePermission, find avg(AssociatePermissionId) and left join it with the base table on UserId. This will be used to set the AssociateFlag. */
@@ -409,19 +490,28 @@ gen_lojoin_base_members_with_table_al4_t_associate_permission =
 	FOREACH lojoin_base_members_with_table_al4_t_associate_permission 
 	GENERATE gen_lojoin_base_members_with_table_al4_t_contact_information::member_id AS member_id: int,
 			 gen_lojoin_base_members_with_table_al4_t_contact_information::user_id AS user_id: int,
+			 gen_lojoin_base_members_with_table_al4_t_contact_information::market AS market: chararray,
+			 gen_lojoin_base_members_with_table_al4_t_contact_information::first_name AS first_name: chararray,
+			 gen_lojoin_base_members_with_table_al4_t_contact_information::last_name AS last_name: chararray,
+			 gen_lojoin_base_members_with_table_al4_t_contact_information::home_phone AS home_phone: chararray,
+			 gen_lojoin_base_members_with_table_al4_t_contact_information::email AS email: chararray,
+			 gen_lojoin_base_members_with_table_al4_t_contact_information::member_date AS member_date: datetime,
+			 gen_lojoin_base_members_with_table_al4_t_contact_information::expiration AS expiration: datetime,
+			 gen_lojoin_base_members_with_table_al4_t_contact_information::status AS status: chararray,
 			 gen_lojoin_base_members_with_table_al4_t_contact_information::exclude_test_member_id AS exclude_test_member_id: int,
 			 gen_lojoin_base_members_with_table_al4_t_contact_information::postal_address_id AS postal_address_id: int,
 			 gen_lojoin_base_members_with_table_al4_t_contact_information::market_zone_id AS market_zone_id: int,
 			 gen_lojoin_base_members_with_table_al4_t_contact_information::postal_code AS postal_code: chararray,
 			 gen_lojoin_base_members_with_table_al4_t_contact_information::pay_status AS pay_status: chararray,
 			 gen_lojoin_base_members_with_table_al4_t_contact_information::membership_tier_name AS membership_tier_name: chararray,
-			 gen_lojoin_base_members_with_table_al4_t_contact_information::first_name AS first_name: chararray,
-			 gen_lojoin_base_members_with_table_al4_t_contact_information::last_name AS last_name: chararray,
-			 gen_lojoin_base_members_with_table_al4_t_contact_information::status AS status: chararray,
+			 gen_lojoin_base_members_with_table_al4_t_contact_information::user_id AS tu_user_id: int,
+			 gen_lojoin_base_members_with_table_al4_t_contact_information::status AS tu_status: chararray,
+			 gen_lojoin_base_members_with_table_al4_t_contact_information::first_name AS tu_first_name: chararray,
+			 gen_lojoin_base_members_with_table_al4_t_contact_information::last_name AS tu_last_name: chararray,
 			 gen_lojoin_base_members_with_table_al4_t_contact_information::test_user AS test_user: int,
 			 gen_lojoin_base_members_with_table_al4_t_contact_information::advertising_zone AS advertising_zone: int,
-			 gen_lojoin_base_members_with_table_al4_t_contact_information::primary_phonenumber AS primary_phonenumber: chararray,
-			 gen_lojoin_base_members_with_table_al4_t_contact_information::email AS email: chararray,
+			 gen_lojoin_base_members_with_table_al4_t_contact_information::primary_phonenumber AS primary_phonenumber: chararray, 
+			 gen_lojoin_base_members_with_table_al4_t_contact_information::email AS tci_email: chararray,
 			 gen_groupby_table_al4_t_associate_permission::associate AS associate: int;
 
 
@@ -440,93 +530,93 @@ gen_lojoin_base_members_with_table_al4_t_employee_permission =
 	FOREACH lojoin_base_members_with_table_al4_t_employee_permission 
 	GENERATE gen_lojoin_base_members_with_table_al4_t_associate_permission::member_id AS member_id: int,
 			 gen_lojoin_base_members_with_table_al4_t_associate_permission::user_id AS user_id: int,
+			 gen_lojoin_base_members_with_table_al4_t_associate_permission::market AS market: chararray,
+			 gen_lojoin_base_members_with_table_al4_t_associate_permission::first_name AS first_name: chararray,
+			 gen_lojoin_base_members_with_table_al4_t_associate_permission::last_name AS last_name: chararray,
+			 gen_lojoin_base_members_with_table_al4_t_associate_permission::home_phone AS home_phone: chararray,
+			 gen_lojoin_base_members_with_table_al4_t_associate_permission::email AS email: chararray,
+			 gen_lojoin_base_members_with_table_al4_t_associate_permission::member_date AS member_date: datetime,
+			 gen_lojoin_base_members_with_table_al4_t_associate_permission::expiration AS expiration: datetime,
+			 gen_lojoin_base_members_with_table_al4_t_associate_permission::status AS status: chararray,
 			 gen_lojoin_base_members_with_table_al4_t_associate_permission::exclude_test_member_id AS exclude_test_member_id: int,
 			 gen_lojoin_base_members_with_table_al4_t_associate_permission::postal_address_id AS postal_address_id: int,
 			 gen_lojoin_base_members_with_table_al4_t_associate_permission::market_zone_id AS market_zone_id: int,
 			 gen_lojoin_base_members_with_table_al4_t_associate_permission::postal_code AS postal_code: chararray,
 			 gen_lojoin_base_members_with_table_al4_t_associate_permission::pay_status AS pay_status: chararray,
 			 gen_lojoin_base_members_with_table_al4_t_associate_permission::membership_tier_name AS membership_tier_name: chararray,
-			 gen_lojoin_base_members_with_table_al4_t_associate_permission::first_name AS first_name: chararray,
-			 gen_lojoin_base_members_with_table_al4_t_associate_permission::last_name AS last_name: chararray,
-			 gen_lojoin_base_members_with_table_al4_t_associate_permission::status AS status: chararray,
+			 gen_lojoin_base_members_with_table_al4_t_associate_permission::user_id AS tu_user_id: int,
+			 gen_lojoin_base_members_with_table_al4_t_associate_permission::status AS tu_status: chararray,
+			 gen_lojoin_base_members_with_table_al4_t_associate_permission::first_name AS tu_first_name: chararray,
+			 gen_lojoin_base_members_with_table_al4_t_associate_permission::last_name AS tu_last_name: chararray,
 			 gen_lojoin_base_members_with_table_al4_t_associate_permission::test_user AS test_user: int,
 			 gen_lojoin_base_members_with_table_al4_t_associate_permission::advertising_zone AS advertising_zone: int,
-			 gen_lojoin_base_members_with_table_al4_t_associate_permission::primary_phonenumber AS primary_phonenumber: chararray,
-			 gen_lojoin_base_members_with_table_al4_t_associate_permission::email AS email: chararray,
+			 gen_lojoin_base_members_with_table_al4_t_associate_permission::primary_phonenumber AS primary_phonenumber: chararray, 
+			 gen_lojoin_base_members_with_table_al4_t_associate_permission::email AS tci_email: chararray,
 			 gen_lojoin_base_members_with_table_al4_t_associate_permission::associate AS associate: int,
 			 gen_groupby_table_al4_t_employee_permission::employee AS employee: int;
 
 
 /* Step 16: Left join Angie.dbo.Members with shared.dim_market on Market and derive Market Key by selecting latest record. If Market is missing, populate Market_Key from dim_Market where market_id = -1 */
+lojoin_base_members_with_table_dim_market = 
+	JOIN gen_lojoin_base_members_with_table_al4_t_employee_permission BY market LEFT OUTER, table_dim_market BY market_nm;
+
+filter_dim_market =  FILTER table_dim_market BY market_id == -1;
+
+cross_join_base_members_with_dim_market = CROSS lojoin_base_members_with_table_dim_market,filter_dim_market;
+
+gen_lojoin_base_members_with_table_dim_market = 
+	FOREACH cross_join_base_members_with_dim_market
+	GENERATE lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::member_id AS member_id: int,
+			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::user_id AS user_id: int,
+			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::market AS market: chararray,
+			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::first_name AS first_name: chararray,
+			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::last_name AS last_name: chararray,
+			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::home_phone AS home_phone: chararray,
+			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::email AS email: chararray,
+			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::member_date AS member_date: datetime,
+			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::expiration AS expiration: datetime,
+			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::status AS status: chararray,
+			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::exclude_test_member_id AS exclude_test_member_id: int,
+			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::postal_address_id AS postal_address_id: int,
+			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::market_zone_id AS market_zone_id: int,
+			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::postal_code AS postal_code: chararray,
+			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::pay_status AS pay_status: chararray,
+			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::membership_tier_name AS membership_tier_name: chararray,
+			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::user_id AS tu_user_id: int,
+			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::status AS tu_status: chararray,
+			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::first_name AS tu_first_name: chararray,
+			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::last_name AS tu_last_name: chararray,
+			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::test_user AS test_user: int,
+			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::advertising_zone AS advertising_zone: int,
+			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::primary_phonenumber AS primary_phonenumber: chararray,
+			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::tci_email AS tci_email: chararray,
+			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::associate AS associate: int,
+			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::employee AS employee: int,
+			lojoin_base_members_with_table_dim_market::table_dim_market::market_key AS market_key: long,
+			lojoin_base_members_with_table_dim_market::table_dim_market::market_nm AS market_nm: chararray,
+			filter_dim_market::market_key AS filter_market_key: long;
 
 
+/* Generating the required schema of dim_members */
+gen_dim_members = 
+	FOREACH gen_lojoin_base_members_with_table_dim_market
+	GENERATE member_id, 
+			 tu_user_id AS user_id: int, 
+			 (tci_email is null?email:tci_email) AS email: chararray, 
+			 postal_code, 
+			 pay_status, 
+			 (tu_status is null?status:tu_status) AS member_status: chararray, 
+			 (member_id is null?null:(CurrentTime() > expiration?'EXPIRED':'NONEXPIRED')) AS expiration_status: chararray, 
+			 member_date AS member_dt:datetime, 
+			 membership_tier_name AS membership_tier_nm: chararray, 
+			 (primary_phonenumber is null?home_phone:primary_phonenumber) AS primary_phone_number: chararray,
+			 (tu_first_name is null?first_name:tu_first_name) AS first_nm: chararray, 
+			 (tu_last_name is null?last_name:tu_last_name) AS last_nm: chararray, 
+			 associate,
+			 employee,
+			 (market_key is null?filter_market_key:market_key) AS market_key: int;
 
+rmf /user/hadoop/data/work/shareddim/tf_dim_members
 
-
-
-
-
-
-
-
-
-
-
-
-
-STORE gen_lojoin_base_members_with_table_al4_t_employee_permission into '/user/hadoop/11';
-
-
-
-
-
-
-
-lojoin_base_members_with_postal_address_id = 
-	JOIN gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id BY postal_address_id LEFT OUTER,
-	     gen_groupby_table_al4_t_user_address_userid_updatedate BY maxpostaladdressid;	
-	
-filter_lojoin_base_members_with_postal_address_id = 
-	FILTER lojoin_base_members_with_postal_address_id BY 
-	gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::t_user_user_id == gen_groupby_table_al4_t_user_address_userid_updatedate::user_id and 
-	gen_groupby_table_al4_t_user_address_userid_updatedate::update_date == gen_join_base_membersplus_with_gen_groupby_table_al4_t_user_address_user_id::maxupdatedate;
-
-
-
-
-
-
-
-
-
-
-
-	
-gen_groupby_table_legacy_mbr_pay_status = 
-	FOREACH groupby_table_legacy_mbr_pay_status 
-	GENERATE group AS member_id:INT, group.pay_status AS pay_status:INT, MAX(table_legacy_mbr_pay_status.id) AS ;
-
-lojoin_base_membersplus_with_mbr_pay_status = 
-	JOIN gen_lojoin_base_membersplus_with_postal_address BY member_id LEFT OUTER, gen_groupby_table_legacy_mbr_pay_status BY member_id;
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Mapping source columns to target */
-table_dim_market =
-	FOREACH table_legacy_market
-	GENERATE market_id  AS market_id:INT, market AS market_nm:CHARARRAY;
-
-
-/* Loading to target */
-STORE table_dim_market into 'work_shared_dim.tf_dim_market'
-		using org.apache.hive.hcatalog.pig.HCatStorer();
+STORE gen_dim_members INTO '$GOLD_SHARED_DIM_DB.tf_dim_members' 
+					  USING org.apache.hive.hcatalog.pig.HCatStorer(); 
