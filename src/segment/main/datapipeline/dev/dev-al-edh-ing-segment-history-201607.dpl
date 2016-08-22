@@ -306,7 +306,7 @@
 	  "workerGroup": "#{myWorkerGroup}",
 	  "scriptArgument": [
 		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
-		"s3://al-edh-dev/src/segment/main/conf/ingestion_greenpoint_production_greenpoint_production_search_the_list_history_load.properties",
+		"s3://al-edh-dev/src/segment/main/conf/ingestion_greenpoint_production_search_the_list_history_load.properties",
 		"2016-07-01", 
  	  	 "2016-07-31"
 	  ],
