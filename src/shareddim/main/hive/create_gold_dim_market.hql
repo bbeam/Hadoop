@@ -1,8 +1,8 @@
 --/*
---  HIVE SCRIPT  : create_gold_dim_market.hql
+--  HIVE SCRIPT  : create_dim_market.hql
 --  AUTHOR       : Anil Aleppy
 --  DATE         : Aug 9, 2016
---  DESCRIPTION  : Creation of hive TF work table work_shared_dim.dim_market 
+--  DESCRIPTION  : Creation of hive TF work table gold_shared_dim.dim_market 
 --*/
 
 CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dim_market

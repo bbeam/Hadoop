@@ -89,11 +89,12 @@ fi
 
 # Hive script to load target dimension table (in gold).
 echo "hive script started running...doing target dimension load in gold"
+
 hive -f /var/tmp/$LOAD_DIM_HIVE_FILE_NAME \
-    -hivevar GOLD_SHARED_DIM_DB=$GOLD_SHARED_DIM_DB \
-    -hivevar TRGT_DIM_TABLE_NAME=$TRGT_DIM_TABLE_NAME \
+    -hivevar WORK_DIM_TABLE_NAME=$WORK_DIM_TABLE_NAME \
     -hivevar WORK_SHARED_DIM_DB=$WORK_SHARED_DIM_DB \
-    -hivevar WORK_DIM_TABLE_NAME=$WORK_DIM_TABLE_NAME
+    -hivevar GOLD_SHARED_DIM_DB=$GOLD_SHARED_DIM_DB \
+    -hivevar TRGT_DIM_TABLE_NAME=$TRGT_DIM_TABLE_NAME
 
 if [ $? -eq 0 ]
 then
@@ -102,19 +103,19 @@ else
     echo "hive execution failed. Dimension table load in target (gold area) process terminated"
     exit 1
 
-#LOAD_DIM_AUDIT_HQL_FILE=$(basename $LOAD_DIM_AUDIT_HQL_PATH)
-
+# LOAD_DIM_AUDIT_HQL_FILE=$(basename $LOAD_DIM_AUDIT_HQL_PATH)
+#
 # Hive script to insert Dimension load audit record
-#hive -f $LOAD_DIM_AUDIT_HQL_PATH \
-    -hivevar ENTITY_NAME=$SUBJECT_SHAREDDIM \
-    -hivevar OPERATIONS_COMMON_DB=$OPERATIONS_COMMON_DB \
-    -hivevar AUDIT_TABLE_NAME=$AUDIT_TABLE_NAME \
-    -hivevar USER_NAME=$USER_NAME \
-    -hivevar EDH_BUS_MONTH=$EDH_BUS_MONTH \
-    -hivevar EDH_BUS_DATE=$EDH_BUS_DATE \
-    -hivevar GOLD_DIM_DB=$GOLD_DIM_DB \
-    -hivevar GOLD_DIM_TABLE=dim_market
-
+# hive -f $LOAD_DIM_AUDIT_HQL_PATH \
+#    -hivevar ENTITY_NAME=$SUBJECT_SHAREDDIM \
+#    -hivevar OPERATIONS_COMMON_DB=$OPERATIONS_COMMON_DB \
+#    -hivevar AUDIT_TABLE_NAME=$AUDIT_TABLE_NAME \
+#    -hivevar USER_NAME=$USER_NAME \
+#    -hivevar EDH_BUS_MONTH=$EDH_BUS_MONTH \
+#    -hivevar EDH_BUS_DATE=$EDH_BUS_DATE \
+#    -hivevar GOLD_DIM_DB=$GOLD_DIM_DB \
+#    -hivevar GOLD_DIM_TABLE=dim_market
+#
 # Hive Status check
 #if [ $? -eq 0 ]
 #then

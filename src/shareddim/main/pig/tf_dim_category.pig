@@ -20,14 +20,14 @@ get_category_group = FOREACH (JOIN legacy_categories BY category_group_id LEFT O
 						
 						
 /*Deriving CategoryGroupType For each record in angie.dbo.categories  by joining with angie.dbo.categorygrouptype on CategoryGroupTypeId.*/ 
-get_category_group_type = FOREACH (JOIN get_category_group BY category_group_type_id LEFT OUTER, legacy_category_group_type BY category_group_type_id)
+get_category_group_type = FOREACH (JOIN get_category_group BY category_group_type_id LEFT OUTER, legacy_category_group_typ BY category_group_type_id)
 						  GENERATE category_id AS category_id , category_name AS category_name, category AS category, category_group AS category_group, 
 						  (BOOLEAN)is_active AS is_active, category_group_type AS category_group_type;
 /* Full outer join the dataset with angieslist.dbo.t_category on categoryid to get both legacy and new categories*/
 join_alweb_legacy = JOIN al_category BY category_id FULL OUTER , get_category_group_type BY category_id;
 
-/*generate transformation columns 
-generate_transformed_column = FOREACH join_alweb_legacy 
+/*generate transformation columns */
+generate_transformed_column = FOREACH join_alweb_legacy
 								GENERATE 
 									(get_category_group_type::category_id IS NOT NULL ?  get_category_group_type::category_id : al_category::category_id ) 	AS category_id , 
 									(get_category_group_type::category IS NOT NULL ? get_category_group_type::category : al_category::name) AS category,

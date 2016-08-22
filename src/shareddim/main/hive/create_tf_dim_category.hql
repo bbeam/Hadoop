@@ -1,19 +1,26 @@
 --/*
---  HIVE SCRIPT  : create_dim_category.hql
---  AUTHOR       : Gaurav Maheshwari
+--  HIVE SCRIPT  : create_tf_dim_category.hql
+--  AUTHOR       : Abhijeet Purwar
 --  DATE         : Aug 16, 2016
 --  DESCRIPTION  : Creation of hive TF work table work_shared_dim.tf_dim_category 
+--
+--
+-- hive -f $CREATE_TF_HQL_PATH \
+-- -hivevar WORK_DIM_DB_NAME=$WORK_DIM_DB_NAME \
+-- -hivevar TF_TABLE_NAME=$TF_TABLE_NAME
 --*/
 
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.tf_dim_category
-(
-	category_id	INT,
-	category STRING ,
-	legacy_category STRING,
-	new_world_category STRING,
-	additional_category_nm STRING,
-	is_active BOOLEAN,
-	category_group STRING, 
-	category_group_type STRING 
+DROP TABLE IF EXISTS ${hivevar:WORK_DIM_DB_NAME}.${hivevar:TF_TABLE_NAME};
 
-);
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:WORK_DIM_DB_NAME}.${hivevar:TF_TABLE_NAME}
+(
+    category_id INT,
+    category STRING,
+    legacy_category STRING,
+    new_world_category STRING,
+    additional_category_nm STRING,
+    is_active BOOLEAN,
+    category_group STRING,
+    category_group_type STRING
+)
+LOCATION '/user/hadoop/data/work/shareddim/tf_dim_category';
