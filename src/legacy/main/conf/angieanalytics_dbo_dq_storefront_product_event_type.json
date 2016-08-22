@@ -1,0 +1,122 @@
+{  
+   "InputTableName":"inc_storefront_product_event_type",
+   "OutputTableName":"dq_storefront_product_event_type",
+   "SourceDB":"INCOMING_LEGACY_ANGIE_ANALYTICS_DBO_DB",
+   "TargetDB":"GOLD_LEGACY_ANGIE_ANALYTICS_DBO_DB",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/legacy/angieanalytics/dbo/full/daily/dq_storefront_product_event_type",
+   "TableValidation":[  
+      {  
+         "Check":"Duplicate",
+         "keyColumns":"storefront_product_event_type_id",
+         "Action":"Reject"
+      }
+   ],
+   "Columns":[  
+     
+	  {  
+         "Name":"storefront_product_event_type_id",
+         "Type":"INT",
+         "Validations":[  
+            {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+            {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+         ]
+      },
+	  {  
+         "Name":"storefront_product_event_type_name",
+		 "Type":"STRING",
+         "Validations":[  
+             {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+			{  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  {  
+         "Name":"storefront_product_event_type_description",
+		 "Type":"STRING",
+         "Validations":[  
+             {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+			{  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  {  
+         "Name":"create_date",
+		 "Type":"TIMESTAMP",
+		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
+		 "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
+         "Validations":[  
+           {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+			{  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  
+	   {  
+         "Name":"create_by",
+		 "Type":"STRING",
+         "Validations":[  
+             {  
+               "Check":"Null",
+               "Action":"Reject"
+            },
+			{  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	  {  
+         "Name":"update_date",
+		 "Type":"TIMESTAMP",
+		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
+		 "TimeZone":"UTC",
+		 "ConvertToTimeZone":"EST",
+         "Validations":[  
+           {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      },
+	   {  
+         "Name":"update_by",
+		 "Type":"STRING",
+         "Validations":[  
+             {  
+               "Check":"DataType",
+               "Action":"Reject"
+            }
+            
+         ]
+      }
+	  
+  ]
+	  
+}

@@ -1,0 +1,16 @@
+--query
+'SELECT StorefrontItemHistoryId, StorefrontItemId, StorefrontItemStatusId, StorefrontItemTypeId, SpId, Title, Description, RedemptionInstructions, StartDateTime, EndDateTime, ContactName, ContactPhone, ContactEmail, OriginalPrice, MemberPrice, StorefrontItemFee, OrderedQuantity, PaymentApproved, StorefrontSalesRepresentativeId, LastModifiedBy, CreateDate, CreateBy, UpdateDate, UpdateBy, HistoryDate, MaximumQuantity, MaximumQuantityPerMember, PhotoId, AutoRenew, PaidQuantity, DealClassificationId, StorefrontItemPromoCodeId, TimeZoneId, ContractItemSPID, Editorial, StorefrontItemSKU, HistoryEndDate, TitleWithPlaceholders, DescriptionWithPlaceholders, MasterStorefrontItemIdForSku, MemberOnly, DoNotOverrideFulfillmentMethod, StorefrontOrderFulfillmentMethodId, PremiumDeal FROM angieHistory.dbo.StorefrontItemHistory WHERE cast(HistoryDate as DATE)>='EXTRACT_START_DATE' and cast(HistoryDate as DATE)<='EXTRACT_END_DATE' and $CONDITIONS'
+--split-by
+StorefrontItemHistoryId
+--hive-delims-replacement
+'#'
+--fields-terminated-by 
+'\001' 
+--lines-terminated-by 
+'\n'
+--optionally-enclosed-by 
+'\"'
+--null-string 
+'' 
+--null-non-string 
+''

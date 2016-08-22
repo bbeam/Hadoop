@@ -1,5 +1,5 @@
 --query 
-'select StorefrontProductEventId, StorefrontItemId, MemberId, StorefrontProductEventTypeId, ExpirationDate, CampaignId, CreateDate, CreateBy, UpdateDate, UpdateBy from AngieAnalytics.dbo.StorefrontProductEvent where $CONDITIONS'
+'select StorefrontProductEventId, StorefrontItemId, MemberId, StorefrontProductEventTypeId, ExpirationDate, CampaignId, CreateDate, CreateBy, UpdateDate, UpdateBy from AngieAnalytics.dbo.StorefrontProductEvent where cast(CreateDate as DATE)='EXTRACT_DATE' and $CONDITIONS'
 --split-by 
 StorefrontProductEventId 
 --hive-delims-replacement
