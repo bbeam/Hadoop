@@ -13,7 +13,7 @@ DROP TABLE IF EXISTS ${hivevar:WORK_DIM_DB_NAME}.${hivevar:WORK_DIM_TABLE_NAME};
 
 CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:WORK_DIM_DB_NAME}.${hivevar:WORK_DIM_TABLE_NAME}
 (
-	member_key INT,
+	member_key BIGINT,
 	member_id INT,
 	user_id INT,
 	email STRING,
@@ -28,7 +28,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:WORK_DIM_DB_NAME}.${hivevar:WORK_D
 	last_nm STRING,
 	associate TINYINT,
 	employee TINYINT,
-	market_key STRING,
+	market_key BIGINT,
    	action_cd STRING,
    	edh_bus_month STRING
 )
