@@ -1,0 +1,16 @@
+--query 
+'select StorefrontProductEventId, StorefrontItemId, MemberId, StorefrontProductEventTypeId, ExpirationDate, CampaignId, CreateDate, CreateBy, UpdateDate, UpdateBy from AngieAnalytics.dbo.StorefrontProductEvent where cast(CreateDate as DATE)>='EXTRACT_START_DATE' and cast(CreateDate as DATE)<='EXTRACT_END_DATE' and $CONDITIONS'
+--split-by 
+StorefrontProductEventId 
+--hive-delims-replacement
+'#'
+--fields-terminated-by 
+'\001' 
+--lines-terminated-by 
+'\n'
+--optionally-enclosed-by 
+'\"'
+--null-string 
+'' 
+--null-non-string 
+''
