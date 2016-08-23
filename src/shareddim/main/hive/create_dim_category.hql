@@ -15,7 +15,8 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dim_category
    additional_category_nm STRING,
    is_active BOOLEAN,
    category_group STRING,
-   category_group_type STRING
+   category_group_type STRING,
+   est_load_timestamp TIMESTAMP,
+   utc_load_timestamp TIMESTAMP
 )
-PARTITIONED BY (edh_bus_month STRING)
 LOCATION '${hivevar:S3_BUCKET}/data/gold/shareddim/dim_category';

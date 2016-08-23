@@ -23,6 +23,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:WORK_DIM_DB_NAME}.${hivevar:WORK_D
    category_group STRING,
    category_group_type STRING,
    action_cd STRING,
-   edh_bus_month STRING
+   est_load_timestamp TIMESTAMP,
+   utc_load_timestamp TIMESTAMP
 )
 LOCATION '/user/hadoop/data/work/shareddim/scd_dim_category';

@@ -1,9 +1,12 @@
 /*
 PIG SCRIPT    : tf_dim_category.pig
-AUTHOR        : Gaurav Maheshwari
+AUTHOR        : Abhijeet Purwar
 DATE          : 16 Aug 16 
 DESCRIPTION   : Data Transformation script for dim_category dimension
 */
+
+register $S3_CONVERTTIMEZONE_JAR_LOCATION
+DEFINE ConvertTimeZone com.angieslist.edh.udf.pig.timezoneconversion.ConvertTimeZone();
 
 /* Reading the input tables */
 legacy_categories         =  LOAD 'gold_legacy_angie_dbo.dq_categories'           USING org.apache.hive.hcatalog.pig.HCatLoader();   
@@ -36,7 +39,8 @@ generate_transformed_column = FOREACH join_alweb_legacy
 									 get_category_group_type::category_name 																AS additional_category_nm,
 									 get_category_group_type::is_active 																	AS is_active,
 									 get_category_group_type::category_group 																AS category_group,
-									 get_category_group_type::category_group_type 															AS category_group_type;
-									 
+									 get_category_group_type::category_group_type 															AS category_group_type,
+									ToDate('$EST_TIME','yyyy-MM-dd HH:mm:ss') as est_load_timestamp,
+									ToDate('$UTC_TIME','yyyy-MM-dd HH:mm:ss') as utc_load_timestamp;
 						
 STORE generate_transformed_column INTO 'work_shared_dim.tf_dim_category' USING org.apache.hive.hcatalog.pig.HCatStorer();
