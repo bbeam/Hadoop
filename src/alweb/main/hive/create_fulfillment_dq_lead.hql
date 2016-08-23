@@ -31,4 +31,4 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_lead
   est_load_timestamp TIMESTAMP,
   utc_load_timestamp TIMESTAMP
 )
-LOCATION '${hivevar:S3_BUCKET}/data/gold/alweb/fulfillment/full/daily/inc_lead';
+LOCATION '${hivevar:S3_BUCKET}/data/gold/alweb/fulfillment/full/daily/dq_lead';

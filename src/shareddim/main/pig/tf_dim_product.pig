@@ -1,111 +1,122 @@
 /*
-PIG SCRIPT    : tf_dim_product.pig
+PIG SCRIPT    : tf_dim_category.pig
 AUTHOR        : Anil Aleppy
-DATE          : Aug 10, 2016
-DESCRIPTION   : Transformation for Dimension Product
+DATE          : 18 Aug 16 
+DESCRIPTION   : Data Transformation script for dim_product dimension
 */
 
-/* LOADING THE LOOKUP TABLES */
-table_dq_t_sku = 
-	LOAD '$GOLD_LEGACYDB.dq_t_sku' 
-	USING org.apache.hive.hcatalog.pig.HCatLoader();
+/* ******************Processing legacy_storefront_item *************************/
 
-table_dq_t_skuitem = 
-	LOAD '$WORK_DB.dq_t_skuitem' 
-	USING org.apache.hive.hcatalog.pig.HCatLoader();
+/* Read Input Tables */
+legacy_storefront_item         	=  LOAD 'gold_legacy_angie_dbo.dq_storefront_item'         USING org.apache.hive.hcatalog.pig.HCatLoader();   
+legacy_storefront_item_type 	=  LOAD 'gold_legacy_angie_dbo.dq_storefront_item_type'    USING org.apache.hive.hcatalog.pig.HCatLoader();
 
 
-/* JOINING THE TABLES */
-join_dq_t_sku_t_skuitem = JOIN
-						  table_dq_t_sku BY skuid,
-						  table_dq_t_skuitem BY skuid;
+/* legacy_storefront_item = filter legacy_storefront_item  by storefront_item_id > 10000 and storefront_item_id  < 11000;*/
 
-	
-/* DATA QUALITY CHECK FOR MANDATORY FILEDS */
-/* SPLIT INTO GOOD-BAD RECORDS */
-SPLIT 
-	 join_dq_t_sku_t_skuitem
-	 INTO 
-	 join_dq_t_sku_t_skuitem_skuid_good IF table_dq_t_sku::skuid IS NOT NULL,
-	 join_dq_t_sku_t_skuitem_skuid_bad IF table_dq_t_sku::skuid IS NULL;
+/*Getting item_type for each storefront_item record by joining with storefront_item_type table  */
+storefront_item_join_storefront_item_type_tf = FOREACH (JOIN legacy_storefront_item BY storefront_item_type_id LEFT OUTER, 
+                        legacy_storefront_item_type BY storefront_item_type_id)
+                        GENERATE legacy_storefront_item::storefront_item_id AS source_ak,
+                        'StorefrontItem' AS source_table,
+                        'StorefrontItemID' AS source_column,
+                        (legacy_storefront_item_type::storefront_item_type_id==6 AND 
+                        ToString(legacy_storefront_item::create_date,'yyyy-MM-dd') >= '2015-10-01' ? 'LeadFeed': 'E-Commerce') AS master_product_group,
+                        legacy_storefront_item_type::storefront_item_type_name AS product_type,
+                        legacy_storefront_item::title AS product,
+                        legacy_storefront_item::member_price AS unit_price,
+                        'Legacy' AS source;						
 
-/* ADDING ERROR_TYPE AND ERROR_DESC FOR THE BAD RECORDS */
-join_dq_t_sku_t_skuitem_skuid = 
-		FOREACH join_dq_t_sku_t_skuitem_skuid_bad 
-		GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null skuId is not allowed' AS error_desc:CHARARRAY;
-		
-/* SPLIT INTO GOOD-BAD RECORDS */
-SPLIT 
-	 join_dq_t_sku_t_skuitem_skuid_good
-	 INTO 
-	 join_dq_t_sku_t_skuitem_isemailpromotable_good IF table_dq_t_sku::isemailpromotable IS NOT NULL,
-	 join_dq_t_sku_t_skuitem_isemailpromotable_bad IF table_dq_t_sku::isemailpromotable IS NULL;
+/* ******************  Processing al_t_sku  *************************/
 
-/* ADDING ERROR_TYPE AND ERROR_DESC FOR THE BAD RECORDS */
-join_dq_t_sku_t_skuitem_isemailpromotable = 
-		FOREACH join_dq_t_sku_t_skuitem_isemailpromotable_bad 
-		GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null isemailpromotable is not allowed' AS error_desc:CHARARRAY;
-		
-/* SPLIT INTO GOOD-BAD RECORDS */
-SPLIT 
-	 join_dq_t_sku_t_skuitem_isemailpromotable_good
-	 INTO 
-	 join_dq_t_sku_t_skuitem_title_good IF table_dq_t_sku::title IS NOT NULL AND table_dq_t_sku::title != '',
-	 join_dq_t_sku_t_skuitem_title_bad IF table_dq_t_sku::title IS NULL OR table_dq_t_sku::title == '';
+/* Read Input Tables */
+alweb_t_sku                    	= LOAD 'gold_alweb_al.dq_t_sku'                                	USING org.apache.hive.hcatalog.pig.HCatLoader(); 
+alweb_t_sku_item				= LOAD 'gold_alweb_al.dq_t_sku_item'							USING org.apache.hive.hcatalog.pig.HCatLoader();
 
-/* ADDING ERROR_TYPE AND ERROR_DESC FOR THE BAD RECORDS */
-join_dq_t_sku_t_skuitem_title = 
-		FOREACH join_dq_t_sku_t_skuitem_title_bad 
-		GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null title is not allowed' AS error_desc:CHARARRAY;
-		
-/* SPLIT INTO GOOD-BAD RECORDS */
-SPLIT 
-	 join_dq_t_sku_t_skuitem_title_good
-	 INTO 
-	 join_dq_t_sku_t_skuitem_memberprice_good IF table_dq_t_skuitem::memberprice IS NOT NULL,
-	 join_dq_t_sku_t_skuitem_memberprice_bad IF table_dq_t_skuitem::memberprice IS NULL;
+/* alweb_t_sku = filter alweb_t_sku  by sku_id > 20000 and sku_id  < 90000;
+alweb_t_sku_item = filter alweb_t_sku_item  by sku_id > 20000 and sku_id  < 90000; */
 
-/* ADDING ERROR_TYPE AND ERROR_DESC FOR THE BAD RECORDS */
-join_dq_t_sku_t_skuitem_memberprice = 
-		FOREACH join_dq_t_sku_t_skuitem_memberprice_bad 
-		GENERATE *, '$NULL_CHECK_TYPE' AS error_type:CHARARRAY, 'null memberprice is not allowed' AS error_desc:CHARARRAY;
+/*Getting member price for each t_sku record by joining with t_sku_item table*/
+t_sku_join_t_sku_item_tf = FOREACH (JOIN alweb_t_sku BY sku_id LEFT OUTER, 
+                        alweb_t_sku_item BY sku_id)
+                        GENERATE alweb_t_sku::sku_id AS source_ak,
+                        't_sku' AS source_table,
+                        'SkuID' AS source_column,
+                        'E-Commerce' AS master_product_group,
+                        (alweb_t_sku::is_email_promotable == 1 ? 'BigDeal' : 'Storefront')  AS product_type,
+                        alweb_t_sku::title AS product,
+                        alweb_t_sku_item::member_price AS unit_price,
+                        'AL4.0' AS source;
+
+/* STORE t_sku_join_t_sku_item_tf INTO 'work_shared_dim.tf_dim_product' USING org.apache.hive.hcatalog.pig.HCatStorer();*/
+
+/* ******************  Processing al_lead  *************************/
+
+/* Read Input Tables */
+al_lead                     =  LOAD 'gold_alweb_ffmnt.dq_lead'                              USING org.apache.hive.hcatalog.pig.HCatLoader(); 
+
+/*al_lead = filter al_lead  by   lead_id  > 0 and lead_id   < 1000;*/
+
+al_lead_tf = FOREACH al_lead
+                        GENERATE lead_id AS source_ak,
+                        'Lead' AS source_table,
+                        'LeadID' AS source_column,
+                        'LeadFeed'  AS master_product_group,
+                        'LeadFeed'  AS product_type,
+                        title AS product,
+                        price AS unit_price,
+                        'AL4.0' AS source;
 
 
-/* JOINING ALL THE BAD RECORDS */
-join_dq_t_sku_t_skuitem_bad = UNION join_dq_t_sku_t_skuitem_skuid, join_dq_t_sku_t_skuitem_isemailpromotable, join_dq_t_sku_t_skuitem_title, join_dq_t_sku_t_skuitem_memberprice;
+/* STORE al_lead_tf INTO 'work_shared_dim.tf_dim_product' USING org.apache.hive.hcatalog.pig.HCatStorer(); */
 
-dq_t_sku_t_skuitem_bad = FOREACH join_dq_t_sku_t_skuitem_bad
-						 GENERATE table_dq_t_sku::skuid AS t_sku_skuid:INT, table_dq_t_sku::alid AS t_sku_alid:INT, table_dq_t_sku::contractid AS t_sku_contractid:INT, 
-						 table_dq_t_sku::title AS t_sku_title:CHARARRAY, table_dq_t_sku::description AS t_sku_description:CHARARRAY, 
-						 table_dq_t_sku::termsandconditions AS t_sku_termsandconditions:CHARARRAY, table_dq_t_sku::status AS t_sku_status:CHARARRAY, 
-						 table_dq_t_sku::skutype AS t_sku_skutype:CHARARRAY, table_dq_t_sku::startdatetime AS t_sku_startdatetime:DATETIME, 
-						 table_dq_t_sku::enddatetime AS t_sku_enddatetime:DATETIME, table_dq_t_sku::minquantity AS t_sku_minquantity:INT, 
-						 table_dq_t_sku::maxquantity AS t_sku_maxquantity:INT, table_dq_t_sku::maxpurchasequantity AS t_sku_maxpurchasequantity:INT, 
-						 table_dq_t_sku::rapidconnect AS t_sku_rapidconnect:INT, table_dq_t_sku::isautorenew AS t_sku_isautorenew:INT, 
-						 table_dq_t_sku::productid AS t_sku_productid:INT, table_dq_t_sku::version AS t_sku_version:INT, 
-						 table_dq_t_sku::placement AS t_sku_placement:CHARARRAY, table_dq_t_sku::isemailpromotable AS t_sku_isemailpromotable:INT, 
-						 table_dq_t_sku::createdate AS t_sku_createdate:DATETIME, table_dq_t_sku::createby AS t_sku_createby:INT, 
-						 table_dq_t_sku::updatedate AS t_sku_updatedate:DATETIME, table_dq_t_sku::updateby AS t_sku_updateby:INT, 
-						 table_dq_t_skuitem::skuitemid AS t_skuitem_skuitemid:INT, table_dq_t_skuitem::contextentityid AS t_skuitem_contextentityid:INT, 
-						 table_dq_t_skuitem::entitytype AS t_skuitem_entitytype:CHARARRAY, table_dq_t_skuitem::skuid AS t_skuitem_skuid:INT, 
-						 table_dq_t_skuitem::originalprice AS t_skuitem_originalprice:bigdecimal, table_dq_t_skuitem::nonmemberprice AS t_skuitem_nonmemberprice:bigdecimal, 
-						 table_dq_t_skuitem::memberprice AS t_skuitem_memberprice:bigdecimal, table_dq_t_skuitem::version AS t_skuitem_version:INT, 
-						 table_dq_t_skuitem::createdate AS t_skuitem_createdate:DATETIME, table_dq_t_skuitem::createby AS t_skuitem_createby:INT, 
-						 table_dq_t_skuitem::updatedate AS t_skuitem_updatedate:DATETIME, table_dq_t_skuitem::updateby AS t_skuitem_updateby:INT,
-						 error_type ,error_desc ,ToString(CurrentTime()) AS tftimestamp:CHARARRAY;				
-						  
-/* GENERATING THE GOOD DIM PRODUCT TABLE */
-gen_dim_product_good = FOREACH join_dq_t_sku_t_skuitem_memberprice_good 
-					   GENERATE table_dq_t_sku::skuid AS source_ak:INT, table_dq_t_sku::isemailpromotable AS isemailpromotable:INT, 
-					   table_dq_t_sku::title AS product:CHARARRAY, table_dq_t_skuitem::memberprice AS unit_price:BIGDECIMAL;
-			   
 
-/* STORING THE DATA IN HIVE PARTITIONED BASED ON THE STATUSCODE */
-STORE dq_t_sku_t_skuitem_bad 
-	INTO '$S3_LOCATION_OPERATIONS_DATA/$SUBJECT_ALWEBMETRICS/err_tf_dim_product/edh_bus_date=$EDHBUSDATE'
-	USING PigStorage('\u0001');
-	
-	
-STORE gen_dim_product_good 
-	INTO '$WORK_DB.tf_dim_product' 
-	USING org.apache.hive.hcatalog.pig.HCatStorer();
+/* ******************  Processing legacy_product  *************************/
+
+/* Read Input Tables */
+legacy_product              =  LOAD 'gold_legacy_angie_dbo.dq_product'                      USING org.apache.hive.hcatalog.pig.HCatLoader();   
+legacy_product_type         =  LOAD 'gold_legacy_angie_dbo.dq_product_type'                 USING org.apache.hive.hcatalog.pig.HCatLoader(); 
+
+/*Getting product_type_name by joining with product_type table */
+product_join_product_type_tf = FOREACH (JOIN legacy_product BY   product_type_id LEFT OUTER, 
+                        legacy_product_type BY product_type_id)
+                        GENERATE legacy_product::product_type_id AS source_ak,
+                        'Product' AS source_table,
+                        'ProductID' AS source_column,
+                        'Membership' AS master_product_group,
+                        legacy_product_type::product_type_name AS product_type,
+                        legacy_product::product_name AS product,
+                        (BIGDECIMAL) '0.00' AS unit_price,
+                        'Legacy' AS source;
+
+/* STORE product_join_product_type_tf INTO 'work_shared_dim.tf_dim_product' USING org.apache.hive.hcatalog.pig.HCatStorer();*/
+
+/* ******************  Processing ad_element  *************************/
+
+/* Read Input Tables */
+legacy_ad_element           =  LOAD 'gold_legacy_angie_dbo.dq_ad_element'                   USING org.apache.hive.hcatalog.pig.HCatLoader();   
+legacy_ad_type              =  LOAD 'gold_legacy_angie_dbo.dq_ad_type'                      USING org.apache.hive.hcatalog.pig.HCatLoader();   
+
+legacy_ad_element_filtered = filter legacy_ad_element  by   ad_element_active == 1;
+
+/*Getting member price for each sku record */
+ad_element_join_ad_type_tf = FOREACH (JOIN legacy_ad_element_filtered  BY   ad_type_id LEFT OUTER, 
+                        legacy_ad_type  BY ad_type_id)
+                        GENERATE legacy_ad_element_filtered::ad_type_id AS source_ak,
+                        'AdElement' AS source_table,
+                        'AdElementID' AS source_column,
+                        'AdvertisingContract' AS master_product_group,
+                        legacy_ad_type::ad_type_name AS product_type,
+                        legacy_ad_element_filtered::ad_element_name AS product,
+                        legacy_ad_element_filtered::default_price AS unit_price,
+                        'Legacy' AS source;
+
+/* STORE ad_element_join_ad_type_tf  INTO 'work_shared_dim.tf_dim_product' USING org.apache.hive.hcatalog.pig.HCatStorer();*/
+
+/* Combine extracts from various tables above*/
+dim_product_tf = UNION storefront_item_join_storefront_item_type_tf, t_sku_join_t_sku_item_tf, al_lead_tf,
+					product_join_product_type_tf,  ad_element_join_ad_type_tf; 
+					
+/* Write to Target Work Table*/
+STORE dim_product_tf  INTO 'work_shared_dim.tf_dim_product' USING org.apache.hive.hcatalog.pig.HCatStorer();
+
