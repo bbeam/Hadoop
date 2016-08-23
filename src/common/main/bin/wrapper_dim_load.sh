@@ -102,10 +102,31 @@ then
 else
     echo "hive execution failed. Dimension table load in target (gold area) process terminated"
     exit 1
+fi
+
+#========Updating maximum surrogate key in the ops_common.surrogate_key_map table========
+
+#hive -e SET hive.exec.dynamic.partition.mode=non-strict; \
+#INSERT OVERWRITE TABLE $OPERATIONS_COMMON_DB.surrogate_key_map PARTITION (table_name) \
+#        SELECT MAX($SURROGATE_KEY) AS $SURROGATE_KEY, '${hivevar:TRGT_DIM_TABLE_NAME}' FROM ${hivevar:GOLD_SHARED_DIM_DB}.${hivevar:TRGT_DIM_TABLE_NAME};
+
+hive -f $UPDATE_SURROGATE_KEY_HQL \
+    -hivevar OPERATIONS_COMMON_DB=$OPERATIONS_COMMON_DB \
+    -hivevar SURROGATE_KEY=$SURROGATE_KEY \
+    -hivevar TRGT_DIM_TABLE_NAME=$TRGT_DIM_TABLE_NAME \
+    -hivevar GOLD_SHARED_DIM_DB=$GOLD_SHARED_DIM_DB
+
+if [ $? -eq 0 ]
+then
+        echo "Max surrogate key updated"
+else
+        echo "Max surrogate key updation failed."
+        exit 1
+fi
 
  LOAD_DIM_AUDIT_HQL_FILE=$(basename $LOAD_DIM_AUDIT_HQL_PATH)
 
- Hive script to insert Dimension load audit record
+# Hive script to insert Dimension load audit record
  hive -f $LOAD_DIM_AUDIT_HQL_PATH \
     -hivevar ENTITY_NAME=$SUBJECT_SHAREDDIM \
     -hivevar OPERATIONS_COMMON_DB=$OPERATIONS_COMMON_DB \
