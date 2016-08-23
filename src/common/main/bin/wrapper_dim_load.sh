@@ -103,24 +103,24 @@ else
     echo "hive execution failed. Dimension table load in target (gold area) process terminated"
     exit 1
 
-# LOAD_DIM_AUDIT_HQL_FILE=$(basename $LOAD_DIM_AUDIT_HQL_PATH)
-#
-# Hive script to insert Dimension load audit record
-# hive -f $LOAD_DIM_AUDIT_HQL_PATH \
-#    -hivevar ENTITY_NAME=$SUBJECT_SHAREDDIM \
-#    -hivevar OPERATIONS_COMMON_DB=$OPERATIONS_COMMON_DB \
-#    -hivevar AUDIT_TABLE_NAME=$AUDIT_TABLE_NAME \
-#    -hivevar USER_NAME=$USER_NAME \
-#    -hivevar EDH_BUS_MONTH=$EDH_BUS_MONTH \
-#    -hivevar EDH_BUS_DATE=$EDH_BUS_DATE \
-#    -hivevar GOLD_DIM_DB=$GOLD_DIM_DB \
-#    -hivevar GOLD_DIM_TABLE=dim_market
-#
+ LOAD_DIM_AUDIT_HQL_FILE=$(basename $LOAD_DIM_AUDIT_HQL_PATH)
+
+ Hive script to insert Dimension load audit record
+ hive -f $LOAD_DIM_AUDIT_HQL_PATH \
+    -hivevar ENTITY_NAME=$SUBJECT_SHAREDDIM \
+    -hivevar OPERATIONS_COMMON_DB=$OPERATIONS_COMMON_DB \
+    -hivevar AUDIT_TABLE_NAME=$AUDIT_TABLE_NAME \
+    -hivevar USER_NAME=$USER_NAME \
+    -hivevar EDH_BUS_MONTH=$EDH_BUS_MONTH \
+    -hivevar EDH_BUS_DATE=$EDH_BUS_DATE \
+    -hivevar GOLD_DIM_DB=$GOLD_DIM_DB \
+    -hivevar GOLD_DIM_TABLE=dim_market
+
 # Hive Status check
-#if [ $? -eq 0 ]
-#then
-#        echo "$LOAD_DIM_AUDIT_HQL_FILE  executed without any error."
-#else
-#        echo "$LOAD_DIM_AUDIT_HQL_FILE  execution failed."
-#        exit 1
-#fi
+if [ $? -eq 0 ]
+then
+        echo "$LOAD_DIM_AUDIT_HQL_FILE  executed without any error."
+else
+        echo "$LOAD_DIM_AUDIT_HQL_FILE  execution failed."
+        exit 1
+fi
