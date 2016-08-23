@@ -16,11 +16,11 @@ SCRIPT_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 Show_Usage()
 {
     echo "invalid arguments please pass exactly three arguments "
-    echo "Usage: "$0" <global properties file with path> <path of local properties file with path> <business date(YYYY-MM-DD)>"
+    echo "Usage: "$0" <global properties file with path> <path of local properties file with path>"
     exit 1
 }
 
-if [ $# -ne 3 ]
+if [ $# -ne 2 ]
 then
     Show_Usage
 fi
@@ -75,11 +75,17 @@ else
     exit 1
 fi
 
-echo "****************BUSINESS DATE/MONTH*****************"
-EDH_BUS_DATE=$3
-echo "Business Date : $EDH_BUS_DATE"
-EDH_BUS_MONTH=$(date -d "$EDH_BUS_DATE" '+%Y%m')
-echo "Business Month :$EDH_BUS_MONTH"
+#echo "****************BUSINESS DATE/MONTH*****************"
+#EDH_BUS_DATE=$3
+#echo "Business Date : $EDH_BUS_DATE"
+#EDH_BUS_MONTH=$(date -d "$EDH_BUS_DATE" '+%Y%m')
+#echo "Business Month :$EDH_BUS_MONTH"
+
+UTC_TIME=`date +'%Y-%m-%d %H:%M:%S'`
+EST_TIME=`TZ=":US/East-Indiana" date +'%Y-%m-%d %H:%M:%S'`
+
+echo "UTC_TIME:$UTC_TIME"
+echo "EST_TIME:$EST_TIME"
 
 # hive to drop and re-create transformation work table
 hive -f $CREATE_TF_HQL_PATH \
@@ -175,6 +181,8 @@ TF_PIG_FILE_NAME=$(basename $TF_PIG_FILE_PATH)
 pig  \
     -param_file /var/tmp/$GLOBAL_PROPERTY_FILE_NAME \
     -param_file /var/tmp/$LOCAL_PROPERTY_FILE_NAME \
+    -param UTC_TIME="$UTC_TIME" \
+    -param EST_TIME="$EST_TIME" \
     -file /var/tmp/$TF_PIG_FILE_NAME \
     -useHCatalog
 
@@ -192,8 +200,8 @@ hive -f $TF_AUDIT_HQL_PATH \
     -hivevar OPERATIONS_COMMON_DB=$OPERATIONS_COMMON_DB \
     -hivevar AUDIT_TABLE_NAME=$AUDIT_TABLE_NAME \
     -hivevar USER_NAME=$USER_NAME \
-    -hivevar EDH_BUS_MONTH=$EDH_BUS_MONTH \
-    -hivevar EDH_BUS_DATE=$EDH_BUS_DATE \
+    -hivevar UTC_TIME="$UTC_TIME" \
+    -hivevar EST_TIME="$EST_TIME" \
     -hivevar TF_DB=$TF_DB \
     -hivevar TF_TABLE=$TF_TABLE
 
@@ -225,9 +233,10 @@ LOAD_DIM_HIVE_FILE_NAME=$(basename $LOAD_DIM_HIVE_FILE_PATH)
 # Pig Script to be triggered for SCD.
 echo "pig script started running...doing SCD"
 pig \
-    -param EDH_BUS_MONTH=$EDH_BUS_MONTH \
     -param_file /var/tmp/$GLOBAL_PROPERTY_FILE_NAME \
     -param_file /var/tmp/$LOCAL_PROPERTY_FILE_NAME \
+    -param UTC_TIME="$UTC_TIME" \
+    -param EST_TIME="$EST_TIME" \
     -file /var/tmp/$CDC_PIG_FILE_NAME \
     -useHCatalog
 
@@ -240,24 +249,24 @@ else
 fi
 
 # Hive script to insert CDC audit record
-#hive -f $CDC_AUDIT_HQL_PATH \
-#    -hivevar ENTITY_NAME=$SUBJECT_SHAREDDIM \
-#    -hivevar OPERATIONS_COMMON_DB=$OPERATIONS_COMMON_DB \
-#    -hivevar AUDIT_TABLE_NAME=$AUDIT_TABLE_NAME \
-#    -hivevar USER_NAME=$USER_NAME \
-#    -hivevar EDH_BUS_MONTH=$EDH_BUS_MONTH \
-#    -hivevar EDH_BUS_DATE=$EDH_BUS_DATE \
-#    -hivevar WORK_CDC_DB=$WORK_DIM_DB_NAME \
-#    -hivevar WORK_CDC_TABLE=$WORK_DIM_TABLE_NAME
-#
+hive -f $CDC_AUDIT_HQL_PATH \
+    -hivevar ENTITY_NAME=$SUBJECT_SHAREDDIM \
+    -hivevar OPERATIONS_COMMON_DB=$OPERATIONS_COMMON_DB \
+    -hivevar AUDIT_TABLE_NAME=$AUDIT_TABLE_NAME \
+    -hivevar USER_NAME=$USER_NAME \
+    -hivevar UTC_TIME="$UTC_TIME" \
+    -hivevar EST_TIME="$EST_TIME" \
+    -hivevar WORK_CDC_DB=$WORK_DIM_DB_NAME \
+    -hivevar WORK_CDC_TABLE=$WORK_DIM_TABLE_NAME
+
 # Hive Status check
-#if [ $? -eq 0 ]
-#then
-#        echo "$CDC_AUDIT_HQL_PATH  executed without any error."
-#else
-#        echo "$CDC_AUDIT_HQL_PATH  execution failed."
-#        exit 1
-#fi
+if [ $? -eq 0 ]
+then
+        echo "$CDC_AUDIT_HQL_PATH  executed without any error."
+ else
+        echo "$CDC_AUDIT_HQL_PATH  execution failed."
+        exit 1
+fi
 
 #========Updating maximum surrogate key in the ops_common.surrogate_key_map table========
 
