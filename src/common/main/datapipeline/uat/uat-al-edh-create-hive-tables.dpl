@@ -1,0 +1,25 @@
+{
+  "objects": [
+	{
+	  "failureAndRerunMode": "CASCADE",
+	  "resourceRole": "DataPipelineDefaultResourceRole",
+	  "role": "DataPipelineDefaultRole",
+	  "pipelineLogUri": "s3://al-edh-uat/logs/datapipelines/common/uat-al-edh-create-hive-tables",
+	  "scheduleType": "ONDEMAND",
+	  "name": "Default",
+	  "id": "Default"
+	},
+	{
+	  "scriptUri": "s3://al-edh-uat/src/common/main/bin/wrapper_create_al-edh_tables.sh",
+	  "maximumRetries": "0",
+	  "name": "create-common-permanent-tables",
+	  "id": "create-common-permanent-tables",
+	  "workerGroup": "#{myWorkerGroup}",
+	  "scriptArgument": [
+		"s3://al-edh-uat/src/common/main/conf/al-edh-global.properties",
+		"s3://al-edh-uat/src/common/main/conf/param_create_al-edh_tables.csv"
+	  ],
+	  "type": "ShellCommandActivity"
+	}
+	]
+	}
