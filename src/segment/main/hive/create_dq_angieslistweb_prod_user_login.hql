@@ -1,3 +1,4 @@
+*/--
 --  HIVE SCRIPT  : create_dq_angieslistweb_prod_user_login.hql
 --  AUTHOR       : Abhinav Mehar
 --  DATE         : Jul 13, 2016
@@ -22,6 +23,7 @@ event   VARCHAR(256),
 event_text  VARCHAR(256),
 est_original_timestamp  TIMESTAMP,
 original_timestamp  TIMESTAMP,
+est_sent_at TIMESTAMP,
 sent_at TIMESTAMP,
 source  VARCHAR(256),
 est_timestamp   TIMESTAMP,
