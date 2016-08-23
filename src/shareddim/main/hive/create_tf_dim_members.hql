@@ -11,7 +11,7 @@
 -- -hivevar S3_BUCKET=$S3_BUCKET 
 --*/
 
-CREATE TABLE IF NOT EXISTS ${hivevar:HIVE_DB}.tf_dim_members
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:HIVE_DB}.tf_dim_members
 (
 	member_id INT,
 	user_id INT,
@@ -29,4 +29,4 @@ CREATE TABLE IF NOT EXISTS ${hivevar:HIVE_DB}.tf_dim_members
 	employee TINYINT,
 	market_key STRING
 )
-LOCATION '/user/hive/warehouse/work_shared_dim.db/tf_dim_members';
+LOCATION '/user/hadoop/data/work/shareddim/tf_dim_members';

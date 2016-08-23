@@ -108,8 +108,8 @@
 	  "dependsOn": {
         "ref": "ing-legacy-angie-dbo-product_type-full"
       },
-	  "name": "ing-legacy-angie-dbo-report-inc",
-	  "id": "ing-legacy-angie-dbo-report-inc",
+	  "name": "ing-legacy-angie-dbo-report-full",
+	  "id": "ing-legacy-angie-dbo-report-full",
 	  "workerGroup": "#{myWorkerGroup}",
 	  "scriptArgument": [
 		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
@@ -122,10 +122,10 @@
 	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
  	 "maximumRetries": "0",
 	  "dependsOn": {
-        "ref": "ing-legacy-angie-dbo-report-inc"
+        "ref": "ing-legacy-angie-dbo-report-full"
       },
-	  "name": "ing-legacy-angie-dbo-report_sp_category-inc",
-	  "id": "ing-legacy-angie-dbo-report_sp_category-inc",
+	  "name": "ing-legacy-angie-dbo-report_sp_category-full",
+	  "id": "ing-legacy-angie-dbo-report_sp_category-full",
 	  "workerGroup": "#{myWorkerGroup}",
 	  "scriptArgument": [
 		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
@@ -138,7 +138,7 @@
 	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
  	 "maximumRetries": "0",
 	  "dependsOn": {
-        "ref": "ing-legacy-angie-dbo-report_sp_category-inc"
+        "ref": "ing-legacy-angie-dbo-report_sp_category-full"
       },
 	  "name": "ing-legacy-angie-dbo-service_provider-full",
 	  "id": "ing-legacy-angie-dbo-service_provider-full",

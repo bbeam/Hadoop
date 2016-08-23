@@ -4,7 +4,7 @@
 	  "failureAndRerunMode": "CASCADE",
 	  "resourceRole": "DataPipelineDefaultResourceRole",
 	  "role": "DataPipelineDefaultRole",
-	  "pipelineLogUri": "s3://al-edh-dev/logs/datapipelines/alweb/dev-al-edh-ing-alweb-daily",
+	  "pipelineLogUri": "s3://al-edh-dev/logs/datapipelines/alweb/dev-al-edh-ing-alweb1-daily",
 	  "scheduleType": "ONDEMAND",
 	  "name": "Default",
 	  "id": "Default"

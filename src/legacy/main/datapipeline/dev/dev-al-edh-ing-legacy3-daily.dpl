@@ -124,8 +124,8 @@
 	  "dependsOn": {
         "ref": "ing-legacy-angie-dbo-tbl_requested_companies-inc"
       },
-	  "name": "ing-legacy-angieanalytics-dbo-storefront_product_event-full",
-	  "id": "ing-legacy-angieanalytics-dbo-storefront_product_event-full",
+	  "name": "ing-legacy-angieanalytics-dbo-storefront_product_event-inc",
+	  "id": "ing-legacy-angieanalytics-dbo-storefront_product_event-inc",
 	  "workerGroup": "#{myWorkerGroup}",
 	  "scriptArgument": [
 		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
@@ -138,7 +138,7 @@
 	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_ingestion_sqoop.sh",
  	 "maximumRetries": "0",
 	  "dependsOn": {
-        "ref": "ing-legacy-angieanalytics-dbo-storefront_product_event-full"
+        "ref": "ing-legacy-angieanalytics-dbo-storefront_product_event-inc"
       },
 	  "name": "ing-legacy-angieanalytics-dbo-storefront_product_event_type-full",
 	  "id": "ing-legacy-angieanalytics-dbo-storefront_product_event_type-full",

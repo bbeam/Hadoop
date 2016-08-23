@@ -19,5 +19,4 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_report_sp_category
 	est_load_timestamp TIMESTAMP,
 	utc_load_timestamp TIMESTAMP
 )
-PARTITIONED BY (edh_bus_date STRING)
-LOCATION '${hivevar:S3_BUCKET}/data/gold/legacy/angie/dbo/incremental/daily/dq_report_sp_category';
+LOCATION '${hivevar:S3_BUCKET}/data/gold/legacy/angie/dbo/full/daily/dq_report_sp_category';

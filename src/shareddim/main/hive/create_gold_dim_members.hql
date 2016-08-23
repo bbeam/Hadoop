@@ -7,7 +7,7 @@
 
 CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dim_members
 (
-	member_key INT,
+	member_key BIGINT,
 	member_id INT,
 	user_id INT,
 	email STRING,
@@ -22,7 +22,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dim_members
 	last_nm STRING,
 	associate TINYINT,
 	employee TINYINT,
-	market_key STRING
+	market_key BIGINT
 )
 PARTITIONED BY (edh_bus_month STRING)
 LOCATION '${hivevar:S3_BUCKET}/data/gold/shareddim/dim_members';

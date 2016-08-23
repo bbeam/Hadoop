@@ -24,4 +24,5 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_storefront_product_eve
 	est_load_timestamp TIMESTAMP,
 	utc_load_timestamp TIMESTAMP
 )
-LOCATION '${hivevar:S3_BUCKET}/data/gold/legacy/angieanalytics/dbo/full/daily/dq_storefront_product_event';
+PARTITIONED BY(edh_bus_date STRING)
+LOCATION '${hivevar:S3_BUCKET}/data/gold/legacy/angieanalytics/dbo/incremental/daily/dq_storefront_product_event';

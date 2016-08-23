@@ -1,5 +1,5 @@
 --query 
-'select ReportId, MemberId, ReportDate, WorkCompletedDate, ReportIPAddress,  Cost, WorkNotDone, HireAgain, EmployeeId, GradeExcludeTypeId, ReportOriginTypeId, ReportStatusId, MemberNominatedPOH, PageOfHappinessEligibilityId, HomeBuildYear, CreateDate, CreateBy, ReportCompletenessId, ModifiedDate, LocationPrivacy, DoNotShareWithOurBlock from Report where cast(ReportDate as DATE)='EXTRACT_DATE' and $CONDITIONS'
+'select ReportId, MemberId, ReportDate, WorkCompletedDate, ReportIPAddress,  Cost, WorkNotDone, HireAgain, EmployeeId, GradeExcludeTypeId, ReportOriginTypeId, ReportStatusId, MemberNominatedPOH, PageOfHappinessEligibilityId, HomeBuildYear, CreateDate, CreateBy, ReportCompletenessId, ModifiedDate, LocationPrivacy, DoNotShareWithOurBlock from Report where $CONDITIONS'
 --split-by 
 ReportId 
 --hive-delims-replacement

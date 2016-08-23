@@ -1,7 +1,7 @@
 --/*
---  HIVE SCRIPT  : create_scd_dim_market.hql
+--  HIVE SCRIPT  : create_scd_dim_category.hql
 --  AUTHOR       : Abhijeet Purwar
---  DATE         : Aug 9, 2016
+--  DATE         : Aug 18, 2016
 --  DESCRIPTION  : Creation of hive SCD work table
 --
 -- hive -f $CREATE_SCD_HQL_PATH \
@@ -13,10 +13,16 @@ DROP TABLE IF EXISTS ${hivevar:WORK_DIM_DB_NAME}.${hivevar:WORK_DIM_TABLE_NAME};
 
 CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:WORK_DIM_DB_NAME}.${hivevar:WORK_DIM_TABLE_NAME}
 (
-   market_key BIGINT,
-   market_nm STRING,
-   market_id INT,
+   category_key BIGINT,
+   category_id INT,
+   category STRING,
+   legacy_category STRING,
+   new_world_category STRING,
+   additional_category_nm STRING,
+   is_active BOOLEAN,
+   category_group STRING,
+   category_group_type STRING,
    action_cd STRING,
    edh_bus_month STRING
 )
-LOCATION '/user/hadoop/data/work/shareddim/scd_dim_market';
+LOCATION '/user/hadoop/data/work/shareddim/scd_dim_category';

@@ -81,18 +81,47 @@ echo "Business Date : $EDH_BUS_DATE"
 EDH_BUS_MONTH=$(date -d "$EDH_BUS_DATE" '+%Y%m')
 echo "Business Month :$EDH_BUS_MONTH"
 
-# copy tf pig script to local
-aws s3 cp $TF_PIG_FILE_PATH /var/tmp/
+# hive to drop and re-create transformation work table
+hive -f $CREATE_TF_HQL_PATH \
+    -hivevar WORK_DIM_DB_NAME=$WORK_DIM_DB_NAME \
+    -hivevar TF_TABLE_NAME=$TF_TABLE_NAME
 
 if [ $? -eq 0 ]
 then
-  echo "$TF_PIG_FILE_NAME file copied from s3 to /var/tmp/ successfully"
+  echo "Re-creation of $WORK_DIM_DB_NAME.$TF_TABLE_NAME in work area is successful"
 else
-  echo "copying $TF_PIG_FILE_NAME file to s3 to /var/tmp/ failed"
+  echo "Re-creation of $WORK_DIM_DB_NAME.$TF_TABLE_NAME in work area is failed"
   exit 1
 fi
 
+# hive to drop and re-create scd work table
+hive -f $CREATE_SCD_HQL_PATH \
+    -hivevar WORK_DIM_DB_NAME=$WORK_DIM_DB_NAME \
+    -hivevar WORK_DIM_TABLE_NAME=$WORK_DIM_TABLE_NAME
+
+if [ $? -eq 0 ]
+then
+  echo "Re-creation of $WORK_DIM_DB_NAME.$WORK_DIM_TABLE_NAME in work area is successful"
+else
+  echo "Re-creation of $WORK_DIM_DB_NAME.$WORK_DIM_TABLE_NAME in work area is failed"
+  exit 1
+fi
+
+# removal of existing data directories in work area
+
 if hadoop fs -test -f $TF_TABLE_WORK_LOACTION/part-m-00000; then
+   echo "Removing transformation output data in work area for previous run.....Making $TF_DB.$TF_TABLE empty."
+   hadoop fs -rm $TF_TABLE_WORK_LOACTION/*
+     if [ $? -eq 0 ]
+     then
+        echo "Making $TF_DB.$TF_TABLE empty successful"
+     else
+        echo "Making $TF_DB.$TF_TABLE empty failed."
+        exit 1
+     fi
+fi
+
+if hadoop fs -test -f $TF_TABLE_WORK_LOACTION/part-r-00000; then
    echo "Removing transformation output data in work area for previous run.....Making $TF_DB.$TF_TABLE empty."
    hadoop fs -rm $TF_TABLE_WORK_LOACTION/*
      if [ $? -eq 0 ]
@@ -116,6 +145,30 @@ if hadoop fs -test -f $CDC_TABLE_WORK_LOCATION/part-m-00000; then
      fi
 fi
 
+if hadoop fs -test -f $CDC_TABLE_WORK_LOCATION/part-r-00000; then
+   echo "Removing cdc output data in work are for previous run.....Making $WORK_DIM_DB_NAME.$WORK_DIM_TABLE_NAME empty."
+   hadoop fs -rm $CDC_TABLE_WORK_LOCATION/*
+     if [ $? -eq 0 ]
+     then
+        echo "Making $WORK_DIM_DB_NAME.$WORK_DIM_TABLE_NAME empty successful"
+     else
+        echo "Making $WORK_DIM_DB_NAME.$WORK_DIM_TABLE_NAME empty failed."
+        exit 1
+     fi
+fi
+
+
+# copy tf pig script to local
+aws s3 cp $TF_PIG_FILE_PATH /var/tmp/
+
+if [ $? -eq 0 ]
+then
+  echo "$TF_PIG_FILE_NAME file copied from s3 to /var/tmp/ successfully"
+else
+  echo "copying $TF_PIG_FILE_NAME file to s3 to /var/tmp/ failed"
+  exit 1
+fi
+
 TF_PIG_FILE_NAME=$(basename $TF_PIG_FILE_PATH)
 
 # Pig Script to be triggered for transformation.
@@ -134,7 +187,6 @@ else
 fi
 
 # Hive script to insert transformation audit record
-echo $TF_AUDIT_HQL_PATH
 hive -f $TF_AUDIT_HQL_PATH \
     -hivevar ENTITY_NAME=$SUBJECT_SHAREDDIM \
     -hivevar OPERATIONS_COMMON_DB=$OPERATIONS_COMMON_DB \
@@ -179,7 +231,6 @@ pig \
     -file /var/tmp/$CDC_PIG_FILE_NAME \
     -useHCatalog
 
-    echo "CDC process completed successfully";
 if [ $? -eq 0 ]
 then
     echo "pig script executed successfully. SCD process completed"
@@ -189,31 +240,31 @@ else
 fi
 
 # Hive script to insert CDC audit record
-hive -f $CDC_AUDIT_HQL_PATH \
-    -hivevar ENTITY_NAME=$SUBJECT_SHAREDDIM \
-    -hivevar OPERATIONS_COMMON_DB=$OPERATIONS_COMMON_DB \
-    -hivevar AUDIT_TABLE_NAME=$AUDIT_TABLE_NAME \
-    -hivevar USER_NAME=$USER_NAME \
-    -hivevar EDH_BUS_MONTH=$EDH_BUS_MONTH \
-    -hivevar EDH_BUS_DATE=$EDH_BUS_DATE \
-    -hivevar WORK_CDC_DB=$WORK_DIM_DB_NAME \
-    -hivevar WORK_CDC_TABLE=$WORK_DIM_TABLE_NAME
-
+#hive -f $CDC_AUDIT_HQL_PATH \
+#    -hivevar ENTITY_NAME=$SUBJECT_SHAREDDIM \
+#    -hivevar OPERATIONS_COMMON_DB=$OPERATIONS_COMMON_DB \
+#    -hivevar AUDIT_TABLE_NAME=$AUDIT_TABLE_NAME \
+#    -hivevar USER_NAME=$USER_NAME \
+#    -hivevar EDH_BUS_MONTH=$EDH_BUS_MONTH \
+#    -hivevar EDH_BUS_DATE=$EDH_BUS_DATE \
+#    -hivevar WORK_CDC_DB=$WORK_DIM_DB_NAME \
+#    -hivevar WORK_CDC_TABLE=$WORK_DIM_TABLE_NAME
+#
 # Hive Status check
-if [ $? -eq 0 ]
-then
-        echo "$CDC_AUDIT_HQL_PATH  executed without any error."
-else
-        echo "$CDC_AUDIT_HQL_PATH  execution failed."
-        exit 1
-fi
+#if [ $? -eq 0 ]
+#then
+#        echo "$CDC_AUDIT_HQL_PATH  executed without any error."
+#else
+#        echo "$CDC_AUDIT_HQL_PATH  execution failed."
+#        exit 1
+#fi
 
 #========Updating maximum surrogate key in the ops_common.surrogate_key_map table========
 
 #hive -e SET hive.exec.dynamic.partition.mode=non-strict; \
 #INSERT OVERWRITE TABLE $OPERATIONS_COMMON_DB.surrogate_key_map PARTITION (table_name) \
 #        SELECT MAX($SURROGATE_KEY) AS $SURROGATE_KEY, '${hivevar:TRGT_DIM_TABLE_NAME}' FROM ${hivevar:GOLD_SHARED_DIM_DB}.${hivevar:TRGT_DIM_TABLE_NAME};
-echo $UPDATE_SURROGATE_KEY_HQL
+
 hive -f $UPDATE_SURROGATE_KEY_HQL \
     -hivevar OPERATIONS_COMMON_DB=$OPERATIONS_COMMON_DB \
     -hivevar SURROGATE_KEY=$SURROGATE_KEY \
