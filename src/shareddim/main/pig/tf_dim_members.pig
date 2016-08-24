@@ -618,8 +618,14 @@ gen_dim_members =
 			 (tu_last_name is null?last_name:tu_last_name) AS last_nm: chararray, 
 			 associate AS associate:INT,
 			 employee AS employee:INT,
-			 (market_key is null?filter_market_key:market_key) AS market_key: long;
+			 (market_key is null?filter_market_key:market_key) AS market_key: long,
+			 ToDate('$EST_TIME','yyyy-MM-dd HH:mm:ss') as est_load_timestamp,
+			 ToDate('$UTC_TIME','yyyy-MM-dd HH:mm:ss') as utc_load_timestamp;
 
 
-STORE gen_dim_members INTO '$WORK_SHARED_DIM_DB.tf_dim_members' 
-					  USING org.apache.hive.hcatalog.pig.HCatStorer(); 
+rmf /user/hadoop/data/work/shareddim/tf_dim_members
+
+STORE gen_dim_members
+                INTO '/user/hadoop/data/work/shareddim/tf_dim_members'
+                USING PigStorage('\u0001');
+ 
