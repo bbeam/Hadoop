@@ -202,10 +202,9 @@ hive -f $TF_AUDIT_HQL_PATH \
     -hivevar OPERATIONS_COMMON_DB=$OPERATIONS_COMMON_DB \
     -hivevar AUDIT_TABLE_NAME=$AUDIT_TABLE_NAME \
     -hivevar USER_NAME=$USER_NAME \
-    -hivevar UTC_TIME="$UTC_TIME" \
-    -hivevar EST_TIME="$EST_TIME" \
     -hivevar TF_DB=$TF_DB \
-    -hivevar TF_TABLE=$TF_TABLE
+    -hivevar TF_TABLE=$TF_TABLE \
+	-hivevar EDH_BUS_DATE=$EDH_BUS_DATE
 
 # Hive Status check
 if [ $? -eq 0 ]
@@ -256,10 +255,9 @@ hive -f $CDC_AUDIT_HQL_PATH \
     -hivevar OPERATIONS_COMMON_DB=$OPERATIONS_COMMON_DB \
     -hivevar AUDIT_TABLE_NAME=$AUDIT_TABLE_NAME \
     -hivevar USER_NAME=$USER_NAME \
-    -hivevar UTC_TIME="$UTC_TIME" \
-    -hivevar EST_TIME="$EST_TIME" \
     -hivevar WORK_CDC_DB=$WORK_DIM_DB_NAME \
-    -hivevar WORK_CDC_TABLE=$WORK_DIM_TABLE_NAME
+    -hivevar WORK_CDC_TABLE=$WORK_DIM_TABLE_NAME \
+	-hivevar EDH_BUS_DATE=$EDH_BUS_DATE
 
 # Hive Status check
 if [ $? -eq 0 ]
