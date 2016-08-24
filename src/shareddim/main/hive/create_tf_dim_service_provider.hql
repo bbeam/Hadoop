@@ -27,7 +27,9 @@ is_licensed tinyint,
 background_check  tinyint,
 ecommerce_status tinyint,
 vintage string,
-market_key int
+market_key int,
+est_load_timestamp TIMESTAMP,
+utc_load_timestamp TIMESTAMP
  )
 LOCATION
   '$HDFS_LOCATION/shareddim/tf_dim_service_provider';
