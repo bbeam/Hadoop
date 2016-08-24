@@ -8,11 +8,9 @@ SET hive.exec.dynamic.partition.mode=non-strict;
 
 -- Insert query for loading data into table (EDH_BATCH_AUDIT) with current month partition
 
-INSERT INTO TABLE ops_common.edh_batch_audit
-PARTITION(edh_bus_month)
-SELECT       '${hivevar:EDH_BUS_DATE}' AS edh_bus_date,
-             '${hivevar:ENTITY_NAME}' AS entity,
-             '${hivevar:GOLD_DB}.${hivevar:DQ_TABLE}' AS table_name,
+INSERT INTO TABLE ${hivevar:OPERATIONS_COMMON_DB}.edh_batch_audit
+PARTITION(edh_bus_date,table_name)
+SELECT       '${hivevar:ENTITY_NAME}' AS entity,
              'DataQuality' AS process,
              'Good Records' AS type ,
              'Total Count' AS sub_type ,
@@ -20,15 +18,14 @@ SELECT       '${hivevar:EDH_BUS_DATE}' AS edh_bus_date,
              FROM_UTC_TIMESTAMP(unix_timestamp()*1000, 'EST') AS est_time_stamp,
              from_unixtime(unix_timestamp()) AS time_stamp,
              '${hivevar:USER_NAME}' AS user_name,
-             '${hivevar:EDH_BUS_MONTH}' AS edh_bus_month
+             '${hivevar:EDH_BUS_DATE}' AS edh_bus_date,
+             '${hivevar:GOLD_DB}.${hivevar:DQ_TABLE}' AS table_name
  FROM ${GOLD_DB}.${hivevar:DQ_TABLE}
  where edh_bus_date = '${hivevar:EDH_BUS_DATE}';
  
-INSERT INTO TABLE ops_common.edh_batch_audit
-PARTITION(edh_bus_month)
-SELECT       '${hivevar:EDH_BUS_DATE}' AS edh_bus_date,
-             '${hivevar:ENTITY_NAME}' AS entity,
-             table_name,
+INSERT INTO TABLE ${hivevar:OPERATIONS_COMMON_DB}.edh_batch_audit
+PARTITION(edh_bus_date,table_name)
+SELECT       '${hivevar:ENTITY_NAME}' AS entity,
              'DataQuality' AS process,
              error_type AS type ,
              error_desc AS sub_type ,
@@ -36,8 +33,9 @@ SELECT       '${hivevar:EDH_BUS_DATE}' AS edh_bus_date,
              FROM_UTC_TIMESTAMP(unix_timestamp()*1000, 'EST') AS est_time_stamp,
              from_unixtime(unix_timestamp()) AS time_stamp,
              '${hivevar:USER_NAME}' AS user_name,
-             '${hivevar:EDH_BUS_MONTH}' AS edh_bus_month
- FROM ops_common.edh_batch_error 
+             '${hivevar:EDH_BUS_DATE}' AS edh_bus_date,
+             table_name
+ FROM ${hivevar:OPERATIONS_COMMON_DB}.edh_batch_error 
  WHERE table_name='${hivevar:INCOMING_DB}.${hivevar:INCOMING_TABLE}' 
        AND edh_bus_date = '${hivevar:EDH_BUS_DATE}'
  GROUP BY error_type, error_desc,table_name,edh_bus_date
