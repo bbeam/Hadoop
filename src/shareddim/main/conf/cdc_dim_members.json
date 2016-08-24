@@ -6,7 +6,7 @@
      "surrogateKey":"member_key",
      "columns":[
        {"name":"member_id","isKeyColumn":"true","isNonKeyColumn":"false","isDateColumn":"false"},
-       {"name":"user_id","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"},
+       {"name":"user_id","isKeyColumn":"true","isNonKeyColumn":"false","isDateColumn":"false"},
        {"name":"email","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"},
        {"name":"postal_code","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"},
        {"name":"pay_status","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"},

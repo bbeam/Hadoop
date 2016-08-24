@@ -230,7 +230,8 @@ hive -f $INCOMING_AUDIT_HQL_PATH \
 	-hivevar INCOMING_DB=$INCOMING_DB \
 	-hivevar INCOMING_TABLE=$TABLE_NAME_INC \
 	-hivevar USER_NAME=$USER_NAME \
-	-hivevar EDH_BUS_DATE=$EDH_BUS_DATE
+	-hivevar EDH_BUS_DATE=$EDH_BUS_DATE \
+	-hivevar OPERATIONS_COMMON_DB=$OPERATIONS_COMMON_DB
 		
 # Hive Status check
 if [ $? -eq 0 ]
@@ -252,7 +253,7 @@ then
 		-hivevar INCOMING_TABLE=$TABLE_NAME_INC \
 		-hivevar DQ_TABLE=$TABLE_NAME_DQ \
 		-hivevar USER_NAME=$USER_NAME \
-		-hivevar EDH_BUS_MONTH=$EDH_BUS_MONTH \
+		-hivevar OPERATIONS_COMMON_DB=$OPERATIONS_COMMON_DB \
 		-hivevar EDH_BUS_DATE=$EDH_BUS_DATE
 		
 		# Hive Status check
@@ -272,7 +273,7 @@ then
 		-hivevar INCOMING_TABLE=$TABLE_NAME_INC \
 		-hivevar DQ_TABLE=$TABLE_NAME_DQ \
 		-hivevar USER_NAME=$USER_NAME \
-		-hivevar EDH_BUS_MONTH=$EDH_BUS_MONTH \
+		-hivevar OPERATIONS_COMMON_DB=$OPERATIONS_COMMON_DB \
 		-hivevar EDH_BUS_DATE=$EDH_BUS_DATE
 		
 		# Hive Status check
