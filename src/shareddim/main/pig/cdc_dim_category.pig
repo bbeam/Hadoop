@@ -1,7 +1,7 @@
 /*######################################################################################################### 
 PIG SCRIPT				:cdc_dim_category.pig
 AUTHOR					:Pig script is auto generated with java utility.
-DATE					:Tue Aug 23 12:48:04 UTC 2016
+DATE					:Wed Aug 24 05:49:21 UTC 2016
 DESCRIPTION				:Pig script for SCD.
 #########################################################################################################*/
 
