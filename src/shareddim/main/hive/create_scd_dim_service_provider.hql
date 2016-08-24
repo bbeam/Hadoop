@@ -1,4 +1,3 @@
---/*
 --  HIVE SCRIPT  : create_scd_dim_service_provider.hql
 --  AUTHOR       : Abhijeet Purwar
 --  DATE         : Aug 18, 2016
@@ -7,9 +6,12 @@
 -- hive -f $CREATE_SCD_HQL_PATH \
 -- -hivevar WORK_DIM_DB_NAME=$WORK_DIM_DB_NAME \
 -- -hivevar WORK_DIM_TABLE_NAME=$WORK_DIM_TABLE_NAME
---*/
 
 DROP TABLE IF EXISTS ${hivevar:WORK_DIM_DB_NAME}.${hivevar:WORK_DIM_TABLE_NAME};
+
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:WORK_DIM_DB_NAME}.${hivevar:WORK_DIM_TABLE_NAME}
+(
+service_provider_key bigint,
 legacy_spid int,
 new_world_spid  int,
 company_nm  string,
@@ -28,8 +30,11 @@ is_licensed tinyint,
 background_check  tinyint,
 ecommerce_status tinyint,
 vintage string,
-market_key int
+market_key bigint,
+action_cd STRING,
+est_load_timestamp TIMESTAMP,
+utc_load_timestamp TIMESTAMP
  )
 LOCATION
-  '$HDFS_LOCATION/shareddim/tf_service_provider';
+  '${hivevar:WORK_DIR}/data/work/shareddim/scd_dim_service_provider';
  
