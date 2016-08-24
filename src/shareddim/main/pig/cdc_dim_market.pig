@@ -1,7 +1,7 @@
 /*######################################################################################################### 
 PIG SCRIPT				:cdc_dim_market.pig
 AUTHOR					:Pig script is auto generated with java utility.
-DATE					:Tue Aug 23 12:45:29 UTC 2016
+DATE					:Wed Aug 24 07:41:00 UTC 2016
 DESCRIPTION				:Pig script for SCD.
 #########################################################################################################*/
 

@@ -1,7 +1,7 @@
 /*######################################################################################################### 
 PIG SCRIPT				:cdc_dim_product.pig
 AUTHOR					:Pig script is auto generated with java utility.
-DATE					:Wed Aug 24 07:00:34 UTC 2016
+DATE					:Wed Aug 24 14:17:49 UTC 2016
 DESCRIPTION				:Pig script for SCD.
 #########################################################################################################*/
 
@@ -19,17 +19,17 @@ load_target = LOAD '$GOLD_SHARED_DIM_DB.$TRGT_DIM_TABLE_NAME' USING org.apache.h
 /*========Generate md5 values for key and non key values along with other columns========*/
 md5_source = FOREACH load_source
 			GENERATE *,
-					MD5(CONCAT((chararray)source_ak,(chararray)source_table)) as (md5_key_value:chararray),
+					MD5((chararray)CONCAT((chararray)(source_ak IS NULL ? 'null' : (chararray)source_ak),(chararray)(source_table IS NULL ? 'null' : (chararray)source_table))) as (md5_key_value:chararray),
 					MD5((chararray)CONCAT((source_column IS NULL ? 'null' : (chararray)source_column),(master_product_group IS NULL ? 'null' : (chararray)master_product_group),(product_type IS NULL ? 'null' : (chararray)product_type),(product IS NULL ? 'null' : (chararray)product),(unit_price IS NULL ? 'null' : (chararray)unit_price),(source IS NULL ? 'null' : (chararray)source))) as (md5_non_key_value:chararray);
 
 md5_target = FOREACH load_target
 			GENERATE *,
-					MD5(CONCAT((chararray)source_ak,(chararray)source_table)) as (md5_key_value:chararray),
+					MD5((chararray)CONCAT((chararray)(source_ak IS NULL ? 'null' : (chararray)source_ak),(chararray)(source_table IS NULL ? 'null' : (chararray)source_table))) as (md5_key_value:chararray),
 					MD5((chararray)CONCAT((source_column IS NULL ? 'null' : (chararray)source_column),(master_product_group IS NULL ? 'null' : (chararray)master_product_group),(product_type IS NULL ? 'null' : (chararray)product_type),(product IS NULL ? 'null' : (chararray)product),(unit_price IS NULL ? 'null' : (chararray)unit_price),(source IS NULL ? 'null' : (chararray)source))) as (md5_non_key_value:chararray);
 
 
 /*========Join source and target based on key columns========*/
-joined_source_target = JOIN md5_source BY (CONCAT(source_ak,source_table) FULL, md5_target BY (CONCAT(source_ak,source_table);
+joined_source_target = JOIN md5_source BY (source_ak, source_table) FULL, md5_target BY (source_ak, source_table);
 
 
 /*========Split the records into insert_records, update_records and no_change_delete_records using md5_key and md5_non_key of source and target========*/
