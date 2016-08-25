@@ -4,13 +4,13 @@
 	  "failureAndRerunMode": "CASCADE",
 	  "resourceRole": "DataPipelineDefaultResourceRole",
 	  "role": "DataPipelineDefaultRole",
-	  "pipelineLogUri": "s3://al-edh-dev/logs/datapipelines/common/dev-al-edh-bkp-shareddim",
+	  "pipelineLogUri": "s3://al-edh-dev/logs/datapipelines/shareddim/dev-al-edh-bkp-shareddim",
 	  "scheduleType": "ONDEMAND",
 	  "name": "Default",
 	  "id": "Default"
 	},
 	{
-	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_create_al-edh_tables.sh",
+	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_bkp_table.sh",
 	  "maximumRetries": "0",
 	  "name": "bkp-shareddim-dim_category",
 	  "id": "bkp-shareddim-dim_category",
@@ -22,7 +22,7 @@
 	  "type": "ShellCommandActivity"
 	},
 	{
-	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_create_al-edh_tables.sh",
+	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_bkp_table.sh",
 	  "dependsOn": {
         "ref": "bkp-shareddim-dim_category"
       },
@@ -37,7 +37,7 @@
 	  "type": "ShellCommandActivity"
 	},
 	{
-	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_create_al-edh_tables.sh",
+	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_bkp_table.sh",
 	  "dependsOn": {
         "ref": "bkp-shareddim-dim_market"
       },
@@ -52,7 +52,7 @@
 	  "type": "ShellCommandActivity"
 	},
 	{
-	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_create_al-edh_tables.sh",
+	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_bkp_table.sh",
 	  "dependsOn": {
         "ref": "bkp-shareddim-dim_members"
       },
@@ -67,7 +67,7 @@
 	  "type": "ShellCommandActivity"
 	},
 	{
-	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_create_al-edh_tables.sh",
+	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_bkp_table.sh",
 	  "dependsOn": {
         "ref": "bkp-shareddim-dim_product"
       },
