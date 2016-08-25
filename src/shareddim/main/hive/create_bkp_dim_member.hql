@@ -1,8 +1,8 @@
 --/*
---  HIVE SCRIPT  : create_bkp_dim_members.hql
+--  HIVE SCRIPT  : create_bkp_dim_member.hql
 --  AUTHOR       : Ashoka Reddy
 --  DATE         : Aug 16, 2016
---  DESCRIPTION  : Creation of bkp_dim_members table in operations db
+--  DESCRIPTION  : Creation of bkp_dim_member table in operations db
 --*/
 
 CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.bkp_dim_member
@@ -26,4 +26,4 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.bkp_dim_member
 	est_load_timestamp TIMESTAMP,
     utc_load_timestamp TIMESTAMP
 )
-LOCATION '${hivevar:S3_BUCKET}/data/operations/shareddim/bkp_dim_members';
+LOCATION '${hivevar:S3_BUCKET}/data/operations/shareddim/bkp_dim_member';

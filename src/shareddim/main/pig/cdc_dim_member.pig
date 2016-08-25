@@ -1,5 +1,5 @@
 /*######################################################################################################### 
-PIG SCRIPT				:cdc_dim_members.pig
+PIG SCRIPT				:cdc_dim_member.pig
 AUTHOR					:Pig script is auto generated with java utility.
 DATE					:Wed Aug 24 14:15:16 UTC 2016
 DESCRIPTION				:Pig script for SCD.
