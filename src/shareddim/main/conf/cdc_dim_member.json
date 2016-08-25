@@ -23,5 +23,5 @@
      ], 
      "workDbName":"WORK_SHARED_DIM_DB",
      "workTableName":"WORK_DIM_TABLE_NAME",
-     "cdcPigFileForDim":"dim_members"
+     "cdcPigFileForDim":"dim_member"
 }

@@ -1,8 +1,8 @@
 /*
-PIG SCRIPT    : tf_dim_members.pig
+PIG SCRIPT    : tf_dim_member.pig
 AUTHOR        : Varun Rauthan
 DATE          : Tue Aug 16 
-DESCRIPTION   : Data Transformation script for dim_members dimension
+DESCRIPTION   : Data Transformation script for dim_member dimension
 */
 
 
@@ -596,8 +596,8 @@ gen_lojoin_base_members_with_table_dim_market =
 			table_dim_market::market_key AS market_key: long,
 			table_dim_market::market_nm AS market_nm: chararray;
 
-/* Generating the required schema of dim_members */
-gen_dim_members = 
+/* Generating the required schema of dim_member */
+gen_dim_member = 
 	FOREACH gen_lojoin_base_members_with_table_dim_market
 	GENERATE member_id AS member_id:INT, 
 			 tu_user_id AS user_id: INT, 
@@ -618,9 +618,9 @@ gen_dim_members =
 			 ToDate('$UTC_TIME','yyyy-MM-dd HH:mm:ss') as utc_load_timestamp;
 
 
-rmf /user/hadoop/data/work/shareddim/tf_dim_members
+rmf /user/hadoop/data/work/shareddim/tf_dim_member
 
-STORE gen_dim_members
-                INTO '/user/hadoop/data/work/shareddim/tf_dim_members'
+STORE gen_dim_member
+                INTO '/user/hadoop/data/work/shareddim/tf_dim_member'
                 USING PigStorage('\u0001');
  
