@@ -16,11 +16,11 @@ SCRIPT_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 Show_Usage()
 {
     echo "invalid arguments please pass exactly three arguments "
-    echo "Usage: "$0" <global properties file with path> <path of local properties file with path>"
+    echo "Usage: "$0" <global properties file with path> <path of local properties file with path> <YYYY-MM-DD>"
     exit 1
 }
 
-if [ $# -ne 2 ]
+if [ $# -ne 3 ]
 then
     Show_Usage
 fi
@@ -75,9 +75,9 @@ else
     exit 1
 fi
 
-#echo "****************BUSINESS DATE/MONTH*****************"
-#EDH_BUS_DATE=$3
-#echo "Business Date : $EDH_BUS_DATE"
+echo "****************BUSINESS DATE/MONTH*****************"
+EDH_BUS_DATE=$3
+echo "Business Date : $EDH_BUS_DATE"
 #EDH_BUS_MONTH=$(date -d "$EDH_BUS_DATE" '+%Y%m')
 #echo "Business Month :$EDH_BUS_MONTH"
 
@@ -90,7 +90,8 @@ echo "EST_TIME:$EST_TIME"
 # hive to drop and re-create transformation work table
 hive -f $CREATE_TF_HQL_PATH \
     -hivevar WORK_DIM_DB_NAME=$WORK_DIM_DB_NAME \
-    -hivevar TF_TABLE_NAME=$TF_TABLE_NAME
+    -hivevar TF_TABLE_NAME=$TF_TABLE_NAME \
+    -hivevar WORK_DIR=$WORK_DIR
 
 if [ $? -eq 0 ]
 then
@@ -103,7 +104,8 @@ fi
 # hive to drop and re-create scd work table
 hive -f $CREATE_SCD_HQL_PATH \
     -hivevar WORK_DIM_DB_NAME=$WORK_DIM_DB_NAME \
-    -hivevar WORK_DIM_TABLE_NAME=$WORK_DIM_TABLE_NAME
+    -hivevar WORK_DIM_TABLE_NAME=$WORK_DIM_TABLE_NAME \
+    -hivevar WORK_DIR=$WORK_DIR
 
 if [ $? -eq 0 ]
 then
@@ -200,10 +202,9 @@ hive -f $TF_AUDIT_HQL_PATH \
     -hivevar OPERATIONS_COMMON_DB=$OPERATIONS_COMMON_DB \
     -hivevar AUDIT_TABLE_NAME=$AUDIT_TABLE_NAME \
     -hivevar USER_NAME=$USER_NAME \
-    -hivevar UTC_TIME="$UTC_TIME" \
-    -hivevar EST_TIME="$EST_TIME" \
     -hivevar TF_DB=$TF_DB \
-    -hivevar TF_TABLE=$TF_TABLE
+    -hivevar TF_TABLE=$TF_TABLE \
+	-hivevar EDH_BUS_DATE=$EDH_BUS_DATE
 
 # Hive Status check
 if [ $? -eq 0 ]
@@ -254,10 +255,9 @@ hive -f $CDC_AUDIT_HQL_PATH \
     -hivevar OPERATIONS_COMMON_DB=$OPERATIONS_COMMON_DB \
     -hivevar AUDIT_TABLE_NAME=$AUDIT_TABLE_NAME \
     -hivevar USER_NAME=$USER_NAME \
-    -hivevar UTC_TIME="$UTC_TIME" \
-    -hivevar EST_TIME="$EST_TIME" \
     -hivevar WORK_CDC_DB=$WORK_DIM_DB_NAME \
-    -hivevar WORK_CDC_TABLE=$WORK_DIM_TABLE_NAME
+    -hivevar WORK_CDC_TABLE=$WORK_DIM_TABLE_NAME \
+	-hivevar EDH_BUS_DATE=$EDH_BUS_DATE
 
 # Hive Status check
 if [ $? -eq 0 ]
@@ -267,3 +267,4 @@ then
         echo "$CDC_AUDIT_HQL_PATH  execution failed."
         exit 1
 fi
+

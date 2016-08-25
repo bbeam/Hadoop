@@ -7,15 +7,13 @@
 
 --  Creating a incoming hive table(EDH_BATCH_AUDIT) over the incoming data
 CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.edh_batch_audit
-(
-	entity STRING,
-	process STRING,
-	type STRING,
-	sub_type STRING,
-	record_count STRING,
-	est_time_stamp STRING,
-	time_stamp STRING,
-	user_name STRING
-) 
+(entity STRING,
+process STRING,
+type STRING,
+sub_type STRING,
+record_count STRING,
+est_time_stamp STRING,
+time_stamp STRING,
+user_name STRING) 
 PARTITIONED BY (edh_bus_date STRING,table_name STRING) 
 LOCATION '${hivevar:S3_BUCKET}/data/operations/common/edh_batch_audit';

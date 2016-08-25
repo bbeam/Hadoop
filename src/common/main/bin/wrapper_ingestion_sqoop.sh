@@ -2,7 +2,7 @@
 #                               General Details                                #
 ################################################################################
 # Name        : AngiesList                                                     #
-# File        : wrapper_ingestion_sqoop.sh                                            #
+# File        : wrapper_ingestion_sqoop.sh                                     #
 # Description : This script performs data quality and cleansing on the data,   #
 #				and finally creates a new table with the elements according to #
 #				the incoming schema							 				   #
@@ -84,7 +84,7 @@ echo "*************SQOOP IMPORT JOB UTILITY*******************"
 echo "executing : aws s3 rm $S3_BUCKET/$DATA_DIRECTORY=$EDH_BUS_DATE --recursive"
 aws s3 rm $S3_BUCKET/$DATA_DIRECTORY=$EDH_BUS_DATE --recursive
 echo "executing : aws s3 rm $S3_BUCKET/data/operations/common/edh_batch_error/table_name=$INCOMING_DB.$TABLE_NAME_INC/edh_bus_date=$EDH_BUS_DATE --recursive"
-aws s3 rm $S3_BUCKET/data/operations/common/edh_batch_error/table_name=$INCOMING_DB.$TABLE_NAME_INC/edh_bus_date=$EDH_BUS_DATE --recursive
+aws s3 rm $S3_BUCKET/data/operations/common/edh_batch_error/edh_bus_date=$EDH_BUS_DATE/table_name=$INCOMING_DB.$TABLE_NAME_INC --recursive
 
 if [ $EXTRACTION_TYPE == "INCREMENTAL" ]
 then
