@@ -5,7 +5,7 @@
 --  DESCRIPTION  : Creation of bkp_dim_members table in operations db
 --*/
 
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.bkp_dim_members
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.bkp_dim_member
 (
 	member_key BIGINT,
 	member_id INT,
