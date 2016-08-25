@@ -32,7 +32,11 @@ GLOBAL_PROPERTY_FILE_PATH=$1
 LOCAL_PROPERTY_FILE_PATH=$2
 GLOBAL_PROPERTY_FILE_NAME=$(basename $GLOBAL_PROPERTY_FILE_PATH)
 LOCAL_PROPERTY_FILE_NAME=$(basename $LOCAL_PROPERTY_FILE_PATH)
-
+echo "****************BUSINESS DATE/MONTH*****************"
+EDH_BUS_DATE=$3
+echo "Business Date : $EDH_BUS_DATE"
+EDH_BUS_MONTH=$(date -d "$EDH_BUS_DATE" '+%Y%m')
+echo "Business Month :$EDH_BUS_MONTH"
 
 # Copy the global properties file (al-edh-global.properties) from S3 to HDFS and load the properties.
 aws s3 cp $GLOBAL_PROPERTY_FILE_PATH /var/tmp/
@@ -132,10 +136,9 @@ fi
     -hivevar OPERATIONS_COMMON_DB=$OPERATIONS_COMMON_DB \
     -hivevar AUDIT_TABLE_NAME=$AUDIT_TABLE_NAME \
     -hivevar USER_NAME=$USER_NAME \
-    -hivevar EDH_BUS_MONTH=$EDH_BUS_MONTH \
     -hivevar EDH_BUS_DATE=$EDH_BUS_DATE \
-    -hivevar GOLD_DIM_DB=$GOLD_DIM_DB \
-    -hivevar GOLD_DIM_TABLE=dim_market
+    -hivevar GOLD_DIM_DB=$GOLD_SHARED_DIM_DB \
+    -hivevar GOLD_DIM_TABLE=$TRGT_DIM_TABLE_NAME
 
 # Hive Status check
 if [ $? -eq 0 ]

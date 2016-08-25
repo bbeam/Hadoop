@@ -51,6 +51,9 @@ t_sku_join_t_sku_item_tf = FOREACH (JOIN alweb_t_sku BY sku_id ,
                         'AL4.0' AS source,
                         ToDate('$EST_TIME','yyyy-MM-dd HH:mm:ss') AS est_load_timestamp,
                         ToDate('$UTC_TIME','yyyy-MM-dd HH:mm:ss') AS utc_load_timestamp;
+						
+/* There are more than one records for a sku_id in t_sku_item table. Hence we need to remvoe the duplicates*/
+t_sku_join_t_sku_item_tf_distinct = DISTINCT t_sku_join_t_sku_item_tf;
 
 /* STORE t_sku_join_t_sku_item_tf INTO 'work_shared_dim.tf_dim_product' USING org.apache.hive.hcatalog.pig.HCatStorer();*/
 
@@ -86,7 +89,7 @@ legacy_product_type         =  LOAD '$GOLD_LEGACY_ANGIE_DBO_DB.dq_product_type' 
 /*Getting product_type_name by joining with product_type table */
 product_join_product_type_tf = FOREACH (JOIN legacy_product BY   product_type_id , 
                         legacy_product_type BY product_type_id)
-                        GENERATE legacy_product::product_type_id AS source_ak,
+                        GENERATE legacy_product::product_id AS source_ak,
                         'Product' AS source_table,
                         'ProductID' AS source_column,
                         'Membership' AS master_product_group,
@@ -97,7 +100,6 @@ product_join_product_type_tf = FOREACH (JOIN legacy_product BY   product_type_id
                         ToDate('$EST_TIME','yyyy-MM-dd HH:mm:ss') AS est_load_timestamp,
                         ToDate('$UTC_TIME','yyyy-MM-dd HH:mm:ss') AS utc_load_timestamp;
 						
-product_join_product_type_tf_distinct = DISTINCT product_join_product_type_tf;
 
 /* STORE product_join_product_type_tf INTO 'work_shared_dim.tf_dim_product' USING org.apache.hive.hcatalog.pig.HCatStorer();*/
 
@@ -112,7 +114,7 @@ legacy_ad_element_filtered = filter legacy_ad_element  by   ad_element_active ==
 /*Getting member price for each sku record */
 ad_element_join_ad_type_tf = FOREACH (JOIN legacy_ad_element_filtered  BY   ad_type_id , 
                         legacy_ad_type  BY ad_type_id)
-                        GENERATE legacy_ad_element_filtered::ad_type_id AS source_ak,
+                        GENERATE legacy_ad_element_filtered::ad_element_id AS source_ak,
                         'AdElement' AS source_table,
                         'AdElementID' AS source_column,
                         'AdvertisingContract' AS master_product_group,
@@ -126,8 +128,8 @@ ad_element_join_ad_type_tf = FOREACH (JOIN legacy_ad_element_filtered  BY   ad_t
 /* STORE ad_element_join_ad_type_tf  INTO 'work_shared_dim.tf_dim_product' USING org.apache.hive.hcatalog.pig.HCatStorer();*/
 
 /* Combine extracts from various tables above*/
-dim_product_tf = UNION storefront_item_join_storefront_item_type_tf, t_sku_join_t_sku_item_tf, al_lead_tf,
-                    product_join_product_type_tf_distinct,  ad_element_join_ad_type_tf; 
+dim_product_tf = UNION storefront_item_join_storefront_item_type_tf, t_sku_join_t_sku_item_tf_distinct, al_lead_tf,
+                    product_join_product_type_tf,  ad_element_join_ad_type_tf; 
                     
 /* Write to Target Work Table*/
 STORE dim_product_tf  INTO '$WORK_SHARED_DIM_DB.tf_dim_product' USING org.apache.hive.hcatalog.pig.HCatStorer();

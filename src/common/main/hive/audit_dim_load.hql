@@ -12,12 +12,12 @@ INSERT INTO TABLE ${hivevar:OPERATIONS_COMMON_DB}.${hivevar:AUDIT_TABLE_NAME}
 PARTITION(edh_bus_date,table_name)
 SELECT      '${hivevar:ENTITY_NAME}' AS entity,
             'Dimension Load' AS process,
-            'Dimension Load in Gold Hive Table' AS type,
+            'No of Records Loaded' AS type,
             'Total count' AS sub_type,
             count(*) AS record_count,
             FROM_UTC_TIMESTAMP(unix_timestamp()*1000, 'EST') AS est_time_stamp,
             from_unixtime(unix_timestamp()) AS time_stamp,
             '${hivevar:USER_NAME}' AS user_name,
             '${hivevar:EDH_BUS_DATE}' AS edh_bus_date,
-            '${hivevar:WORK_CDC_DB}.${hivevar:WORK_CDC_TABLE}' AS table_name
+            '${hivevar:GOLD_DIM_DB}.${hivevar:GOLD_DIM_TABLE}' AS table_name
  FROM ${hivevar:GOLD_DIM_DB}.${hivevar:GOLD_DIM_TABLE};
