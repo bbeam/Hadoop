@@ -1,6 +1,6 @@
 SET hive.exec.dynamic.partition.mode=non-strict;
 -- ######################################################################################################### 
--- HIVE SCRIPT				:targetdim_members_load.hql
+-- HIVE SCRIPT				:targetdim_member_load.hql
 -- AUTHOR					:Hive script is auto generated with java utility.
 -- DESCRIPTION				:Hive script will run after pig script for scd.
 -- #########################################################################################################

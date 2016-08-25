@@ -42,19 +42,19 @@
         "ref": "bkp-shareddim-dim_market"
       },
 	  "maximumRetries": "0",
-	  "name": "bkp-shareddim-dim_members",
-	  "id": "bkp-shareddim-dim_members",
+	  "name": "bkp-shareddim-dim_member",
+	  "id": "bkp-shareddim-dim_member",
 	  "workerGroup": "#{myWorkerGroup}",
 	  "scriptArgument": [
 		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
-		"s3://al-edh-dev/src/shareddim/main/conf/dim_members.properties"
+		"s3://al-edh-dev/src/shareddim/main/conf/dim_member.properties"
 	  ],
 	  "type": "ShellCommandActivity"
 	},
 	{
 	  "scriptUri": "s3://al-edh-dev/src/common/main/bin/wrapper_bkp_table.sh",
 	  "dependsOn": {
-        "ref": "bkp-shareddim-dim_members"
+        "ref": "bkp-shareddim-dim_member"
       },
 	  "maximumRetries": "0",
 	  "name": "bkp-shareddim-dim_product",
