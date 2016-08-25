@@ -2,7 +2,7 @@
 --  HIVE SCRIPT  : create_bkp_dim_members.hql
 --  AUTHOR       : Ashoka Reddy
 --  DATE         : Aug 16, 2016
---  DESCRIPTION  : Creation of hive TF work table gold_shared_dim.bkp_dim_members 
+--  DESCRIPTION  : Creation of bkp_dim_members table in operations db
 --*/
 
 CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.bkp_dim_members
@@ -26,4 +26,4 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.bkp_dim_members
 	est_load_timestamp TIMESTAMP,
     utc_load_timestamp TIMESTAMP
 )
-LOCATION '${hivevar:S3_BUCKET}/data/gold/shareddim/bkp_dim_members';
+LOCATION '${hivevar:S3_BUCKET}/data/operations/shareddim/bkp_dim_members';

@@ -1,8 +1,8 @@
 --/*
 --  HIVE SCRIPT  : create_bkp_dim_market.hql
---  AUTHOR       : Anil Aleppy
+--  AUTHOR       : Ashoka Reddy
 --  DATE         : Aug 9, 2016
---  DESCRIPTION  : Creation of bkp_dim_market table in gold db 
+--  DESCRIPTION  : Creation of bkp_dim_market table in operations db 
 --*/
 
 CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.bkp_dim_market
@@ -13,4 +13,4 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.bkp_dim_market
    est_load_timestamp TIMESTAMP,
    utc_load_timestamp TIMESTAMP
 )
-LOCATION '${hivevar:S3_BUCKET}/data/gold/shareddim/bkp_dim_market';
+LOCATION '${hivevar:S3_BUCKET}/data/operations/shareddim/bkp_dim_market';

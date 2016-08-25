@@ -2,7 +2,7 @@
 --  HIVE SCRIPT  : create_bkp_dim_product.hql
 --  AUTHOR       : Ashoka Reddy
 --  DATE         : Aug 23, 2016
---  DESCRIPTION  : Creation of bkp_dim_product table in gold db. 
+--  DESCRIPTION  : Creation of bkp_dim_product table in operations db. 
 --*/
 
 
@@ -20,4 +20,4 @@ source STRING,
 est_load_timestamp TIMESTAMP,
 utc_load_timestamp TIMESTAMP
 )
-LOCATION '${hivevar:S3_BUCKET}/data/gold/shareddim/bkp_dim_product';
+LOCATION '${hivevar:S3_BUCKET}/data/operations/shareddim/bkp_dim_product';
