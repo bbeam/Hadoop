@@ -1,8 +1,8 @@
 /*
-PIG SCRIPT    : tf_dim_members.pig
+PIG SCRIPT    : tf_dim_member.pig
 AUTHOR        : Varun Rauthan
 DATE          : Tue Aug 16 
-DESCRIPTION   : Data Transformation script for dim_members dimension
+DESCRIPTION   : Data Transformation script for dim_member dimension
 */
 
 
@@ -565,44 +565,39 @@ gen_lojoin_base_members_with_table_al4_t_employee_permission =
 lojoin_base_members_with_table_dim_market = 
 	JOIN gen_lojoin_base_members_with_table_al4_t_employee_permission BY market LEFT OUTER, table_dim_market BY market_nm;
 
-filter_dim_market =  FILTER table_dim_market BY market_id == -1;
-
-cross_join_base_members_with_dim_market = CROSS lojoin_base_members_with_table_dim_market,filter_dim_market;
-
 gen_lojoin_base_members_with_table_dim_market = 
-	FOREACH cross_join_base_members_with_dim_market
-	GENERATE lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::member_id AS member_id: int,
-			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::user_id AS user_id: int,
-			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::market AS market: chararray,
-			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::first_name AS first_name: chararray,
-			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::last_name AS last_name: chararray,
-			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::home_phone AS home_phone: chararray,
-			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::email AS email: chararray,
-			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::member_date AS member_date: datetime,
-			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::expiration AS expiration: datetime,
-			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::status AS status: chararray,
-			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::exclude_test_member_id AS exclude_test_member_id: int,
-			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::postal_address_id AS postal_address_id: int,
-			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::market_zone_id AS market_zone_id: int,
-			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::postal_code AS postal_code: chararray,
-			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::pay_status AS pay_status: chararray,
-			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::membership_tier_name AS membership_tier_name: chararray,
-			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::user_id AS tu_user_id: int,
-			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::status AS tu_status: chararray,
-			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::first_name AS tu_first_name: chararray,
-			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::last_name AS tu_last_name: chararray,
-			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::test_user AS test_user: int,
-			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::advertising_zone AS advertising_zone: int,
-			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::primary_phonenumber AS primary_phonenumber: chararray,
-			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::tci_email AS tci_email: chararray,
-			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::associate AS associate: int,
-			lojoin_base_members_with_table_dim_market::gen_lojoin_base_members_with_table_al4_t_employee_permission::employee AS employee: int,
-			lojoin_base_members_with_table_dim_market::table_dim_market::market_key AS market_key: long,
-			lojoin_base_members_with_table_dim_market::table_dim_market::market_nm AS market_nm: chararray,
-			filter_dim_market::market_key AS filter_market_key: long;
+	FOREACH lojoin_base_members_with_table_dim_market
+	GENERATE gen_lojoin_base_members_with_table_al4_t_employee_permission::member_id AS member_id: int,
+			gen_lojoin_base_members_with_table_al4_t_employee_permission::user_id AS user_id: int,
+			gen_lojoin_base_members_with_table_al4_t_employee_permission::market AS market: chararray,
+			gen_lojoin_base_members_with_table_al4_t_employee_permission::first_name AS first_name: chararray,
+			gen_lojoin_base_members_with_table_al4_t_employee_permission::last_name AS last_name: chararray,
+			gen_lojoin_base_members_with_table_al4_t_employee_permission::home_phone AS home_phone: chararray,
+			gen_lojoin_base_members_with_table_al4_t_employee_permission::email AS email: chararray,
+			gen_lojoin_base_members_with_table_al4_t_employee_permission::member_date AS member_date: datetime,
+			gen_lojoin_base_members_with_table_al4_t_employee_permission::expiration AS expiration: datetime,
+			gen_lojoin_base_members_with_table_al4_t_employee_permission::status AS status: chararray,
+			gen_lojoin_base_members_with_table_al4_t_employee_permission::exclude_test_member_id AS exclude_test_member_id: int,
+			gen_lojoin_base_members_with_table_al4_t_employee_permission::postal_address_id AS postal_address_id: int,
+			gen_lojoin_base_members_with_table_al4_t_employee_permission::market_zone_id AS market_zone_id: int,
+			gen_lojoin_base_members_with_table_al4_t_employee_permission::postal_code AS postal_code: chararray,
+			gen_lojoin_base_members_with_table_al4_t_employee_permission::pay_status AS pay_status: chararray,
+			gen_lojoin_base_members_with_table_al4_t_employee_permission::membership_tier_name AS membership_tier_name: chararray,
+			gen_lojoin_base_members_with_table_al4_t_employee_permission::user_id AS tu_user_id: int,
+			gen_lojoin_base_members_with_table_al4_t_employee_permission::status AS tu_status: chararray,
+			gen_lojoin_base_members_with_table_al4_t_employee_permission::first_name AS tu_first_name: chararray,
+			gen_lojoin_base_members_with_table_al4_t_employee_permission::last_name AS tu_last_name: chararray,
+			gen_lojoin_base_members_with_table_al4_t_employee_permission::test_user AS test_user: int,
+			gen_lojoin_base_members_with_table_al4_t_employee_permission::advertising_zone AS advertising_zone: int,
+			gen_lojoin_base_members_with_table_al4_t_employee_permission::primary_phonenumber AS primary_phonenumber: chararray,
+			gen_lojoin_base_members_with_table_al4_t_employee_permission::tci_email AS tci_email: chararray,
+			gen_lojoin_base_members_with_table_al4_t_employee_permission::associate AS associate: int,
+			gen_lojoin_base_members_with_table_al4_t_employee_permission::employee AS employee: int,
+			table_dim_market::market_key AS market_key: long,
+			table_dim_market::market_nm AS market_nm: chararray;
 
-/* Generating the required schema of dim_members */
-gen_dim_members = 
+/* Generating the required schema of dim_member */
+gen_dim_member = 
 	FOREACH gen_lojoin_base_members_with_table_dim_market
 	GENERATE member_id AS member_id:INT, 
 			 tu_user_id AS user_id: INT, 
@@ -618,14 +613,14 @@ gen_dim_members =
 			 (tu_last_name is null?last_name:tu_last_name) AS last_nm: chararray, 
 			 associate AS associate:INT,
 			 employee AS employee:INT,
-			 (market_key is null?filter_market_key:market_key) AS market_key: long,
+			 (market_key is null?-1:market_key) AS market_key: long,
 			 ToDate('$EST_TIME','yyyy-MM-dd HH:mm:ss') as est_load_timestamp,
 			 ToDate('$UTC_TIME','yyyy-MM-dd HH:mm:ss') as utc_load_timestamp;
 
 
-rmf /user/hadoop/data/work/shareddim/tf_dim_members
+rmf /user/hadoop/data/work/shareddim/tf_dim_member
 
-STORE gen_dim_members
-                INTO '/user/hadoop/data/work/shareddim/tf_dim_members'
+STORE gen_dim_member
+                INTO '/user/hadoop/data/work/shareddim/tf_dim_member'
                 USING PigStorage('\u0001');
  

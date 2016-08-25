@@ -1,10 +1,10 @@
 --/*
---  HIVE SCRIPT  : create_scd_dim_members.hql
+--  HIVE SCRIPT  : create_scd_dim_member.hql
 --  AUTHOR       : Varun Rauthan
 --  DATE         : Aug 22, 2016
 --  DESCRIPTION  : Creation of hive SCD work table
 --
--- hive -f create_scd_dim_members.hql \
+-- hive -f create_scd_dim_member.hql \
 -- -hivevar WORK_DIM_DB_NAME=$WORK_DIM_DB_NAME \
 -- -hivevar WORK_DIM_TABLE_NAME=$WORK_DIM_TABLE_NAME
 --*/
@@ -33,4 +33,4 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:WORK_DIM_DB_NAME}.${hivevar:WORK_D
    	est_load_timestamp TIMESTAMP,
     utc_load_timestamp TIMESTAMP
 )
-LOCATION '/user/hadoop/data/work/shareddim/scd_dim_members';
+LOCATION '/user/hadoop/data/work/shareddim/scd_dim_member';

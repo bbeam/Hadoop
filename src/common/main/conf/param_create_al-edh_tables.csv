@@ -157,3 +157,13 @@ src/segment/main/hive,create_inc_greenpoint_production_writes_an_sp_review.hql,I
 src/common/main/hive,create_edh_batch_audit.hql,OPERATIONS_COMMON_DB
 src/common/main/hive,create_edh_batch_error.hql,OPERATIONS_COMMON_DB
 src/common/main/hive,create_surrogate_key_map.hql,OPERATIONS_COMMON_DB
+/src/shareddim/main/hive/,create_bkp_dim_product.hql,OPERATIONS_SHARED_DIM_DB
+/src/shareddim/main/hive/,create_bkp_dim_category.hql,OPERATIONS_SHARED_DIM_DB
+/src/shareddim/main/hive/,create_bkp_dim_market.hql,OPERATIONS_SHARED_DIM_DB
+/src/shareddim/main/hive/,create_bkp_dim_member.hql,OPERATIONS_SHARED_DIM_DB
+/src/shareddim/main/hive/,create_bkp_dim_service_provider.hql,OPERATIONS_SHARED_DIM_DB
+/src/shareddim/main/hive/,create_dim_product.hql,GOLD_SHARED_DIM_DB
+/src/shareddim/main/hive/,create_dim_category.hql,GOLD_SHARED_DIM_DB
+/src/shareddim/main/hive/,create_dim_market.hql,GOLD_SHARED_DIM_DB
+/src/shareddim/main/hive/,create_dim_member.hql,GOLD_SHARED_DIM_DB
+/src/shareddim/main/hive/,create_dim_service_provider.hql,GOLD_SHARED_DIM_DB

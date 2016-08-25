@@ -1,12 +1,12 @@
 --/*
---  HIVE SCRIPT  : create_tf_dim_market.hql
+--  HIVE SCRIPT  : create_tf_dim_member.hql
 --  AUTHOR       : Varun Rauthan
 --  DATE         : Aug 16, 2016
---  DESCRIPTION  : Creation of hive TF work table work_shared_dim.tf_dim_members
+--  DESCRIPTION  : Creation of hive TF work table work_shared_dim.tf_dim_member
 --  Execute command:
 --
 --
--- hive -f $S3_BUCKET/src/shareddim/main/hive/create_tf_dim_members.hql \
+-- hive -f $S3_BUCKET/src/shareddim/main/hive/create_tf_dim_member.hql \
 -- -hivevar HIVE_DB=$WORK_SHARED_DIM_DB \
 -- -hivevar S3_BUCKET=$S3_BUCKET 
 --*/
@@ -31,4 +31,4 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:WORK_DIM_DB_NAME}.${hivevar:TF_TAB
     est_load_timestamp TIMESTAMP,
     utc_load_timestamp TIMESTAMP
 )
-LOCATION '/user/hadoop/data/work/shareddim/tf_dim_members';
+LOCATION '/user/hadoop/data/work/shareddim/tf_dim_member';
