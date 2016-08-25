@@ -2,7 +2,7 @@
 #                               General Details                                #
 ################################################################################
 # Organisation: AngiesList                                                     #
-# File        : wrapper_bkp.sh                                                 #
+# File        : wrapper_bkp_table.sh                                           #
 # Description : This process would take a backup copy of the target table.     #
 # Author      : Ashoka Reddy                                                   #
 ################################################################################
@@ -49,16 +49,37 @@ else
     exit 1
 fi
 
-#Trigger HQL for back up copy of source table .
-hive -f ${HIVE_FILE_PATH} \
-    --hivevar TARGET_DB="${TARGET_DB}" \
-    --hivevar SOURCE_DB="${SOURCE_DB}"
-
-
-if [ $? -eq 0 ]
+# Hive script to load backup of target table 
+if [ $TARGET_TABLE_TYPE == "DIMENSION" ]
 then
-    echo "The backup completed successfully "
-else
-    echo "Error while taking backup "
-    exit 1
+    hive -f $LOAD_BKP_DIMENSION_TABLE_HQL_PATH \
+    -hivevar BKP_DB_NAME=$OPERATIONS_SHARED_DIM_DB \
+    -hivevar BKP_TABLE_NAME=$BKP_TABLE_NAME \
+    -hivevar SOURCE_DB_NAME=$GOLD_DIM_DB \
+    -hivevar SOURCE_TABLE_NAME=$TRGT_DIM_TABLE_NAME 
+    # Hive Status check
+    if [ $? -eq 0 ]
+    then
+        echo "$LOAD_BKP_DIMENSION_TABLE_HQL_PATH executed without any error."
+    else
+        echo "$LOAD_BKP_DIMENSION_TABLE_HQL_PATH execution failed."
+        exit 1
+    fi
+elif [ $TARGET_TABLE_TYPE == "FACT" ]
+then
+    hive -f $LOAD_BKP_FACT_TABLE_HQL_PATH \
+    -hivevar BKP_DB_NAME=$OPERATIONS_AL_WEBMETRICS_DB \
+    -hivevar BKP_TABLE_NAME=$BKP_TABLE_NAME \
+    -hivevar SOURCE_DB_NAME=$GOLD_AL_WEBMETRICS_DB \
+    -hivevar SOURCE_TABLE_NAME=$TRGT_FACT_TABLE_NAME \
+    -hivevar PARTITION_COLUMNS=$FACT_TABLE_PARTITION_COLUMNS 
+    
+    # Hive Status check
+    if [ $? -eq 0 ]
+    then
+        echo "$LOAD_BKP_FACT_TABLE_HQL_PATH executed without any error."
+    else
+        echo "$LOAD_BKP_FACT_TABLE_HQL_PATH execution failed."
+        exit 1
+    fi
 fi
