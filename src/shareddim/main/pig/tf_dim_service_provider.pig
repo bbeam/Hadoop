@@ -356,7 +356,10 @@ new_world_spid  AS new_world_spid,
 (BackgroundCheck IS NULL?0:BackgroundCheck) AS background_check,
 (ecommercestatus IS NULL?0:ecommercestatus) AS ecommerce_status,
 (vintage==3?'Health':(vintage==2?'P1':(vintage==1?'P2+':NULL))) AS vintage,
-(market_id IS NULL?cross_market_key:market_key) AS market_key;
+(market_id IS NULL?cross_market_key:market_key) AS market_key,
+ToDate('$EST_TIME','yyyy-MM-dd HH:mm:ss') as est_load_timestamp,
+ToDate('$UTC_TIME','yyyy-MM-dd HH:mm:ss') as utc_load_timestamp;
+
 
 
 rmf user/hadoop/data/work/segment/tf_service_provider/
