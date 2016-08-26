@@ -25,4 +25,4 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:WORK_DIM_DB_NAME}.${hivevar:TF_TAB
     est_load_timestamp TIMESTAMP,
     utc_load_timestamp TIMESTAMP
 )
-LOCATION '/user/hadoop/data/work/shareddim/tf_dim_category';
+LOCATION '${hivevar:WORK_DIR}/data/work/shareddim/tf_dim_category';
