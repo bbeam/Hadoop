@@ -106,7 +106,7 @@ else
 fi
 
 # Copy csv file in EMR to s3
-aws s3 cp /var/tmp/$DIM_DATE_EXTERNAL_HIVE_FILE_NAME $DIM_DATE_HIVE_TABLE_LOCATION_S3
+aws s3 cp /var/tmp/$DIM_DATE_EXTERNAL_HIVE_FILE_NAME $DIM_DATE_HIVE_TABLE_LOCATION_S3/$DIM_DATE_EXTERNAL_HIVE_FILE_NAME
 if [ $? -eq 0 ]
 then
   echo "$DIM_DATE_EXTERNAL_HIVE_FILE_NAME copied successfully from /var/tmp/ to  $DIM_DATE_HIVE_TABLE_LOCATION_S3"
