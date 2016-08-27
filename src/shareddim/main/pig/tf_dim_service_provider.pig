@@ -1,3 +1,12 @@
+/*
+PIG SCRIPT    : tf_dim_member.pig
+AUTHOR        : Varun Rauthan
+DATE          : Tue Aug 16 
+DESCRIPTION   : Data Transformation script for dim_member dimension
+*/
+
+
+/* Reading the input tables */
 %declare PREV_DATE `date -d '1 day ago' +%Y-%m-%d`;
 %declare CURR_DATE `date +%Y-%m-%d`;
 
@@ -338,8 +347,8 @@ join_lsp_wt_backgroundcheck::join_lsp_wt_doctype::join_lsp_wt_advertiser::join_l
 table_tf_dim_service_provider = 
 	FOREACH simplified_fileds 
 	GENERATE
-legacy_spid AS legacy_spid,
-new_world_spid  AS new_world_spid,
+(legacy_spid IS NULL?-2:legacy_spid) AS legacy_spid,
+(new_world_spid IS NULL?-2:new_world_spid) AS new_world_spid,
 (al4_company_name IS NULL?legacy_company_name:al4_company_name) AS company_nm,
 (legacy_company_name IS NULL?'':legacy_company_name) AS service_provider_group_type,
 (al4_joined_date IS NULL?leagcy_entered_date:al4_joined_date) AS entered_dt,
@@ -362,11 +371,11 @@ ToDate('$UTC_TIME','yyyy-MM-dd HH:mm:ss') as utc_load_timestamp;
 
 
 
-rmf user/hadoop/data/work/segment/tf_service_provider/
+rmf /user/hadoop/data/work/sharreddim/tf_service_provider/
 
 
 STORE table_tf_dim_service_provider
-                INTO 'user/hadoop/data/work/segment/tf_service_provider/'
+                INTO '/user/hadoop/data/work/shareddim/tf_service_provider/'
                 USING PigStorage('\u0001');
 
 
