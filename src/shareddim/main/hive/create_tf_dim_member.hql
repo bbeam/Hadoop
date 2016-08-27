@@ -27,7 +27,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:WORK_DIM_DB_NAME}.${hivevar:TF_TAB
 	last_nm STRING,
 	associate TINYINT,
 	employee TINYINT,
-	market_key STRING,
+	market_key BIGINT,
     est_load_timestamp TIMESTAMP,
     utc_load_timestamp TIMESTAMP
 )
