@@ -1,5 +1,5 @@
 /*
-PIG SCRIPT    : tf_dim_category.pig
+PIG SCRIPT    : tf_dim_product.pig
 AUTHOR        : Anil Aleppy
 DATE          : 18 Aug 16 
 DESCRIPTION   : Data Transformation script for dim_product dimension
