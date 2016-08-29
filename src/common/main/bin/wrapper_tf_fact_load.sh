@@ -82,7 +82,7 @@ echo "EDH_BUS_DATE:$EDH_BUS_DATE"
 
 # removal of existing data directories in work area
 
-if hadoop fs -test -f $TF_TABLE_WORK_LOACTION/part-m-00000; then
+if hadoop fs -test -f $TF_TABLE_WORK_LOACTION; then
    echo "Removing transformation output data in work area for previous run.....Making $TF_DB.$TF_TABLE empty."
    hadoop fs -rm $TF_TABLE_WORK_LOACTION/*
      if [ $? -eq 0 ]
