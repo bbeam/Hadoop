@@ -20,4 +20,4 @@ SELECT      '${hivevar:ENTITY_NAME}' AS entity,
             '${hivevar:USER_NAME}' AS user_name,
             '${hivevar:EDH_BUS_DATE}' AS edh_bus_date,
             '${hivevar:TF_DB}.tf_fact_web_metrics' AS table_name
- FROM ${hivevar:TF_DB}.tf_fact_web_metrics WHERE event_type_key =='${hivevar:TF_EVENT}';
+ FROM ${hivevar:TF_DB}.tf_nk_fact_web_metrics WHERE event_type_key =='${hivevar:TF_EVENT}';

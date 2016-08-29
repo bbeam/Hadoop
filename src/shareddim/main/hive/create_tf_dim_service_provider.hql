@@ -5,6 +5,7 @@
 
 
 --  Creating a DQ hive table(tf_dim_service_provider) over the incoming data
+DROP TABLE IF EXISTS ${hivevar:WORK_DIM_DB_NAME}.${hivevar:TF_TABLE_NAME};
 CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:WORK_DIM_DB_NAME}.${hivevar:TF_TABLE_NAME}
 (
 legacy_spid int,
@@ -25,7 +26,7 @@ is_licensed tinyint,
 background_check  tinyint,
 ecommerce_status tinyint,
 vintage string,
-market_key int,
+market_key bigint,
 est_load_timestamp TIMESTAMP,
 utc_load_timestamp TIMESTAMP
 )
