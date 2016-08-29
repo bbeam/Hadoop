@@ -50,7 +50,7 @@ tf_alwp_search_the_list = FOREACH (JOIN table_dq_search_the_list_user_id_availab
 						             'Search The List' AS search_type:chararray,
 						             1 AS event_source:int,
 						             'ios' AS event_sub_source:chararray,
-						             table_dq_search_the_list::sp_keyword AS search_text:chararray,
+						             table_dq_search_the_list_user_id_available::sp_keyword AS search_text:chararray,
 						             1 AS qty:int,
                 					 15 AS event_type_key:int;
                                                 
