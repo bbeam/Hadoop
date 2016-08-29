@@ -82,30 +82,17 @@ echo "EDH_BUS_DATE:$EDH_BUS_DATE"
 
 # removal of existing data directories in work area
 
-if hadoop fs -test -f $TF_TABLE_WORK_LOACTION/part-m-00000; then
+if hadoop fs -test -D $TF_TABLE_WORK_LOACTION; then
    echo "Removing transformation output data in work area for previous run.....Making $TF_DB.$TF_TABLE empty."
-   hadoop fs -rm $TF_TABLE_WORK_LOACTION/*
+   hadoop fs -rm $TF_TABLE_WORK_LOACTION/
      if [ $? -eq 0 ]
      then
-        echo "INFO:Making $TF_DB.$TF_TABLE empty successful"
+        echo "INFO:Delete Partiton of table $TF_DB.$TF_TABLE empty successful"
      else
-        echo "ERROR:Making $TF_DB.$TF_TABLE empty failed."
+        echo "ERROR:Delete Partiton of table $TF_DB.$TF_TABLE empty failed."
         exit 1
      fi
 fi
-
-if hadoop fs -test -f $TF_TABLE_WORK_LOACTION/part-r-00000; then
-   echo "Removing transformation output data in work area for previous run.....Making $TF_DB.$TF_TABLE empty."
-   hadoop fs -rm $TF_TABLE_WORK_LOACTION/*
-     if [ $? -eq 0 ]
-     then
-        echo "INFO:Making $TF_DB.$TF_TABLE empty successful"
-     else
-        echo "ERROR:Making $TF_DB.$TF_TABLE empty failed."
-        exit 1
-     fi
-fi
-
 
 # copy tf pig script to local
 aws s3 cp $TF_PIG_FILE_PATH /var/tmp/
