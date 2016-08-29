@@ -1,5 +1,5 @@
 --query
-'SELECT TOP 250000 RequestInfoID,RequestID,RequestTypeID,CatID,Keyword,SPID,RequestCount,blnDeclinedAlarm FROM tblRequestTypeInfo WHERE $CONDITIONS'
+'SELECT RequestInfoID,RequestID,RequestTypeID,CatID,Keyword,SPID,RequestCount,blnDeclinedAlarm FROM tblRequestTypeInfo WHERE $CONDITIONS'
 --split-by
 RequestInfoID
 --hive-delims-replacement
