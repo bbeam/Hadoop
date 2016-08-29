@@ -690,7 +690,7 @@ ToDate('$UTC_TIME','yyyy-MM-dd HH:mm:ss') as utc_load_timestamp;
 
 /* Loading to target */
 
-STORE table_tf_dim_service_provider into 'work_shared_dim.tf_service_provider'
+STORE table_tf_dim_service_provider into 'work_shared_dim.tf_dim_service_provider'
     using org.apache.hive.hcatalog.pig.HCatStorer();
 
 
