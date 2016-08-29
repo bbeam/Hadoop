@@ -30,18 +30,21 @@ jn_table_dq_user_login_wt_member = JOIN table_dq_user_login BY (INT)user_id LEFT
 
 sel_user_login = FOREACH jn_table_dq_user_login_wt_member GENERATE (INT)table_dim_member::member_id AS member_id:int,
                                                                     (INT)table_dq_user_login::user_id AS user_id:int,
-                                                                    est_sent_at AS est_sent_at;																	
+                                                                    est_sent_at AS est_sent_at,
+																	(chararray)id as id:chararray;																	
 
 jn_table_dq_member_logon_history_wt_member = JOIN table_dq_member_logon_history BY (INT)member_id LEFT , table_dim_member BY member_id;
 
 sel_member_logon_history = FOREACH jn_table_dq_member_logon_history_wt_member GENERATE 
                                                                     (INT)table_dq_member_logon_history::member_id AS member_id:int,
 																	(INT)table_dim_member::user_id AS user_id:int,
-                                                                    est_logon_date AS est_sent_at;																	
+                                                                    est_logon_date AS est_sent_at,
+																	(chararray)member_logon_history_id AS id:chararray;																
                                          
 union_mlh_ul= (UNION sel_user_login,sel_member_logon_history);
 		
 tf_login = FOREACH union_mlh_ul  GENERATE 
+              (CHARARRAY)id AS (id:chararray),
              (INT)(ToString(est_sent_at,'YYYYMMDD')) AS (date_ak:int),
              ToString(est_sent_at,'hh:mm') AS (time_ak:chararray),
              (INT)$NUMERIC_NA_KEY AS (legacy_spid:int),
@@ -63,6 +66,7 @@ tf_login = FOREACH union_mlh_ul  GENERATE
 join_tf_login_wt_event= JOIN  tf_login BY (event_type,search_type,event_source,event_sub_source),table_dim_event_type  BY (event_type,search_type,event_source,event_sub_source);
 			
 final_webmetrics_login = 	FOREACH join_tf_login_wt_event GENERATE
+                                                 (CHARARRAY)id AS (id:chararray),
                                                  (int)tf_login::date_ak AS (date_ak:int),
                                                  (chararray)tf_login::time_ak AS (time_ak:chararray) ,
                                                  (int)tf_login::legacy_spid AS (legacy_spid:int),
@@ -81,5 +85,5 @@ final_webmetrics_login = 	FOREACH join_tf_login_wt_event GENERATE
                                                 (chararray)table_dim_event_type::event_type_key AS (event_type_key:chararray);
 
 STORE final_webmetrics_login
-	INTO 'work_al_webmetrics.tf_nk_fact_webmetrics'
+	INTO 'work_al_web_metrics.tf_nk_fact_web_metrics'
 	USING org.apache.hive.hcatalog.pig.HCatStorer();
