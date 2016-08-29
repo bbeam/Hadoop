@@ -1,10 +1,11 @@
---  HIVE SCRIPT  : create_sk_fact_web_metrics.hql
+--  HIVE SCRIPT  : create_tf_sk_fact_web_metrics.hql
 --  AUTHOR       : Abhinav Mehar
 --  DATE         : Aug 22, 2016
 --  DESCRIPTION  : Creation of hive dq table(sk_fact_web_metrics). 
 
---  Creating a DQ hive table(tf_fact_web_metrics) over the incoming data
-CREATE EXTERNAL TABLE  work_al_webmetrics.sk_fact_web_metrics(
+--  Creating a DQ hive table(tf_sk_fact_web_metrics) over the incoming data
+CREATE EXTERNAL TABLE  work_al_web_metrics.tf_sk_fact_web_metrics(
+id STRING,
 date_key    INT,
 time_key    INT,
 service_provider_key    INT,
@@ -27,4 +28,4 @@ search_text STRING,
 qty INT
 )
 LOCATION
-  '/user/hadoop/data/work/webmetrics/sk_fact_web_metrics'
+  '/user/hadoop/data/work/webmetrics/tf_sk_fact_web_metrics'
