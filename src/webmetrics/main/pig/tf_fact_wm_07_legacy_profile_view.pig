@@ -63,8 +63,8 @@ jn_rc_filtered_members_sp_rti = FOREACH (JOIN jn_rc_filtered_members_sp BY reque
 
 tf_legacy_profile_view = FOREACH jn_rc_filtered_members_sp_rti 
     GENERATE    id AS id, 
-                (INT)(ToString(est_gave_date,'YYYYMMDD')) AS date_ak,
-                ToString(est_gave_date,'hh:mm') AS time_ak,
+                (INT)(ToString(est_gave_date,'yyyyMMdd')) AS date_ak,
+                ToString(est_gave_date,'HH:mm') AS time_ak,
                 legacy_spid AS legacy_spid,
                 new_world_spid AS new_world_spid,
                 -2 AS source_ak,
