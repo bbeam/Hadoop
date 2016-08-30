@@ -26,7 +26,7 @@ table_dim_member=
 
 /* Filter edh_bus_date to process records only for the passed date */
 table_dq_member_logon_history = FILTER table_dq_member_logon_history BY edh_bus_date=='$EDH_BUS_DATE';
-table_dq_user_login = FILTER table_dq_user_login BY edh_bus_date=='$EDH_BUS_DATE';
+table_dq_user_login = FILTER table_dq_user_login BY edh_bus_date=='$EDH_BUS_DATE' AND user_id != 'no_user_id';
 
 /*Process Started for dq_user_login*/
 /* Check if user_id is null as user_id in the applicable column. If user_id is null then populate both member_id and user_id as missing */
