@@ -28,4 +28,4 @@ search_text STRING,
 qty INT
 )
 LOCATION
-  '/user/hadoop/data/work/webmetrics/tf_sk_fact_web_metrics'
+  '/user/hadoop/data/work/alwebmetrics/tf_sk_fact_web_metrics'

@@ -55,27 +55,27 @@ fi
 
 # removal of existing data directories in work area
 
-if hadoop fs -test -d $WORK_DIR/data/work/alwebmetrics/tf_nk_fact_webmetrics; then
+if hadoop fs -test -d $WORK_DIR/data/work/alwebmetrics/tf_nk_fact_web_metrics; then
    echo "Removing transformation output data in work area for previous run.....Making $WORK_AL_WEBMETRICS_DB.tf_nk_fact_webmetrics empty."
-   hadoop fs -rmr $WORK_DIR/data/work/alwebmetrics/tf_nk_fact_webmetrics
+   hadoop fs -rmr $WORK_DIR/data/work/alwebmetrics/tf_nk_fact_web_metrics
      if [ $? -eq 0 ]
      then
-        echo "INFO:Making $WORK_AL_WEBMETRICS_DB.tf_nk_fact_webmetrics empty successful"
+        echo "INFO:Making $WORK_AL_WEB_METRICS_DB.tf_nk_fact_web_metrics empty successful"
      else
-        echo "ERROR:Making $WORK_AL_WEBMETRICS_DB.tf_nk_fact_webmetrics empty failed."
+        echo "ERROR:Making $WORK_AL_WEB_METRICS_DB.tf_nk_fact_web_metrics empty failed."
         exit 1
      fi
 fi
 
 # hive to drop and re-create transformation work table
-hive -f $S3_BUCKET/src/alwebmetrics/main/hive/create_tf_nk_fact_webmetrics.hql \
-    -hivevar WORK_AL_WEBMETRICS_DB=$WORK_AL_WEBMETRICS_DB \
+hive -f $S3_BUCKET/src/alwebmetrics/main/hive/create_tf_nk_fact_web_metrics.hql \
+    -hivevar WORK_AL_WEB_METRICS_DB=$WORK_AL_WEB_METRICS_DB \
     -hivevar WORK_DIR=$WORK_DIR
 
 if [ $? -eq 0 ]
 then
-  echo "Re-creation of $WORK_AL_WEBMETRICS_DB.tf_nk_fact_webmetrics in work area is successful"
+  echo "Re-creation of $WORK_AL_WEB_METRICS_DB.tf_nk_fact_web_metrics in work area is successful"
 else
-  echo "Re-creation of $WORK_AL_WEBMETRICS_DB.tf_nk_fact_webmetrics in work area is failed"
+  echo "Re-creation of $WORK_AL_WEB_METRICS_DB.tf_nk_fact_web_metrics in work area is failed"
   exit 1
 fi

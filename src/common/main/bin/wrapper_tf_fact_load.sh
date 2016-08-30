@@ -81,27 +81,24 @@ EDH_BUS_DATE=$3
 echo "EDH_BUS_DATE:$EDH_BUS_DATE"
 
 # removal of existing data directories in work area
+if hadoop fs -test -d $TF_TABLE_WORK_LOCATION; then
 
-if hadoop fs -test -f $TF_TABLE_WORK_LOACTION; then
-   echo "Removing transformation output data in work area for previous run.....Making $TF_DB.$TF_TABLE empty."
-   hadoop fs -rm $TF_TABLE_WORK_LOACTION/*
+     hive -e "ALTER TABLE work_al_web_metrics.tf_nk_fact_web_metrics DROP PARTITION(event_type_key=$TF_EVENT_KEY)"
      if [ $? -eq 0 ]
      then
-        echo "INFO:Making $TF_DB.$TF_TABLE empty successful"
+        echo "INFO:Dropping partition event_type_key=$TF_EVENT_KEY successful "
      else
-        echo "ERROR:Making $TF_DB.$TF_TABLE empty failed."
-        exit 1
+        echo "ERROR:Dropping partition event_type_key=$TF_EVENT_KEY failed"
+     exit 1
      fi
-fi
 
-if hadoop fs -test -f $TF_TABLE_WORK_LOACTION/part-r-00000; then
    echo "Removing transformation output data in work area for previous run.....Making $TF_DB.$TF_TABLE empty."
-   hadoop fs -rm $TF_TABLE_WORK_LOACTION/*
+   hadoop fs -rmr $TF_TABLE_WORK_LOCATION
      if [ $? -eq 0 ]
      then
-        echo "INFO:Making $TF_DB.$TF_TABLE empty successful"
+        echo "INFO:Making $TF_TABLE_WORK_LOCATION empty successful"
      else
-        echo "ERROR:Making $TF_DB.$TF_TABLE empty failed."
+        echo "ERROR:Making $TF_TABLE_WORK_LOCATION empty failed."
         exit 1
      fi
 fi
@@ -142,8 +139,8 @@ hive -f $TF_AUDIT_HQL_PATH \
     -hivevar OPERATIONS_COMMON_DB=$OPERATIONS_COMMON_DB \
     -hivevar AUDIT_TABLE_NAME=$AUDIT_TABLE_NAME \
     -hivevar USER_NAME=$USER_NAME \
-    -hivevar TF_DB=$WORK_AL_WEBMETRICS_DB \
-    -hivevar TF_EVENT=$TF_EVENT \
+    -hivevar TF_DB=$WORK_AL_WEB_METRICS_DB \
+    -hivevar TF_EVENT_KEY=$TF_EVENT_KEY \
     -hivevar TF_EVENT_NAME=$TF_EVENT_NAME \
 	-hivevar EDH_BUS_DATE=$EDH_BUS_DATE
 
