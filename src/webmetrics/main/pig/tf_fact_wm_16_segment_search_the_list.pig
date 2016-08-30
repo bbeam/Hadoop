@@ -1,5 +1,5 @@
 /*#########################################################################################################
-PIG SCRIPT                              :tf_fact_wm_16_segment_search_the list.pig
+PIG SCRIPT                              :tf_fact_wm_15_segment_search_the list.pig
 AUTHOR                                  :Varun Rauthan
 DATE                                    :Aug 29 2016
 DESCRIPTION                             :Data Transformation script for webmetrics fact table for the event
@@ -7,11 +7,11 @@ DESCRIPTION                             :Data Transformation script for webmetri
 #########################################################################################################*/
 
 table_dq_search_the_list=
-        LOAD 'gold_sgmnt_events_gpp.dq_search_the_list'
+        LOAD '$GOLD_SEGMENT_EVENTS_GPP_DB.dq_search_the_list'
         USING org.apache.hive.hcatalog.pig.HCatLoader();
         
 table_dim_member=
-        LOAD 'gold_shared_dim.dim_member'
+        LOAD '$GOLD_SHARED_DIM_DB.dim_member'
         USING org.apache.hive.hcatalog.pig.HCatLoader();
 
 
@@ -29,7 +29,7 @@ table_dq_search_the_list_check_user_id = FOREACH table_dq_search_the_list
 										   			sp_keyword AS sp_keyword;
 
 
-/* Split into 2 separate relations the records with member_id missing and those with member_id available */
+/* Split into 2 separate relations the records with user_id missing and those with user_id available */
 SPLIT table_dq_search_the_list_check_user_id INTO
                     table_dq_search_the_list_user_id_missing IF user_id == -1,
                     table_dq_search_the_list_user_id_available IF user_id != -1;
@@ -54,22 +54,22 @@ tf_alwp_search_the_list = FOREACH join_table_dq_search_the_list_check_user_id
 						  GENERATE   id AS id,
 						  			 (INT)(ToString(est_sent_at,'yyyyMMdd')) AS date_ak:int,
 						             ToString(est_sent_at,'HH:mm') AS time_ak:chararray,
-						             -2 AS legacy_spid:int,
-						             -2 AS new_world_spid:int,
-						             -2 AS source_ak:int,
-						             'Not Applicable' AS source_table:chararray,
+						             $NUMERIC_NA_KEY AS legacy_spid:int,
+						             $NUMERIC_NA_KEY AS new_world_spid:int,
+						             $NUMERIC_NA_KEY AS source_ak:int,
+						             '$STRING_NA_VALUE' AS source_table:chararray,
 						             member_id AS member_id:int,
 						             user_id AS user_id:int,
-						             -2 AS category_id:int,
+						             $NUMERIC_NA_KEY AS category_id:int,
 						             event_text AS event_type:chararray,
-						             'Search The List' AS search_type:chararray,
-						             1 AS event_source:int,
-						             'ios' AS event_sub_source:chararray,
+						             '$TF_EVENT_NAME' AS search_type:chararray,
+						             $EVENT_SOURCE_IOS AS event_source:int,
+						             '$EVENT_SUB_SOURCE_IOS' AS event_sub_source:chararray,
 						             sp_keyword AS search_text:chararray,
-						             1 AS qty:int,
-                					 15 AS event_type_key:int;
+						             $TF_EVENT_QTY AS qty:int,
+                					 $TF_EVENT_KEY AS event_type_key:int;
                                                 
                                                 
 STORE tf_alwp_search_the_list 
-	INTO 'work_al_web_metrics.tf_nk_fact_web_metrics'
+	INTO '$WORK_AL_WEB_METRICS_DB.tf_nk_fact_web_metrics'
 	USING org.apache.hive.hcatalog.pig.HCatStorer();
