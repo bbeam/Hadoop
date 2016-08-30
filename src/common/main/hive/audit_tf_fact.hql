@@ -11,7 +11,7 @@ SET hive.exec.dynamic.partition.mode=non-strict;
 INSERT INTO TABLE ${hivevar:OPERATIONS_COMMON_DB}.${hivevar:AUDIT_TABLE_NAME}
 PARTITION(edh_bus_date,table_name)
 SELECT      '${hivevar:ENTITY_NAME}' AS entity,
-            '${hivevar:TF_EVENT_NAME}_${hivevar:TF_EVENT} Transformation' AS process,
+            '${hivevar:TF_EVENT_NAME}_${hivevar:TF_EVENT_KEY} Transformation' AS process,
             'Transformed Records' AS type,
             'Total count' AS sub_type,
             count(*) AS record_count,
@@ -20,4 +20,4 @@ SELECT      '${hivevar:ENTITY_NAME}' AS entity,
             '${hivevar:USER_NAME}' AS user_name,
             '${hivevar:EDH_BUS_DATE}' AS edh_bus_date,
             '${hivevar:TF_DB}.tf_fact_web_metrics' AS table_name
- FROM ${hivevar:TF_DB}.tf_nk_fact_web_metrics WHERE event_type_key =='${hivevar:TF_EVENT}';
+ FROM ${hivevar:TF_DB}.tf_nk_fact_web_metrics WHERE event_type_key =='${hivevar:TF_EVENT_KEY}';
