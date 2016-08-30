@@ -29,7 +29,7 @@
        {
          "Name":"received_at",
          "Type":"TIMESTAMP",
-         "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+         "Format":"yyyy-MM-dd HH:mm:ss",
 		 "TimeZone":"UTC",
 		 "ConvertToTimeZone":"EST",
          "Validations":[
@@ -132,7 +132,7 @@
        {
          "Name":"original_timestamp",
          "Type":"TIMESTAMP",
-         "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+         "Format":"yyyy-MM-dd HH:mm:ss",
 		 "TimeZone":"UTC",
 		 "ConvertToTimeZone":"EST",
          "Validations":[
@@ -145,7 +145,7 @@
        {
          "Name":"sent_at",
          "Type":"TIMESTAMP",
-         "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+         "Format":"yyyy-MM-dd HH:mm:ss",
 		 "TimeZone":"UTC",
 		 "ConvertToTimeZone":"EST",
          "Validations":[
@@ -168,7 +168,7 @@
        {
          "Name":"timestamp",
          "Type":"TIMESTAMP",
-         "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+         "Format":"yyyy-MM-dd HH:mm:ss",
 		 "TimeZone":"UTC",
 		 "ConvertToTimeZone":"EST",
          "Validations":[
@@ -239,7 +239,7 @@
       },{
          "Name":"uuid_ts",
          "Type":"TIMESTAMP",
-         "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+         "Format":"yyyy-MM-dd HH:mm:ss",
 		 "TimeZone":"UTC",
 		 "ConvertToTimeZone":"EST",
          "Validations":[

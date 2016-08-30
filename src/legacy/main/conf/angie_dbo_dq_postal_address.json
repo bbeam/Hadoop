@@ -150,7 +150,7 @@
       {  
          "Name":"process_date",
          "Type":"TIMESTAMP",
-         "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+         "Format":"yyyy-MM-dd HH:mm:ss",
          "TimeZone":"UTC",
 		 "ConvertToTimeZone":"EST",
          "Validations":[  

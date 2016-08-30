@@ -30,7 +30,7 @@
 	   {  
          "Name":"time_utc",
 		 "Type":"TIMESTAMP",
-		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
+		 "Format":"yyyy-MM-dd HH:mm:ss",
 		 "TimeZone":"UTC",
 		 "ConvertToTimeZone":"EST",
          "Validations":[  

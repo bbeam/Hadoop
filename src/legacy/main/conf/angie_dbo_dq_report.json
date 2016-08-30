@@ -43,7 +43,7 @@
 	   {  
          "Name":"report_date",
 		 "Type":"TIMESTAMP",
-		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
+		 "Format":"yyyy-MM-dd HH:mm:ss",
 		 "TimeZone":"UTC",
 		 "ConvertToTimeZone":"EST",
          "Validations":[  
@@ -61,7 +61,7 @@
 	  {  
          "Name":"work_completed_date",
 		 "Type":"TIMESTAMP",
-		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
+		 "Format":"yyyy-MM-dd HH:mm:ss",
 		 "TimeZone":"UTC",
 		 "ConvertToTimeZone":"EST",
          "Validations":[  
@@ -237,7 +237,7 @@
 	   {  
          "Name":"create_date",
 		 "Type":"TIMESTAMP",
-		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
+		 "Format":"yyyy-MM-dd HH:mm:ss",
 		 "TimeZone":"UTC",
 		 "ConvertToTimeZone":"EST",
          "Validations":[  
@@ -280,7 +280,7 @@
 	  {  
          "Name":"modified_date",
 		 "Type":"TIMESTAMP",
-		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
+		 "Format":"yyyy-MM-dd HH:mm:ss",
 		 "TimeZone":"UTC",
 		 "ConvertToTimeZone":"EST",
          "Validations":[  
