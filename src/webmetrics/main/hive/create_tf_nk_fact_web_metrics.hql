@@ -1,10 +1,12 @@
 --  HIVE SCRIPT  : create_tf_nk_fact_web_metrics.hql
 --  AUTHOR       : Abhinav Mehar
 --  DATE         : Aug 22, 2016
---  DESCRIPTION  : Creation of hive dq table(tf_fact_web_metrics). 
+--  DESCRIPTION  : Creation of hive dq table(tf_nk_fact_webmetrics). 
 
---  Creating a DQ hive table(tf_nk_fact_web_metrics) over the incoming data
-CREATE EXTERNAL TABLE  work_al_web_metrics.tf_nk_fact_web_metrics(
+--  Creating a DQ hive table(tf_fact_web_metrics) over the incoming data
+DROP TABLE IF EXISTS ${hivevar:WORK_AL_WEB_METRICS_DB}.tf_nk_fact_web_metrics;
+
+CREATE EXTERNAL TABLE  ${hivevar:WORK_AL_WEB_METRICS_DB}.tf_nk_fact_web_metrics(
 id STRING,
 date_ak INT,
 time_ak STRING,
@@ -23,4 +25,4 @@ search_text STRING,
 qty INT)
 PARTITIONED BY (event_type_key STRING)
 LOCATION
-  '/user/hadoop/data/work/webmetrics/tf_nk_fact_web_metrics'
+  '${hivevar:WORK_DIR}/data/work/alwebmetrics/tf_nk_fact_web_metrics'
