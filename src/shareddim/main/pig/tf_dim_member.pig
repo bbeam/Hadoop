@@ -486,7 +486,7 @@ groupby_table_al4_t_associate_permission =
 	
 gen_groupby_table_al4_t_associate_permission = 
 	FOREACH groupby_table_al4_t_associate_permission 
-	GENERATE group AS user_id:INT, AVG(table_al4_t_associate_permission.associate_permission_id) AS associate:INT;
+	GENERATE group AS user_id:INT, 1 AS associate:INT;
 
 lojoin_base_members_with_table_al4_t_associate_permission = 
 	JOIN gen_lojoin_base_members_with_table_al4_t_contact_information BY user_id LEFT OUTER, gen_groupby_table_al4_t_associate_permission BY user_id;
@@ -517,7 +517,7 @@ gen_lojoin_base_members_with_table_al4_t_associate_permission =
 			 gen_lojoin_base_members_with_table_al4_t_contact_information::advertising_zone AS advertising_zone: int,
 			 gen_lojoin_base_members_with_table_al4_t_contact_information::primary_phonenumber AS primary_phonenumber: chararray, 
 			 gen_lojoin_base_members_with_table_al4_t_contact_information::tci_email AS tci_email: chararray,
-			 gen_groupby_table_al4_t_associate_permission::associate AS associate: int;
+			 (gen_groupby_table_al4_t_associate_permission::associate IS NOT NULL ? gen_groupby_table_al4_t_associate_permission::associate : 0) AS associate: int;
 
 
 /* Step 15: Foreach UserId in AngiesList.dbo.t_EmployeePermission, find avg(EmployeePermissionId) and left join it with the base table on UserId. This will be used to set the EmployeeFlag. */
@@ -526,7 +526,7 @@ groupby_table_al4_t_employee_permission =
 	
 gen_groupby_table_al4_t_employee_permission = 
 	FOREACH groupby_table_al4_t_employee_permission 
-	GENERATE group AS user_id:INT, AVG(table_al4_t_employee_permission.employee_permission_id) AS employee:INT;
+	GENERATE group AS user_id:INT, 1 AS employee:INT;
 
 lojoin_base_members_with_table_al4_t_employee_permission = 
 	JOIN gen_lojoin_base_members_with_table_al4_t_associate_permission BY user_id LEFT OUTER, gen_groupby_table_al4_t_employee_permission BY user_id;
@@ -558,12 +558,12 @@ gen_lojoin_base_members_with_table_al4_t_employee_permission =
 			 gen_lojoin_base_members_with_table_al4_t_associate_permission::primary_phonenumber AS primary_phonenumber: chararray, 
 			 gen_lojoin_base_members_with_table_al4_t_associate_permission::tci_email AS tci_email: chararray,
 			 gen_lojoin_base_members_with_table_al4_t_associate_permission::associate AS associate: int,
-			 gen_groupby_table_al4_t_employee_permission::employee AS employee: int;
+			 (gen_groupby_table_al4_t_employee_permission::employee IS NOT NULL ? gen_groupby_table_al4_t_employee_permission::employee : 0) AS employee: int;
 
 
 /* Step 16: Left join Angie.dbo.Members with shared.dim_market on Market and derive Market Key by selecting latest record. If Market is missing, populate Market_Key from dim_Market where market_id = -1 */
 lojoin_base_members_with_table_dim_market = 
-	JOIN gen_lojoin_base_members_with_table_al4_t_employee_permission BY market LEFT OUTER, table_dim_market BY market_nm;
+	JOIN gen_lojoin_base_members_with_table_al4_t_employee_permission BY UPPER(market) LEFT OUTER, table_dim_market BY UPPER(market_nm);
 
 gen_lojoin_base_members_with_table_dim_market = 
 	FOREACH lojoin_base_members_with_table_dim_market
