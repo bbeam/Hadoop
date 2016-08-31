@@ -1,5 +1,5 @@
 /*
-PIG SCRIPT    : tf_fact_wm_13_segement_popular_category_tapped.pig
+PIG SCRIPT    : tf_fact_wm_14_segement_popular_category_tapped.pig
 AUTHOR        : Abhijeet Purwar
 DATE          : 30 Aug 16 
 DESCRIPTION   : Data Transformation script for webmetrics fact table for the event popular_category_tapped from Segment Source
@@ -39,7 +39,7 @@ tf_segment_pop_cat_tapped = FOREACH jn_pop_cat_tapped_fltr
                 'android' AS event_sub_source,
                 NULL AS search_text,
                 1 AS qty,
-                13 AS event_type_key;
+                14 AS event_type_key;
      
 STORE tf_segment_pop_cat_tapped 
     INTO 'work_al_web_metrics.tf_nk_fact_web_metrics'
