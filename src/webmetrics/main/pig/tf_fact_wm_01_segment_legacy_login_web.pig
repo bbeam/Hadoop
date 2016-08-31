@@ -14,11 +14,6 @@ table_dq_user_login=
         LOAD '$GOLD_SEGMENT_EVENTS_ALWP_DB.dq_user_login'
         USING org.apache.hive.hcatalog.pig.HCatLoader();
 
-
-		
-table_dim_event_type=
-        LOAD '$GOLD_SHARED_DIM_DB.dim_event_type'
-        USING org.apache.hive.hcatalog.pig.HCatLoader();
 		
 table_dim_member=
         LOAD '$GOLD_SHARED_DIM_DB.dim_member'
@@ -87,7 +82,7 @@ tf_login = FOREACH un_mhl_ul  GENERATE
              ToString(est_sent_at,'hh:mm') AS (time_ak:CHARARRAY),
              (INT)-2 AS (legacy_spid:INT),
              (INT)-2 AS (new_world_spid:INT),
-             (INT)-1 AS (source_ak:int),
+             (INT)-2 AS (source_ak:int),
              (CHARARRAY)'Not Applicable' AS (source_table:chararray),
              (member_id IS NULL?-3: member_id) AS (member_id:INT),
              (user_id IS NULL?-3:user_id) AS (user_id:INT),
