@@ -82,8 +82,8 @@ union_gen_table_screens_user_id_member_id_sp_id = UNION table_dim_service_provid
 
 tf_segment_screens = FOREACH union_gen_table_screens_user_id_member_id_sp_id 
 					 GENERATE   id AS id, 
-								(INT)(ToString(est_sent_at,'YYYYMMDD')) AS date_ak,
-								ToString(est_sent_at,'hh:mm') AS time_ak,
+								(INT)(ToString(est_sent_at,'yyyyMMdd')) AS date_ak,
+								ToString(est_sent_at,'HH:mm') AS time_ak,
 								legacy_spid AS legacy_spid,
 								new_world_spid AS new_world_spid,
 								$NUMERIC_NA_KEY AS source_ak,

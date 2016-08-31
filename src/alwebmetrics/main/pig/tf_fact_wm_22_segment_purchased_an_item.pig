@@ -73,8 +73,8 @@ union_gen_table_purchased_an_item_user_id_member_id_spid_category_id = UNION tab
 
 tf_segment_purchased_an_item = FOREACH union_gen_table_purchased_an_item_user_id_member_id_spid_category_id 
 					 GENERATE   id AS id, 
-								(INT)(ToString(est_sent_at,'YYYYMMDD')) AS date_ak,
-								ToString(est_sent_at,'hh:mm') AS time_ak,
+								(INT)(ToString(est_sent_at,'yyyyMMdd')) AS date_ak,
+								ToString(est_sent_at,'HH:mm') AS time_ak,
 								legacy_spid AS legacy_spid,
 								new_world_spid AS new_world_spid,
 								source_ak AS source_ak,
