@@ -57,7 +57,7 @@ tf_segment_pages = FOREACH un_pages_members
                 '$EVENT_SUB_SOURCE_WEB' AS event_sub_source,
                 ( CHARARRAY ) NULL AS search_text,
                 1 AS qty,
-                TF_EVENT_KEY AS event_type_key;
+                $TF_EVENT_KEY AS event_type_key;
      
 STORE tf_segment_pages 
     INTO 'work_al_web_metrics.tf_nk_fact_web_metrics'
