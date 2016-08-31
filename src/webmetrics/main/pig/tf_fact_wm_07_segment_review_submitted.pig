@@ -1,5 +1,5 @@
 /*
-PIG SCRIPT    : tf_fact_wm_08_segement_review_submitted.pig
+PIG SCRIPT    : tf_fact_wm_07_segement_review_submitted.pig
 AUTHOR        : Abhijeet Purwar
 DATE          : 29 Aug 16 
 DESCRIPTION   : Data Transformation script for webmetrics fact table for the event Review_submitted from Segment Source
@@ -18,21 +18,21 @@ dim_service_provider =
         LOAD 'gold_shared_dim.dim_service_provider'
         USING org.apache.hive.hcatalog.pig.HCatLoader();
 
-request_type_info = 
+/*request_type_info = 
         LOAD 'gold_legacy_angie_dbo.dq_tbl_request_type_info'
-        USING org.apache.hive.hcatalog.pig.HCatLoader();
+        USING org.apache.hive.hcatalog.pig.HCatLoader();*/
        
 reviw_filtered = FILTER review BY edh_bus_date == '2016-01-01';
 
 
 /* Check if user_id is null. If user_id  is null then populate both member_id and user_id as missing */
-reviw_filtered_mark_check_member_id = FOREACH reviw_filtered GENERATE
+reviw_filtered_mark_check_user_id = FOREACH reviw_filtered GENERATE
                                 (chararray)gave_id AS id,
                                 est_sent_at AS est_sent_at,
                                 request_info_id AS request_info_id,
                                 sp_id AS new_world_spid,
                                 gave_count AS qty,
-                                (user_id IS NULL ? -1 : user_id) AS user_id,
+                                (user_id IS NULL OR user_id =='' ? -1 : user_id) AS user_id,
                                 (user_id IS NULL ? -1 : NULL ) AS member_id;
                    
 /* Split into 2 separate relations the records with user_id missing and those with user_id available */
@@ -63,7 +63,7 @@ all_review_members_check_sp_id = FOREACH all_review_members GENERATE
                                 qty AS qty,
                                 user_id AS user_id,
                                 member_id AS member_id,
-                                (new_world_spid IS NULL ? -1 : new_world_spid ) AS new_world_spid,
+                                (new_world_spid IS NULL OR new_world_spid =='' ? -1 : new_world_spid ) AS new_world_spid,
                                 (new_world_spid IS NULL ? -1 : NULL ) AS legacy_spid;
                             
 /* Split into 2 separate relations the records with new_world_spid missing and those with new_world_spid available */
@@ -90,7 +90,7 @@ all_review_members_sp = UNION review_members_new_world_spid_missing, jn_review_m
 
                                    
 /* Join with request_type_info table to retrieve category_id and keyword */
-jn_review_members_sp_rti = FOREACH (JOIN all_review_members_sp BY request_info_id , request_type_info BY request_info_id)
+/*jn_review_members_sp_rti = FOREACH (JOIN all_review_members_sp BY request_info_id , request_type_info BY request_info_id)
                          GENERATE   all_review_members_sp::id AS id,
                                     all_review_members_sp::est_sent_at AS est_sent_at,
                                     all_review_members_sp::qty AS qty,
@@ -99,10 +99,10 @@ jn_review_members_sp_rti = FOREACH (JOIN all_review_members_sp BY request_info_i
                                     all_review_members_sp::legacy_spid AS legacy_spid,
                                     all_review_members_sp::new_world_spid AS new_world_spid,
                                     (request_type_info::cat_id IS NULL ? -1 : request_type_info::cat_id)  AS category_id,
-                                    request_type_info::keyword AS search_text;
+                                    request_type_info::keyword AS search_text;*/
 
 /* Format the record as per the Target Table structure */
-tf_segment_review_submitted = FOREACH jn_review_members_sp_rti 
+tf_segment_review_submitted = FOREACH all_review_members_sp 
     GENERATE    id AS id, 
                 (INT)(ToString(est_sent_at,'yyyyMMdd')) AS date_ak,
                 ToString(est_sent_at,'HH:mm') AS time_ak,
@@ -112,14 +112,14 @@ tf_segment_review_submitted = FOREACH jn_review_members_sp_rti
                 'Not Applicable' AS source_table,
                 member_id AS member_id,
                 user_id  AS user_id,
-                category_id AS category_id,
+                -2 AS category_id,
                 'Review Submitted' AS event_type,
                 'Not Applicable' AS search_type,
                 0 AS event_source:int,
                 'web' AS event_sub_source,
-                search_text AS search_text,
-                qty AS qty,
-                8 AS event_type_key;
+                NULL AS search_text,
+                1 AS qty,
+                7 AS event_type_key;
 
 /* Store Data into target table */
 STORE tf_segment_review_submitted 
