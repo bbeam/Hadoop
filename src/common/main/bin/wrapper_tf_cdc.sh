@@ -82,7 +82,7 @@ echo "Business Date : $EDH_BUS_DATE"
 #echo "Business Month :$EDH_BUS_MONTH"
 
 UTC_TIME=`date +'%Y-%m-%d %H:%M:%S'`
-EST_TIME=`TZ=":US/East-Indiana" date +'%Y-%m-%d %H:%M:%S'`
+EST_TIME=`TZ=":EST" date +'%Y-%m-%d %H:%M:%S'`
 
 echo "UTC_TIME:$UTC_TIME"
 echo "EST_TIME:$EST_TIME"
@@ -202,9 +202,10 @@ hive -f $TF_AUDIT_HQL_PATH \
     -hivevar OPERATIONS_COMMON_DB=$OPERATIONS_COMMON_DB \
     -hivevar AUDIT_TABLE_NAME=$AUDIT_TABLE_NAME \
     -hivevar USER_NAME=$USER_NAME \
+    -hivevar UTC_TIME="$UTC_TIME" \
+    -hivevar EST_TIME="$EST_TIME" \
     -hivevar TF_DB=$TF_DB \
-    -hivevar TF_TABLE=$TF_TABLE \
-	-hivevar EDH_BUS_DATE=$EDH_BUS_DATE
+    -hivevar TF_TABLE=$TF_TABLE
 
 # Hive Status check
 if [ $? -eq 0 ]
@@ -255,9 +256,10 @@ hive -f $CDC_AUDIT_HQL_PATH \
     -hivevar OPERATIONS_COMMON_DB=$OPERATIONS_COMMON_DB \
     -hivevar AUDIT_TABLE_NAME=$AUDIT_TABLE_NAME \
     -hivevar USER_NAME=$USER_NAME \
+    -hivevar UTC_TIME="$UTC_TIME" \
+    -hivevar EST_TIME="$EST_TIME" \
     -hivevar WORK_CDC_DB=$WORK_DIM_DB_NAME \
-    -hivevar WORK_CDC_TABLE=$WORK_DIM_TABLE_NAME \
-	-hivevar EDH_BUS_DATE=$EDH_BUS_DATE
+    -hivevar WORK_CDC_TABLE=$WORK_DIM_TABLE_NAME
 
 # Hive Status check
 if [ $? -eq 0 ]
@@ -267,4 +269,3 @@ then
         echo "$CDC_AUDIT_HQL_PATH  execution failed."
         exit 1
 fi
-
