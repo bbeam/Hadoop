@@ -7,16 +7,16 @@ DESCRIPTION   : Data Transformation script for webmetrics fact table for the eve
 
 /* Load Required Tables */
 requested_companies = 
-        LOAD 'gold_legacy_angie_dbo.dq_tbl_requested_companies'
+        LOAD '$GOLD_LEGACY_ANGIE_DBO_DB.dq_tbl_requested_companies'
         USING org.apache.hive.hcatalog.pig.HCatLoader();
 request_type_info = 
-        LOAD 'gold_legacy_angie_dbo.dq_tbl_request_type_info'
+        LOAD '$GOLD_LEGACY_ANGIE_DBO_DB.dq_tbl_request_type_info'
         USING org.apache.hive.hcatalog.pig.HCatLoader();
 dim_members =
-        LOAD 'gold_shared_dim.dim_member'
+        LOAD '$GOLD_SHARED_DIM_DB.dim_member'
         USING org.apache.hive.hcatalog.pig.HCatLoader();
 dim_service_provider =
-        LOAD 'gold_shared_dim.dim_service_provider'
+        LOAD '$GOLD_SHARED_DIM_DB.dim_service_provider'
         USING org.apache.hive.hcatalog.pig.HCatLoader();
 
 
@@ -120,5 +120,5 @@ tf_legacy_profile_view = FOREACH jn_rc_members_sp_rti
 
 /* Store Data into target table */
 STORE tf_legacy_profile_view 
-    INTO 'work_al_web_metrics.tf_nk_fact_web_metrics'
+    INTO '$WORK_AL_WEB_METRICS_DB.tf_nk_fact_web_metrics'
     USING org.apache.hive.hcatalog.pig.HCatStorer();

@@ -7,11 +7,11 @@ DESCRIPTION   : Data Transformation script for webmetrics fact table for the eve
 
 
 pages = 
-        LOAD 'gold_sgmnt_events_alwp.dq_pages'
+        LOAD '$GOLD_SEGMENT_EVENTS_ALWP_DB.dq_pages'
         USING org.apache.hive.hcatalog.pig.HCatLoader();
 
 dim_members =
-        LOAD 'gold_shared_dim.dim_member'
+        LOAD '$GOLD_SHARED_DIM_DB.dim_member'
         USING org.apache.hive.hcatalog.pig.HCatLoader();
         
 pages_sel = FILTER pages BY edh_bus_date == '$EDH_BUS_DATE'
@@ -27,8 +27,8 @@ pages_check_user_id = FOREACH pages_sel GENERATE
                                 
 /* Split into 2 separate relations the records with user_id missing and those with user_id available */
 SPLIT pages_check_user_id INTO
-                    pages_user_id_missing IF (member_id == $NUMERIC_MISSING_KEY ),
-                    pages_user_id_available IF (member_id != $NUMERIC_MISSING_KEY );
+                    pages_user_id_missing IF (user_id == $NUMERIC_MISSING_KEY ),
+                    pages_user_id_available IF (user_id != $NUMERIC_MISSING_KEY );
                                 
 jn_pages_user_id_available_members = FOREACH (JOIN pages_user_id_available BY user_id LEFT , dim_members BY user_id ) 
                             GENERATE pages_user_id_available::id AS id,  
@@ -60,5 +60,5 @@ tf_segment_pages = FOREACH un_pages_members
                 $TF_EVENT_KEY AS event_type_key;
      
 STORE tf_segment_pages 
-    INTO 'work_al_web_metrics.tf_nk_fact_web_metrics'
+    INTO '$WORK_AL_WEB_METRICS_DB.tf_nk_fact_web_metrics'
     USING org.apache.hive.hcatalog.pig.HCatStorer();

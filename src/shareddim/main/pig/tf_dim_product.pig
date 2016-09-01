@@ -21,7 +21,7 @@ storefront_item_join_storefront_item_type_tf = FOREACH (JOIN legacy_storefront_i
                         'StorefrontItem' AS source_table,
                         'StorefrontItemID' AS source_column,
                         (legacy_storefront_item_type::storefront_item_type_id==6 AND 
-                        ToString(legacy_storefront_item::create_date,'yyyy-MM-dd') >= '2015-01-10' ? 'LeadFeed': 'E-Commerce') AS master_product_group,
+                        ToString(legacy_storefront_item::create_date,'yyyy-MM-dd') >= '2015-10-01' ? 'LeadFeed': 'E-Commerce') AS master_product_group,
                         legacy_storefront_item_type::storefront_item_type_name AS product_type,
                         legacy_storefront_item::title AS product,
                         legacy_storefront_item::member_price AS unit_price,
