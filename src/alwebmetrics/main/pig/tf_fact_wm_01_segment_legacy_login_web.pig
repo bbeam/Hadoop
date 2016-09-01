@@ -33,8 +33,8 @@ sel_ul =  FOREACH table_dq_user_login GENERATE
 						   
 /* Split into 2 separate relations the records with user_id missing and those with member_id available */
 SPLIT sel_ul INTO
-                    ul_user_id_missing IF (user_id == -1),
-                    ul_user_id_available IF (user_id != -1);
+                    ul_user_id_missing IF (user_id == $NUMERIC_MISSING_KEY),
+                    ul_user_id_available IF (user_id != $NUMERIC_MISSING_KEY);
 					
 /* Join with dim_member table to get the corresponding membr_id for a given user_id */
 jn_ul_user_id_available_users = FOREACH (JOIN ul_user_id_available BY user_id LEFT , table_dim_member BY user_id) 
@@ -78,9 +78,9 @@ un_mhl_ul= UNION un_mhl,un_ul;
 /* Format the record as per the Target Table structure */		
 tf_login = FOREACH un_mhl_ul  GENERATE 
              (CHARARRAY)id AS (id:CHARARRAY),
-             (INT)(ToString(est_sent_at,'YYYYMMDD')) AS (date_ak:INT),
-             ToString(est_sent_at,'hh:mm') AS (time_ak:CHARARRAY),
-             (INT)-2 AS (legacy_spid:INT),
+              ToDate(ToString(est_sent_at,'yyyy-MM-dd'),'yyyy-MM-dd') as (date_ak:datetime),
+              ToString(est_sent_at,'HH:mm') AS (time_ak:chararray),
+			 (INT)-2 AS (legacy_spid:INT),
              (INT)-2 AS (new_world_spid:INT),
              (INT)-2 AS (source_ak:int),
              (CHARARRAY)'Not Applicable' AS (source_table:chararray),

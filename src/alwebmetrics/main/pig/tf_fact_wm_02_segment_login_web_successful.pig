@@ -46,8 +46,8 @@ un_uls = UNION jn_uls_user_id_available_users,uls_user_id_missing;
 /* Format the record as per the Target Table structure */		
 tf_user_login_successful = FOREACH un_uls  GENERATE 
              (CHARARRAY)id AS (id:CHARARRAY),
-             (INT)(ToString(est_sent_at,'YYYYMMDD')) AS (date_ak:INT),
-             ToString(est_sent_at,'hh:mm') AS (time_ak:CHARARRAY),
+              ToDate(ToString(est_sent_at,'yyyy-MM-dd'),'yyyy-MM-dd') as (date_ak:datetime),
+              ToString(est_sent_at,'HH:mm') AS (time_ak:chararray),
              (INT)$NUMERIC_NA_KEY AS (legacy_spid:INT),
              (INT)$NUMERIC_NA_KEY AS (new_world_spid:INT),
              (INT)$NUMERIC_NA_KEY AS (source_ak:int),
