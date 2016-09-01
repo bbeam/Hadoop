@@ -5,7 +5,7 @@
 -- #########################################################################################################
 
 
-use ${hivevar:GOLD_SHARED_DIM_DB};
+use ${hivevar:GOLD_AL_WEB_METRICS};
 
 -- =========Manual insert statement to load the data into target table========
 

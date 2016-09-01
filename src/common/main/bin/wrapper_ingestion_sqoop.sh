@@ -165,7 +165,7 @@ fi
 
 # Run java jar program for to generate DQ pig script
 java -cp /var/tmp/EDH_JAVA-1.0-jar-with-dependencies.jar com.angieslist.edh.dq.dqgenerator.DQParser  /var/tmp/$INPUT_JSON_FILE_NAME /var/tmp/$SCHEMA_FILE_NAME
-
+TABLE_NAME_DQ=$(echo "$TABLE_NAME_DQ" | tr '[:upper:]' '[:lower:]')
 if [ $? -eq 0 ]
 then
   		echo "$TABLE_NAME_DQ".pig" for performing DQ activity created successfully"
