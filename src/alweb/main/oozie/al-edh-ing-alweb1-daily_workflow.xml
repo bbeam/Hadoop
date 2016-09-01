@@ -1,0 +1,214 @@
+<!--********************************************************************************-->
+<!--Name:- al-edh-alweb1-daily_workflow.xml           							-->
+<!--								          										-->
+<!--Description:- AL 4.0 Ingestion workFlow   										-->
+<!--								           										-->
+<!--Author:- Ashoka Reddy          													-->
+<!--********************************************************************************-->
+
+<workflow-app name="ALWebIngestionWorkFlow" xmlns="uri:oozie:workflow:0.1">
+   <start to="alweb-al-t_associate_permission-full"/>
+   <action name="alweb-al-t_associate_permission-full">
+        <ssh xmlns="uri:oozie:ssh-action:0.1">
+            <host>${focusNodeLogin}</host>
+                <command>${wrapper_ingestion_sqoop_path}</command>
+                <args>${global_parameters_path}</args>
+                        <args>${alweb_al_t_associate_permission_parameters_path}</args>
+                        <args>2016-09-01</args>
+            <capture-output/>
+        </ssh>
+		<ok to="alweb-al-t_city-full"/>
+                <error to="FAIL" />
+	</action>
+	<action name="alweb-al-t_city-full">
+        <ssh xmlns="uri:oozie:ssh-action:0.1">
+            <host>${focusNodeLogin}</host>
+                <command>${wrapper_ingestion_sqoop_path}</command>
+                <args>${global_parameters_path}</args>
+                        <args>${alweb_al_t_city_parameters_path}</args>
+                        <args>2016-09-01</args>
+            <capture-output/>
+        </ssh>
+		<ok to="alweb-al-t_category-full"/>
+                <error to="FAIL" />
+	</action>
+	<action name="alweb-al-t_category-full">
+        <ssh xmlns="uri:oozie:ssh-action:0.1">
+            <host>${focusNodeLogin}</host>
+                <command>${wrapper_ingestion_sqoop_path}</command>
+                <args>${global_parameters_path}</args>
+                        <args>${alweb_al_t_category_parameters_path}</args>
+                        <args>2016-09-01</args>
+            <capture-output/>
+        </ssh>
+		<ok to="alweb-al-t_contact_information-full"/>
+                <error to="FAIL" />
+			</action>
+	<action name="alweb-al-t_contact_information-full">
+        <ssh xmlns="uri:oozie:ssh-action:0.1">
+            <host>${focusNodeLogin}</host>
+                <command>${wrapper_ingestion_sqoop_path}</command>
+                <args>${global_parameters_path}</args>
+                        <args>${alweb_al_t_contact_information_parameters_path}</args>
+                        <args>2016-09-01</args>
+            <capture-output/>
+        </ssh>
+		<ok to="alweb-al-t_employee_permission-full"/>
+                <error to="FAIL" />
+	</action>
+	<action name="alweb-al-t_employee_permission-full">
+        <ssh xmlns="uri:oozie:ssh-action:0.1">
+            <host>${focusNodeLogin}</host>
+                <command>${wrapper_ingestion_sqoop_path}</command>
+                <args>${global_parameters_path}</args>
+                        <args>${alweb_al_t_employee_permission_parameters_path}</args>
+                        <args>2016-09-01</args>
+            <capture-output/>
+        </ssh>
+		<ok to="alweb-al-t_member_permission-full"/>
+                <error to="FAIL" />
+	</action>
+	<action name="alweb-al-t_member_permission-full">
+        <ssh xmlns="uri:oozie:ssh-action:0.1">
+            <host>${focusNodeLogin}</host>
+                <command>${wrapper_ingestion_sqoop_path}</command>
+                <args>${global_parameters_path}</args>
+                        <args>${alweb_al_t_member_permission_parameters_path}</args>
+                        <args>2016-09-01</args>
+            <capture-output/>
+        </ssh>
+		<ok to="alweb-al-t_postal_address-full"/>
+                <error to="FAIL" />
+	</action>
+	<action name="alweb-al-t_postal_address-full">
+        <ssh xmlns="uri:oozie:ssh-action:0.1">
+            <host>${focusNodeLogin}</host>
+                <command>${wrapper_ingestion_sqoop_path}</command>
+                <args>${global_parameters_path}</args>
+                        <args>${alweb_al_t_postal_address_parameters_path}</args>
+                        <args>2016-09-01</args>
+            <capture-output/>
+        </ssh>
+		<ok to="alweb-al-t_region-full"/>
+                <error to="FAIL" />
+	</action>
+	<action name="alweb-al-t_region-full">
+        <ssh xmlns="uri:oozie:ssh-action:0.1">
+            <host>${focusNodeLogin}</host>
+                <command>${wrapper_ingestion_sqoop_path}</command>
+                <args>${global_parameters_path}</args>
+                        <args>${alweb_al_t_region_parameters_path}</args>
+                        <args>2016-09-01</args>
+            <capture-output/>
+        </ssh>
+		<ok to="alweb-al-t_service_provider-full"/>
+                <error to="FAIL" />
+	</action>
+	<action name="alweb-al-t_service_provider-full">
+        <ssh xmlns="uri:oozie:ssh-action:0.1">
+            <host>${focusNodeLogin}</host>
+                <command>${wrapper_ingestion_sqoop_path}</command>
+                <args>${global_parameters_path}</args>
+                        <args>${alweb_al_t_service_provider_parameters_path}</args>
+                        <args>2016-09-01</args>
+            <capture-output/>
+        </ssh>
+		<ok to="alweb-al-t_service_provider_address-full"/>
+                <error to="FAIL" />
+	</action>
+	<action name="alweb-al-t_service_provider_address-full">
+        <ssh xmlns="uri:oozie:ssh-action:0.1">
+            <host>${focusNodeLogin}</host>
+                <command>${wrapper_ingestion_sqoop_path}</command>
+                <args>${global_parameters_path}</args>
+                        <args>${alweb_al_t_service_provider_address_parameters_path}</args>
+                        <args>2016-09-01</args>
+            <capture-output/>
+        </ssh>
+		<ok to="alweb-al-t_sku-full"/>
+                <error to="FAIL" />
+	</action>
+	<action name="alweb-al-t_sku-full">
+        <ssh xmlns="uri:oozie:ssh-action:0.1">
+            <host>${focusNodeLogin}</host>
+                <command>${wrapper_ingestion_sqoop_path}</command>
+                <args>${global_parameters_path}</args>
+                        <args>${alweb_al_t_sku_parameters_path}</args>
+                        <args>2016-09-01</args>
+            <capture-output/>
+        </ssh>
+		<ok to="alweb-al-t_sku_item-full"/>
+                <error to="FAIL" />
+	</action>
+	<action name="alweb-al-t_sku_item-full">
+        <ssh xmlns="uri:oozie:ssh-action:0.1">
+            <host>${focusNodeLogin}</host>
+                <command>${wrapper_ingestion_sqoop_path}</command>
+                <args>${global_parameters_path}</args>
+                        <args>${alweb_al_t_sku_item_parameters_path}</args>
+                        <args>2016-09-01</args>
+            <capture-output/>
+        </ssh>
+		<ok to="alweb-al-t_user_address-full"/>
+                <error to="FAIL" />
+	</action>
+	<action name="alweb-al-t_user_address-full">
+        <ssh xmlns="uri:oozie:ssh-action:0.1">
+            <host>${focusNodeLogin}</host>
+                <command>${wrapper_ingestion_sqoop_path}</command>
+                <args>${global_parameters_path}</args>
+                        <args>${alweb_al_t_user_address_parameters_path}</args>
+                        <args>2016-09-01</args>
+            <capture-output/>
+        </ssh>
+		<ok to="alweb-al-t_user-full"/>
+                <error to="FAIL" />
+	</action>
+	<action name="alweb-al-t_user-full">
+        <ssh xmlns="uri:oozie:ssh-action:0.1">
+            <host>${focusNodeLogin}</host>
+                <command>${wrapper_ingestion_sqoop_path}</command>
+                <args>${global_parameters_path}</args>
+                        <args>${alweb_al_t_user_parameters_path}</args>
+                        <args>2016-09-01</args>
+            <capture-output/>
+        </ssh>
+		<ok to="alweb-fulfillment-lead-full"/>
+                <error to="FAIL" />
+	</action>
+	<action name="alweb-fulfillment-lead-full">
+        <ssh xmlns="uri:oozie:ssh-action:0.1">
+            <host>${focusNodeLogin}</host>
+                <command>${wrapper_ingestion_sqoop_path}</command>
+                <args>${global_parameters_path}</args>
+                        <args>${alweb_fulfillment_lead_parameters_path}</args>
+                        <args>2016-09-01</args>
+            <capture-output/>
+        </ssh>
+		<ok to="COMPLETE"/>
+                <error to="FAIL" />
+			</action>
+			<action name="COMPLETE">
+        <email xmlns="uri:oozie:email-action:0.1">
+            <to>${emailToAddress}</to>
+            <subject>Ingestion Completed</subject>
+            <body>All tables are pulled</body>
+        </email>
+        <ok to="END"/>
+        <error to="FAIL"/>
+    </action>
+	<action name="FAIL">
+        <email xmlns="uri:oozie:email-action:0.1">
+            <to>${emailToAddress}</to>
+            <subject>Ingestion Failed</subject>
+            <body>Job failed, error message[${wf:errorMessage(wf:lastErrorNode())}]</body>
+        </email>
+        <ok to="KILL"/>
+        <error to="KILL"/>
+    </action>
+	<kill name="KILL">
+		<!-- <message>"Killed job due to error"</message> -->
+		<message>Job failed, error message[${wf:errorMessage(wf:lastErrorNode())}]</message>
+	</kill>
+        <end name="END" />
+</workflow-app>
