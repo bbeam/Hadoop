@@ -254,7 +254,7 @@
          "Name":"create_date",
          "Type":"TIMESTAMP",
 		 "Format":"yyyy-MM-dd HH:mm:ss",
-		 "TimeZone":"UTC",
+		 "TimeZone":"EST",
 		 "ConvertToTimeZone":"EST",
          "Validations":[  
             {  
