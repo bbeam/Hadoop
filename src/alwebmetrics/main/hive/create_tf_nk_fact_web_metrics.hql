@@ -8,7 +8,7 @@ DROP TABLE IF EXISTS ${hivevar:WORK_AL_WEB_METRICS_DB}.tf_nk_fact_web_metrics;
 
 CREATE EXTERNAL TABLE  ${hivevar:WORK_AL_WEB_METRICS_DB}.tf_nk_fact_web_metrics(
 id STRING,
-date_ak INT,
+date_ak DATE,
 time_ak STRING,
 legacy_spid INT,
 new_world_spid INT,

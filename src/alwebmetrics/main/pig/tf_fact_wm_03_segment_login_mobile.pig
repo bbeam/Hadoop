@@ -22,14 +22,14 @@ dq_on_board_user_signs_in_success = FILTER dq_on_board_user_signs_in_success BY 
 /* Check if user_id is null as user_id in the applicable column. If user_id is null then populate both member_id and user_id as missing */
 sel_obusis =  FOREACH dq_on_board_user_signs_in_success GENERATE
                            (CHARARRAY)id AS (id:CHARARRAY),
-                           (user_id IS NULL OR (CHARARRAY)user_id == ''? -1 : NULL) AS (member_id:INT),
-						   (user_id IS NULL OR (CHARARRAY)user_id == ''? -1 : (INT)user_id) AS (user_id:INT),
+                           (user_id IS NULL OR (CHARARRAY)user_id == ''? (INT)$NUMERIC_MISSING_KEY : NULL) AS (member_id:INT),
+						   (user_id IS NULL OR (CHARARRAY)user_id == ''? (INT)$NUMERIC_MISSING_KEY : (INT)user_id) AS (user_id:INT),
 						   est_sent_at AS est_sent_at;
 						   
 /* Split into 2 separate relations the records with user_id missing and those with member_id available */
 SPLIT sel_obusis INTO
-                    obusis_user_id_missing IF (user_id == -1),
-                    obusis_user_id_available IF (user_id != -1);
+                    obusis_user_id_missing IF (user_id == (INT)$NUMERIC_MISSING_KEY),
+                    obusis_user_id_available IF (user_id != (INT)$NUMERIC_MISSING_KEY);
 					
 /* Join with dim_member table to get the corresponding membr_id for a given user_id */
 jn_obusis_user_id_available_users = FOREACH (JOIN obusis_user_id_available BY user_id LEFT , table_dim_member BY user_id) 
