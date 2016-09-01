@@ -75,10 +75,6 @@
 		 "Type":"varchar(254)",
          "Validations":[  
             {  
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {  
                "Check":"DataType",
                "Action":"Reject"
             }

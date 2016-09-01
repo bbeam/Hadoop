@@ -75,10 +75,7 @@
          "Name":"title",
          "Type":"STRING",
          "Validations":[  
-            {  
-               "Check":"Null",
-               "Action":"Reject"
-            }
+            
          ]
       },
 	  {  

@@ -40,10 +40,7 @@
          "Name":"address_first_line",
          "Type":"VARCHAR(254)",
          "Validations":[  
-            {  
-               "Check":"Null",
-               "Action":"Reject"
-            }
+            
          ]
       },
       {  
