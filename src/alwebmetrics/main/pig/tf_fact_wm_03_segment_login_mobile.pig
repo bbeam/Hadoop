@@ -22,14 +22,14 @@ dq_on_board_user_signs_in_success = FILTER dq_on_board_user_signs_in_success BY 
 /* Check if user_id is null as user_id in the applicable column. If user_id is null then populate both member_id and user_id as missing */
 sel_obusis =  FOREACH dq_on_board_user_signs_in_success GENERATE
                            (CHARARRAY)id AS (id:CHARARRAY),
-                           (user_id IS NULL OR (CHARARRAY)user_id == ''? -1 : NULL) AS (member_id:INT),
-						   (user_id IS NULL OR (CHARARRAY)user_id == ''? -1 : (INT)user_id) AS (user_id:INT),
+                           (user_id IS NULL OR (CHARARRAY)user_id == ''? (INT)$NUMERIC_MISSING_KEY : NULL) AS (member_id:INT),
+						   (user_id IS NULL OR (CHARARRAY)user_id == ''? (INT)$NUMERIC_MISSING_KEY : (INT)user_id) AS (user_id:INT),
 						   est_sent_at AS est_sent_at;
 						   
 /* Split into 2 separate relations the records with user_id missing and those with member_id available */
 SPLIT sel_obusis INTO
-                    obusis_user_id_missing IF (user_id == -1),
-                    obusis_user_id_available IF (user_id != -1);
+                    obusis_user_id_missing IF (user_id == (INT)$NUMERIC_MISSING_KEY),
+                    obusis_user_id_available IF (user_id != (INT)$NUMERIC_MISSING_KEY);
 					
 /* Join with dim_member table to get the corresponding membr_id for a given user_id */
 jn_obusis_user_id_available_users = FOREACH (JOIN obusis_user_id_available BY user_id LEFT , table_dim_member BY user_id) 
@@ -46,8 +46,8 @@ un_obusis = UNION jn_obusis_user_id_available_users,obusis_user_id_missing;
 /* Format the record as per the Target Table structure */		
 tf_login_mobile = FOREACH un_obusis  GENERATE 
              (CHARARRAY)id AS (id:CHARARRAY),
-             (INT)(ToString(est_sent_at,'YYYYMMDD')) AS (date_ak:INT),
-             ToString(est_sent_at,'hh:mm') AS (time_ak:CHARARRAY),
+              ToDate(ToString(est_sent_at,'yyyy-MM-dd'),'yyyy-MM-dd') as (date_ak:datetime),
+              ToString(est_sent_at,'HH:mm') AS (time_ak:chararray),
              (INT)$NUMERIC_NA_KEY AS (legacy_spid:INT),
              (INT)$NUMERIC_NA_KEY AS (new_world_spid:INT),
              (INT)$NUMERIC_NA_KEY AS (source_ak:int),
