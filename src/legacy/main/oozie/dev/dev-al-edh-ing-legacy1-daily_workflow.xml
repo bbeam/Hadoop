@@ -37,8 +37,8 @@
             <host>${focusNodeLogin}</host>
                 <command>${wrapper_ingestion_sqoop_path}</command>
                 <args>s3://al-edh-dev/src/common/main/conf/al-edh-global.properties</args>
-                        <args>${alweb_al_t_category_parameters_path}</args>
-                        <args>${edh_bus_date}</args>
+                <args>s3://al-edh-dev/src/legacy/main/conf/ingestion_angie_dbo_cash_posting.properties</args>
+                <args>${edh_bus_date}</args>
             <capture-output/>
         </ssh>
 		<ok to="legacy-angie-dbo-ad_element-full"/>
@@ -49,8 +49,8 @@
             <host>${focusNodeLogin}</host>
                 <command>${wrapper_ingestion_sqoop_path}</command>
                 <args>s3://al-edh-dev/src/common/main/conf/al-edh-global.properties</args>
-                        <args>${alweb_al_t_contact_information_parameters_path}</args>
-                        <args>${edh_bus_date}</args>
+                 <args>${alweb_al_t_contact_information_parameters_path}</args>
+                 <args>${edh_bus_date}</args>
             <capture-output/>
         </ssh>
 		<ok to="alweb-al-t_employee_permission-full"/>
