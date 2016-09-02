@@ -1,7 +1,8 @@
 --driver 
 com.amazon.redshift.jdbc4.Driver 
 --query 
-"select * from angieslistweb_prod.offer_page_loaded where cast(sent_at as DATE)>='EXTRACT_START_DATE' and cast(sent_at as DATE)<='EXTRACT_END_DATE' and $CONDITIONS" 
+"select * from angieslistweb_prod.offer_page_loaded where sent_at >= CONVERT_TIMEZONE('EST','UTC','EXTRACT_START_DATE 00:00:00') and sent_at <= CONVERT_TIMEZONE('EST','UTC','EXTRACT_END_DATE 23:59:59')
+ and $CONDITIONS" 
 --split-by
 sent_at
 --hive-delims-replacement

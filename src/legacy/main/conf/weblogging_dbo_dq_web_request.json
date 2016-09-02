@@ -121,10 +121,6 @@
          "Name":"user_agent",
 		 "Type":"STRING",
          "Validations":[  
-             {  
-               "Check":"Null",
-               "Action":"Reject"
-            },
 			{  
                "Check":"DataType",
                "Action":"Reject"

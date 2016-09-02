@@ -40,10 +40,7 @@
          "Name":"address_first_line",
          "Type":"VARCHAR(254)",
          "Validations":[  
-            {  
-               "Check":"Null",
-               "Action":"Reject"
-            }
+            
          ]
       },
       {  
@@ -99,10 +96,7 @@
          "Name":"postal_code",
          "Type":"VARCHAR(50)",
          "Validations":[  
-            {  
-               "Check":"Null",
-               "Action":"Reject"
-            }
+            
          ]
       },
       {  

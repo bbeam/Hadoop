@@ -12,19 +12,19 @@
 CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dim_date
 (
 date_key BIGINT,
-date_ak TIMESTAMP,
+date_ak DATE,
 date_string STRING,
 day_number_of_week TINYINT,
-week_ending_date TIMESTAMP,
+week_ending_date DATE,
 week_ending_string STRING,
-last_day_of_month_date TIMESTAMP,
+last_day_of_month_date DATE,
 last_day_of_month_name STRING,
 day_number_of_month TINYINT,
 day_number_of_year SMALLINT,
 calendar_week TINYINT,
 calendar_month TINYINT,
 calendar_quarter TINYINT,
-calendar_year STRING
+calendar_year SMALLINT
 )
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY ','

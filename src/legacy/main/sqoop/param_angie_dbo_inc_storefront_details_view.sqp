@@ -1,5 +1,5 @@
 --query
-'select * from StorefrontDetailsView where cast(CreateDate as DATE)='EXTRACT_DATE' and $CONDITIONS'
+'select * from StorefrontDetailsView where CreateDate >= TODATETIMEOFFSET('EXTRACT_DATE 00:00:00', '-05:00') and  CreateDate <= TODATETIMEOFFSET('EXTRACT_DATE 23:59:59', '-05:00') and $CONDITIONS'
 --split-by
 StorefrontDetailsViewId
 --hive-delims-replacement

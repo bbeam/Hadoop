@@ -89,10 +89,7 @@
          "Name":"create_by",
          "Type":"STRING",
          "Validations":[  
-            {  
-               "Check":"Null",
-               "Action":"Reject"
-            }
+            
          ]
       },
       {  
