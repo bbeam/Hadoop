@@ -96,10 +96,7 @@
          "Name":"postal_code",
          "Type":"VARCHAR(50)",
          "Validations":[  
-            {  
-               "Check":"Null",
-               "Action":"Reject"
-            }
+            
          ]
       },
       {  
