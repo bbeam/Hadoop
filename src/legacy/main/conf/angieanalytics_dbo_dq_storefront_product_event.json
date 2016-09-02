@@ -3,7 +3,7 @@
    "OutputTableName":"dq_storefront_product_event",
    "SourceDB":"INCOMING_LEGACY_ANGIE_ANALYTICS_DBO_DB",
    "TargetDB":"GOLD_LEGACY_ANGIE_ANALYTICS_DBO_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/legacy/angieanalytics/dbo/full/daily/dq_storefront_product_event",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/legacy/angieanalytics/dbo/incremental/daily/dq_storefront_product_event/edh_bus_date=$EDH_BUS_DATE",
    "TableValidation":[  
       {  
          "Check":"Duplicate",
@@ -71,7 +71,7 @@
 	   {  
          "Name":"expiration_date",
 		 "Type":"TIMESTAMP",
-		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
+		 "Format":"yyyy-MM-dd HH:mm:ss",
 		 "TimeZone":"UTC",
 		 "ConvertToTimeZone":"EST",
          "Validations":[  
@@ -100,8 +100,8 @@
 	  {  
          "Name":"create_date",
 		 "Type":"TIMESTAMP",
-		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
-		 "TimeZone":"UTC",
+		 "Format":"yyyy-MM-dd HH:mm:ss",
+		 "TimeZone":"EST",
 		 "ConvertToTimeZone":"EST",
          "Validations":[  
            {  
@@ -134,7 +134,7 @@
 		{  
          "Name":"update_date",
 		 "Type":"TIMESTAMP",
-		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
+		 "Format":"yyyy-MM-dd HH:mm:ss",
 		 "TimeZone":"UTC",
 		 "ConvertToTimeZone":"EST",
          "Validations":[  

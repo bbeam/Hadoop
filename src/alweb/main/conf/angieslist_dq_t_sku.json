@@ -1,11 +1,11 @@
-{  
+{
    "InputTableName":"inc_t_sku",
    "OutputTableName":"dq_t_sku",
    "SourceDB":"INCOMING_ALWEB_AL_DB",
    "TargetDB":"GOLD_ALWEB_AL_DB",
    "DQHiveTableLocation":"$S3_BUCKET/data/gold/alweb/angieslist/full/daily/dq_t_sku",
-   "TableValidation":[  
-            {  
+   "TableValidation":[
+            {
                "Check":"Duplicate",
                "keyColumns":"sku_id",
                "Action":"Reject"
@@ -89,8 +89,8 @@
          "Name":"start_datetime",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss.SSS",
-         "Format":"yyyy-MM-dd HH:mm:ss.SSS",
          "TimeZone":"UTC",
+         "ConvertToTimeZone":"EST",
          "Validations":[
 
             {
@@ -103,8 +103,8 @@
          "Name":"end_datetime",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss.SSS",
-         "Format":"yyyy-MM-dd HH:mm:ss.SSS",
          "TimeZone":"UTC",
+         "ConvertToTimeZone":"EST",
          "Validations":[
 
             {

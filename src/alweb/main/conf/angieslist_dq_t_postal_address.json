@@ -38,17 +38,14 @@
       },
       {  
          "Name":"address_first_line",
-         "Type":"STRING",
+         "Type":"VARCHAR(254)",
          "Validations":[  
-            {  
-               "Check":"Null",
-               "Action":"Reject"
-            }
+            
          ]
       },
       {  
          "Name":"address_second_line",
-         "Type":"STRING",
+         "Type":"VARCHAR(254)",
          "Validations":[  
 
          ]
@@ -99,10 +96,7 @@
          "Name":"postal_code",
          "Type":"VARCHAR(50)",
          "Validations":[  
-            {  
-               "Check":"Null",
-               "Action":"Reject"
-            }
+            
          ]
       },
       {  
@@ -162,7 +156,7 @@
       {  
          "Name":"create_date",
          "Type":"TIMESTAMP",
-         "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+         "Format":"yyyy-MM-dd HH:mm:ss",
          "TimeZone":"UTC",
 		 "ConvertToTimeZone":"EST",
          "Validations":[  
@@ -193,7 +187,7 @@
       {  
          "Name":"update_date",
          "Type":"TIMESTAMP",
-         "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+         "Format":"yyyy-MM-dd HH:mm:ss",
          "TimeZone":"UTC",
 		 "ConvertToTimeZone":"EST",
          "Validations":[  

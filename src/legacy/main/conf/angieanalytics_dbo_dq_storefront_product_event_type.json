@@ -60,8 +60,8 @@
 	  {  
          "Name":"create_date",
 		 "Type":"TIMESTAMP",
-		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
-		 "TimeZone":"UTC",
+		 "Format":"yyyy-MM-dd HH:mm:ss",
+		 "TimeZone":"EST",
 		 "ConvertToTimeZone":"EST",
          "Validations":[  
            {  
@@ -94,7 +94,7 @@
 	  {  
          "Name":"update_date",
 		 "Type":"TIMESTAMP",
-		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
+		 "Format":"yyyy-MM-dd HH:mm:ss",
 		 "TimeZone":"UTC",
 		 "ConvertToTimeZone":"EST",
          "Validations":[  

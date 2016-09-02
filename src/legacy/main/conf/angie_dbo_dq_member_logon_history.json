@@ -3,7 +3,7 @@
    "OutputTableName":"dq_member_logon_history",
    "SourceDB":"INCOMING_LEGACY_ANGIE_DBO_DB",
    "TargetDB":"GOLD_LEGACY_ANGIE_DBO_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/legacy/angie/dbo/full/daily/dq_member_logon_history",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/legacy/angie/dbo/incremental/daily/dq_member_logon_history/edh_bus_date=$EDH_BUS_DATE",
    "TableValidation":[  
             {  
                "Check":"Duplicate",
@@ -59,7 +59,7 @@
 	  {  
          "Name":"logon_date",
          "Type":"TIMESTAMP",
-		 "Format": "yyyy-MM-dd HH:mm:ss.SSS",
+		 "Format": "yyyy-MM-dd HH:mm:ss",
 		 "TimeZone":"UTC",
 		 "ConvertToTimeZone":"EST",
          "Validations":[  

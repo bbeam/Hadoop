@@ -1,0 +1,16 @@
+--query 
+'select StorefrontProductEventId, StorefrontItemId, MemberId, StorefrontProductEventTypeId, ExpirationDate, CampaignId, CreateDate, CreateBy, UpdateDate, UpdateBy from AngieAnalytics.dbo.StorefrontProductEvent where CreateDate >= TODATETIMEOFFSET('EXTRACT_START_DATE 00:00:00', '-05:00') and  CreateDate <= TODATETIMEOFFSET('EXTRACT_END_DATE 23:59:59', '-05:00')  and $CONDITIONS'
+--split-by 
+StorefrontProductEventId 
+--hive-delims-replacement
+'#'
+--fields-terminated-by 
+'\001' 
+--lines-terminated-by 
+'\n'
+--optionally-enclosed-by 
+'\"'
+--null-string 
+'' 
+--null-non-string 
+''

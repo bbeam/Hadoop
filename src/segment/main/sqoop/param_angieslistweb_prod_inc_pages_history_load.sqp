@@ -1,0 +1,19 @@
+--driver 
+com.amazon.redshift.jdbc4.Driver 
+--query 
+"select * from angieslistweb_prod.pages where sent_at >= CONVERT_TIMEZONE('EST','UTC','EXTRACT_START_DATE 00:00:00') and sent_at <= CONVERT_TIMEZONE('EST','UTC','EXTRACT_END_DATE 23:59:59')
+ and $CONDITIONS" 
+--split-by
+sent_at
+--hive-delims-replacement
+'#'
+-fields-terminated-by 
+'\001' 
+--lines-terminated-by 
+'\n'
+--optionally-enclosed-by 
+'\"'
+--null-string 
+'' 
+--null-non-string 
+''

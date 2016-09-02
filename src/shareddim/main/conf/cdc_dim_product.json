@@ -5,14 +5,14 @@
      "targetTableName":"TRGT_DIM_TABLE_NAME",
      "surrogateKey":"product_key",
      "columns":[
+       {"name":"source_ak","isKeyColumn":"true","isNonKeyColumn":"false","isDateColumn":"false"},
+       {"name":"source_table","isKeyColumn":"true","isNonKeyColumn":"false","isDateColumn":"false"},
+       {"name":"source_column","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"},
        {"name":"master_product_group","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"},
        {"name":"product_type","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"},
        {"name":"product","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"},
        {"name":"unit_price","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"},
-       {"name":"source","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"},
-       {"name":"source_ak","isKeyColumn":"true","isNonKeyColumn":"false","isDateColumn":"false"},
-       {"name":"source_table","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"},
-       {"name":"source_column","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"}
+       {"name":"source","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"}	   
      ], 
      "workDbName":"WORK_SHARED_DIM_DB",
      "workTableName":"WORK_DIM_TABLE_NAME",

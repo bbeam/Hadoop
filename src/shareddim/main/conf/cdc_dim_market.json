@@ -5,8 +5,8 @@
      "targetTableName":"TRGT_DIM_TABLE_NAME",
      "surrogateKey":"market_key",
      "columns":[
-       {"name":"market_id","isKeyColumn":"true","isNonKeyColumn":"false","isDateColumn":"false"},
-       {"name":"market_nm","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"}
+       {"name":"market_nm","isKeyColumn":"true","isNonKeyColumn":"false","isDateColumn":"false"},
+       {"name":"market_id","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"}
      ], 
      "workDbName":"WORK_SHARED_DIM_DB",
      "workTableName":"WORK_DIM_TABLE_NAME",

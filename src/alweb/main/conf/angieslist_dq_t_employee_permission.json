@@ -75,7 +75,7 @@
       {  
          "Name":"start_datetime",
          "Type":"TIMESTAMP",
-         "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+         "Format":"yyyy-MM-dd HH:mm:ss",
          "TimeZone":"UTC",
 		 "ConvertToTimeZone":"EST",
          "Validations":[  
@@ -92,7 +92,7 @@
       {  
          "Name":"end_datetime",
          "Type":"TIMESTAMP",
-         "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+         "Format":"yyyy-MM-dd HH:mm:ss",
          "TimeZone":"UTC",
 		 "ConvertToTimeZone":"EST",
          "Validations":[  
@@ -105,7 +105,7 @@
       {  
          "Name":"create_date",
          "Type":"TIMESTAMP",
-         "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+         "Format":"yyyy-MM-dd HH:mm:ss",
          "TimeZone":"UTC",
 		 "ConvertToTimeZone":"EST",
          "Validations":[  
@@ -136,7 +136,7 @@
       {  
          "Name":"update_date",
          "Type":"TIMESTAMP",
-         "Format":"yyyy-MM-dd HH:mm:ss.SSS",
+         "Format":"yyyy-MM-dd HH:mm:ss",
          "TimeZone":"UTC",
 		 "ConvertToTimeZone":"EST",
          "Validations":[  

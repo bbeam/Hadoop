@@ -20,4 +20,4 @@ gave_count STRING,
 member_id STRING
 )
 PARTITIONED BY(edh_bus_date STRING) 
-LOCATION '${hivevar:S3_BUCKET}/data/incoming/legacy/angie/dbo/full/daily/inc_tbl_requested_companies';
+LOCATION '${hivevar:S3_BUCKET}/data/incoming/legacy/angie/dbo/incremental/daily/inc_tbl_requested_companies';

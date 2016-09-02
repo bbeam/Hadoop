@@ -3,7 +3,7 @@
    "OutputTableName":"dq_storefront_item_history",
    "SourceDB":"INCOMING_LEGACY_ANGIE_HISTORY_DBO_DB",
    "TargetDB":"GOLD_LEGACY_ANGIE_HISTORY_DBO_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/legacy/angiehistory/dbo/full/daily/dq_storefront_item_history",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/legacy/angiehistory/dbo/incremental/daily/dq_storefront_item_history/edh_bus_date=$EDH_BUS_DATE",
    "TableValidation":[  
             {  
                "Check":"Duplicate",
@@ -288,7 +288,7 @@
          "Name":"history_date",
          "Type":"TIMESTAMP",
          "Format":"yyyy-MM-dd HH:mm:ss",
-         "TimeZone":"UTC",
+         "TimeZone":"EST",
 		 "ConvertToTimeZone":"EST",
          "Validations":[
             {

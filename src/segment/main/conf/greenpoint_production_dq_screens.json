@@ -3,7 +3,7 @@
 	"OutputTableName": "dq_screens",
 	"SourceDB": "INCOMING_SEGMENT_EVENTS_GPP_DB",
 	"TargetDB": "GOLD_SEGMENT_EVENTS_GPP_DB",
-	"DQHiveTableLocation": "$S3_BUCKET/data/gold/segment/events/greenpoint_production/incremental/daily/dq_greenpoint_production_screens/edh_bus_date=$EDHBUSDATE",
+	"DQHiveTableLocation": "$S3_BUCKET/data/gold/segment/events/greenpoint_production/incremental/daily/dq_greenpoint_production_screens/edh_bus_date=$EDH_BUS_DATE",
 	"TableValidation": [{
 		"Check": "Duplicate",
 		"keyColumns": "id",
@@ -24,7 +24,7 @@
 		{
 			"Name": "received_at",
 			"Type": "TIMESTAMP",
-			"Format": "yyyy-MM-dd HH:mm:ss.SSS",
+			"Format": "yyyy-MM-dd HH:mm:ss",
 			"TimeZone":"UTC",
 		    "ConvertToTimeZone":"EST",
 			"Validations": [{
@@ -297,6 +297,13 @@
 				"Action": "Reject"
 			}]
 		}, {
+			"Name": "member_id",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},{
 			"Name": "name",
 			"Type": "VARCHAR(256)",
 			"Validations": [{
@@ -348,7 +355,7 @@
 		}, {
 			"Name": "sent_at",
 			"Type": "TIMESTAMP",
-			"Format": "yyyy-MM-dd HH:mm:ss.SSS",
+			"Format": "yyyy-MM-dd HH:mm:ss",
 			"TimeZone":"UTC",
 		    "ConvertToTimeZone":"EST",
 			"Validations": [{
@@ -356,6 +363,13 @@
 				"Action": "Reject"
 			}]
 		}, {
+			"Name": "sort_by",
+			"Type": "VARCHAR(256)",
+			"Validations": [{
+				"Check": "DataType",
+				"Action": "Reject"
+			}]
+		},{
 			"Name": "sp_id",
 			"Type": "BIGINT",
 			"Validations": [{
@@ -390,7 +404,9 @@
 		{
 			"Name": "timestamp",
 			"Type": "TIMESTAMP",
-			"Format": "yyyy-MM-dd HH:mm:ss.SSS",
+			"Format": "yyyy-MM-dd HH:mm:ss",
+			"TimeZone":"UTC",
+		    "ConvertToTimeZone":"EST",
 			"Validations": [{
 				"Check": "DataType",
 				"Action": "Reject"
@@ -399,10 +415,7 @@
 
 		{
 			"Name": "user_id",
-			"Type": "TIMESTAMP",
-			"Format": "yyyy-MM-dd HH:mm:ss.SSS",
-			"TimeZone":"UTC",
-		    "ConvertToTimeZone":"EST",
+			"Type": "VARCHAR(256)",
 			"Validations": [{
 				"Check": "DataType",
 				"Action": "Reject"
@@ -439,7 +452,7 @@
 		{
 			"Name": "uuid_ts",
 			"Type": "TIMESTAMP",
-			"Format": "yyyy-MM-dd HH:mm:ss.SSS",
+			"Format": "yyyy-MM-dd HH:mm:ss",
 			"TimeZone":"UTC",
 		    "ConvertToTimeZone":"EST",
 			"Validations": [{

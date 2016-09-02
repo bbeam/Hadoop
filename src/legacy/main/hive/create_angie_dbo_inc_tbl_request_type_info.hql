@@ -13,7 +13,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.inc_tbl_request_type_info
 	request_id STRING,
 	request_type_id STRING,
 	cat_id STRING,
-	key_word STRING,
+	keyword STRING,
 	sp_id STRING,
 	request_count STRING,
 	bln_declined_alarm STRING

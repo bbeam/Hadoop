@@ -6,7 +6,7 @@
 --*/
 
 --  Creating a DQ hive table(inc_web_request) over the incoming data
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:LEGACY_GOLD_DB}.dq_web_request
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:DB_NAME}.dq_web_request
 ( 
 	request_id VARCHAR(64),
 	est_time_utc TIMESTAMP,
