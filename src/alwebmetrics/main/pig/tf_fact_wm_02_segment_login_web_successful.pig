@@ -36,7 +36,7 @@ jn_uls_user_id_available_users = FOREACH (JOIN uls_user_id_available BY user_id 
                                    GENERATE 
 								            uls_user_id_available::id AS id,
 								            table_dim_member::member_id AS member_id,
-								            uls_user_id_available::user_id AS user_id,
+								            table_dim_member::user_id AS user_id,
 											uls_user_id_available::est_sent_at AS est_sent_at
 											;
 											
@@ -65,7 +65,7 @@ tf_user_login_successful = FOREACH un_uls  GENERATE
 
 /* Store Data into target table */
 STORE tf_user_login_successful
-	INTO 'work_al_web_metrics.tf_nk_fact_web_metrics'
+	INTO '$WORK_AL_WEB_METRICS_DB.tf_nk_fact_web_metrics'
 	USING org.apache.hive.hcatalog.pig.HCatStorer();
 	
 

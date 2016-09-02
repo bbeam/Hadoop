@@ -1,5 +1,5 @@
 --query
-'select * from tblRequestedCompanies where cast(GaveDate as DATE)='EXTRACT_DATE' and $CONDITIONS'
+'select * from tblRequestedCompanies where GaveDate >= TODATETIMEOFFSET('EXTRACT_DATE 00:00:00', '-05:00') and  GaveDate <= TODATETIMEOFFSET('EXTRACT_DATE 23:59:59', '-05:00') and $CONDITIONS'
 --split-by
 GaveID
 --hive-delims-replacement

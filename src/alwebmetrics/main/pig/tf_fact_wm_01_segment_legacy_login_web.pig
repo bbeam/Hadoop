@@ -64,7 +64,7 @@ SPLIT sel_mlh INTO
 /* Join with dim_member table to get the corresponding user_id for a given member_id */
 jn_mhl_member_id_available_members = FOREACH (JOIN ul_member_id_available BY member_id LEFT , table_dim_member BY member_id) 
                                    GENERATE ul_member_id_available::id AS id,
-								            ul_member_id_available::member_id AS member_id,
+								            table_dim_member::member_id AS member_id,
 								            table_dim_member::user_id AS user_id,
 											ul_member_id_available::est_sent_at AS est_sent_at
 											;
@@ -97,5 +97,5 @@ tf_login = FOREACH un_mhl_ul  GENERATE
 
 /* Store Data into target table */
 STORE tf_login
-	INTO 'work_al_web_metrics.tf_nk_fact_web_metrics'
+	INTO '$WORK_AL_WEB_METRICS_DB.tf_nk_fact_web_metrics'
 	USING org.apache.hive.hcatalog.pig.HCatStorer();

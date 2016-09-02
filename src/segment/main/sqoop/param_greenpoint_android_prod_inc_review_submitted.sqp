@@ -1,7 +1,7 @@
 --driver 
 com.amazon.redshift.jdbc4.Driver 
 --query 
-"select * from greenpoint_android_prod.review_submitted where cast(sent_at as DATE)='EXTRACT_DATE' and $CONDITIONS" 
+"select * from greenpoint_android_prod.review_submitted where sent_at >= CONVERT_TIMEZONE('EST','UTC','EXTRACT_DATE 00:00:00') and sent_at <= CONVERT_TIMEZONE('EST','UTC','EXTRACT_DATE 23:59:59') and $CONDITIONS" 
 -m 
 4
 --hive-delims-replacement
