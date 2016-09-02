@@ -17,7 +17,7 @@
 	  "workerGroup": "#{myWorkerGroup}",
 	  "scriptArgument": [
 		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
-		"s3://al-edh-dev/src/shareddim/main/conf/cdc_dim_category.properties"
+		"s3://al-edh-dev/src/shareddim/main/conf/dim_category.properties"
 	  ],
 	  "type": "ShellCommandActivity"
 	},
@@ -32,7 +32,7 @@
 	  "workerGroup": "#{myWorkerGroup}",
 	  "scriptArgument": [
 		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
-		"s3://al-edh-dev/src/shareddim/main/conf/cdc_dim_market.properties"
+		"s3://al-edh-dev/src/shareddim/main/conf/dim_market.properties"
 	  ],
 	  "type": "ShellCommandActivity"
 	},
@@ -47,7 +47,7 @@
 	  "workerGroup": "#{myWorkerGroup}",
 	  "scriptArgument": [
 		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
-		"s3://al-edh-dev/src/shareddim/main/conf/cdc_dim_member.properties"
+		"s3://al-edh-dev/src/shareddim/main/conf/dim_member.properties"
 	  ],
 	  "type": "ShellCommandActivity"
 	},
@@ -62,7 +62,7 @@
 	  "workerGroup": "#{myWorkerGroup}",
 	  "scriptArgument": [
 		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
-		"s3://al-edh-dev/src/shareddim/main/conf/cdc_dim_product.properties"
+		"s3://al-edh-dev/src/shareddim/main/conf/dim_product.properties"
 	  ],
 	  "type": "ShellCommandActivity"
 	},
@@ -77,7 +77,7 @@
 	  "workerGroup": "#{myWorkerGroup}",
 	  "scriptArgument": [
 		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
-		"s3://al-edh-dev/src/shareddim/main/conf/cdc_dim_service_provider.properties"
+		"s3://al-edh-dev/src/shareddim/main/conf/dim_service_provider.properties"
 	  ],
 	  "type": "ShellCommandActivity"
 	}
