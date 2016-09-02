@@ -86,8 +86,8 @@ all_review_members_sp = UNION review_members_new_world_spid_missing, jn_review_m
 
 /* Format the record as per the Target Table structure */
 tf_segment_review_submitted = FOREACH all_review_members_sp 
-    GENERATE    id AS id, 
-                (INT)(ToString(est_sent_at,'yyyyMMdd')) AS date_ak,
+    GENERATE    id AS id,
+                ToDate(ToString(est_sent_at,'yyyy-MM-dd'),'yyyy-MM-dd') as (date_ak:datetime),
                 ToString(est_sent_at,'HH:mm') AS time_ak,
                 legacy_spid AS legacy_spid,
                 new_world_spid AS new_world_spid,
