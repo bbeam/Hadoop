@@ -1,5 +1,7 @@
---table
-CashPosting
+--query
+'select * from CashPosting where $CONDITIONS'
+--split-by
+CashPostingId
 --hive-delims-replacement
 '#'
 --fields-terminated-by 

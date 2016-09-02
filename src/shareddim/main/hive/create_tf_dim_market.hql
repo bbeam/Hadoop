@@ -2,17 +2,23 @@
 --  HIVE SCRIPT  : create_tf_dim_market.hql
 --  AUTHOR       : Anil Aleppy
 --  DATE         : Aug 9, 2016
---  DESCRIPTION  : Creation of hive TF work table work_shared_dim.tf_dim_market 
+--  DESCRIPTION  : Creation of hive TF work table.
 --  Execute command:
 --
 --
--- hive -f $S3_BUCKET/src/shareddim/main/hive/create_tf_dim_market.hql \
--- -hivevar HIVE_DB=$WORK_SHARED_DIM_DB \
--- -hivevar S3_BUCKET=$S3_BUCKET 
+-- hive -f $CREATE_TF_HQL_PATH \
+-- -hivevar WORK_DIM_DB_NAME=$WORK_DIM_DB_NAME \
+-- -hivevar TF_TABLE_NAME=$TF_TABLE_NAME
 --*/
 
-CREATE TABLE IF NOT EXISTS ${hivevar:HIVE_DB}.tf_dim_market
+DROP TABLE IF EXISTS ${hivevar:WORK_DIM_DB_NAME}.${hivevar:TF_TABLE_NAME};
+
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:WORK_DIM_DB_NAME}.${hivevar:TF_TABLE_NAME}
 (
-	market_id	int,
-	market_nm	string
-);
+   market_nm string,
+   market_id int,
+   est_load_timestamp TIMESTAMP,
+   utc_load_timestamp TIMESTAMP
+
+)
+LOCATION '${hivevar:WORK_DIR}/data/work/shareddim/tf_dim_market';

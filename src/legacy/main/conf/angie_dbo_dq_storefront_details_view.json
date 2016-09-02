@@ -3,7 +3,7 @@
    "OutputTableName":"dq_storefront_details_view",
    "SourceDB":"INCOMING_LEGACY_ANGIE_DBO_DB",
    "TargetDB":"GOLD_LEGACY_ANGIE_DBO_DB",
-   "DQHiveTableLocation":"$S3_BUCKET/data/gold/legacy/angie/dbo/full/daily/dq_storefront_details_view",
+   "DQHiveTableLocation":"$S3_BUCKET/data/gold/legacy/angie/dbo/incremental/daily/dq_storefront_details_view/edh_bus_date=$EDH_BUS_DATE",
    "TableValidation":[  
             {  
                "Check":"Duplicate",
@@ -70,8 +70,8 @@
 	  {  
          "Name":"create_date",
          "Type":"TIMESTAMP",
-		 "Format":"yyyy-MM-dd HH:mm:ss.SSS",
-		 "TimeZone":"UTC",
+		 "Format":"yyyy-MM-dd HH:mm:ss",
+		 "TimeZone":"EST",
 		 "ConvertToTimeZone":"EST", 
          "Validations":[  
             {  

@@ -1,0 +1,31 @@
+{
+     "sourceDbName":"WORK_SHARED_DIM_DB",
+     "sourceTableName":"TF_TABLE_NAME",
+     "targetDbName":"GOLD_SHARED_DIM_DB",
+     "targetTableName":"TRGT_DIM_TABLE_NAME",
+     "surrogateKey":"service_provider_key",
+     "columns":[
+       {"name":"legacy_spid","isKeyColumn":"true","isNonKeyColumn":"false","isDateColumn":"false"},
+       {"name":"new_world_spid","isKeyColumn":"true","isNonKeyColumn":"false","isDateColumn":"false"},
+       {"name":"company_nm","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"},
+       {"name":"service_provider_group_type","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"},
+       {"name":"entered_dt","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"true"},
+       {"name":"city","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"},
+       {"name":"state","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"},
+       {"name":"postal_code","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"},
+       {"name":"is_excluded","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"},
+       {"name":"web_advertiser","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"},
+       {"name":"call_center_advertiser","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"},
+       {"name":"pub_advertiser","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"},
+       {"name":"is_insured","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"},
+       {"name":"is_bonded","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"},
+       {"name":"is_licensed","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"},
+       {"name":"background_check","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"},
+       {"name":"ecommerce_status","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"},
+       {"name":"vintage","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"},
+       {"name":"market_key","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"}
+     ], 
+     "workDbName":"WORK_SHARED_DIM_DB",
+     "workTableName":"WORK_DIM_TABLE_NAME",
+     "cdcPigFileForDim":"dim_service_provider"
+}

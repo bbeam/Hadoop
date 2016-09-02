@@ -75,10 +75,6 @@
 		 "Type":"varchar(254)",
          "Validations":[  
             {  
-               "Check":"Null",
-               "Action":"Reject"
-            },
-            {  
                "Check":"DataType",
                "Action":"Reject"
             }
@@ -89,7 +85,7 @@
 	  {  
          "Name":"joined_date",
 		 "Type":"TIMESTAMP",
-		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
+		 "Format":"yyyy-MM-dd HH:mm:ss",
 		 "TimeZone":"UTC",
 		 "ConvertToTimeZone":"EST",
          "Validations":[  
@@ -213,7 +209,7 @@
 	  {  
          "Name":"create_date",
 		 "Type":"TIMESTAMP",
-		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
+		 "Format":"yyyy-MM-dd HH:mm:ss",
 		 "TimeZone":"UTC",
 		 "ConvertToTimeZone":"EST",
          "Validations":[  
@@ -248,7 +244,7 @@
 	  {  
          "Name":"update_date",
 		 "Type":"TIMESTAMP",
-		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
+		 "Format":"yyyy-MM-dd HH:mm:ss",
 		 "TimeZone":"UTC",
 		 "ConvertToTimeZone":"EST",
          "Validations":[  

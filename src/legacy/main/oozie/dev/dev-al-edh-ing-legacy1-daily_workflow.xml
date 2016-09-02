@@ -1,0 +1,214 @@
+<!--********************************************************************************-->
+<!--Name:- dev-al-edh-ing-legacy1-daily_workflow.xml           						-->
+<!--								          										-->
+<!--Description:- Legacy Ingestion workFlow   										-->
+<!--								           										-->
+<!--Author:- Ashoka Reddy          													-->
+<!--********************************************************************************-->
+
+<workflow-app name="LegacyIngestionWorkFlow1" xmlns="uri:oozie:workflow:0.1">
+   <start to="legacy-angie-dbo-sp_market-full"/>
+   <action name="legacy-angie-dbo-sp_market-full">
+        <ssh xmlns="uri:oozie:ssh-action:0.1">
+            <host>${focusNodeLogin}</host>
+                <command>${wrapper_ingestion_sqoop_path}</command>
+                <args>s3://al-edh-dev/src/common/main/conf/al-edh-global.properties</args>
+                <args>s3://al-edh-dev/src/legacy/main/conf/ingestion_angie_dbo_sp_market.properties</args>
+                <args>${edh_bus_date}</args>
+            <capture-output/>
+        </ssh>
+		<ok to="legacy-angie-dbo-tbl_requests-inc"/>
+                <error to="FAIL" />
+	</action>
+	<action name="legacy-angie-dbo-tbl_requests-inc">
+        <ssh xmlns="uri:oozie:ssh-action:0.1">
+            <host>${focusNodeLogin}</host>
+                <command>${wrapper_ingestion_sqoop_path}</command>
+                <args>s3://al-edh-dev/src/common/main/conf/al-edh-global.properties</args>
+                <args>s3://al-edh-dev/src/legacy/main/conf/ingestion_angie_dbo_tbl_requests.properties</args>
+                <args>${edh_bus_date}</args>
+            <capture-output/>
+        </ssh>
+		<ok to="legacy-angie-dbo-cash_posting-full"/>
+                <error to="FAIL" />
+	</action>
+	<action name="legacy-angie-dbo-cash_posting-full">
+        <ssh xmlns="uri:oozie:ssh-action:0.1">
+            <host>${focusNodeLogin}</host>
+                <command>${wrapper_ingestion_sqoop_path}</command>
+                <args>s3://al-edh-dev/src/common/main/conf/al-edh-global.properties</args>
+                <args>s3://al-edh-dev/src/legacy/main/conf/ingestion_angie_dbo_cash_posting.properties</args>
+                <args>${edh_bus_date}</args>
+            <capture-output/>
+        </ssh>
+		<ok to="legacy-angie-dbo-ad_element-full"/>
+                <error to="FAIL" />
+			</action>
+	<action name="legacy-angie-dbo-ad_element-full">
+        <ssh xmlns="uri:oozie:ssh-action:0.1">
+            <host>${focusNodeLogin}</host>
+                <command>${wrapper_ingestion_sqoop_path}</command>
+                <args>s3://al-edh-dev/src/common/main/conf/al-edh-global.properties</args>
+                 <args>${alweb_al_t_contact_information_parameters_path}</args>
+                 <args>${edh_bus_date}</args>
+            <capture-output/>
+        </ssh>
+		<ok to="alweb-al-t_employee_permission-full"/>
+                <error to="FAIL" />
+	</action>
+	<action name="alweb-al-t_employee_permission-full">
+        <ssh xmlns="uri:oozie:ssh-action:0.1">
+            <host>${focusNodeLogin}</host>
+                <command>${wrapper_ingestion_sqoop_path}</command>
+                <args>s3://al-edh-dev/src/common/main/conf/al-edh-global.properties</args>
+                        <args>${alweb_al_t_employee_permission_parameters_path}</args>
+                        <args>${edh_bus_date}</args>
+            <capture-output/>
+        </ssh>
+		<ok to="alweb-al-t_member_permission-full"/>
+                <error to="FAIL" />
+	</action>
+	<action name="alweb-al-t_member_permission-full">
+        <ssh xmlns="uri:oozie:ssh-action:0.1">
+            <host>${focusNodeLogin}</host>
+                <command>${wrapper_ingestion_sqoop_path}</command>
+                <args>s3://al-edh-dev/src/common/main/conf/al-edh-global.properties</args>
+                        <args>${alweb_al_t_member_permission_parameters_path}</args>
+                        <args>${edh_bus_date}</args>
+            <capture-output/>
+        </ssh>
+		<ok to="alweb-al-t_postal_address-full"/>
+                <error to="FAIL" />
+	</action>
+	<action name="alweb-al-t_postal_address-full">
+        <ssh xmlns="uri:oozie:ssh-action:0.1">
+            <host>${focusNodeLogin}</host>
+                <command>${wrapper_ingestion_sqoop_path}</command>
+                <args>s3://al-edh-dev/src/common/main/conf/al-edh-global.properties</args>
+                        <args>${alweb_al_t_postal_address_parameters_path}</args>
+                        <args>${edh_bus_date}</args>
+            <capture-output/>
+        </ssh>
+		<ok to="alweb-al-t_region-full"/>
+                <error to="FAIL" />
+	</action>
+	<action name="alweb-al-t_region-full">
+        <ssh xmlns="uri:oozie:ssh-action:0.1">
+            <host>${focusNodeLogin}</host>
+                <command>${wrapper_ingestion_sqoop_path}</command>
+                <args>s3://al-edh-dev/src/common/main/conf/al-edh-global.properties</args>
+                        <args>${alweb_al_t_region_parameters_path}</args>
+                        <args>${edh_bus_date}</args>
+            <capture-output/>
+        </ssh>
+		<ok to="alweb-al-t_service_provider-full"/>
+                <error to="FAIL" />
+	</action>
+	<action name="alweb-al-t_service_provider-full">
+        <ssh xmlns="uri:oozie:ssh-action:0.1">
+            <host>${focusNodeLogin}</host>
+                <command>${wrapper_ingestion_sqoop_path}</command>
+                <args>s3://al-edh-dev/src/common/main/conf/al-edh-global.properties</args>
+                        <args>${alweb_al_t_service_provider_parameters_path}</args>
+                        <args>${edh_bus_date}</args>
+            <capture-output/>
+        </ssh>
+		<ok to="alweb-al-t_service_provider_address-full"/>
+                <error to="FAIL" />
+	</action>
+	<action name="alweb-al-t_service_provider_address-full">
+        <ssh xmlns="uri:oozie:ssh-action:0.1">
+            <host>${focusNodeLogin}</host>
+                <command>${wrapper_ingestion_sqoop_path}</command>
+                <args>s3://al-edh-dev/src/common/main/conf/al-edh-global.properties</args>
+                        <args>${alweb_al_t_service_provider_address_parameters_path}</args>
+                        <args>${edh_bus_date}</args>
+            <capture-output/>
+        </ssh>
+		<ok to="alweb-al-t_sku-full"/>
+                <error to="FAIL" />
+	</action>
+	<action name="alweb-al-t_sku-full">
+        <ssh xmlns="uri:oozie:ssh-action:0.1">
+            <host>${focusNodeLogin}</host>
+                <command>${wrapper_ingestion_sqoop_path}</command>
+                <args>s3://al-edh-dev/src/common/main/conf/al-edh-global.properties</args>
+                        <args>${alweb_al_t_sku_parameters_path}</args>
+                        <args>${edh_bus_date}</args>
+            <capture-output/>
+        </ssh>
+		<ok to="alweb-al-t_sku_item-full"/>
+                <error to="FAIL" />
+	</action>
+	<action name="alweb-al-t_sku_item-full">
+        <ssh xmlns="uri:oozie:ssh-action:0.1">
+            <host>${focusNodeLogin}</host>
+                <command>${wrapper_ingestion_sqoop_path}</command>
+                <args>s3://al-edh-dev/src/common/main/conf/al-edh-global.properties</args>
+                        <args>${alweb_al_t_sku_item_parameters_path}</args>
+                        <args>${edh_bus_date}</args>
+            <capture-output/>
+        </ssh>
+		<ok to="alweb-al-t_user_address-full"/>
+                <error to="FAIL" />
+	</action>
+	<action name="alweb-al-t_user_address-full">
+        <ssh xmlns="uri:oozie:ssh-action:0.1">
+            <host>${focusNodeLogin}</host>
+                <command>${wrapper_ingestion_sqoop_path}</command>
+                <args>s3://al-edh-dev/src/common/main/conf/al-edh-global.properties</args>
+                        <args>${alweb_al_t_user_address_parameters_path}</args>
+                        <args>${edh_bus_date}</args>
+            <capture-output/>
+        </ssh>
+		<ok to="alweb-al-t_user-full"/>
+                <error to="FAIL" />
+	</action>
+	<action name="alweb-al-t_user-full">
+        <ssh xmlns="uri:oozie:ssh-action:0.1">
+            <host>${focusNodeLogin}</host>
+                <command>${wrapper_ingestion_sqoop_path}</command>
+                <args>s3://al-edh-dev/src/common/main/conf/al-edh-global.properties</args>
+                        <args>${alweb_al_t_user_parameters_path}</args>
+                        <args>${edh_bus_date}</args>
+            <capture-output/>
+        </ssh>
+		<ok to="alweb-fulfillment-lead-full"/>
+                <error to="FAIL" />
+	</action>
+	<action name="alweb-fulfillment-lead-full">
+        <ssh xmlns="uri:oozie:ssh-action:0.1">
+            <host>${focusNodeLogin}</host>
+                <command>${wrapper_ingestion_sqoop_path}</command>
+                <args>s3://al-edh-dev/src/common/main/conf/al-edh-global.properties</args>
+                        <args>${alweb_fulfillment_lead_parameters_path}</args>
+                        <args>${edh_bus_date}</args>
+            <capture-output/>
+        </ssh>
+		<ok to="COMPLETE"/>
+                <error to="FAIL" />
+			</action>
+			<action name="COMPLETE">
+        <email xmlns="uri:oozie:email-action:0.1">
+            <to>${emailToAddress}</to>
+            <subject>Ingestion Completed</subject>
+            <body>All tables are pulled</body>
+        </email>
+        <ok to="END"/>
+        <error to="FAIL"/>
+    </action>
+	<action name="FAIL">
+        <email xmlns="uri:oozie:email-action:0.1">
+            <to>${emailToAddress}</to>
+            <subject>Ingestion Failed</subject>
+            <body>Job failed, error message[${wf:errorMessage(wf:lastErrorNode())}]</body>
+        </email>
+        <ok to="KILL"/>
+        <error to="KILL"/>
+    </action>
+	<kill name="KILL">
+		<!-- <message>"Killed job due to error"</message> -->
+		<message>Job failed, error message[${wf:errorMessage(wf:lastErrorNode())}]</message>
+	</kill>
+        <end name="END" />
+</workflow-app>

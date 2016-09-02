@@ -60,7 +60,7 @@ do
 	DB_NAME_VAR=`echo $i | cut -f3 -d ','`
 	
 	DB_NAME="${!DB_NAME_VAR}"
-	echo $DB_NAME
+	
 	#Create the database in hive 
 	#echo "$DB_NAME database creating...................... "
 	hive -e "CREATE DATABASE IF NOT EXISTS $DB_NAME"
@@ -70,7 +70,7 @@ do
 			echo "$DB_NAME Database is avaliable in hive "
 		else	
 			echo "$DB_NAME Database creation failed "
-		exit 1
+		
 		fi
 
 	# Hive script to create tables 
@@ -83,7 +83,6 @@ do
 			echo "$S3_BUCKET/$FILE_PATH/$FILE_NAME executed successfully"
 		else	
 			echo "$S3_BUCKET/$FILE_PATH/$FILE_NAME execution failed"
-		exit 1
 		fi
 		
 

@@ -26,7 +26,7 @@ invoice_item_id STRING,
 item_al_take STRING,
 item_revenue STRING,
 job_offer_id STRING,
-original_STRING STRING,
+original_timestamp STRING,
 sent_at STRING,
 sku_category STRING,
 sku_category_name STRING,
@@ -41,4 +41,5 @@ user_id STRING,
 user_zip_code STRING,
 uuid_ts STRING
 )
-LOCATION '${hivevar:S3_BUCKET}/data/incoming/segment/events/angieslistweb_prod/incremental/daily/inc_purchased';
+PARTITIONED BY (edh_bus_date STRING)
+LOCATION '${hivevar:S3_BUCKET}/data/incoming/segment/events/angieslistweb_prod/incremental/daily/inc_purchased_an_item';

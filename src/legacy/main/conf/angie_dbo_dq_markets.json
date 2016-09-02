@@ -7,7 +7,7 @@
    "TableValidation":[  
       {  
          "Check":"Duplicate",
-         "keyColumns":"market",
+         "keyColumns":"market_id",
          "Action":"Reject"
       }
    ],
@@ -336,7 +336,7 @@
 	  {  
          "Name":"market_open_date",
 		 "Type":"TIMESTAMP",
-		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
+		 "Format":"yyyy-MM-dd HH:mm:ss",
 		 "TimeZone":"UTC",
 		 "ConvertToTimeZone":"EST",
          "Validations":[  
@@ -350,7 +350,7 @@
 	  {  
          "Name":"charter_end_date",
 		 "Type":"TIMESTAMP",
-		 "Format":"yyyy-MM-dd HH:mm:ss.SSSSSS",
+		 "Format":"yyyy-MM-dd HH:mm:ss",
 		 "TimeZone":"UTC",
 		 "ConvertToTimeZone":"EST",
          "Validations":[  

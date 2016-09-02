@@ -1,0 +1,16 @@
+--query 
+'select * from MemberLogonHistory where LogonDate >= TODATETIMEOFFSET('EXTRACT_START_DATE 00:00:00', '-05:00') and  LogonDate <= TODATETIMEOFFSET('EXTRACT_END_DATE 23:59:59', '-05:00') and $CONDITIONS'
+--split-by
+MemberLogonHistoryID
+--hive-delims-replacement
+'#'
+--fields-terminated-by 
+'\001' 
+--lines-terminated-by 
+'\n'
+--optionally-enclosed-by 
+'\"'
+--null-string 
+'' 
+--null-non-string 
+''

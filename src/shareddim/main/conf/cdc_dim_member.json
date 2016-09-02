@@ -1,0 +1,27 @@
+{
+     "sourceDbName":"WORK_SHARED_DIM_DB",
+     "sourceTableName":"TF_TABLE_NAME",
+     "targetDbName":"GOLD_SHARED_DIM_DB",
+     "targetTableName":"TRGT_DIM_TABLE_NAME",
+     "surrogateKey":"member_key",
+     "columns":[
+       {"name":"member_id","isKeyColumn":"true","isNonKeyColumn":"false","isDateColumn":"false"},
+       {"name":"user_id","isKeyColumn":"true","isNonKeyColumn":"false","isDateColumn":"false"},
+       {"name":"email","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"},
+       {"name":"postal_code","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"},
+       {"name":"pay_status","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"},
+       {"name":"member_status","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"},
+       {"name":"expiration_status","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"},
+       {"name":"member_dt","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"true"},
+       {"name":"membership_tier_nm","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"},
+       {"name":"primary_phone_number","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"},
+       {"name":"first_nm","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"},
+       {"name":"last_nm","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"},
+       {"name":"associate","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"},
+       {"name":"employee","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"},
+       {"name":"market_key","isKeyColumn":"false","isNonKeyColumn":"true","isDateColumn":"false"}
+     ], 
+     "workDbName":"WORK_SHARED_DIM_DB",
+     "workTableName":"WORK_DIM_TABLE_NAME",
+     "cdcPigFileForDim":"dim_member"
+}
