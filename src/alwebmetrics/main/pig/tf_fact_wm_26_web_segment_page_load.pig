@@ -42,7 +42,7 @@ un_pages_members = UNION jn_pages_user_id_available_members, pages_user_id_missi
 
 tf_segment_pages = FOREACH un_pages_members 
     GENERATE    id AS id, 
-                (INT)(ToString(est_sent_at,'yyyyMMdd')) AS date_ak,
+				ToDate(ToString(est_sent_at,'yyyy-MM-dd'),'yyyy-MM-dd') as (date_ak),
                 ToString(est_sent_at,'HH:mm') AS time_ak,
                 $NUMERIC_NA_KEY AS legacy_spid,
                 $NUMERIC_NA_KEY AS new_world_spid,

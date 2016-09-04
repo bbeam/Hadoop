@@ -101,8 +101,8 @@ jn_rc_members_sp_rti = FOREACH (JOIN un_rc_members_sp BY request_info_id , reque
 /* Format the record as per the Target Table structure */
 tf_legacy_profile_view = FOREACH jn_rc_members_sp_rti 
     GENERATE    id AS id, 
-                (INT)(ToString(est_gave_date,'yyyyMMdd')) AS date_ak,
-                ToString(est_gave_date,'HH:mm') AS time_ak,
+                ToDate(ToString(est_sent_at,'yyyy-MM-dd'),'yyyy-MM-dd') as (date_ak),
+                ToString(est_sent_at,'HH:mm') AS time_ak,
                 legacy_spid AS legacy_spid,
                 new_world_spid AS new_world_spid,
                 $NUMERIC_NA_KEY AS source_ak,
