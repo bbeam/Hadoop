@@ -52,8 +52,8 @@ join_table_dq_search_the_list_check_user_id = UNION table_dq_search_the_list_use
 
 tf_alwp_search_the_list = FOREACH join_table_dq_search_the_list_check_user_id 
 						  GENERATE   id AS id,
-						  			 (INT)(ToString(est_sent_at,'yyyyMMdd')) AS date_ak:int,
-						             ToString(est_sent_at,'HH:mm') AS time_ak:chararray,
+						  			 ToDate(ToString(est_sent_at,'yyyy-MM-dd'),'yyyy-MM-dd') as (date_ak:datetime),
+                					 ToString(est_sent_at,'HH:mm') AS time_ak,
 						             $NUMERIC_NA_KEY AS legacy_spid:int,
 						             $NUMERIC_NA_KEY AS new_world_spid:int,
 						             $NUMERIC_NA_KEY AS source_ak:int,

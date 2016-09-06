@@ -1,5 +1,5 @@
 /*
-PIG SCRIPT    : tf_fact_wm_15_segement_stl_search.pig
+PIG SCRIPT    : tf_fact_wm_14_segement_search_the_list.pig
 AUTHOR        : Abhijeet Purwar
 DATE          : 30 Aug 16 
 DESCRIPTION   : Data Transformation script for webmetrics fact table for the event stl_search from Segment Source

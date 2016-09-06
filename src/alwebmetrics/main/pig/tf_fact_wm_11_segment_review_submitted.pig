@@ -1,5 +1,5 @@
 /*
-PIG SCRIPT    : tf_fact_wm_07_segement_review_submitted.pig
+PIG SCRIPT    : tf_fact_wm_11_segement_review_submitted.pig
 AUTHOR        : Abhijeet Purwar
 DATE          : 29 Aug 16 
 DESCRIPTION   : Data Transformation script for webmetrics fact table for the event Review_submitted from Segment Source
