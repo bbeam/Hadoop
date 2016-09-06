@@ -1,5 +1,5 @@
 /*
-PIG SCRIPT    : tf_fact_wm_8_9_10_legacy_vw_addtcrt_prchs.pig
+PIG SCRIPT    : tf_fact_wm_7_8_9_legacy_vw_addtcrt_prchs.pig
 AUTHOR        : Anil Aleppy
 DATE          : 02 Sep 16 
 DESCRIPTION   : Data Transformation script for webmetrics fact table for the event View,Add To Cart And Purchase from Legacy Source
@@ -137,7 +137,7 @@ tf_sfp = FOREACH un_sfp_members_sp
              (CHARARRAY)'$EVENT_SUB_SOURCE_WEB' AS (event_sub_source:CHARARRAY),
              (CHARARRAY)'$STRING_NA_VALUE' AS (search_text:CHARARRAY),
              (INT)1 AS (qty:INT),
-			 (event_type=='View'?'8':(event_type=='Add to Cart'?'9':(event_type=='Purchase'?'10':'$STRING_NA_VALUE'))) AS (event_type_key:CHARARRAY);
+			 (event_type=='View'?'7':(event_type=='Add to Cart'?'8':(event_type=='Purchase'?'9':'$STRING_NA_VALUE'))) AS (event_type_key:CHARARRAY);
 				
 				
 /* Store Data into target table */
