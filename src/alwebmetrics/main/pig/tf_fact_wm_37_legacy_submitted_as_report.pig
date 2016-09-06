@@ -1,5 +1,5 @@
 /*
-PIG SCRIPT    : tf_fact_wm_38_segment_submitted_as_report.pig
+PIG SCRIPT    : tf_fact_wm_37_segment_submitted_as_report.pig
 AUTHOR        : Varun Rauthan
 DATE          : 06 Sep 16 
 DESCRIPTION   : Data Transformation script for legacy table for the event submitted_as_report from web legacy Source
@@ -23,7 +23,7 @@ dim_service_provider =
 		USING org.apache.hive.hcatalog.pig.HCatLoader();
 
 /* Filter by edh_bus_date to process records for previous day only. Apply other filters as per mapping logic  */        
-dq_report_filtered = FILTER dq_report BY est_report_date == ToDate('$EDH_BUS_DATE', 'yyyy-MM-dd');
+dq_report_filtered = FILTER dq_report BY ToString(est_report_date,'yyyy-MM-dd') == '$EDH_BUS_DATE';
 
 
 /* Join dq_report with dq_report_sp_category to get spid and category_id */
