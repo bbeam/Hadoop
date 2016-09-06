@@ -49,7 +49,7 @@ SPLIT gen_join_report_with_report_sp_category_filtered_check_isnull INTO
 
 
 gen_table_join_report_with_report_sp_category_missing_member_id_available = 
-							FOREACH (JOIN table_join_report_with_report_sp_category_missing_member_id_available BY (INT)user_id LEFT OUTER, dim_members BY user_id ) 
+							FOREACH (JOIN table_join_report_with_report_sp_category_missing_member_id_available BY (INT)member_id LEFT OUTER, dim_members BY member_id ) 
                             GENERATE table_join_report_with_report_sp_category_missing_member_id_available::id AS id,  
                                      table_join_report_with_report_sp_category_missing_member_id_available::est_report_date AS est_report_date,
 									 table_join_report_with_report_sp_category_missing_member_id_available::legacy_spid AS legacy_spid,
