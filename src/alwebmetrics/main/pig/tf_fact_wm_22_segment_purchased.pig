@@ -1,5 +1,5 @@
 /*
-PIG SCRIPT    : tf_fact_wm_23_segment_purchased.pig
+PIG SCRIPT    : tf_fact_wm_22_segment_purchased.pig
 AUTHOR        : Varun Rauthan
 DATE          : 31 Aug 16 
 DESCRIPTION   : Data Transformation script for webmetrics fact table for the event purchased from web Segment Source
@@ -69,9 +69,9 @@ union_gen_table_purchased_user_id_member_id_spid = UNION table_dim_service_provi
    
 
 tf_segment_purchased = FOREACH union_gen_table_purchased_user_id_member_id_spid 
-					 GENERATE   id AS id, 
-								(INT)(ToString(est_sent_at,'yyyyMMdd')) AS date_ak,
-								ToString(est_sent_at,'HH:mm') AS time_ak,
+					 GENERATE   id AS id,
+					 			ToDate(ToString(est_sent_at,'yyyy-MM-dd'),'yyyy-MM-dd') as (date_ak:datetime),
+                				ToString(est_sent_at,'HH:mm') AS time_ak,
 								legacy_spid AS legacy_spid,
 								new_world_spid AS new_world_spid,
 								source_ak AS source_ak,
