@@ -1,14 +1,19 @@
 /*#########################################################################################################
-PIG SCRIPT                              :tf_fact_wm_12_segment_writes_an_sp_review.pig
+PIG SCRIPT                              :tf_fact_wm_10_alwp_offer_page_loaded.pig
 AUTHOR                                  :Gaurav Maheshwari
 DATE                                    :Thursday Aug 25 2016
-DESCRIPTION                             :Pig script to create load tf_fact_webmetrics_greenpoint_production_writes_an_sp_review.
+DESCRIPTION                             :Pig script to create load tf_fact_webmetrics_angieslistweb_prod_offer_page_loaded.
 #########################################################################################################*/
 
-table_dq_writes_an_sp_review=
-        LOAD '$GOLD_SEGMENT_EVENTS_gpp_DB.dq_writes_an_sp_review'
+table_dq_offer_page_loaded=
+        LOAD '$GOLD_SEGMENT_EVENTS_ALWP_DB.dq_offer_page_loaded'
         USING org.apache.hive.hcatalog.pig.HCatLoader();
 
+		
+table_dim_event_type=
+        LOAD '$GOLD_SHARED_DIM_DB.dim_event_type'
+        USING org.apache.hive.hcatalog.pig.HCatLoader();
+		
 dim_members=
         LOAD '$GOLD_SHARED_DIM_DB.dim_member'
         USING org.apache.hive.hcatalog.pig.HCatLoader();
@@ -17,20 +22,20 @@ dim_service_provider=
         LOAD '$GOLD_SHARED_DIM_DB.dim_service_provider'
         USING org.apache.hive.hcatalog.pig.HCatLoader();
 
-table_dq_writes_an_sp_review= FILTER table_dq_writes_an_sp_review BY edh_bus_date=='$EDHBUSDATE';
+table_dq_offer_page_loaded= FILTER table_dq_offer_page_loaded BY edh_bus_date=='$EDHBUSDATE';
 
 /* Check if user_id is null. If user_id id is null then populate both member_id and user_id as missing */
 	
-writes_an_sp_review_rec_check = FOREACH table_dq_writes_an_sp_review GENERATE
+offer_page_loaded_rec_check = FOREACH table_dq_offer_page_loaded GENERATE
                                 (chararray)id AS id,
                                 est_sent_at AS est_sent_at,
-                                (spid IS NOT NULL ?  spid : (spidreview IS NOT NULL ? spidreview : $NUMERIC_MISSING_KEY)) AS new_world_spid,
+                                service_provider_id AS new_world_spid,
                                 (user_id IS NULL OR user_id =='' ? $NUMERIC_MISSING_KEY : (INT)user_id) AS user_id,
                                 (user_id IS NULL OR user_id ==''? $NUMERIC_MISSING_KEY : NULL ) AS member_id,
 	
 
 /* Split into 2 separate relations the records with user_id missing and those with user_id available */
-SPLIT writes_an_sp_review_rec_check INTO
+SPLIT offer_page_loaded_rec_check INTO
                     rc_user_id_missing   IF  (user_id == $NUMERIC_MISSING_KEY),
                     rc_user_id_available IF (user_id != $NUMERIC_MISSING_KEY);
 
@@ -57,7 +62,6 @@ un_rc_members_check_new_world_spid = FOREACH un_rc_members GENERATE
                                 (service_provider_id IS NULL ? $NUMERIC_MISSING_KEY : NULL ) AS legacy_spid,
                                 (service_provider_id IS NULL ? $NUMERIC_MISSING_KEY : service_provider_id) AS new_world_spid;
 
-								 
 
 /* Split into 2 separate relations the records with new_world_spid missing and those with new_world_spid available */
 
@@ -81,7 +85,7 @@ jn_rc_members_new_world_spid_available = FOREACH (JOIN rc_members_new_world_spid
 un_rc_members_sp = UNION rc_members_new_world_spid_missing, jn_rc_members_new_world_spid_available;
 
 
-tf_writes_an_sp_review = FOREACH un_rc_members_sp 
+tf_offer_page_loaded = FOREACH un_rc_members_sp 
     GENERATE    id AS id:int, 
                 (INT)(ToString(est_sent_at,'yyyyMMdd')) AS date_ak,
                 ToString(est_sent_at,'HH:mm') AS time_ak,
@@ -102,6 +106,6 @@ tf_writes_an_sp_review = FOREACH un_rc_members_sp
 
 
 	 
-STORE final_webmetrics_writes_an_sp_review 
+STORE final_webmetrics_offer_page_loaded 
 	  INTO 'work_al_webmetrics.tf_fact_web_metrics'
 	  USING org.apache.hive.hcatalog.pig.HCatStorer();
