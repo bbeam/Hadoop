@@ -87,8 +87,8 @@ tf_storefront = FOREACH union_gen_join_storefront_user_id_member_id_spid
 								new_world_spid AS new_world_spid,
 								source_ak AS source_ak,
 								'$TF_EVENT_SOURCE_TABLE' AS source_table,
-								member_id AS member_id,
-								user_id  AS user_id,
+								(INT)member_id AS member_id,
+								(INT)user_id  AS user_id,
 								$NUMERIC_NA_KEY AS category_id,
 								'$TF_EVENT_NAME' AS event_type,
 								'$STRING_NA_VALUE' AS search_type,
@@ -96,7 +96,7 @@ tf_storefront = FOREACH union_gen_join_storefront_user_id_member_id_spid
 								'$EVENT_SUB_SOURCE_WEB' AS event_sub_source,
 								null AS search_text:CHARARRAY,
 								$TF_EVENT_QTY AS qty,
-								$TF_EVENT_KEY AS event_type_key;
+								'$TF_EVENT_KEY' AS event_type_key;
      
 STORE tf_storefront 
     INTO '$WORK_AL_WEB_METRICS_DB.tf_nk_fact_web_metrics'
