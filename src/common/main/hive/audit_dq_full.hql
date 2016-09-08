@@ -19,7 +19,7 @@ SELECT '${hivevar:ENTITY_NAME}' AS entity,
        from_unixtime(unix_timestamp()) AS time_stamp,
        '${hivevar:USER_NAME}' AS user_name,
        '${hivevar:EDH_BUS_DATE}' AS edh_bus_date,
-       '${hivevar:GOLD_DB}.${hivevar:DQ_TABLE}' AS table_name
+       lower('${hivevar:GOLD_DB}.${hivevar:DQ_TABLE}') AS table_name
  FROM ${GOLD_DB}.${hivevar:DQ_TABLE};
  
 INSERT INTO TABLE ${hivevar:OPERATIONS_COMMON_DB}.edh_batch_audit
@@ -33,9 +33,9 @@ SELECT  '${hivevar:ENTITY_NAME}' AS entity,
        from_unixtime(unix_timestamp()) AS time_stamp,
        '${hivevar:USER_NAME}' AS user_name,
        '${hivevar:EDH_BUS_DATE}' AS edh_bus_date,
-       table_name
+       lower(table_name) AS table_name
  FROM ${hivevar:OPERATIONS_COMMON_DB}.edh_batch_error 
- WHERE table_name='${hivevar:INCOMING_DB}.${hivevar:INCOMING_TABLE}' 
+ WHERE lower(table_name)=lower('${hivevar:INCOMING_DB}.${hivevar:INCOMING_TABLE}') 
        AND edh_bus_date = '${hivevar:EDH_BUS_DATE}'
  GROUP BY error_type, error_desc,table_name,edh_bus_date
  HAVING count(*) > 0;

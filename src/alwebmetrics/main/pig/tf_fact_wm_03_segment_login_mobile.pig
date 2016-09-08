@@ -61,7 +61,7 @@ tf_login_mobile = FOREACH un_obusis  GENERATE
              (CHARARRAY)'$EVENT_SUB_SOURCE_ANDROID' AS (event_sub_source:CHARARRAY),
              (CHARARRAY)'$STRING_NA_VALUE' AS (search_text:CHARARRAY),
             (INT)1 AS (qty:INT),
-			(CHARARRAY)'3' AS (event_type_key:CHARARRAY);
+			(CHARARRAY)$TF_EVENT_KEY AS (event_type_key:CHARARRAY);
 
 /* Store Data into target table */
 STORE tf_login_mobile

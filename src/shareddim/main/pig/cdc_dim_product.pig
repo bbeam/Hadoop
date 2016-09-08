@@ -1,7 +1,7 @@
 /*######################################################################################################### 
 PIG SCRIPT				:cdc_dim_product.pig
 AUTHOR					:Pig script is auto generated with java utility.
-DATE					:Wed Aug 24 14:17:49 UTC 2016
+DATE					:Sun Sep 04 08:30:13 UTC 2016
 DESCRIPTION				:Pig script for SCD.
 #########################################################################################################*/
 
@@ -12,8 +12,8 @@ define MD5 datafu.pig.hash.MD5();
 
 
 /*========Pull base and scd tables from into pig using HCatalog========*/
-load_source = LOAD '$WORK_SHARED_DIM_DB.$TF_TABLE_NAME' USING org.apache.hive.hcatalog.pig.HCatLoader();
-load_target = LOAD '$GOLD_SHARED_DIM_DB.$TRGT_DIM_TABLE_NAME' USING org.apache.hive.hcatalog.pig.HCatLoader();
+	load_source = LOAD '$WORK_SHARED_DIM_DB.$TF_TABLE_NAME' USING org.apache.hive.hcatalog.pig.HCatLoader();
+	load_target = LOAD '$GOLD_SHARED_DIM_DB.$TRGT_DIM_TABLE_NAME' USING org.apache.hive.hcatalog.pig.HCatLoader();
 
 
 /*========Generate md5 values for key and non key values along with other columns========*/
@@ -29,15 +29,14 @@ md5_target = FOREACH load_target
 
 
 /*========Join source and target based on key columns========*/
-joined_source_target = JOIN md5_source BY (source_ak, source_table) FULL, md5_target BY (source_ak, source_table);
+joined_source_target = JOIN md5_source BY md5_key_value FULL, md5_target BY md5_key_value;
 
 
 /*========Split the records into insert_records, update_records and no_change_delete_records using md5_key and md5_non_key of source and target========*/
 SPLIT joined_source_target INTO
 					 insert_records IF (md5_target::md5_key_value IS NULL),
-					 update_records IF ((md5_source::md5_non_key_value!=md5_target::md5_non_key_value) AND (md5_target::md5_key_value IS NOT NULL)),
+					 update_records IF ((md5_source::md5_non_key_value!=md5_target::md5_non_key_value) AND (md5_source::md5_key_value==md5_target::md5_key_value)),
 					 no_change_delete_records IF ((md5_source::md5_non_key_value==md5_target::md5_non_key_value) OR (md5_source::md5_key_value IS NULL));
-
 
 /*========surrogate key generation logic for insert_records========*/
 /*========Pull the previous max surrogate key from surrogate_key_map table========*/
