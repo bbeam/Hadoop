@@ -19,6 +19,6 @@ SELECT  '${hivevar:ENTITY_NAME}' AS entity,
   from_unixtime(unix_timestamp()) AS time_stamp,
   '${hivevar:USER_NAME}' AS user_name,
   edh_bus_date AS edh_bus_date,
-  '${hivevar:INCOMING_DB}.${hivevar:INCOMING_TABLE}' AS table_name
+  lower('${hivevar:INCOMING_DB}.${hivevar:INCOMING_TABLE}') AS table_name
  FROM ${hivevar:INCOMING_DB}.${hivevar:INCOMING_TABLE}  
  WHERE edh_bus_date='${hivevar:EDH_BUS_DATE}' GROUP BY edh_bus_date;

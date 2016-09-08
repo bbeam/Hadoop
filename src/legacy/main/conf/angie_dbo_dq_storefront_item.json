@@ -82,10 +82,7 @@
          "Name":"description",
          "Type":"STRING",
          "Validations":[  
-            {  
-               "Check":"Null",
-               "Action":"Reject"
-            }
+            
          ]
       },
 	  {  
