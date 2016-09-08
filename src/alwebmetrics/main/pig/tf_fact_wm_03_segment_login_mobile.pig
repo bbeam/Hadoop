@@ -1,5 +1,5 @@
 /*#########################################################################################################
-PIG SCRIPT                              :tf_fact_wm_04_segment_login_mobile.pig
+PIG SCRIPT                              :tf_fact_wm_03_segment_login_mobile.pig
 AUTHOR                                  :Abhinav Mehar.
 DATE                                    :Mon Aug 22 07:53:37 UTC 2016
 DESCRIPTION                             :Pig script to create load tf_fact_wm_03_segment_login_mobile.

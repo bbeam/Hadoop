@@ -193,7 +193,7 @@ jn_tf_fwb_wt_event= FOREACH ( JOIN jn_tf_fwb_wt_time BY (event_type,search_type,
 						            jn_tf_fwb_wt_time::product_key     AS  product_key,
 				                    jn_tf_fwb_wt_time::member_key      AS  member_key,
 				                    jn_tf_fwb_wt_time::category_key    AS  category_key,
-				                    (table_dim_event_type::event_type_key IS NULL?(INT)$NUMERIC_UNKOWN_KEY: table_dim_event_type::event_type_key) AS event_type_key,
+				                    (table_dim_event_type::event_type_key IS NULL?(INT)$NUMERIC_UNKOWN_KEY: (INT)table_dim_event_type::event_type_key) AS event_type_key,
 						            jn_tf_fwb_wt_time::source_ak       AS  source_ak,
                                     jn_tf_fwb_wt_time::source_table    AS  source_table,
                                     jn_tf_fwb_wt_time::category_id     AS  category_id,
@@ -211,28 +211,6 @@ jn_tf_fwb_wt_event= FOREACH ( JOIN jn_tf_fwb_wt_time BY (event_type,search_type,
 
 
 
-id STRING,
-date_key    INT,
-time_key    INT,
-service_provider_key    INT,
-product_key INT,
-member_key  INT,
-category_key    INT,
-event_type_key  INT,
-source_ak   INT,
-source_table    STRING,
-category_id INT,
-member_id   INT,
-user_id INT,
-legacy_spid INT,
-new_world_spid  INT,
-event_type  STRING,
-search_type STRING,
-event_source    TINYINT,
-event_sub_source    STRING,
-search_text STRING,
-qty INT
-
-STORE jn_tf_fwb_wt_time 
+STORE jn_tf_fwb_wt_event 
     INTO '$WORK_AL_WEB_METRICS_DB.tf_sk_fact_web_metrics'
     USING org.apache.hive.hcatalog.pig.HCatStorer();

@@ -2,10 +2,10 @@
 #                               General Details                                #
 ################################################################################
 # Name        : AngiesList                                                     #
-# File        : wrapper_tf_wm_sk_fact_setup_n_transform.sh                                     #
+# File        : wrapper_tf_wm_sk_fact_load.sh                                     #
 # Author      : Abhinav Mehar                                                  #
 # Description : This Script performs transformation rules for event and load   # 
-#               result set to the work_al_webmetrics.tf_fact_web_metrics table #
+#               result set to the work_al_webmetrics.tf_sk_fact_web_metrics table #
 ################################################################################
 
 #!/bin/bash
@@ -58,58 +58,11 @@ echo "****************BUSINESS DATE/MONTH*****************"
 EDH_BUS_DATE=$3
 echo "EDH_BUS_DATE:$EDH_BUS_DATE"
 
-TF_TABLE_WORK_LOCATION=$WORK_DIR/data/work/alwebmetrics/tf_sk_fact_web_metrics/
 
-# removal of existing data directories in work area
-if hadoop fs -test -d $TF_TABLE_WORK_LOCATION; then
-   echo "Removing transformation output data in work area for previous run.....Making $TF_DB.$TF_TABLE empty."
-   hadoop fs -rmr $TF_TABLE_WORK_LOCATION
-     if [ $? -eq 0 ]
-     then
-        echo "INFO:Making $TF_TABLE_WORK_LOCATION empty successful"
-     else
-        echo "ERROR:Making $TF_TABLE_WORK_LOCATION empty failed."
-        exit 1
-     fi
-fi
-
-TF_PIG_FILE_PATH=$S3_BUCKET/src/alwebmetrics/main/pig/sk_fact_web_metrics_load.pig
-
-# copy tf pig script to local
-aws s3 cp $TF_PIG_FILE_PATH /var/tmp/
-
-if [ $? -eq 0 ]
-then
-  echo "INFO:$TF_PIG_FILE_NAME file copied from s3 to /var/tmp/ successfully"
-else
-  echo "ERROR:copying $TF_PIG_FILE_NAME file to s3 to /var/tmp/ failed"
-  exit 1
-fi
-
-TF_PIG_FILE_NAME=$(basename $TF_PIG_FILE_PATH)
-
-# Pig Script to be triggered for transformation.
-pig  \
-    -param_file /var/tmp/$GLOBAL_PROPERTY_FILE_NAME \
-    -file /var/tmp/$TF_PIG_FILE_NAME \
-    -useHCatalog
-
-if [ $? -eq 0 ]
-then
-        echo "INFO:$TF_PIG_FILE_NAME executed without any error."
-else
-        echo "ERROR:$TF_PIG_FILE_NAME execution failed."
-        exit 1
-fi
-
-# Hive script to insert transformation audit record
+# Hive script to insert transformed records to the final gold db table
 hive -f $TF_AUDIT_HQL_PATH \
-    -hivevar ENTITY_NAME=$SUBJECT_ALWEBMETRICS \
-    -hivevar OPERATIONS_COMMON_DB=$OPERATIONS_COMMON_DB \
-    -hivevar AUDIT_TABLE_NAME=$AUDIT_TABLE_NAME \
-    -hivevar USER_NAME=$APPLICATION_EDH_NAME \
-    -hivevar TF_DB=$WORK_AL_WEB_METRICS_DB \
-	-hivevar EDH_BUS_DATE=$EDH_BUS_DATE
+    -hivevar GOLD_AL_WEB_METRICS_DB=$GOLD_AL_WEB_METRICS_DB \
+    -hivevar WORK_AL_WEB_METRICS_DB=$WORK_AL_WEB_METRICS_DB
 
 # Hive Status check
 if [ $? -eq 0 ]
