@@ -4,7 +4,10 @@
 --  DESCRIPTION  : Creation of hive dq table(sk_fact_web_metrics). 
 
 --  Creating a DQ hive table(tf_sk_fact_web_metrics) over the incoming data
-CREATE EXTERNAL TABLE  work_al_web_metrics.tf_sk_fact_web_metrics(
+DROP TABLE IF EXISTS ${hivevar:WORK_AL_WEB_METRICS_DB}.tf_sk_fact_web_metrics;
+
+CREATE EXTERNAL TABLE  ${hivevar:WORK_AL_WEB_METRICS_DB}.tf_sk_fact_web_metrics
+(
 id STRING,
 date_key    INT,
 time_key    INT,
@@ -28,4 +31,4 @@ search_text STRING,
 qty INT
 )
 LOCATION
-  '/user/hadoop/data/work/alwebmetrics/tf_sk_fact_web_metrics'
+  '${hivevar:WORK_DIR}/data/work/alwebmetrics/tf_sk_fact_web_metrics'

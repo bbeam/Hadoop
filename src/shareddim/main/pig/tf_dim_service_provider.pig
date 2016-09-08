@@ -221,9 +221,9 @@ join_location_wt_adtype= JOIN sel_ad_type BY location_id LEFT OUTER,filter_table
 
 sel_pre_advertiser = FOREACH join_location_wt_adtype GENERATE                   
                                                               sel_ad_type::sp_id AS sp_id,
-                                                              ((filter_table_dq_location::location_id==1)?1:0) AS WebAdvertiser,
-                                                              ((filter_table_dq_location::location_id==2)?1:0) AS CallCenterAdvertiser,
-                                                              ((filter_table_dq_location::location_id==3)?1:0) AS PubAdvertiser;
+                                                              ((filter_table_dq_location::location_id IS NOT NULL AND filter_table_dq_location::location_id==1)?1:0) AS WebAdvertiser,
+                                                              ((filter_table_dq_location::location_id IS NOT NULL AND filter_table_dq_location::location_id==2)?1:0) AS CallCenterAdvertiser,
+                                                              ((filter_table_dq_location::location_id IS NOT NULL AND filter_table_dq_location::location_id==3)?1:0) AS PubAdvertiser;
 grp_sel_pre_advertiser = GROUP sel_pre_advertiser BY sp_id;
 
 sel_advertiser = FOREACH grp_sel_pre_advertiser GENERATE group as advertiser_sp_id,
