@@ -17,10 +17,6 @@ dim_service_provider =
         LOAD '$GOLD_SHARED_DIM_DB.dim_service_provider'
         USING org.apache.hive.hcatalog.pig.HCatLoader();
 
-/*request_type_info = 
-        LOAD 'gold_legacy_angie_dbo.dq_tbl_request_type_info'
-        USING org.apache.hive.hcatalog.pig.HCatLoader();*/
-       
 store_page_loaded_filtered = FILTER store_page_loaded BY edh_bus_date == '$EDH_BUS_DATE';
 
 
@@ -37,7 +33,7 @@ store_page_loaded_filtered_mark_check_user_id = FOREACH store_page_loaded_filter
 SPLIT store_page_loaded_filtered_mark_check_user_id INTO
                     store_page_loaded_user_id_missing IF (user_id == $NUMERIC_MISSING_KEY),
                     store_page_loaded_user_id_available IF (user_id != $NUMERIC_MISSING_KEY);
-                    
+
 /* Join with dim_member table to get the corresponding user_id for a given member_id */
 jn_store_page_loaded_user_id_available_members = FOREACH (JOIN store_page_loaded_user_id_available BY user_id LEFT , dim_members BY user_id ) 
                          GENERATE   store_page_loaded_user_id_available::id AS id,
@@ -64,7 +60,7 @@ all_store_page_loaded_members_check_new_world_spid = FOREACH all_store_page_load
 /* Split into 2 separate relations the records with new_world_spid missing and those with new_world_spid available */
 SPLIT all_store_page_loaded_members_check_new_world_spid INTO
                     store_page_loaded_members_new_world_spid_missing IF (new_world_spid == $NUMERIC_MISSING_KEY),
-                    store_page_loaded_members_new_world_spid_available IF (new_world_spid != $NUMERIC_MISSING_KEY); 
+                    store_page_loaded_members_new_world_spid_available IF (new_world_spid != $NUMERIC_MISSING_KEY);
                                 
 /* Join with service_provider table to get the corresponding legacy_spid for a given new_world_spid */
 jn_all_store_page_loaded_members_new_world_spid_available = FOREACH (JOIN store_page_loaded_members_new_world_spid_available BY new_world_spid LEFT , dim_service_provider BY new_world_spid ) 
@@ -113,5 +109,5 @@ tf_segment_store_page_loaded = FOREACH all_store_page_loaded_members_sp
 
 /* Store Data into target table */
 STORE tf_segment_store_page_loaded 
-    INTO '$WORK_AL_WEB_METRICS_DB.tf_nk_fact_web_metrics1'
+    INTO '$WORK_AL_WEB_METRICS_DB.tf_nk_fact_web_metrics'
     USING org.apache.hive.hcatalog.pig.HCatStorer();

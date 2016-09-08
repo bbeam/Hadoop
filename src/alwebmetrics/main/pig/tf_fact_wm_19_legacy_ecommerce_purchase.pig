@@ -17,6 +17,10 @@ dq_storefront_item =
         LOAD '$GOLD_LEGACY_ANGIE_DBO_DB.dq_storefront_item'
         USING org.apache.hive.hcatalog.pig.HCatLoader();
 
+dq_cash_posting =
+        LOAD '$GOLD_LEGACY_ANGIE_DBO_DB.dq_cash_posting'
+        USING org.apache.hive.hcatalog.pig.HCatLoader();
+
 dq_exclude_test_sp_ids =
         LOAD '$GOLD_LEGACY_REPORTS_DBO_DB.dq_exclude_test_sp_ids'
         USING org.apache.hive.hcatalog.pig.HCatLoader();
@@ -31,28 +35,39 @@ dim_service_provider =
 
 jn_storefront_order_line_item = FOREACH (JOIN dq_storefront_order_line_item BY storefront_item_id, dq_storefront_item BY storefront_item_id)
                                                  GENERATE dq_storefront_order_line_item::storefront_order_line_item_id AS storefront_order_line_item_id,
-												          dq_storefront_order_line_item::storefront_order_id AS storefront_order_id,
-														  dq_storefront_order_line_item::storefront_item_id AS storefront_item_id,
-														  dq_storefront_item::sp_id AS sp_id,
-														  dq_storefront_item::storefront_item_type_id AS storefront_item_type_id;
+                                                          dq_storefront_order_line_item::storefront_order_id AS storefront_order_id,
+                                                          dq_storefront_order_line_item::storefront_item_id AS storefront_item_id,
+                                                          dq_storefront_order_line_item::cash_posting_id AS cash_posting_id,
+                                                          dq_storefront_item::sp_id AS sp_id,
+                                                          dq_storefront_item::storefront_item_type_id AS storefront_item_type_id;
 
 exclude_test_sp_ids_null_fltr = FILTER dq_exclude_test_sp_ids BY sp_id is null;
 
 jn_storefront_oli_etspid = FOREACH (JOIN jn_storefront_order_line_item BY sp_id LEFT, exclude_test_sp_ids_null_fltr BY sp_id)
                                                  GENERATE jn_storefront_order_line_item::storefront_order_line_item_id AS storefront_order_line_item_id,
-												          jn_storefront_order_line_item::storefront_order_id AS storefront_order_id,
-														  jn_storefront_order_line_item::storefront_item_id AS storefront_item_id,
-														  jn_storefront_order_line_item::sp_id AS sp_id,
-														  jn_storefront_order_line_item::storefront_item_type_id AS storefront_item_type_id;
-
-storefront_order_line_item_stats_view = FOREACH (JOIN jn_storefront_oli_etspid BY storefront_order_id, dq_storefront_order BY storefront_order_id)
+                                                          jn_storefront_order_line_item::storefront_order_id AS storefront_order_id,
+                                                          jn_storefront_order_line_item::storefront_item_id AS storefront_item_id,
+                                                          jn_storefront_order_line_item::cash_posting_id AS cash_posting_id,
+                                                          jn_storefront_order_line_item::sp_id AS sp_id,
+                                                          jn_storefront_order_line_item::storefront_item_type_id AS storefront_item_type_id;
+                                                          
+jn_storefront_oli_cash_posting = FOREACH (JOIN jn_storefront_oli_etspid BY cash_posting_id, dq_cash_posting BY cash_posting_id)
                                                  GENERATE jn_storefront_oli_etspid::storefront_order_line_item_id AS storefront_order_line_item_id,
-												          jn_storefront_oli_etspid::storefront_order_id AS storefront_order_id,
-														  jn_storefront_oli_etspid::storefront_item_id AS storefront_item_id,
-														  jn_storefront_oli_etspid::sp_id AS sp_id,
-														  jn_storefront_oli_etspid::storefront_item_type_id AS storefront_item_type_id,
-														  dq_storefront_order::create_date AS purchase_date,
-														  dq_storefront_order::member_id AS member_id;
+                                                          jn_storefront_oli_etspid::storefront_order_id AS storefront_order_id,
+                                                          jn_storefront_oli_etspid::storefront_item_id AS storefront_item_id,
+                                                          jn_storefront_oli_etspid::sp_id AS sp_id,
+                                                          jn_storefront_oli_etspid::storefront_item_type_id AS storefront_item_type_id;
+
+dq_storefront_order_fltr = FILTER dq_storefront_order BY ToString(create_date,'yyyy-MM-dd') == '$EDH_BUS_DATE';
+
+storefront_order_line_item_stats_view = FOREACH (JOIN jn_storefront_oli_cash_posting BY storefront_order_id, dq_storefront_order_fltr BY storefront_order_id)
+                                                 GENERATE jn_storefront_oli_cash_posting::storefront_order_line_item_id AS storefront_order_line_item_id,
+                                                          jn_storefront_oli_cash_posting::storefront_order_id AS storefront_order_id,
+                                                          jn_storefront_oli_cash_posting::storefront_item_id AS storefront_item_id,
+                                                          jn_storefront_oli_cash_posting::sp_id AS sp_id,
+                                                          jn_storefront_oli_cash_posting::storefront_item_type_id AS storefront_item_type_id,
+                                                          dq_storefront_order_fltr::create_date AS purchase_date,
+                                                          dq_storefront_order_fltr::member_id AS member_id;
 
 /* Check if member_id is null. If member id is null then populate both member_id and user_id as missing */
 storefront_order_line_item_stats_view_check_member_id = FOREACH storefront_order_line_item_stats_view GENERATE
