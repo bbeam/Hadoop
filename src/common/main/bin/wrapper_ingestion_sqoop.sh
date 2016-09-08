@@ -83,7 +83,7 @@ echo "*************SQOOP IMPORT JOB UTILITY*******************"
 # deleting the sqoop target location,error location and gold table location, if it already exists.
 echo "executing : aws s3 rm $S3_BUCKET/$DATA_DIRECTORY=$EDH_BUS_DATE --recursive"
 aws s3 rm $S3_BUCKET/$DATA_DIRECTORY=$EDH_BUS_DATE --recursive
-echo "executing : aws s3 rm $S3_BUCKET/data/operations/common/edh_batch_error/table_name=$INCOMING_DB.$TABLE_NAME_INC/edh_bus_date=$EDH_BUS_DATE --recursive"
+echo "executing : aws s3 rm $S3_BUCKET/data/operations/common/edh_batch_error/edh_bus_date=$EDH_BUS_DATE/table_name=$INCOMING_DB.$TABLE_NAME_INC --recursive"
 aws s3 rm $S3_BUCKET/data/operations/common/edh_batch_error/edh_bus_date=$EDH_BUS_DATE/table_name=$INCOMING_DB.$TABLE_NAME_INC --recursive
 
 if [ $EXTRACTION_TYPE == "INCREMENTAL" ]
