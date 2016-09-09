@@ -15,7 +15,7 @@ SELECT      '${hivevar:ENTITY_NAME}' AS entity,
              CASE action_cd
             WHEN 'I' THEN 'Insert'
             WHEN 'U' THEN 'Update'
-            WHEN 'NCD' THEN 'No Change'
+            WHEN 'NCD' THEN 'No Change or Delete'
             ELSE 'Unknown'
             END AS type,
 			'Record Count' AS sub_type,
