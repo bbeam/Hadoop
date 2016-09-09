@@ -1,7 +1,7 @@
 /*######################################################################################################### 
 PIG SCRIPT				:cdc_dim_category.pig
 AUTHOR					:Pig script is auto generated with java utility.
-DATE					:Wed Aug 24 05:49:21 UTC 2016
+DATE					:Thu Sep 08 17:29:54 UTC 2016
 DESCRIPTION				:Pig script for SCD.
 #########################################################################################################*/
 
@@ -19,24 +19,24 @@ load_target = LOAD '$GOLD_SHARED_DIM_DB.$TRGT_DIM_TABLE_NAME' USING org.apache.h
 /*========Generate md5 values for key and non key values along with other columns========*/
 md5_source = FOREACH load_source
 			GENERATE *,
-					MD5((chararray)category_id) as (md5_key_value:chararray),
+					MD5((chararray)(chararray)(category_id IS NULL ? 'null' : (chararray)category_id)) as (md5_key_value:chararray),
 					MD5((chararray)CONCAT((category IS NULL ? 'null' : (chararray)category),(legacy_category IS NULL ? 'null' : (chararray)legacy_category),(new_world_category IS NULL ? 'null' : (chararray)new_world_category),(additional_category_nm IS NULL ? 'null' : (chararray)additional_category_nm),(is_active IS NULL ? 'null' : (chararray)is_active),(category_group IS NULL ? 'null' : (chararray)category_group),(category_group_type IS NULL ? 'null' : (chararray)category_group_type))) as (md5_non_key_value:chararray);
 
 md5_target = FOREACH load_target
 			GENERATE *,
-					MD5((chararray)category_id) as (md5_key_value:chararray),
+					MD5((chararray)(chararray)(category_id IS NULL ? 'null' : (chararray)category_id)) as (md5_key_value:chararray),
 					MD5((chararray)CONCAT((category IS NULL ? 'null' : (chararray)category),(legacy_category IS NULL ? 'null' : (chararray)legacy_category),(new_world_category IS NULL ? 'null' : (chararray)new_world_category),(additional_category_nm IS NULL ? 'null' : (chararray)additional_category_nm),(is_active IS NULL ? 'null' : (chararray)is_active),(category_group IS NULL ? 'null' : (chararray)category_group),(category_group_type IS NULL ? 'null' : (chararray)category_group_type))) as (md5_non_key_value:chararray);
 
 
 /*========Join source and target based on key columns========*/
-joined_source_target = JOIN md5_source BY (category_id) FULL, md5_target BY (category_id);
+joined_source_target = JOIN md5_source BY md5_key_value FULL, md5_target BY md5_key_value;
 
 
 /*========Split the records into insert_records, update_records and no_change_delete_records using md5_key and md5_non_key of source and target========*/
 SPLIT joined_source_target INTO
 					 insert_records IF (md5_target::md5_key_value IS NULL),
-					 update_records IF ((md5_source::md5_non_key_value!=md5_target::md5_non_key_value) AND (md5_target::md5_key_value IS NOT NULL)),
-					 no_change_delete_records IF ((md5_source::md5_non_key_value==md5_target::md5_non_key_value) OR (md5_source::md5_key_value IS NULL));
+					 update_records IF ((md5_source::md5_non_key_value!=md5_target::md5_non_key_value) AND (md5_source::md5_key_value==md5_target::md5_key_value)),
+					 no_change_delete_records IF (((md5_source::md5_non_key_value==md5_target::md5_non_key_value) AND (md5_source::md5_key_value==md5_target::md5_key_value)) OR (md5_source::md5_key_value IS NULL));
 
 
 /*========surrogate key generation logic for insert_records========*/

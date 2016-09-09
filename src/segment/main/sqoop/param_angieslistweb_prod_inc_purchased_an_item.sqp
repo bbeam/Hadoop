@@ -2,8 +2,6 @@
 com.amazon.redshift.jdbc4.Driver 
 --query 
 "select * from angieslistweb_prod.purchased_an_item where sent_at >= CONVERT_TIMEZONE('EST','UTC','EXTRACT_DATE 00:00:00') and sent_at <= CONVERT_TIMEZONE('EST','UTC','EXTRACT_DATE 23:59:59') and $CONDITIONS" 
--m 
-4
 --split-by
 sent_at
 --hive-delims-replacement

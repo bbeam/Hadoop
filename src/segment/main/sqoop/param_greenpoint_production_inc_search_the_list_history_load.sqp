@@ -1,8 +1,7 @@
 --driver 
 com.amazon.redshift.jdbc4.Driver 
 --query 
-"select * from greenpoint_production.search_the_list where sent_at >= CONVERT_TIMEZONE('EST','UTC','EXTRACT_START_DATE 00:00:00') and sent_at <= CONVERT_TIMEZONE('EST','UTC','EXTRACT_END_DATE 23:59:59')
- and $CONDITIONS" 
+"select * from greenpoint_production.search_the_list where sent_at >= CONVERT_TIMEZONE('EST','UTC','EXTRACT_START_DATE 00:00:00') and sent_at <= CONVERT_TIMEZONE('EST','UTC','EXTRACT_END_DATE 23:59:59') and $CONDITIONS" 
 --split-by
 sent_at
 --hive-delims-replacement

@@ -16,11 +16,11 @@ SCRIPT_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 Show_Usage()
 {
     echo "invalid arguments please pass exactly three arguments "
-    echo "Usage: "$0" <global properties file with path> <path of local properties file with path> <YYYY-MM-DD>"
+    echo "Usage: "$0" <global properties file with path> <path of local properties file with path>"
     exit 1
 }
 
-if [ $# -ne 3 ]
+if [ $# -ne 2 ]
 then
     Show_Usage
 fi
@@ -75,20 +75,9 @@ else
     exit 1
 fi
 
-echo "****************BUSINESS DATE/MONTH*****************"
-EDH_BUS_DATE=$3
-echo "Business Date : $EDH_BUS_DATE"
-#EDH_BUS_MONTH=$(date -d "$EDH_BUS_DATE" '+%Y%m')
-#echo "Business Month :$EDH_BUS_MONTH"
-
-UTC_TIME=`date +'%Y-%m-%d %H:%M:%S'`
-EST_TIME=`TZ=":EST" date +'%Y-%m-%d %H:%M:%S'`
-
-echo "UTC_TIME:$UTC_TIME"
-echo "EST_TIME:$EST_TIME"
-
 hive -f $SURROGATE_KEY_SETUP_HQL \
-    -hivevar OPERATIONS_COMMON_DB=$OPERATIONS_COMMON_DB
+    -hivevar OPERATIONS_COMMON_DB=$OPERATIONS_COMMON_DB \
+    -hivevar S3_BUCKET=$S3_BUCKET
 
 if [ $? -eq 0 ]
 then
@@ -100,7 +89,8 @@ fi
 
 
 hive -f $INITIALISE_SURROGATE_KEY_MAP_HQL \
-    -hivevar OPERATIONS_COMMON_DB=$OPERATIONS_COMMON_DB
+    -hivevar OPERATIONS_COMMON_DB=$OPERATIONS_COMMON_DB \
+    -hivevar S3_BUCKET=$S3_BUCKET
 
 if [ $? -eq 0 ]
 then

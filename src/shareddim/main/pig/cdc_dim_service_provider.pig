@@ -1,7 +1,7 @@
 /*######################################################################################################### 
 PIG SCRIPT				:cdc_dim_service_provider.pig
 AUTHOR					:Pig script is auto generated with java utility.
-DATE					:Wed Aug 24 14:16:07 UTC 2016
+DATE					:Thu Sep 08 13:22:45 UTC 2016
 DESCRIPTION				:Pig script for SCD.
 #########################################################################################################*/
 
@@ -29,14 +29,14 @@ md5_target = FOREACH load_target
 
 
 /*========Join source and target based on key columns========*/
-joined_source_target = JOIN md5_source BY (legacy_spid, new_world_spid) FULL, md5_target BY (legacy_spid, new_world_spid);
+joined_source_target = JOIN md5_source BY md5_key_value FULL, md5_target BY md5_key_value;
 
 
 /*========Split the records into insert_records, update_records and no_change_delete_records using md5_key and md5_non_key of source and target========*/
 SPLIT joined_source_target INTO
 					 insert_records IF (md5_target::md5_key_value IS NULL),
-					 update_records IF ((md5_source::md5_non_key_value!=md5_target::md5_non_key_value) AND (md5_target::md5_key_value IS NOT NULL)),
-					 no_change_delete_records IF ((md5_source::md5_non_key_value==md5_target::md5_non_key_value) OR (md5_source::md5_key_value IS NULL));
+					 update_records IF ((md5_source::md5_non_key_value!=md5_target::md5_non_key_value) AND (md5_source::md5_key_value==md5_target::md5_key_value)),
+					 no_change_delete_records IF (((md5_source::md5_non_key_value==md5_target::md5_non_key_value) AND (md5_source::md5_key_value==md5_target::md5_key_value)) OR (md5_source::md5_key_value IS NULL));
 
 
 /*========surrogate key generation logic for insert_records========*/

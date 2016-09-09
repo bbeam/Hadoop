@@ -10,6 +10,7 @@
 -- -hivevar HIVE_DB=$WORK_SHARED_DIM_DB \
 -- -hivevar S3_BUCKET=$S3_BUCKET 
 --*/
+DROP TABLE IF EXISTS ${hivevar:WORK_DIM_DB_NAME}.${hivevar:TF_TABLE_NAME};
 
 CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:WORK_DIM_DB_NAME}.${hivevar:TF_TABLE_NAME}
 (
@@ -31,4 +32,4 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:WORK_DIM_DB_NAME}.${hivevar:TF_TAB
     est_load_timestamp TIMESTAMP,
     utc_load_timestamp TIMESTAMP
 )
-LOCATION '/user/hadoop/data/work/shareddim/tf_dim_member';
+LOCATION '${hivevar:WORK_DIR}/data/work/shareddim/tf_dim_member';
