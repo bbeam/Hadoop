@@ -5,7 +5,9 @@
 --  DESCRIPTION  : Creation of tf_dim_product table in work db. 
 --*/
 --  Creating a incoming hive table(tf_dim_product) over the transformed data
-CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:WORK_DIM_DB_NAME}.tf_dim_product
+DROP TABLE IF EXISTS ${hivevar:WORK_DIM_DB_NAME}.${hivevar:TF_TABLE_NAME};
+
+CREATE EXTERNAL TABLE IF NOT EXISTS ${hivevar:WORK_DIM_DB_NAME}.${hivevar:TF_TABLE_NAME}
 (
 source_ak INT,
 source_table STRING,
