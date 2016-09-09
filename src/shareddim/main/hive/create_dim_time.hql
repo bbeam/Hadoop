@@ -24,5 +24,4 @@ ROW FORMAT DELIMITED
 FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\n'
 STORED AS TEXTFILE
-LOCATION '${hivevar:S3_BUCKET}/data/gold/shareddim/dim_time'
-tblproperties("skip.header.line.count"="1");
+LOCATION '${hivevar:S3_BUCKET}/data/gold/shareddim/dim_time';
