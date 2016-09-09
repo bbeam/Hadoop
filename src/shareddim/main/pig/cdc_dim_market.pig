@@ -1,7 +1,7 @@
 /*######################################################################################################### 
 PIG SCRIPT				:cdc_dim_market.pig
 AUTHOR					:Pig script is auto generated with java utility.
-DATE					:Wed Aug 24 07:41:00 UTC 2016
+DATE					:Thu Sep 08 13:21:39 UTC 2016
 DESCRIPTION				:Pig script for SCD.
 #########################################################################################################*/
 
@@ -19,24 +19,24 @@ load_target = LOAD '$GOLD_SHARED_DIM_DB.$TRGT_DIM_TABLE_NAME' USING org.apache.h
 /*========Generate md5 values for key and non key values along with other columns========*/
 md5_source = FOREACH load_source
 			GENERATE *,
-					MD5((chararray)market_nm) as (md5_key_value:chararray),
+					MD5((chararray)(chararray)(market_nm IS NULL ? 'null' : (chararray)market_nm)) as (md5_key_value:chararray),
 					MD5((chararray)(market_id IS NULL ? 'null' : (chararray)market_id)) as (md5_non_key_value:chararray);
 
 md5_target = FOREACH load_target
 			GENERATE *,
-					MD5((chararray)market_nm) as (md5_key_value:chararray),
+					MD5((chararray)(chararray)(market_nm IS NULL ? 'null' : (chararray)market_nm)) as (md5_key_value:chararray),
 					MD5((chararray)(market_id IS NULL ? 'null' : (chararray)market_id)) as (md5_non_key_value:chararray);
 
 
 /*========Join source and target based on key columns========*/
-joined_source_target = JOIN md5_source BY (market_nm) FULL, md5_target BY (market_nm);
+joined_source_target = JOIN md5_source BY md5_key_value FULL, md5_target BY md5_key_value;
 
 
 /*========Split the records into insert_records, update_records and no_change_delete_records using md5_key and md5_non_key of source and target========*/
 SPLIT joined_source_target INTO
 					 insert_records IF (md5_target::md5_key_value IS NULL),
-					 update_records IF ((md5_source::md5_non_key_value!=md5_target::md5_non_key_value) AND (md5_target::md5_key_value IS NOT NULL)),
-					 no_change_delete_records IF ((md5_source::md5_non_key_value==md5_target::md5_non_key_value) OR (md5_source::md5_key_value IS NULL));
+					 update_records IF ((md5_source::md5_non_key_value!=md5_target::md5_non_key_value) AND (md5_source::md5_key_value==md5_target::md5_key_value)),
+					 no_change_delete_records IF (((md5_source::md5_non_key_value==md5_target::md5_non_key_value) AND (md5_source::md5_key_value==md5_target::md5_key_value)) OR (md5_source::md5_key_value IS NULL));
 
 
 /*========surrogate key generation logic for insert_records========*/
