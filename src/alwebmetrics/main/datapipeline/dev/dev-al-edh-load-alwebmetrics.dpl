@@ -1,0 +1,56 @@
+{
+  "objects": [
+	{
+	  "failureAndRerunMode": "CASCADE",
+	  "resourceRole": "DataPipelineDefaultResourceRole",
+	  "role": "DataPipelineDefaultRole",
+	  "pipelineLogUri": "s3://al-edh-dev/logs/datapipelines/shareddim/dev-al-edh-load-alwebmetrics",
+	  "scheduleType": "ONDEMAND",
+	  "name": "Default",
+	  "id": "Default"
+	},
+	{
+	  "scriptUri": "s3://al-edh-dev/src/alwebmetrics/main/bin/wrapper_tf_wm_fact_setup.sh",
+	  "maximumRetries": "0",
+	  "name": "tf_wm_fact_setup",
+	  "id": "tf_wm_fact_setup",
+	  "workerGroup": "#{myWorkerGroup}",
+	  "scriptArgument": [
+		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties"
+	  ],
+	  "type": "ShellCommandActivity"
+	},
+	{
+	  "scriptUri": "s3://al-edh-dev/src/alwebmetrics/main/bin/wrapper_tf_wm_fact_load.sh",
+	  "dependsOn": {
+        "ref": "tf_wm_fact_setup"
+      },
+	  "maximumRetries": "0",
+	  "name": "tf_fact_wm_14_segement_popular_category_tapped",
+	  "id": "tf_fact_wm_14_segement_popular_category_tapped",
+	  "workerGroup": "#{myWorkerGroup}",
+	  "scriptArgument": [
+		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
+		"s3://al-edh-dev/src/alwebmetrics/main/conf/tf_fact_wm_14_segement_popular_category_tapped.properties",
+		""
+	  ],
+	  "type": "ShellCommandActivity"
+	},
+	{
+	  "scriptUri": "s3://al-edh-dev/src/alwebmetrics/main/bin/wrapper_tf_wm_fact_load.sh",
+	  "dependsOn": {
+        "ref": "tf_fact_wm_14_segement_popular_category_tapped"
+      },
+	  "maximumRetries": "0",
+	  "name": "tf_fact_wm_15_segment_stl_search",
+	  "id": "tf_fact_wm_15_segment_stl_search",
+	  "workerGroup": "#{myWorkerGroup}",
+	  "scriptArgument": [
+		"s3://al-edh-dev/src/common/main/conf/al-edh-global.properties",
+		"s3://al-edh-dev/src/alwebmetrics/main/conf/tf_fact_wm_15_segment_stl_search.properties",
+		""
+	  ],
+	  "type": "ShellCommandActivity"
+	}
+	]
+}
